@@ -864,7 +864,7 @@ def register_tv_discovery_routes(bp):
             params = {
                 'api_key': TMDB_API_KEY,
                 'language': 'en-US',
-                'append_to_response': 'external_ids,content_ratings',
+                'append_to_response': 'external_ids,content_ratings,credits,similar',
             }
             from src.primary.settings_manager import get_ssl_verify_setting
             verify_ssl = get_ssl_verify_setting()

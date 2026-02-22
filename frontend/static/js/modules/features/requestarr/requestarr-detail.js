@@ -2,7 +2,7 @@
  * Requestarr Movie Detail Page – Uses shared mh-* styling from Movie Hunt
  * Handles Radarr + Movie Hunt instances and movie status checking
  */
-(function() {
+(function () {
     'use strict';
 
     // Delegate to shared MediaUtils (loaded before this file)
@@ -151,7 +151,7 @@
 
                 // Movie Hunt instances first (include id for edit/delete)
                 if (mhData.instances) {
-                    mhData.instances.forEach(function(inst) {
+                    mhData.instances.forEach(function (inst) {
                         combined.push({
                             name: inst.name,
                             id: inst.id,
@@ -164,7 +164,7 @@
 
                 // Then Radarr instances
                 if (radarrData.instances) {
-                    radarrData.instances.forEach(function(inst) {
+                    radarrData.instances.forEach(function (inst) {
                         combined.push({
                             name: inst.name,
                             appType: 'radarr',
@@ -264,18 +264,18 @@
             if (isMovieHunt) {
                 return '<div class="mh-toolbar" id="requestarr-detail-toolbar">' +
                     '<div class="mh-toolbar-left">' +
-                        // Shown when IN collection:
-                        '<button class="mh-tb" id="requestarr-detail-refresh" title="Refresh" style="display:none"><i class="fas fa-redo-alt"></i><span>Refresh</span></button>' +
-                        '<span id="requestarr-detail-force-container"></span>' +
-                        // Shown when NOT in collection:
-                        '<button class="mh-tb" id="requestarr-detail-search-movie" title="Search Movie" style="display:none"><i class="fas fa-search"></i><span>Search Movie</span></button>' +
+                    // Shown when IN collection:
+                    '<button class="mh-tb" id="requestarr-detail-refresh" title="Refresh" style="display:none"><i class="fas fa-redo-alt"></i><span>Refresh</span></button>' +
+                    '<span id="requestarr-detail-force-container"></span>' +
+                    // Shown when NOT in collection:
+                    '<button class="mh-tb" id="requestarr-detail-search-movie" title="Search Movie" style="display:none"><i class="fas fa-search"></i><span>Search Movie</span></button>' +
                     '</div>' +
                     '<div class="mh-toolbar-right">' +
-                        // Shown when IN collection:
-                        '<button class="mh-tb" id="requestarr-detail-edit" title="Edit" style="display:none"><i class="fas fa-wrench"></i><span>Edit</span></button>' +
-                        '<button class="mh-tb mh-tb-danger" id="requestarr-detail-delete" title="Delete" style="display:none"><i class="fas fa-trash-alt"></i></button>' +
-                        // Shown when NOT in collection:
-                        '<button class="mh-tb" id="requestarr-detail-hide" title="Hide from discovery" style="display:none"><i class="fas fa-eye-slash"></i></button>' +
+                    // Shown when IN collection:
+                    '<button class="mh-tb" id="requestarr-detail-edit" title="Edit" style="display:none"><i class="fas fa-wrench"></i><span>Edit</span></button>' +
+                    '<button class="mh-tb mh-tb-danger" id="requestarr-detail-delete" title="Delete" style="display:none"><i class="fas fa-trash-alt"></i></button>' +
+                    // Shown when NOT in collection:
+                    '<button class="mh-tb" id="requestarr-detail-hide" title="Hide from discovery" style="display:none"><i class="fas fa-eye-slash"></i></button>' +
                     '</div></div>';
             }
             return '<div class="mh-toolbar" id="requestarr-detail-toolbar">' +
@@ -318,11 +318,11 @@
 
             // Monitor toggle
             var monitorBtn = document.getElementById('requestarr-movie-monitor-btn');
-            if (monitorBtn) monitorBtn.addEventListener('click', function() { self.toggleMovieMonitor(); });
+            if (monitorBtn) monitorBtn.addEventListener('click', function () { self.toggleMovieMonitor(); });
 
             // Search Movie (request) — for items NOT in collection
             var searchMovieBtn = document.getElementById('requestarr-detail-search-movie');
-            if (searchMovieBtn) searchMovieBtn.addEventListener('click', function() {
+            if (searchMovieBtn) searchMovieBtn.addEventListener('click', function () {
                 if (self.currentMovie && window.RequestarrDiscover && window.RequestarrDiscover.modal) {
                     window.RequestarrDiscover.modal.openModal(self.currentMovie.tmdb_id || self.currentMovie.id, 'movie', self.selectedInstanceName);
                 }
@@ -330,7 +330,7 @@
 
             // Hide from discovery — for items NOT in collection
             var hideBtn = document.getElementById('requestarr-detail-hide');
-            if (hideBtn) hideBtn.addEventListener('click', function() {
+            if (hideBtn) hideBtn.addEventListener('click', function () {
                 if (!self.currentMovie || !window.MediaUtils) return;
                 var decoded = _decodeInstanceValue(self.selectedInstanceName || '');
                 window.MediaUtils.hideMedia({
@@ -341,7 +341,7 @@
                     appType: decoded.appType || 'movie_hunt',
                     instanceName: decoded.name || '',
                     cardElement: null,
-                    onHidden: function() {
+                    onHidden: function () {
                         self.closeDetail();
                     }
                 });
@@ -351,7 +351,7 @@
         async openEditModalForMovieHunt() {
             var decoded = _decodeInstanceValue(this.selectedInstanceName || '');
             if (decoded.appType !== 'movie_hunt' || !decoded.name) return;
-            var inst = this.movieInstances.find(function(i) { return i.compoundValue === this.selectedInstanceName; }.bind(this));
+            var inst = this.movieInstances.find(function (i) { return i.compoundValue === this.selectedInstanceName; }.bind(this));
             var instanceId = inst && inst.id != null ? inst.id : null;
             if (instanceId == null) return;
 
@@ -380,13 +380,13 @@
             var currentAvail = (status && status.minimum_availability) || 'released';
             var self = this;
 
-            var profileOpts = (Array.isArray(profiles) ? profiles : []).map(function(p) {
+            var profileOpts = (Array.isArray(profiles) ? profiles : []).map(function (p) {
                 var name = p.name || 'Unknown';
                 var sel = name === currentProfile ? ' selected' : '';
                 return '<option value="' + self.escapeHtml(name) + '"' + sel + '>' + self.escapeHtml(name) + (p.is_default ? ' (Default)' : '') + '</option>';
             }).join('');
 
-            var rfOpts = (Array.isArray(rootFolders) ? rootFolders : []).map(function(rf) {
+            var rfOpts = (Array.isArray(rootFolders) ? rootFolders : []).map(function (rf) {
                 var path = rf.path || '';
                 var sel = path === currentRoot ? ' selected' : '';
                 return '<option value="' + self.escapeHtml(path) + '"' + sel + '>' + self.escapeHtml(path) + (rf.is_default ? ' (Default)' : '') + '</option>';
@@ -396,28 +396,28 @@
                 { value: 'announced', label: 'Announced' },
                 { value: 'inCinemas', label: 'In Cinemas' },
                 { value: 'released', label: 'Released' }
-            ].map(function(a) {
+            ].map(function (a) {
                 var sel = a.value === currentAvail ? ' selected' : '';
                 return '<option value="' + a.value + '"' + sel + '>' + a.label + '</option>';
             }).join('');
 
             var html =
                 '<div class="mh-modal-backdrop" id="mh-edit-modal">' +
-                    '<div class="mh-modal">' +
-                        '<div class="mh-modal-header">' +
-                            '<h3><i class="fas fa-wrench"></i> Edit \u2014 ' + title + '</h3>' +
-                            '<button class="mh-modal-x" id="mh-edit-close">&times;</button>' +
-                        '</div>' +
-                        '<div class="mh-modal-body">' +
-                            '<div class="mh-form-row"><label>Root Folder</label><select id="mh-edit-root-folder" class="mh-select">' + rfOpts + '</select></div>' +
-                            '<div class="mh-form-row"><label>Quality Profile</label><select id="mh-edit-quality-profile" class="mh-select">' + profileOpts + '</select></div>' +
-                            '<div class="mh-form-row"><label>Minimum Availability</label><select id="mh-edit-min-availability" class="mh-select">' + availOpts + '</select></div>' +
-                        '</div>' +
-                        '<div class="mh-modal-footer">' +
-                            '<button class="mh-btn mh-btn-secondary" id="mh-edit-cancel">Cancel</button>' +
-                            '<button class="mh-btn mh-btn-primary" id="mh-edit-save">Save</button>' +
-                        '</div>' +
-                    '</div>' +
+                '<div class="mh-modal">' +
+                '<div class="mh-modal-header">' +
+                '<h3><i class="fas fa-wrench"></i> Edit \u2014 ' + title + '</h3>' +
+                '<button class="mh-modal-x" id="mh-edit-close">&times;</button>' +
+                '</div>' +
+                '<div class="mh-modal-body">' +
+                '<div class="mh-form-row"><label>Root Folder</label><select id="mh-edit-root-folder" class="mh-select">' + rfOpts + '</select></div>' +
+                '<div class="mh-form-row"><label>Quality Profile</label><select id="mh-edit-quality-profile" class="mh-select">' + profileOpts + '</select></div>' +
+                '<div class="mh-form-row"><label>Minimum Availability</label><select id="mh-edit-min-availability" class="mh-select">' + availOpts + '</select></div>' +
+                '</div>' +
+                '<div class="mh-modal-footer">' +
+                '<button class="mh-btn mh-btn-secondary" id="mh-edit-cancel">Cancel</button>' +
+                '<button class="mh-btn mh-btn-primary" id="mh-edit-save">Save</button>' +
+                '</div>' +
+                '</div>' +
                 '</div>';
 
             var existing = document.getElementById('mh-edit-modal');
@@ -425,12 +425,12 @@
 
             document.body.insertAdjacentHTML('beforeend', html);
 
-            document.getElementById('mh-edit-close').addEventListener('click', function() { document.getElementById('mh-edit-modal').remove(); });
-            document.getElementById('mh-edit-cancel').addEventListener('click', function() { document.getElementById('mh-edit-modal').remove(); });
-            document.getElementById('mh-edit-modal').addEventListener('click', function(e) {
+            document.getElementById('mh-edit-close').addEventListener('click', function () { document.getElementById('mh-edit-modal').remove(); });
+            document.getElementById('mh-edit-cancel').addEventListener('click', function () { document.getElementById('mh-edit-modal').remove(); });
+            document.getElementById('mh-edit-modal').addEventListener('click', function (e) {
                 if (e.target.id === 'mh-edit-modal') document.getElementById('mh-edit-modal').remove();
             });
-            document.getElementById('mh-edit-save').addEventListener('click', function() { self._handleSaveEdit(instanceId); });
+            document.getElementById('mh-edit-save').addEventListener('click', function () { self._handleSaveEdit(instanceId); });
         },
 
         async _handleSaveEdit(instanceId) {
@@ -470,7 +470,7 @@
         openDeleteModalForMovieHunt() {
             var decoded = _decodeInstanceValue(this.selectedInstanceName || '');
             if (decoded.appType !== 'movie_hunt' || !decoded.name) return;
-            var inst = this.movieInstances.find(function(i) { return i.compoundValue === this.selectedInstanceName; }.bind(this));
+            var inst = this.movieInstances.find(function (i) { return i.compoundValue === this.selectedInstanceName; }.bind(this));
             var instanceId = inst && inst.id != null ? inst.id : null;
             if (instanceId == null) return;
 
@@ -489,7 +489,7 @@
                     hasFile: hasFile,
                     filePath: filePath,
                     appType: 'movie_hunt',
-                    onDeleted: function() {
+                    onDeleted: function () {
                         self.closeDetail();
                     }
                 });
@@ -518,7 +518,7 @@
 
             // ── Fetch status from correct API ──
             if (isMovieHunt && decoded.name) {
-                var inst = this.movieInstances.find(function(i) { return i.compoundValue === self.selectedInstanceName; });
+                var inst = this.movieInstances.find(function (i) { return i.compoundValue === self.selectedInstanceName; });
                 var instanceId = inst && inst.id != null ? inst.id : null;
                 if (instanceId == null) {
                     this._setInfoBarNotFound(pathEl, statusEl, profileEl, sizeEl);
@@ -726,11 +726,11 @@
                 } else if (isDownloaded) {
                     forceContainer.innerHTML = '<button class="mh-tb" id="requestarr-detail-force-upgrade" title="Search for a higher-scoring release"><i class="fas fa-arrow-circle-up"></i><span>Force Upgrade</span></button>';
                     var upgradeBtn = document.getElementById('requestarr-detail-force-upgrade');
-                    if (upgradeBtn) upgradeBtn.addEventListener('click', function() { self._handleForceUpgrade(); });
+                    if (upgradeBtn) upgradeBtn.addEventListener('click', function () { self._handleForceUpgrade(); });
                 } else {
                     forceContainer.innerHTML = '<button class="mh-tb" id="requestarr-detail-force-search" title="Search indexers and download"><i class="fas fa-search"></i><span>Force Search</span></button>';
                     var searchBtn = document.getElementById('requestarr-detail-force-search');
-                    if (searchBtn) searchBtn.addEventListener('click', function() { self._handleForceSearch(); });
+                    if (searchBtn) searchBtn.addEventListener('click', function () { self._handleForceSearch(); });
                 }
             }
 
@@ -744,7 +744,7 @@
                     actionsContainer.innerHTML = '<button class="mh-btn mh-btn-primary" id="requestarr-detail-request-btn"><i class="fas fa-download"></i> Request Movie</button>';
                     var requestBtn = document.getElementById('requestarr-detail-request-btn');
                     if (requestBtn) {
-                        requestBtn.addEventListener('click', function() {
+                        requestBtn.addEventListener('click', function () {
                             if (window.RequestarrDiscover && window.RequestarrDiscover.modal) {
                                 window.RequestarrDiscover.modal.openModal(
                                     self.currentMovie.tmdb_id, 'movie', self.selectedInstanceName
@@ -759,7 +759,7 @@
         async _handleForceSearch() {
             var decoded = _decodeInstanceValue(this.selectedInstanceName || '');
             if (decoded.appType !== 'movie_hunt' || !decoded.name) return;
-            var inst = this.movieInstances.find(function(i) { return i.compoundValue === this.selectedInstanceName; }.bind(this));
+            var inst = this.movieInstances.find(function (i) { return i.compoundValue === this.selectedInstanceName; }.bind(this));
             var instanceId = inst && inst.id != null ? inst.id : null;
             if (instanceId == null) return;
 
@@ -768,7 +768,7 @@
             var btn = document.getElementById('requestarr-detail-force-search');
             if (btn) { btn.disabled = true; var icon = btn.querySelector('i'); if (icon) icon.className = 'fas fa-spinner fa-spin'; }
 
-            var notify = function(msg, type) {
+            var notify = function (msg, type) {
                 if (window.huntarrUI && window.huntarrUI.showNotification) window.huntarrUI.showNotification(msg, type);
             };
 
@@ -803,7 +803,7 @@
         async _handleForceUpgrade() {
             var decoded = _decodeInstanceValue(this.selectedInstanceName || '');
             if (decoded.appType !== 'movie_hunt' || !decoded.name) return;
-            var inst = this.movieInstances.find(function(i) { return i.compoundValue === this.selectedInstanceName; }.bind(this));
+            var inst = this.movieInstances.find(function (i) { return i.compoundValue === this.selectedInstanceName; }.bind(this));
             var instanceId = inst && inst.id != null ? inst.id : null;
             if (instanceId == null) return;
 
@@ -813,7 +813,7 @@
             var btn = document.getElementById('requestarr-detail-force-upgrade');
             if (btn) { btn.disabled = true; var icon = btn.querySelector('i'); if (icon) icon.className = 'fas fa-spinner fa-spin'; }
 
-            var notify = function(msg, type) {
+            var notify = function (msg, type) {
                 if (window.huntarrUI && window.huntarrUI.showNotification) window.huntarrUI.showNotification(msg, type);
             };
 
@@ -953,9 +953,9 @@
                         <i class="fas fa-server"></i>
                         <select id="requestarr-detail-instance-select">
                             ${this.movieInstances.map(instance => {
-                                const selected = instance.compoundValue === this.selectedInstanceName ? 'selected' : '';
-                                return `<option value="${this.escapeHtml(instance.compoundValue)}" ${selected}>${this.escapeHtml(instance.label)}</option>`;
-                            }).join('')}
+                    const selected = instance.compoundValue === this.selectedInstanceName ? 'selected' : '';
+                    return `<option value="${this.escapeHtml(instance.compoundValue)}" ${selected}>${this.escapeHtml(instance.label)}</option>`;
+                }).join('')}
                         </select>
                     </div>
                 `;
@@ -1012,6 +1012,10 @@
                                     <span><i class="fas fa-calendar-alt"></i> ${year}</span>
                                     <span><i class="fas fa-clock"></i> ${runtime}</span>
                                     <span class="mh-star"><i class="fas fa-star"></i> ${rating}</span>
+                                    <span class="mh-external-links">
+                                        <a href="https://www.themoviedb.org/movie/${details.id}" target="_blank" rel="noopener noreferrer" class="mh-ext-link mh-ext-tmdb" title="View on TMDB"><i class="fas fa-film"></i> TMDB</a>
+                                        ${details.imdb_id ? `<a href="https://www.imdb.com/title/${this.escapeHtml(details.imdb_id)}" target="_blank" rel="noopener noreferrer" class="mh-ext-link mh-ext-imdb" title="View on IMDb"><i class="fas fa-star"></i> IMDb</a>` : ''}
+                                    </span>
                                 </div>
                                 <div class="mh-hero-genres">${genres}</div>
                                 ${instanceSelectorHTML}
@@ -1196,8 +1200,8 @@
             if (window.MediaUtils) {
                 window.MediaUtils.teardownDetailRefreshListeners(this._refreshHandle);
                 this._refreshHandle = window.MediaUtils.setupDetailRefreshListeners({
-                    getTmdbId: function() { return self.currentMovie && (self.currentMovie.tmdb_id || self.currentMovie.id); },
-                    refreshCallback: function() { self.updateDetailInfoBar(); },
+                    getTmdbId: function () { return self.currentMovie && (self.currentMovie.tmdb_id || self.currentMovie.id); },
+                    refreshCallback: function () { self.updateDetailInfoBar(); },
                     label: 'RequestarrDetail'
                 });
             }

@@ -2,7 +2,7 @@
  * Requestarr TV Detail Page – TV Hunt (full page) + Sonarr (limited top bar)
  * Mirrors requestarr-detail.js behavior for movies
  */
-(function() {
+(function () {
     'use strict';
 
     function _encodeInstanceValue(appType, name) {
@@ -246,6 +246,40 @@
                 : '<span class="mh-genre-tag">Unknown</span>';
             const overview = details.overview || 'No overview available.';
 
+            // Content rating
+            let contentRating = 'Not Rated';
+            if (details.content_ratings && details.content_ratings.results) {
+                const usRating = details.content_ratings.results.find(r => r.iso_3166_1 === 'US');
+                if (usRating && usRating.rating) contentRating = usRating.rating;
+            }
+
+            // Creator
+            let creator = 'N/A';
+            if (details.created_by && details.created_by.length > 0) {
+                creator = details.created_by.map(c => c.name).join(', ');
+            }
+
+            // Cast
+            let mainCast = [];
+            if (details.credits && details.credits.cast) {
+                mainCast = details.credits.cast.slice(0, 10);
+            }
+
+            // Similar shows
+            let similarShows = [];
+            if (details.similar && details.similar.results) {
+                similarShows = details.similar.results.slice(0, 6);
+            }
+
+            // Network
+            const network = (details.networks && details.networks.length > 0)
+                ? details.networks.map(n => n.name).join(', ') : 'N/A';
+
+            // Status
+            const seriesStatus = details.status || 'N/A';
+            const totalSeasons = details.number_of_seasons || 'N/A';
+            const totalEpisodes = details.number_of_episodes || 'N/A';
+
             const hasInstances = this.tvInstances.length > 0;
             const inLibrary = originalSeries.in_library || false;
             let actionButton = '';
@@ -264,9 +298,9 @@
                         <i class="fas fa-server"></i>
                         <select id="requestarr-tv-detail-instance-select">
                             ${this.tvInstances.map(inst => {
-                                const selected = inst.compoundValue === this.selectedInstanceName ? 'selected' : '';
-                                return `<option value="${this.escapeHtml(inst.compoundValue)}" ${selected}>${this.escapeHtml(inst.label)}</option>`;
-                            }).join('')}
+                    const selected = inst.compoundValue === this.selectedInstanceName ? 'selected' : '';
+                    return `<option value="${this.escapeHtml(inst.compoundValue)}" ${selected}>${this.escapeHtml(inst.label)}</option>`;
+                }).join('')}
                         </select>
                     </div>
                 `;
@@ -302,6 +336,10 @@
                                 <div class="mh-hero-meta">
                                     <span><i class="fas fa-calendar-alt"></i> ${year}</span>
                                     <span class="mh-star"><i class="fas fa-star"></i> ${rating}</span>
+                                    <span class="mh-external-links">
+                                        <a href="https://www.themoviedb.org/tv/${details.id}" target="_blank" rel="noopener noreferrer" class="mh-ext-link mh-ext-tmdb" title="View on TMDB"><i class="fas fa-film"></i> TMDB</a>
+                                        ${(details.external_ids && details.external_ids.imdb_id) ? `<a href="https://www.imdb.com/title/${this.escapeHtml(details.external_ids.imdb_id)}" target="_blank" rel="noopener noreferrer" class="mh-ext-link mh-ext-imdb" title="View on IMDb"><i class="fas fa-star"></i> IMDb</a>` : ''}
+                                    </span>
                                 </div>
                                 <div class="mh-hero-genres">${genres}</div>
                                 ${instanceSelectorHTML}
@@ -326,7 +364,101 @@
                     </div>
                 </div>
                 <div class="mh-detail-body">
+                    <!-- Series Details -->
+                    <div class="mh-section">
+                        <h2 class="mh-section-title"><i class="fas fa-info-circle"></i> Series Details</h2>
+                        <div class="mh-detail-grid">
+                            <div class="mh-grid-item">
+                                <div class="mh-grid-label">Creator</div>
+                                <div class="mh-grid-value">${this.escapeHtml(creator)}</div>
+                            </div>
+                            <div class="mh-grid-item">
+                                <div class="mh-grid-label">First Air Date</div>
+                                <div class="mh-grid-value">${details.first_air_date || 'N/A'}</div>
+                            </div>
+                            <div class="mh-grid-item">
+                                <div class="mh-grid-label">Content Rating</div>
+                                <div class="mh-grid-value">${this.escapeHtml(contentRating)}</div>
+                            </div>
+                            <div class="mh-grid-item">
+                                <div class="mh-grid-label">Network</div>
+                                <div class="mh-grid-value">${this.escapeHtml(network)}</div>
+                            </div>
+                            <div class="mh-grid-item">
+                                <div class="mh-grid-label">Status</div>
+                                <div class="mh-grid-value">${this.escapeHtml(seriesStatus)}</div>
+                            </div>
+                            <div class="mh-grid-item">
+                                <div class="mh-grid-label">Seasons / Episodes</div>
+                                <div class="mh-grid-value">${totalSeasons} / ${totalEpisodes}</div>
+                            </div>
+                            <div class="mh-grid-item">
+                                <div class="mh-grid-label">Language</div>
+                                <div class="mh-grid-value">${details.original_language ? details.original_language.toUpperCase() : 'N/A'}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    ${mainCast.length > 0 ? `
+                    <!-- Cast -->
+                    <div class="mh-section">
+                        <h2 class="mh-section-title"><i class="fas fa-users"></i> Cast</h2>
+                        <div class="mh-cast-row">
+                            ${mainCast.map(actor => this.renderTVCastCard(actor)).join('')}
+                        </div>
+                    </div>
+                    ` : ''}
+
                     ${seasonsHTML}
+
+                    ${similarShows.length > 0 ? `
+                    <!-- Similar Shows -->
+                    <div class="mh-section">
+                        <h2 class="mh-section-title"><i class="fas fa-tv"></i> Similar Shows</h2>
+                        <div class="mh-similar-row">
+                            ${similarShows.map(show => this.renderSimilarTVCard(show)).join('')}
+                        </div>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+        },
+
+        renderTVCastCard(actor) {
+            const photoUrl = actor.profile_path
+                ? `https://image.tmdb.org/t/p/w185${actor.profile_path}`
+                : './static/images/blackout.jpg';
+            return `
+                <div class="mh-cast-card">
+                    <div class="mh-cast-photo">
+                        <img src="${photoUrl}" alt="${this.escapeHtml(actor.name)}" onerror="this.src='./static/images/blackout.jpg'">
+                    </div>
+                    <div class="mh-cast-name">${this.escapeHtml(actor.name)}</div>
+                    <div class="mh-cast-char">${this.escapeHtml(actor.character || actor.roles?.[0]?.character || 'Unknown')}</div>
+                </div>
+            `;
+        },
+
+        renderSimilarTVCard(show) {
+            const posterUrl = show.poster_path
+                ? `https://image.tmdb.org/t/p/w185${show.poster_path}`
+                : './static/images/blackout.jpg';
+            return `
+                <div class="mh-similar-card media-card" data-tmdb-id="${show.id}" data-media-type="tv">
+                    <div class="media-card-poster">
+                        <img src="${posterUrl}" alt="${this.escapeHtml(show.name || show.title)}" onerror="this.src='./static/images/blackout.jpg'">
+                        <span class="media-type-badge">TV</span>
+                        <div class="media-card-overlay">
+                            <div class="media-card-overlay-title">${this.escapeHtml(show.name || show.title)}</div>
+                        </div>
+                    </div>
+                    <div class="media-card-info">
+                        <div class="media-card-title">${this.escapeHtml(show.name || show.title)}</div>
+                        <div class="media-card-meta">
+                            <span class="media-card-year">${show.first_air_date ? new Date(show.first_air_date).getFullYear() : 'N/A'}</span>
+                            <span class="media-card-rating"><i class="fas fa-star"></i> ${show.vote_average ? Number(show.vote_average).toFixed(1) : 'N/A'}</span>
+                        </div>
+                    </div>
                 </div>
             `;
         },
@@ -513,6 +645,16 @@
             const deleteBtn = document.getElementById('requestarr-tv-detail-delete');
             if (deleteBtn) deleteBtn.addEventListener('click', () => this.openDeleteModalForTVHunt());
 
+            // Similar show cards — click to open detail
+            document.querySelectorAll('.mh-similar-card[data-media-type="tv"]').forEach(card => {
+                card.addEventListener('click', () => {
+                    const tmdbId = parseInt(card.dataset.tmdbId, 10);
+                    if (tmdbId) {
+                        this.openDetail({ tmdb_id: tmdbId, id: tmdbId });
+                    }
+                });
+            });
+
             // Must load series status first so buildEpisodeStatusMap has Sonarr/TV Hunt data for episode status and resolution
             await this.updateDetailInfoBar();
 
@@ -553,67 +695,67 @@
                     const isTVHunt = decoded.appType === 'tv_hunt';
 
                     const runExpand = async () => {
-                    const renderEpisodes = (eps) => {
-                        const epStatusMap = this.buildEpisodeStatusMap(seasonNum);
-                        const epMonitoredMap = isTVHunt ? this.buildEpisodeMonitoredMap(seasonNum) : {};
-                        const sorted = [...eps].sort((a, b) => (b.episode_number ?? b.episodeNumber ?? 0) - (a.episode_number ?? a.episodeNumber ?? 0));
-                        const monitorCol = isTVHunt ? '<th></th>' : '';
-                        let tbl = '<table class="episode-table"><thead><tr>' + monitorCol + '<th>#</th><th>Title</th><th>Air Date</th><th>Availability</th><th></th></tr></thead><tbody>';
-                        sorted.forEach(ep => {
-                            const epNum = ep.episode_number ?? ep.episodeNumber;
-                            const title = ep.title || ep.name || '';
-                            const ad = ep.air_date || ep.airDate || '';
-                            const epInfo = epStatusMap[epNum];
-                            const available = !!epInfo;
-                            const airDateObj = ad ? new Date(ad) : null;
-                            const isFutureAirDate = airDateObj && !isNaN(airDateObj.getTime()) && airDateObj > new Date();
-                            const quality = (epInfo && typeof epInfo === 'object' && epInfo.quality) ? epInfo.quality : null;
-                            let statusBadge;
-                            if (available) {
-                                statusBadge = '<span class="mh-ep-status mh-ep-status-ok">' + (quality ? this.escapeHtml(quality) : '<i class="fas fa-check-circle"></i> In Library') + '</span>';
-                            } else if (isFutureAirDate) {
-                                statusBadge = '<span class="mh-ep-status mh-ep-status-notreleased">Not Released</span>';
-                            } else {
-                                statusBadge = '<span class="mh-ep-status mh-ep-status-warn">Missing</span>';
-                            }
-                            const epReqClass = isFutureAirDate ? 'ep-request-btn ep-request-notreleased' : 'ep-request-btn ep-request-missing';
-                            const requestBtn = !available ? `<button class="${epReqClass}" data-season="${seasonNum}" data-episode="${epNum}" title="Request episode"><i class="fas fa-download"></i></button>` : `<button class="ep-upgrade-btn" data-season="${seasonNum}" data-episode="${epNum}" title="Upgrade episode"><i class="fas fa-arrow-up"></i></button>`;
-                            const monCell = isTVHunt ? '<td><button type="button" class="mh-monitor-btn mh-monitor-episode" data-season="' + seasonNum + '" data-episode="' + epNum + '" title="Toggle monitor"><i class="' + (epMonitoredMap[epNum] ? 'fas' : 'far') + ' fa-bookmark"></i></button></td>' : '';
-                            tbl += `<tr>${monCell}<td>${epNum || ''}</td><td>${this.escapeHtml(title)}</td><td>${ad}</td><td>${statusBadge}</td><td>${requestBtn}</td></tr>`;
-                        });
-                        tbl += '</tbody></table>';
-                        episodesEl.innerHTML = tbl;
-                        episodesEl.classList.add('expanded');
-                        episodesEl.querySelectorAll('.ep-request-btn, .ep-upgrade-btn').forEach(btn => {
-                            btn.addEventListener('click', (ev) => {
-                                ev.stopPropagation();
-                                this.requestEpisode(item.dataset.tmdbId, parseInt(btn.dataset.season, 10), parseInt(btn.dataset.episode, 10));
+                        const renderEpisodes = (eps) => {
+                            const epStatusMap = this.buildEpisodeStatusMap(seasonNum);
+                            const epMonitoredMap = isTVHunt ? this.buildEpisodeMonitoredMap(seasonNum) : {};
+                            const sorted = [...eps].sort((a, b) => (b.episode_number ?? b.episodeNumber ?? 0) - (a.episode_number ?? a.episodeNumber ?? 0));
+                            const monitorCol = isTVHunt ? '<th></th>' : '';
+                            let tbl = '<table class="episode-table"><thead><tr>' + monitorCol + '<th>#</th><th>Title</th><th>Air Date</th><th>Availability</th><th></th></tr></thead><tbody>';
+                            sorted.forEach(ep => {
+                                const epNum = ep.episode_number ?? ep.episodeNumber;
+                                const title = ep.title || ep.name || '';
+                                const ad = ep.air_date || ep.airDate || '';
+                                const epInfo = epStatusMap[epNum];
+                                const available = !!epInfo;
+                                const airDateObj = ad ? new Date(ad) : null;
+                                const isFutureAirDate = airDateObj && !isNaN(airDateObj.getTime()) && airDateObj > new Date();
+                                const quality = (epInfo && typeof epInfo === 'object' && epInfo.quality) ? epInfo.quality : null;
+                                let statusBadge;
+                                if (available) {
+                                    statusBadge = '<span class="mh-ep-status mh-ep-status-ok">' + (quality ? this.escapeHtml(quality) : '<i class="fas fa-check-circle"></i> In Library') + '</span>';
+                                } else if (isFutureAirDate) {
+                                    statusBadge = '<span class="mh-ep-status mh-ep-status-notreleased">Not Released</span>';
+                                } else {
+                                    statusBadge = '<span class="mh-ep-status mh-ep-status-warn">Missing</span>';
+                                }
+                                const epReqClass = isFutureAirDate ? 'ep-request-btn ep-request-notreleased' : 'ep-request-btn ep-request-missing';
+                                const requestBtn = !available ? `<button class="${epReqClass}" data-season="${seasonNum}" data-episode="${epNum}" title="Request episode"><i class="fas fa-download"></i></button>` : `<button class="ep-upgrade-btn" data-season="${seasonNum}" data-episode="${epNum}" title="Upgrade episode"><i class="fas fa-arrow-up"></i></button>`;
+                                const monCell = isTVHunt ? '<td><button type="button" class="mh-monitor-btn mh-monitor-episode" data-season="' + seasonNum + '" data-episode="' + epNum + '" title="Toggle monitor"><i class="' + (epMonitoredMap[epNum] ? 'fas' : 'far') + ' fa-bookmark"></i></button></td>' : '';
+                                tbl += `<tr>${monCell}<td>${epNum || ''}</td><td>${this.escapeHtml(title)}</td><td>${ad}</td><td>${statusBadge}</td><td>${requestBtn}</td></tr>`;
                             });
-                        });
-                        if (isTVHunt) {
-                            episodesEl.querySelectorAll('.mh-monitor-episode').forEach(btn => {
+                            tbl += '</tbody></table>';
+                            episodesEl.innerHTML = tbl;
+                            episodesEl.classList.add('expanded');
+                            episodesEl.querySelectorAll('.ep-request-btn, .ep-upgrade-btn').forEach(btn => {
                                 btn.addEventListener('click', (ev) => {
                                     ev.stopPropagation();
-                                    this.toggleMonitor(item.dataset.tmdbId, parseInt(btn.dataset.season, 10), parseInt(btn.dataset.episode, 10));
+                                    this.requestEpisode(item.dataset.tmdbId, parseInt(btn.dataset.season, 10), parseInt(btn.dataset.episode, 10));
                                 });
                             });
+                            if (isTVHunt) {
+                                episodesEl.querySelectorAll('.mh-monitor-episode').forEach(btn => {
+                                    btn.addEventListener('click', (ev) => {
+                                        ev.stopPropagation();
+                                        this.toggleMonitor(item.dataset.tmdbId, parseInt(btn.dataset.season, 10), parseInt(btn.dataset.episode, 10));
+                                    });
+                                });
+                            }
+                        };
+
+                        // Ensure Sonarr status is loaded before rendering (needed for episode status/resolution)
+                        if (!isTVHunt && (!this.seriesStatus || !this.seriesStatus.seasons)) {
+                            await this.updateDetailInfoBar();
                         }
-                    };
 
-                    // Ensure Sonarr status is loaded before rendering (needed for episode status/resolution)
-                    if (!isTVHunt && (!this.seriesStatus || !this.seriesStatus.seasons)) {
-                        await this.updateDetailInfoBar();
-                    }
-
-                    // Always use TMDB (tv-hunt API) for episode list; status comes from Sonarr or TV Hunt via buildEpisodeStatusMap
-                    try {
-                        const seasonRes = await fetch(`./api/tv-hunt/series/${tmdbId}/season/${seasonNum}`);
-                        const seasonData = await seasonRes.json();
-                        const eps = seasonData.episodes || [];
-                        renderEpisodes(eps);
-                    } catch {
-                        episodesEl.innerHTML = '<span style="color:#f87171;">Failed to load episodes</span>';
-                    }
+                        // Always use TMDB (tv-hunt API) for episode list; status comes from Sonarr or TV Hunt via buildEpisodeStatusMap
+                        try {
+                            const seasonRes = await fetch(`./api/tv-hunt/series/${tmdbId}/season/${seasonNum}`);
+                            const seasonData = await seasonRes.json();
+                            const eps = seasonData.episodes || [];
+                            renderEpisodes(eps);
+                        } catch {
+                            episodesEl.innerHTML = '<span style="color:#f87171;">Failed to load episodes</span>';
+                        }
                     };
                     runExpand();
                 });
@@ -636,7 +778,7 @@
             const tmdbId = this.currentSeries.id || this.currentSeries.tmdb_id;
             const title = this.currentSeries.name || this.currentSeries.title;
             const instanceId = this.getTVHuntInstanceId();
-            
+
             console.log('[RequestarrTVDetail] searchMonitored:', { title, tmdbId, instanceId });
 
             if (!instanceId) {
@@ -950,7 +1092,7 @@
 
             const newMonitored = !currentMonitored;
             console.log('New monitored state will be:', newMonitored);
-            
+
             // Optimistic UI update for the series button if it's a series-level toggle
             if (seasonNum == null && episodeNum == null) {
                 const btn = document.getElementById('requestarr-tv-series-monitor-btn');
@@ -970,16 +1112,16 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body)
                 });
-                
+
                 if (!r.ok) {
                     const errData = await r.json().catch(() => ({}));
                     throw new Error(errData.error || 'Update failed');
                 }
-                
+
                 console.log('Monitor toggle success, refreshing info bar...');
                 // Full refresh from server
                 await this.updateDetailInfoBar();
-                
+
                 if (window.huntarrUI && window.huntarrUI.showNotification) {
                     window.huntarrUI.showNotification(newMonitored ? 'Monitor on' : 'Monitor off', 'success');
                 }
@@ -1118,20 +1260,20 @@
 
             const html =
                 '<div class="mh-modal-backdrop" id="mh-edit-modal">' +
-                    '<div class="mh-modal">' +
-                        '<div class="mh-modal-header">' +
-                            '<h3><i class="fas fa-wrench"></i> Edit \u2014 ' + title + '</h3>' +
-                            '<button class="mh-modal-x" id="mh-edit-close">&times;</button>' +
-                        '</div>' +
-                        '<div class="mh-modal-body">' +
-                            '<div class="mh-form-row"><label>Root Folder</label><select id="mh-edit-root-folder" class="mh-select">' + rfOpts + '</select></div>' +
-                            '<div class="mh-form-row"><label>Quality Profile</label><select id="mh-edit-quality-profile" class="mh-select">' + profileOpts + '</select></div>' +
-                        '</div>' +
-                        '<div class="mh-modal-footer">' +
-                            '<button class="mh-btn mh-btn-secondary" id="mh-edit-cancel">Cancel</button>' +
-                            '<button class="mh-btn mh-btn-primary" id="mh-edit-save">Save</button>' +
-                        '</div>' +
-                    '</div>' +
+                '<div class="mh-modal">' +
+                '<div class="mh-modal-header">' +
+                '<h3><i class="fas fa-wrench"></i> Edit \u2014 ' + title + '</h3>' +
+                '<button class="mh-modal-x" id="mh-edit-close">&times;</button>' +
+                '</div>' +
+                '<div class="mh-modal-body">' +
+                '<div class="mh-form-row"><label>Root Folder</label><select id="mh-edit-root-folder" class="mh-select">' + rfOpts + '</select></div>' +
+                '<div class="mh-form-row"><label>Quality Profile</label><select id="mh-edit-quality-profile" class="mh-select">' + profileOpts + '</select></div>' +
+                '</div>' +
+                '<div class="mh-modal-footer">' +
+                '<button class="mh-btn mh-btn-secondary" id="mh-edit-cancel">Cancel</button>' +
+                '<button class="mh-btn mh-btn-primary" id="mh-edit-save">Save</button>' +
+                '</div>' +
+                '</div>' +
                 '</div>';
 
             const existing = document.getElementById('mh-edit-modal');
@@ -1187,20 +1329,20 @@
 
             const html =
                 '<div class="mh-modal-backdrop" id="mh-delete-modal">' +
-                    '<div class="mh-modal">' +
-                        '<div class="mh-modal-header">' +
-                            '<h3><i class="fas fa-trash-alt" style="color:#ef4444;"></i> Delete \u2014 ' + title + '</h3>' +
-                            '<button class="mh-modal-x" id="mh-delete-close">&times;</button>' +
-                        '</div>' +
-                        '<div class="mh-modal-body">' +
-                            '<p>Are you sure you want to remove <strong>' + title + '</strong> from your TV Hunt collection?</p>' +
-                            '<p style="color:#94a3b8;font-size:13px;">This will not delete any downloaded files.</p>' +
-                        '</div>' +
-                        '<div class="mh-modal-footer">' +
-                            '<button class="mh-btn mh-btn-secondary" id="mh-delete-cancel">Cancel</button>' +
-                            '<button class="mh-btn mh-btn-danger" id="mh-delete-confirm">Delete</button>' +
-                        '</div>' +
-                    '</div>' +
+                '<div class="mh-modal">' +
+                '<div class="mh-modal-header">' +
+                '<h3><i class="fas fa-trash-alt" style="color:#ef4444;"></i> Delete \u2014 ' + title + '</h3>' +
+                '<button class="mh-modal-x" id="mh-delete-close">&times;</button>' +
+                '</div>' +
+                '<div class="mh-modal-body">' +
+                '<p>Are you sure you want to remove <strong>' + title + '</strong> from your TV Hunt collection?</p>' +
+                '<p style="color:#94a3b8;font-size:13px;">This will not delete any downloaded files.</p>' +
+                '</div>' +
+                '<div class="mh-modal-footer">' +
+                '<button class="mh-btn mh-btn-secondary" id="mh-delete-cancel">Cancel</button>' +
+                '<button class="mh-btn mh-btn-danger" id="mh-delete-confirm">Delete</button>' +
+                '</div>' +
+                '</div>' +
                 '</div>';
 
             const existing = document.getElementById('mh-delete-modal');
