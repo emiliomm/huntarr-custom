@@ -28,11 +28,11 @@ export class RequestarrSettings {
         const container = document.getElementById('history-list');
         if (!container) return;
         container.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading history...</p></div>';
-        
+
         try {
             const response = await fetch('./api/requestarr/history');
             const data = await response.json();
-            
+
             if (data.requests && data.requests.length > 0) {
                 container.innerHTML = '';
                 // Use Promise.all to wait for all async createHistoryItem calls
@@ -52,10 +52,10 @@ export class RequestarrSettings {
     async createHistoryItem(request) {
         const item = document.createElement('div');
         item.className = 'history-item';
-        
+
         const posterUrl = request.poster_path || './static/images/no-poster.png';
         const date = new Date(request.requested_at).toLocaleDateString();
-        
+
         item.innerHTML = `
             <div class="history-poster">
                 <img src="${posterUrl}" alt="${request.title}">
@@ -68,7 +68,7 @@ export class RequestarrSettings {
                 <span class="history-status">Requested</span>
             </div>
         `;
-        
+
         // Load and cache image asynchronously
         if (posterUrl && !posterUrl.includes('./static/images/') && window.getCachedTMDBImage && window.tmdbImageCache) {
             try {
@@ -81,7 +81,7 @@ export class RequestarrSettings {
                 console.error('[RequestarrSettings] Failed to cache history image:', err);
             }
         }
-        
+
         return item;
     }
 
@@ -264,7 +264,7 @@ export class RequestarrSettings {
             container.style.display = 'grid';
             container.style.alignItems = '';
             container.style.justifyContent = '';
-            
+
             container.innerHTML = '';
             pageItems.forEach(item => {
                 container.appendChild(this.createHiddenMediaCard(item));
@@ -323,18 +323,18 @@ export class RequestarrSettings {
         card.className = 'media-card';
         card.setAttribute('data-tmdb-id', item.tmdb_id);
         card.setAttribute('data-media-type', item.media_type);
-        
+
         const posterUrl = item.poster_path || './static/images/blackout.jpg';
-        
+
         const typeBadgeLabel = item.media_type === 'tv' ? 'TV' : 'Movie';
-        
+
         const isGlobalBlacklist = item._source === 'global_blacklist';
         const isOwner = window._huntarrUserRole === 'owner';
 
         // Scope badge: globally blacklisted items get red badge, personal get purple
         let scopeBadge = '';
         if (isGlobalBlacklist) {
-            scopeBadge = '<span class="hidden-scope-badge hidden-scope-blacklisted" title="Globally Blacklisted — cannot be removed by users">Globally Blacklisted</span>';
+            scopeBadge = '<span class="hidden-scope-badge hidden-scope-blacklisted" title="Globally Blacklisted — cannot be removed by users"><i class="fas fa-globe"></i> Blacklisted</span>';
         } else {
             scopeBadge = '<span class="hidden-scope-badge hidden-scope-personal" title="Hidden by you (personal)">Personal Blacklist</span>';
         }
@@ -352,18 +352,25 @@ export class RequestarrSettings {
                 <span class="media-type-badge">${typeBadgeLabel}</span>
                 ${scopeBadge}
             </div>
+            <div class="media-card-info">
+                <div class="media-card-title" title="${item.title}">${item.title}</div>
+                <div class="media-card-meta">
+                    <span class="media-card-year">${year}</span>
+                    <span class="media-card-rating"><i class="fas fa-star"></i> ${rating}</span>
+                </div>
+            </div>
         `;
-        
+
         // Update image from cache in background (non-blocking)
         if (posterUrl && !posterUrl.includes('./static/images/') && window.getCachedTMDBImage && window.tmdbImageCache) {
             const imgEl = card.querySelector('.media-card-poster img');
             if (imgEl) {
                 window.getCachedTMDBImage(posterUrl, window.tmdbImageCache).then(cachedUrl => {
                     if (cachedUrl && cachedUrl !== posterUrl) imgEl.src = cachedUrl;
-                }).catch(() => {});
+                }).catch(() => { });
             }
         }
-        
+
         const unhideBtn = card.querySelector('.media-card-unhide-btn');
         if (unhideBtn) {
             unhideBtn.addEventListener('click', async (e) => {
@@ -371,35 +378,35 @@ export class RequestarrSettings {
                 await this.unhideMedia(item.tmdb_id, item.media_type, item.title, card);
             });
         }
-        
+
         return card;
     }
 
     async unhideMedia(tmdbId, mediaType, title, cardElement) {
         const self = this;
-        const doUnhide = async function() {
-        try {
-            const response = await fetch(`./api/requestarr/hidden-media/${tmdbId}/${mediaType}`, {
-                method: 'DELETE'
-            });
+        const doUnhide = async function () {
+            try {
+                const response = await fetch(`./api/requestarr/hidden-media/${tmdbId}/${mediaType}`, {
+                    method: 'DELETE'
+                });
 
-            if (!response.ok) {
-                throw new Error('Failed to unhide media');
+                if (!response.ok) {
+                    throw new Error('Failed to unhide media');
+                }
+
+                // Remove from local cache and re-render
+                self.hiddenMediaItems = self.hiddenMediaItems.filter(item => {
+                    return !(item.tmdb_id === tmdbId && item.media_type === mediaType);
+                });
+                self.renderHiddenMediaPage();
+
+                console.log(`[RequestarrSettings] Unhidden media: ${title} (${mediaType})`);
+            } catch (error) {
+                console.error('[RequestarrSettings] Error unhiding media:', error);
+                if (window.huntarrUI && window.huntarrUI.showNotification) window.huntarrUI.showNotification('Failed to unhide media. Please try again.', 'error');
             }
-
-            // Remove from local cache and re-render
-            self.hiddenMediaItems = self.hiddenMediaItems.filter(item => {
-                return !(item.tmdb_id === tmdbId && item.media_type === mediaType);
-            });
-            self.renderHiddenMediaPage();
-
-            console.log(`[RequestarrSettings] Unhidden media: ${title} (${mediaType})`);
-        } catch (error) {
-            console.error('[RequestarrSettings] Error unhiding media:', error);
-            if (window.huntarrUI && window.huntarrUI.showNotification) window.huntarrUI.showNotification('Failed to unhide media. Please try again.', 'error');
-        }
         };
-        window.HuntarrConfirm.show({ title: 'Unblacklist Media', message: `Remove "${title}" from your personal blacklist? It will appear in discovery again.`, confirmLabel: 'Unblacklist', onConfirm: function() { doUnhide(); } });
+        window.HuntarrConfirm.show({ title: 'Unblacklist Media', message: `Remove "${title}" from your personal blacklist? It will appear in discovery again.`, confirmLabel: 'Unblacklist', onConfirm: function () { doUnhide(); } });
     }
 
     // ========================================
@@ -409,16 +416,16 @@ export class RequestarrSettings {
     async loadSettings() {
         // Load discover filters
         await this.loadDiscoverFilters();
-        
+
         // Load blacklisted genres and wire UI
         await this.loadBlacklistedGenres();
-        
+
         // Legacy per-section save buttons (kept for backward compat if present)
         const saveFiltersBtn = document.getElementById('save-discover-filters');
         if (saveFiltersBtn) {
             saveFiltersBtn.onclick = () => this.saveDiscoverFilters();
         }
-        
+
         const saveBlacklistedBtn = document.getElementById('save-blacklisted-genres-btn');
         if (saveBlacklistedBtn) {
             saveBlacklistedBtn.onclick = () => this.saveBlacklistedGenres();
@@ -451,7 +458,7 @@ export class RequestarrSettings {
             }
         };
     }
-    
+
     async loadBlacklistedGenres() {
         const tvSelect = document.getElementById('blacklist-tv-genre-select');
         const movieSelect = document.getElementById('blacklist-movie-genre-select');
@@ -507,7 +514,7 @@ export class RequestarrSettings {
             console.error('[RequestarrDiscover] Error loading blacklisted genres:', error);
         }
     }
-    
+
     populateBlacklistedDropdowns() {
         const tvSelect = document.getElementById('blacklist-tv-genre-select');
         const movieSelect = document.getElementById('blacklist-movie-genre-select');
@@ -529,7 +536,7 @@ export class RequestarrSettings {
             movieSelect.appendChild(opt);
         });
     }
-    
+
     renderBlacklistedPills() {
         const tvList = document.getElementById('blacklisted-tv-genres-list');
         const movieList = document.getElementById('blacklisted-movie-genres-list');
@@ -559,7 +566,7 @@ export class RequestarrSettings {
             movieList.appendChild(pill);
         });
     }
-    
+
     async saveBlacklistedGenres(silent = false) {
         const btn = document.getElementById('save-blacklisted-genres-btn');
         if (btn) {
@@ -593,39 +600,39 @@ export class RequestarrSettings {
             }
         }
     }
-    
+
     async loadDefaultInstances() {
         const { encodeInstanceValue, decodeInstanceValue } = await import('./requestarr-core.js');
         const movieSelect = document.getElementById('default-movie-instance');
         const tvSelect = document.getElementById('default-tv-instance');
-        
+
         if (!movieSelect || !tvSelect) return;
-        
+
         try {
             // Load Movie Hunt instances
             const _ts = Date.now();
             const movieHuntResponse = await fetch(`./api/requestarr/instances/movie_hunt?t=${_ts}`, { cache: 'no-store' });
             const movieHuntData = await movieHuntResponse.json();
-            
+
             // Load Radarr instances
             const radarrResponse = await fetch(`./api/requestarr/instances/radarr?t=${_ts}`, { cache: 'no-store' });
             const radarrData = await radarrResponse.json();
-            
+
             // Load Sonarr instances
             const sonarrResponse = await fetch(`./api/requestarr/instances/sonarr?t=${_ts}`, { cache: 'no-store' });
             const sonarrData = await sonarrResponse.json();
-            
+
             // Load saved defaults
             const defaultsResponse = await fetch('./api/requestarr/settings/default-instances');
             const defaultsData = await defaultsResponse.json();
-            
+
             let needsAutoSave = false;
-            
+
             // Build combined movie instances list: Movie Hunt first, then Radarr
             const movieHuntInstances = (movieHuntData.instances || []);
             const radarrInstances = (radarrData.instances || []);
             const allMovieInstances = [];
-            
+
             // Add Movie Hunt instances at the top
             movieHuntInstances.forEach(inst => {
                 allMovieInstances.push({
@@ -635,7 +642,7 @@ export class RequestarrSettings {
                     name: inst.name
                 });
             });
-            
+
             // Add Radarr instances below
             radarrInstances.forEach(inst => {
                 allMovieInstances.push({
@@ -645,7 +652,7 @@ export class RequestarrSettings {
                     name: inst.name
                 });
             });
-            
+
             // Populate movie instances dropdown
             if (allMovieInstances.length > 0) {
                 movieSelect.innerHTML = '';
@@ -655,7 +662,7 @@ export class RequestarrSettings {
                     option.textContent = inst.label;
                     movieSelect.appendChild(option);
                 });
-                
+
                 // Set selection: saved default or first instance (never leave blank)
                 const savedMovie = defaultsData.success && defaultsData.defaults && defaultsData.defaults.movie_instance;
                 if (savedMovie) {
@@ -685,7 +692,7 @@ export class RequestarrSettings {
             } else {
                 movieSelect.innerHTML = '<option value="">No movie instances configured</option>';
             }
-            
+
             // Populate TV instances (Sonarr only - unchanged)
             if (sonarrData.instances && sonarrData.instances.length > 0) {
                 tvSelect.innerHTML = '';
@@ -695,7 +702,7 @@ export class RequestarrSettings {
                     option.textContent = `Sonarr - ${instance.name}`;
                     tvSelect.appendChild(option);
                 });
-                
+
                 // Set selection: saved default or first instance (never leave blank)
                 const savedTV = defaultsData.success && defaultsData.defaults && defaultsData.defaults.tv_instance;
                 const tvExists = savedTV && sonarrData.instances.some(i => i.name === defaultsData.defaults.tv_instance);
@@ -708,7 +715,7 @@ export class RequestarrSettings {
             } else {
                 tvSelect.innerHTML = '<option value="">No Sonarr instances configured</option>';
             }
-            
+
             // Ensure neither dropdown is ever blank when instances exist
             if (allMovieInstances.length > 0 && !movieSelect.value) {
                 movieSelect.value = allMovieInstances[0].value;
@@ -718,7 +725,7 @@ export class RequestarrSettings {
                 tvSelect.value = sonarrData.instances[0].name;
                 needsAutoSave = true;
             }
-            
+
             // Auto-save if we selected first instances
             if (needsAutoSave) {
                 console.log('[RequestarrSettings] Auto-saving first available instances as defaults');
@@ -728,19 +735,19 @@ export class RequestarrSettings {
             console.error('[RequestarrDiscover] Error loading default instances:', error);
         }
     }
-    
+
     async saveDefaultInstances(silent = false) {
         const movieSelect = document.getElementById('default-movie-instance');
         const tvSelect = document.getElementById('default-tv-instance');
         const saveBtn = document.getElementById('save-default-instances');
-        
+
         if (!movieSelect || !tvSelect) return;
-        
+
         if (saveBtn && !silent) {
             saveBtn.disabled = true;
             saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
         }
-        
+
         try {
             const response = await fetch('./api/requestarr/settings/default-instances', {
                 method: 'POST',
@@ -750,9 +757,9 @@ export class RequestarrSettings {
                     tv_instance: tvSelect.value || ''
                 })
             });
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
                 if (!silent) {
                     this.core.showNotification('Default instances saved! Reloading discovery content...', 'success');
@@ -786,41 +793,41 @@ export class RequestarrSettings {
         const movieInstanceSelect = document.getElementById('default-movie-instance');
         const tvInstanceSelect = document.getElementById('default-tv-instance');
         if (!radarrSelect || !sonarrSelect) return;
-        
+
         // Prevent concurrent calls (race condition protection)
         if (this._loadingRootFolders) {
             console.log('[RequestarrSettings] loadDefaultRootFolders already in progress, skipping');
             return;
         }
         this._loadingRootFolders = true;
-        
+
         try {
             const defaultsRes = await fetch('./api/requestarr/settings/default-instances');
             const rootFoldersRes = await fetch('./api/requestarr/settings/default-root-folders');
             const defaultsData = await defaultsRes.json();
             const savedRootData = rootFoldersRes.ok ? await rootFoldersRes.json() : {};
-            
+
             // Decode the movie instance compound value to get app type and name
             // Prioritize the current dropdown value (user may have just changed it) over saved default
             const movieInstanceRaw = (movieInstanceSelect && movieInstanceSelect.value) || (defaultsData.defaults && defaultsData.defaults.movie_instance) || '';
             const tvInstance = (tvInstanceSelect && tvInstanceSelect.value) || (defaultsData.defaults && defaultsData.defaults.tv_instance) || '';
-            
+
             const movieDecoded = decodeInstanceValue(movieInstanceRaw);
             const movieAppType = movieDecoded.appType; // 'movie_hunt' or 'radarr'
             const movieInstanceName = movieDecoded.name;
-            
+
             // Update the root folder label dynamically based on instance type
             const radarrLabel = document.querySelector('label[for="default-root-folder-radarr"]');
             if (radarrLabel) {
                 radarrLabel.textContent = movieAppType === 'movie_hunt' ? 'Default Root Folder (Movie Hunt)' : 'Default Root Folder (Radarr)';
             }
-            
+
             // Determine which saved path to use
-            const savedMoviePath = movieAppType === 'movie_hunt' 
+            const savedMoviePath = movieAppType === 'movie_hunt'
                 ? (savedRootData.default_root_folder_movie_hunt || '').trim()
                 : (savedRootData.default_root_folder_radarr || '').trim();
             const savedSonarrPath = (savedRootData.default_root_folder_sonarr || '').trim();
-            
+
             const fallbackLabel = movieAppType === 'movie_hunt' ? 'Movie Hunt' : 'Radarr';
 
             // Movie root folders (from Radarr or Movie Hunt, depending on instance type)
@@ -844,7 +851,7 @@ export class RequestarrSettings {
                         }
                     });
                     console.log(`[RequestarrSettings] After deduplication: ${seenPaths.size} unique ${fallbackLabel} root folders`);
-                    
+
                     if (seenPaths.size === 0) {
                         radarrSelect.innerHTML = `<option value="">Use first root folder in ${fallbackLabel}</option>`;
                     } else {
@@ -884,7 +891,7 @@ export class RequestarrSettings {
                         }
                     });
                     console.log('[RequestarrSettings] After deduplication:', seenPaths.size, 'unique Sonarr root folders');
-                    
+
                     if (seenPaths.size === 0) {
                         sonarrSelect.innerHTML = '<option value="">Use first root folder in Sonarr</option>';
                     } else {
@@ -927,18 +934,18 @@ export class RequestarrSettings {
             // Determine if the movie instance is Movie Hunt or Radarr
             const movieInstanceVal = movieInstanceSelect ? movieInstanceSelect.value : '';
             const movieDecoded = decodeInstanceValue(movieInstanceVal);
-            
+
             const body = {
                 default_root_folder_sonarr: sonarrSelect.value || ''
             };
-            
+
             // Save the root folder path under the correct key based on instance type
             if (movieDecoded.appType === 'movie_hunt') {
                 body.default_root_folder_movie_hunt = radarrSelect.value || '';
             } else {
                 body.default_root_folder_radarr = radarrSelect.value || '';
             }
-            
+
             const response = await fetch('./api/requestarr/settings/default-root-folders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -960,7 +967,7 @@ export class RequestarrSettings {
             }
         }
     }
-    
+
     async loadDiscoverFilters() {
         // Load regions - Full TMDB region list
         const regions = [
@@ -1014,28 +1021,28 @@ export class RequestarrSettings {
             { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
             { code: 'US', name: 'United States', flag: '🇺🇸' }
         ];
-        
+
         // Keep All Regions at top, sort the rest alphabetically
         const allRegions = regions[0];
         const otherRegions = regions.slice(1).sort((a, b) => a.name.localeCompare(b.name));
         this.regions = [allRegions, ...otherRegions];
-        
+
         this.selectedRegion = 'US'; // Default
-        
+
         // Initialize custom region select
         this.initializeRegionSelect();
-        
+
         // Initialize language multi-select
         this.initializeLanguageSelect();
 
         // Initialize provider multi-select
         this.initializeProviderSelect();
-        
+
         // Load saved filters
         try {
             const response = await fetch('./api/requestarr/settings/filters');
             const data = await response.json();
-            
+
             if (data.success && data.filters) {
                 if (data.filters.region !== undefined) {
                     this.selectedRegion = data.filters.region;
@@ -1072,29 +1079,29 @@ export class RequestarrSettings {
 
         await this.loadProviders(this.selectedRegion);
     }
-    
+
     initializeRegionSelect() {
         const display = document.getElementById('region-select-display');
         const dropdown = document.getElementById('region-dropdown');
         const list = document.getElementById('region-list');
-        
+
         if (!display || !dropdown || !list) {
             return;
         }
-        
+
         // Check if already initialized
         if (this.regionSelectInitialized) {
             return;
         }
-        
+
         // Populate region list first
         this.renderRegionList();
-        
+
         // Toggle dropdown - Direct approach
         display.onclick = (e) => {
             e.stopPropagation();
             e.preventDefault();
-            
+
             if (dropdown.style.display === 'none' || !dropdown.style.display) {
                 dropdown.style.display = 'block';
                 display.classList.add('open');
@@ -1103,12 +1110,12 @@ export class RequestarrSettings {
                 display.classList.remove('open');
             }
         };
-        
+
         // Prevent dropdown from closing when clicking inside it
         dropdown.onclick = (e) => {
             e.stopPropagation();
         };
-        
+
         // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
             if (!display.contains(e.target) && !dropdown.contains(e.target)) {
@@ -1116,30 +1123,30 @@ export class RequestarrSettings {
                 display.classList.remove('open');
             }
         });
-        
+
         this.regionSelectInitialized = true;
     }
-    
+
     renderRegionList(filter = '') {
         const list = document.getElementById('region-list');
         if (!list) return;
-        
-        const filteredRegions = this.regions.filter(region => 
+
+        const filteredRegions = this.regions.filter(region =>
             region.name.toLowerCase().includes(filter)
         );
-        
+
         list.innerHTML = '';
-        
+
         filteredRegions.forEach(region => {
             const option = document.createElement('div');
             option.className = 'custom-select-option';
             option.textContent = `${region.flag} ${region.name}`;
             option.dataset.code = region.code;
-            
+
             if (this.selectedRegion === region.code) {
                 option.classList.add('selected');
             }
-            
+
             option.onclick = (e) => {
                 e.stopPropagation();
                 this.selectedRegion = region.code;
@@ -1149,37 +1156,37 @@ export class RequestarrSettings {
                 document.getElementById('region-select-display').classList.remove('open');
                 this.handleRegionChange();
             };
-            
+
             list.appendChild(option);
         });
     }
-    
+
     updateRegionDisplay() {
         const selectedText = document.getElementById('region-selected-text');
         if (!selectedText) return;
-        
+
         const region = this.regions.find(r => r.code === this.selectedRegion);
         if (region) {
             selectedText.textContent = `${region.flag} ${region.name}`;
         }
     }
-    
+
     initializeLanguageSelect() {
         const input = document.getElementById('discover-language');
         const dropdown = document.getElementById('language-dropdown');
         const languageList = document.getElementById('language-list');
-        
+
         if (!input || !dropdown || !languageList) {
             return;
         }
-        
+
         // Check if already initialized
         if (this.languageSelectInitialized) {
             return;
         }
-        
+
         this.selectedLanguages = this.selectedLanguages || [];
-        
+
         // Common languages list
         this.languages = [
             { code: 'ar', name: 'Arabic' },
@@ -1203,24 +1210,24 @@ export class RequestarrSettings {
             { code: 'th', name: 'Thai' },
             { code: 'tr', name: 'Turkish' }
         ];
-        
+
         // Populate language list
         this.renderLanguageList();
-        
+
         // Toggle dropdown
         input.onclick = (e) => {
             e.stopPropagation();
             const isVisible = dropdown.style.display === 'block';
             dropdown.style.display = isVisible ? 'none' : 'block';
         };
-        
+
         // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
             if (!dropdown.contains(e.target) && e.target !== input) {
                 dropdown.style.display = 'none';
             }
         });
-        
+
         this.languageSelectInitialized = true;
     }
 
@@ -1257,11 +1264,11 @@ export class RequestarrSettings {
 
         this.providerSelectInitialized = true;
     }
-    
+
     renderLanguageList(filter = '') {
         const languageList = document.getElementById('language-list');
         if (!languageList) return;
-        
+
         languageList.innerHTML = '';
 
         const normalizedFilter = filter.trim().toLowerCase();
@@ -1298,15 +1305,15 @@ export class RequestarrSettings {
             item.className = 'language-item';
             item.textContent = lang.name;
             item.dataset.code = lang.code;
-            
+
             if (this.selectedLanguages.includes(lang.code)) {
                 item.classList.add('selected');
             }
-            
+
             item.addEventListener('click', () => {
                 const code = item.dataset.code;
                 const index = this.selectedLanguages.indexOf(code);
-                
+
                 if (index > -1) {
                     this.selectedLanguages.splice(index, 1);
                     item.classList.remove('selected');
@@ -1314,26 +1321,26 @@ export class RequestarrSettings {
                     this.selectedLanguages.push(code);
                     item.classList.add('selected');
                 }
-                
+
                 this.renderLanguageTags();
-                
+
                 // Close dropdown after selection
                 const dropdown = document.getElementById('language-dropdown');
                 if (dropdown) {
                     dropdown.style.display = 'none';
                 }
             });
-            
+
             languageList.appendChild(item);
         });
     }
-    
+
     renderLanguageTags() {
         const tagsContainer = document.getElementById('language-tags');
         if (!tagsContainer) return;
-        
+
         tagsContainer.innerHTML = '';
-        
+
         if (this.selectedLanguages.length === 0) {
             // Show "All Languages" as a tag/bubble instead of plain text
             const tag = document.createElement('div');
@@ -1343,18 +1350,18 @@ export class RequestarrSettings {
             tagsContainer.appendChild(tag);
             return;
         }
-        
+
         this.selectedLanguages.forEach(code => {
             const lang = this.languages.find(l => l.code === code);
             if (!lang) return;
-            
+
             const tag = document.createElement('div');
             tag.className = 'language-tag';
             tag.innerHTML = `
                 ${lang.name}
                 <span class="language-tag-remove" data-code="${code}">×</span>
             `;
-            
+
             tag.querySelector('.language-tag-remove').addEventListener('click', (e) => {
                 e.stopPropagation();
                 const removeCode = e.target.dataset.code;
@@ -1362,7 +1369,7 @@ export class RequestarrSettings {
                 this.renderLanguageTags();
                 this.renderLanguageList();
             });
-            
+
             tagsContainer.appendChild(tag);
         });
     }
@@ -1474,15 +1481,15 @@ export class RequestarrSettings {
         this.renderProviderList();
         this.loadProviders(this.selectedRegion);
     }
-    
+
     async saveDiscoverFilters(silent = false) {
         const saveBtn = document.getElementById('save-discover-filters');
-        
+
         if (saveBtn) {
             saveBtn.disabled = true;
             saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
         }
-        
+
         try {
             const response = await fetch('./api/requestarr/settings/filters', {
                 method: 'POST',
@@ -1493,14 +1500,14 @@ export class RequestarrSettings {
                     providers: this.selectedProviders || []
                 })
             });
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
                 if (!silent) {
                     this.core.showNotification('Filters saved! Reloading discover content...', 'success');
                 }
-                
+
                 // Reload all discover content with new filters
                 setTimeout(() => {
                     this.core.content.loadDiscoverContent();

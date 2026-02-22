@@ -17,9 +17,9 @@ import shutil
 
 logger = logging.getLogger(__name__)
 
-from src.primary.utils.db_mixins import ConfigMixin, StateMixin, UsersMixin, RequestarrMixin, ExtrasMixin, ChatMixin
+from src.primary.utils.db_mixins import ConfigMixin, StateMixin, UsersMixin, RequestarrMixin, ExtrasMixin
 
-class HuntarrDatabase(ConfigMixin, StateMixin, UsersMixin, RequestarrMixin, ExtrasMixin, ChatMixin):
+class HuntarrDatabase(ConfigMixin, StateMixin, UsersMixin, RequestarrMixin, ExtrasMixin):
     """Database manager for all Huntarr configurations and settings"""
     
     # Class-level corruption recovery lock — ensures only one thread recovers at a time

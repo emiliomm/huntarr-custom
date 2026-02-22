@@ -1,8 +1,18 @@
 <!-- Tor Hunt Section - Built-in torrent download engine -->
 <section id="tor-hunt-section" class="content-section" style="display: none;">
     <link rel="stylesheet" href="./static/css/tor-hunt.css">
-    {% set phb_back_hash = '#home' %}{% set phb_icon = 'fa-magnet' %}{% set phb_section = 'Tor Hunt' %}{% set phb_page = 'Downloads' %}
+    {% set phb_back_hash = '#home' %}{% set phb_icon = 'fa-magnet' %}{% set phb_section = 'Tor Hunt' %}{% set phb_page =
+    'Downloads' %}
     {% include 'components/page_header_partial.html' %}
+
+    <!-- Beta Notice -->
+    <div class="tor-hunt-beta-notice" role="status">
+        <i class="fas fa-flask" aria-hidden="true"></i>
+        <span><strong>Beta feature:</strong> Tor Hunt is in active development. Features may change and bugs are
+            expected — thank you for your patience while we build this out. <a
+                href="https://plexguide.github.io/Huntarr.io/apps/tor-hunt.html" target="_blank" rel="noopener">Wiki &
+                Docs <i class="fas fa-external-link-alt" style="font-size: 0.85em;"></i></a></span>
+    </div>
 
     <!-- ═══════ Downloads View (tor-hunt-home) ═══════ -->
     <div class="tor-hunt-container" id="tor-hunt-downloads-view">
@@ -28,8 +38,10 @@
                             <button class="tor-speed-opt" data-limit="52428800">50 MB/s</button>
                         </div>
                         <div class="tor-speed-popover-custom">
-                            <input type="number" id="tor-speed-custom-input" placeholder="Custom MB/s" min="0" step="0.5">
-                            <button class="tor-btn tor-btn-primary tor-speed-custom-btn" id="tor-speed-custom-btn">Set</button>
+                            <input type="number" id="tor-speed-custom-input" placeholder="Custom MB/s" min="0"
+                                step="0.5">
+                            <button class="tor-btn tor-btn-primary tor-speed-custom-btn"
+                                id="tor-speed-custom-btn">Set</button>
                         </div>
                     </div>
                 </div>
@@ -99,7 +111,8 @@
 
         <!-- Save button (top) -->
         <div class="tor-settings-actions tor-settings-actions-top">
-            <button class="tor-btn tor-btn-primary" id="tor-settings-save-btn"><i class="fas fa-save"></i> Save Settings</button>
+            <button class="tor-btn tor-btn-primary" id="tor-settings-save-btn"><i class="fas fa-save"></i> Save
+                Settings</button>
         </div>
 
         <!-- Directories -->
@@ -112,7 +125,8 @@
             </div>
             <div class="tor-settings-row">
                 <label for="tor-cfg-temp-dir">Incomplete Directory</label>
-                <input type="text" id="tor-cfg-temp-dir" placeholder="/downloads/tor-hunt/incomplete" autocomplete="off">
+                <input type="text" id="tor-cfg-temp-dir" placeholder="/downloads/tor-hunt/incomplete"
+                    autocomplete="off">
                 <span class="tor-settings-help">In-progress downloads are stored here until finished.</span>
             </div>
         </div>
@@ -196,22 +210,26 @@
             <h3><i class="fas fa-globe" style="color: #38bdf8; margin-right: 8px;"></i>Network</h3>
             <div class="tor-settings-row tor-settings-toggle-row">
                 <label for="tor-cfg-dht">DHT (Distributed Hash Table)</label>
-                <label class="tor-toggle"><input type="checkbox" id="tor-cfg-dht" checked><span class="tor-toggle-slider"></span></label>
+                <label class="tor-toggle"><input type="checkbox" id="tor-cfg-dht" checked><span
+                        class="tor-toggle-slider"></span></label>
                 <span class="tor-settings-help">Enables finding peers without a tracker.</span>
             </div>
             <div class="tor-settings-row tor-settings-toggle-row">
                 <label for="tor-cfg-lsd">LSD (Local Service Discovery)</label>
-                <label class="tor-toggle"><input type="checkbox" id="tor-cfg-lsd" checked><span class="tor-toggle-slider"></span></label>
+                <label class="tor-toggle"><input type="checkbox" id="tor-cfg-lsd" checked><span
+                        class="tor-toggle-slider"></span></label>
                 <span class="tor-settings-help">Find peers on your local network.</span>
             </div>
             <div class="tor-settings-row tor-settings-toggle-row">
                 <label for="tor-cfg-upnp">UPnP</label>
-                <label class="tor-toggle"><input type="checkbox" id="tor-cfg-upnp" checked><span class="tor-toggle-slider"></span></label>
+                <label class="tor-toggle"><input type="checkbox" id="tor-cfg-upnp" checked><span
+                        class="tor-toggle-slider"></span></label>
                 <span class="tor-settings-help">Automatic port forwarding via UPnP.</span>
             </div>
             <div class="tor-settings-row tor-settings-toggle-row">
                 <label for="tor-cfg-natpmp">NAT-PMP</label>
-                <label class="tor-toggle"><input type="checkbox" id="tor-cfg-natpmp" checked><span class="tor-toggle-slider"></span></label>
+                <label class="tor-toggle"><input type="checkbox" id="tor-cfg-natpmp" checked><span
+                        class="tor-toggle-slider"></span></label>
                 <span class="tor-settings-help">Automatic port forwarding via NAT-PMP.</span>
             </div>
         </div>

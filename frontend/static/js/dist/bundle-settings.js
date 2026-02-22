@@ -14733,10 +14733,10 @@ document.head.appendChild(styleEl);
 
 
 /* === modules/features/settings/general.js === */
-(function() {
+(function () {
     window.SettingsForms = window.SettingsForms || {};
 
-    window.SettingsForms.generateGeneralForm = function(container, settings = {}) {
+    window.SettingsForms.generateGeneralForm = function (container, settings = {}) {
         if (!settings || typeof settings !== "object") {
             settings = {};
         }
@@ -14876,13 +14876,13 @@ document.head.appendChild(styleEl);
                         </div>
                         <p class="setting-help">When enabled, the Requests section (Discover, TV Shows, Movies, etc.) is fully off—no UI, logging, or background work. Saves compute.</p>
                         <div class="setting-item flex-row" style="margin-top: 15px;">
-                            <label for="disable_media_hunt">Disable Media Hunt &amp; NZB Hunt:</label>
+                            <label for="disable_media_hunt">Disable Media Hunt, NZB Hunt &amp; Tor Hunt:</label>
                             <label class="toggle-switch">
                                 <input type="checkbox" id="disable_media_hunt" ${settings.enable_media_hunt === false ? "checked" : ""}>
                                 <span class="toggle-slider"></span>
                             </label>
                         </div>
-                        <p class="setting-help">When enabled, Media Hunt, NZB Hunt, and Index Master are fully off—no UI, logging, or background work. Saves compute.</p>
+                        <p class="setting-help">When enabled, Media Hunt, NZB Hunt, Tor Hunt, and Index Master are fully off—no UI, logging, or background work. Saves compute.</p>
                         <div class="setting-item flex-row" style="margin-top: 15px;">
                             <label for="disable_third_party_apps">Disable 3rd Party Apps:</label>
                             <label class="toggle-switch">
@@ -15017,7 +15017,7 @@ document.head.appendChild(styleEl);
         var proxyToggle = container.querySelector('#proxy_enabled');
         var proxyFields = container.querySelector('#proxy-fields');
         if (proxyToggle && proxyFields) {
-            proxyToggle.addEventListener('change', function() {
+            proxyToggle.addEventListener('change', function () {
                 proxyFields.style.display = proxyToggle.checked ? 'block' : 'none';
             });
         }
@@ -15026,7 +15026,7 @@ document.head.appendChild(styleEl);
         var frameSelect = container.querySelector('#frame_ancestors');
         var frameCustom = container.querySelector('#frame_ancestors_custom');
         if (frameSelect && frameCustom) {
-            frameSelect.addEventListener('change', function() {
+            frameSelect.addEventListener('change', function () {
                 frameCustom.style.display = frameSelect.value === 'custom' ? 'block' : 'none';
             });
         }
@@ -15034,14 +15034,14 @@ document.head.appendChild(styleEl);
         // Reset Media Hunt Wizard button
         var resetWizardBtn = container.querySelector('#reset-media-hunt-wizard-btn');
         if (resetWizardBtn) {
-            resetWizardBtn.addEventListener('click', function() {
+            resetWizardBtn.addEventListener('click', function () {
                 if (window.HuntarrConfirm && window.HuntarrConfirm.show) {
                     window.HuntarrConfirm.show({
                         title: 'Reset Media Hunt Wizard',
                         message: 'This will re-show the Media Hunt setup wizard on your next visit to Media Hunt. Continue?',
                         confirmLabel: 'Reset',
                         cancelLabel: 'Cancel',
-                        onConfirm: function() {
+                        onConfirm: function () {
                             // Update in-memory prefs
                             if (window.huntarrUI && window.huntarrUI.originalSettings && window.huntarrUI.originalSettings.general) {
                                 var prefs = window.huntarrUI.originalSettings.general.ui_preferences || {};
@@ -15053,14 +15053,14 @@ document.head.appendChild(styleEl);
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ ui_preferences: { 'media-hunt-wizard-completed': false } })
-                            }).then(function() {
+                            }).then(function () {
                                 if (window.HuntarrToast) window.HuntarrToast.success('Media Hunt wizard has been reset. It will show on your next visit to Media Hunt.');
-                            }).catch(function(err) {
+                            }).catch(function (err) {
                                 console.error('[ResetWizard] Failed to save:', err);
                                 if (window.HuntarrToast) window.HuntarrToast.error('Failed to save wizard reset.');
                             });
                             // Set a force-show flag so the wizard appears even if all steps are done
-                            try { sessionStorage.setItem('setup-wizard-force-show', '1'); } catch (e) {}
+                            try { sessionStorage.setItem('setup-wizard-force-show', '1'); } catch (e) { }
                         }
                     });
                 } else {
@@ -15074,8 +15074,8 @@ document.head.appendChild(styleEl);
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ ui_preferences: { 'media-hunt-wizard-completed': false } })
-                        }).catch(function(err) { console.error('[ResetWizard] Failed to save:', err); });
-                        try { sessionStorage.setItem('setup-wizard-force-show', '1'); } catch (e) {}
+                        }).catch(function (err) { console.error('[ResetWizard] Failed to save:', err); });
+                        try { sessionStorage.setItem('setup-wizard-force-show', '1'); } catch (e) { }
                     }
                 }
             });
@@ -15084,14 +15084,14 @@ document.head.appendChild(styleEl);
         // Reset Welcome Message button
         var resetWelcomeBtn = container.querySelector('#reset-welcome-message-btn');
         if (resetWelcomeBtn) {
-            resetWelcomeBtn.addEventListener('click', function() {
+            resetWelcomeBtn.addEventListener('click', function () {
                 if (window.HuntarrConfirm && window.HuntarrConfirm.show) {
                     window.HuntarrConfirm.show({
                         title: 'Reset Welcome Message',
                         message: 'This will re-show the welcome message the next time you visit the Home page. Continue?',
                         confirmLabel: 'Reset',
                         cancelLabel: 'Cancel',
-                        onConfirm: function() {
+                        onConfirm: function () {
                             HuntarrUtils.setUIPreference('welcome-dismissed', false);
                             if (window.HuntarrToast) window.HuntarrToast.success('Welcome message has been reset. It will show on your next visit to Home.');
                         }
@@ -15108,7 +15108,7 @@ document.head.appendChild(styleEl);
         var frameSelect = container.querySelector('#frame_ancestors');
         var frameCustom = container.querySelector('#frame_ancestors_custom');
         if (frameSelect && frameCustom) {
-            frameSelect.addEventListener('change', function() {
+            frameSelect.addEventListener('change', function () {
                 frameCustom.style.display = frameSelect.value === 'custom' ? 'block' : 'none';
                 if (frameSelect.value !== 'custom') frameCustom.value = '';
             });
@@ -15119,7 +15119,7 @@ document.head.appendChild(styleEl);
         }
     };
 
-    window.SettingsForms.setupSettingsManualSave = function(container, originalSettings = {}) {
+    window.SettingsForms.setupSettingsManualSave = function (container, originalSettings = {}) {
         let saveButton = container.querySelector("#settings-save-button");
         if (!saveButton) saveButton = document.getElementById("settings-save-button");
         if (!saveButton) return;
@@ -15171,7 +15171,7 @@ document.head.appendChild(styleEl);
 
             const settings = window.SettingsForms.getFormSettings(container, "general");
             window.SettingsForms.saveAppSettings("general", settings, "Settings saved successfully", { section: "main" })
-                .then(function() {
+                .then(function () {
                     if (window.huntarrUI) {
                         window.huntarrUI._enableRequestarr = settings.enable_requestarr !== false;
                         window.huntarrUI._enableMediaHunt = settings.enable_media_hunt !== false;
@@ -15186,6 +15186,8 @@ document.head.appendChild(styleEl);
                     if (requestsGroup) requestsGroup.style.display = (settings.enable_requestarr === false) ? 'none' : '';
                     if (mediaHuntGroup) mediaHuntGroup.style.display = (settings.enable_media_hunt === false) ? 'none' : '';
                     if (nzbHuntGroup) nzbHuntGroup.style.display = (settings.enable_media_hunt === false) ? 'none' : '';
+                    var torHuntGroup = document.getElementById('tor-hunt-sidebar-group');
+                    if (torHuntGroup) torHuntGroup.style.display = (settings.enable_media_hunt === false) ? 'none' : '';
                     if (appsGroup) appsGroup.style.display = (settings.enable_third_party_apps === false) ? 'none' : '';
                     if (appsLabel) appsLabel.style.display = (settings.enable_media_hunt === false && settings.enable_third_party_apps === false) ? 'none' : '';
                     if (typeof window.applyFeatureFlags === 'function') window.applyFeatureFlags();
@@ -15200,7 +15202,7 @@ document.head.appendChild(styleEl);
                             window.HuntarrIndexerHuntHome.load();
                         }
                     }
-                }).catch(function() {});
+                }).catch(function () { });
 
             if (liveBtn) liveBtn.innerHTML = '<i class="fas fa-save"></i> Save';
             updateSaveButtonState(false);

@@ -1737,11 +1737,11 @@ class RequestarrSettings {
         const container = document.getElementById('history-list');
         if (!container) return;
         container.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading history...</p></div>';
-        
+
         try {
             const response = await fetch('./api/requestarr/history');
             const data = await response.json();
-            
+
             if (data.requests && data.requests.length > 0) {
                 container.innerHTML = '';
                 // Use Promise.all to wait for all async createHistoryItem calls
@@ -1761,10 +1761,10 @@ class RequestarrSettings {
     async createHistoryItem(request) {
         const item = document.createElement('div');
         item.className = 'history-item';
-        
+
         const posterUrl = request.poster_path || './static/images/no-poster.png';
         const date = new Date(request.requested_at).toLocaleDateString();
-        
+
         item.innerHTML = `
             <div class="history-poster">
                 <img src="${posterUrl}" alt="${request.title}">
@@ -1777,7 +1777,7 @@ class RequestarrSettings {
                 <span class="history-status">Requested</span>
             </div>
         `;
-        
+
         // Load and cache image asynchronously
         if (posterUrl && !posterUrl.includes('./static/images/') && window.getCachedTMDBImage && window.tmdbImageCache) {
             try {
@@ -1790,7 +1790,7 @@ class RequestarrSettings {
                 console.error('[RequestarrSettings] Failed to cache history image:', err);
             }
         }
-        
+
         return item;
     }
 
@@ -1973,7 +1973,7 @@ class RequestarrSettings {
             container.style.display = 'grid';
             container.style.alignItems = '';
             container.style.justifyContent = '';
-            
+
             container.innerHTML = '';
             pageItems.forEach(item => {
                 container.appendChild(this.createHiddenMediaCard(item));
@@ -2032,18 +2032,18 @@ class RequestarrSettings {
         card.className = 'media-card';
         card.setAttribute('data-tmdb-id', item.tmdb_id);
         card.setAttribute('data-media-type', item.media_type);
-        
+
         const posterUrl = item.poster_path || './static/images/blackout.jpg';
-        
+
         const typeBadgeLabel = item.media_type === 'tv' ? 'TV' : 'Movie';
-        
+
         const isGlobalBlacklist = item._source === 'global_blacklist';
         const isOwner = window._huntarrUserRole === 'owner';
 
         // Scope badge: globally blacklisted items get red badge, personal get purple
         let scopeBadge = '';
         if (isGlobalBlacklist) {
-            scopeBadge = '<span class="hidden-scope-badge hidden-scope-blacklisted" title="Globally Blacklisted — cannot be removed by users">Globally Blacklisted</span>';
+            scopeBadge = '<span class="hidden-scope-badge hidden-scope-blacklisted" title="Globally Blacklisted — cannot be removed by users"><i class="fas fa-globe"></i> Blacklisted</span>';
         } else {
             scopeBadge = '<span class="hidden-scope-badge hidden-scope-personal" title="Hidden by you (personal)">Personal Blacklist</span>';
         }
@@ -2061,18 +2061,25 @@ class RequestarrSettings {
                 <span class="media-type-badge">${typeBadgeLabel}</span>
                 ${scopeBadge}
             </div>
+            <div class="media-card-info">
+                <div class="media-card-title" title="${item.title}">${item.title}</div>
+                <div class="media-card-meta">
+                    <span class="media-card-year">${year}</span>
+                    <span class="media-card-rating"><i class="fas fa-star"></i> ${rating}</span>
+                </div>
+            </div>
         `;
-        
+
         // Update image from cache in background (non-blocking)
         if (posterUrl && !posterUrl.includes('./static/images/') && window.getCachedTMDBImage && window.tmdbImageCache) {
             const imgEl = card.querySelector('.media-card-poster img');
             if (imgEl) {
                 window.getCachedTMDBImage(posterUrl, window.tmdbImageCache).then(cachedUrl => {
                     if (cachedUrl && cachedUrl !== posterUrl) imgEl.src = cachedUrl;
-                }).catch(() => {});
+                }).catch(() => { });
             }
         }
-        
+
         const unhideBtn = card.querySelector('.media-card-unhide-btn');
         if (unhideBtn) {
             unhideBtn.addEventListener('click', async (e) => {
@@ -2080,35 +2087,35 @@ class RequestarrSettings {
                 await this.unhideMedia(item.tmdb_id, item.media_type, item.title, card);
             });
         }
-        
+
         return card;
     }
 
     async unhideMedia(tmdbId, mediaType, title, cardElement) {
         const self = this;
-        const doUnhide = async function() {
-        try {
-            const response = await fetch(`./api/requestarr/hidden-media/${tmdbId}/${mediaType}`, {
-                method: 'DELETE'
-            });
+        const doUnhide = async function () {
+            try {
+                const response = await fetch(`./api/requestarr/hidden-media/${tmdbId}/${mediaType}`, {
+                    method: 'DELETE'
+                });
 
-            if (!response.ok) {
-                throw new Error('Failed to unhide media');
+                if (!response.ok) {
+                    throw new Error('Failed to unhide media');
+                }
+
+                // Remove from local cache and re-render
+                self.hiddenMediaItems = self.hiddenMediaItems.filter(item => {
+                    return !(item.tmdb_id === tmdbId && item.media_type === mediaType);
+                });
+                self.renderHiddenMediaPage();
+
+                console.log(`[RequestarrSettings] Unhidden media: ${title} (${mediaType})`);
+            } catch (error) {
+                console.error('[RequestarrSettings] Error unhiding media:', error);
+                if (window.huntarrUI && window.huntarrUI.showNotification) window.huntarrUI.showNotification('Failed to unhide media. Please try again.', 'error');
             }
-
-            // Remove from local cache and re-render
-            self.hiddenMediaItems = self.hiddenMediaItems.filter(item => {
-                return !(item.tmdb_id === tmdbId && item.media_type === mediaType);
-            });
-            self.renderHiddenMediaPage();
-
-            console.log(`[RequestarrSettings] Unhidden media: ${title} (${mediaType})`);
-        } catch (error) {
-            console.error('[RequestarrSettings] Error unhiding media:', error);
-            if (window.huntarrUI && window.huntarrUI.showNotification) window.huntarrUI.showNotification('Failed to unhide media. Please try again.', 'error');
-        }
         };
-        window.HuntarrConfirm.show({ title: 'Unblacklist Media', message: `Remove "${title}" from your personal blacklist? It will appear in discovery again.`, confirmLabel: 'Unblacklist', onConfirm: function() { doUnhide(); } });
+        window.HuntarrConfirm.show({ title: 'Unblacklist Media', message: `Remove "${title}" from your personal blacklist? It will appear in discovery again.`, confirmLabel: 'Unblacklist', onConfirm: function () { doUnhide(); } });
     }
 
     // ========================================
@@ -2118,16 +2125,16 @@ class RequestarrSettings {
     async loadSettings() {
         // Load discover filters
         await this.loadDiscoverFilters();
-        
+
         // Load blacklisted genres and wire UI
         await this.loadBlacklistedGenres();
-        
+
         // Legacy per-section save buttons (kept for backward compat if present)
         const saveFiltersBtn = document.getElementById('save-discover-filters');
         if (saveFiltersBtn) {
             saveFiltersBtn.onclick = () => this.saveDiscoverFilters();
         }
-        
+
         const saveBlacklistedBtn = document.getElementById('save-blacklisted-genres-btn');
         if (saveBlacklistedBtn) {
             saveBlacklistedBtn.onclick = () => this.saveBlacklistedGenres();
@@ -2160,7 +2167,7 @@ class RequestarrSettings {
             }
         };
     }
-    
+
     async loadBlacklistedGenres() {
         const tvSelect = document.getElementById('blacklist-tv-genre-select');
         const movieSelect = document.getElementById('blacklist-movie-genre-select');
@@ -2216,7 +2223,7 @@ class RequestarrSettings {
             console.error('[RequestarrDiscover] Error loading blacklisted genres:', error);
         }
     }
-    
+
     populateBlacklistedDropdowns() {
         const tvSelect = document.getElementById('blacklist-tv-genre-select');
         const movieSelect = document.getElementById('blacklist-movie-genre-select');
@@ -2238,7 +2245,7 @@ class RequestarrSettings {
             movieSelect.appendChild(opt);
         });
     }
-    
+
     renderBlacklistedPills() {
         const tvList = document.getElementById('blacklisted-tv-genres-list');
         const movieList = document.getElementById('blacklisted-movie-genres-list');
@@ -2268,7 +2275,7 @@ class RequestarrSettings {
             movieList.appendChild(pill);
         });
     }
-    
+
     async saveBlacklistedGenres(silent = false) {
         const btn = document.getElementById('save-blacklisted-genres-btn');
         if (btn) {
@@ -2302,39 +2309,39 @@ class RequestarrSettings {
             }
         }
     }
-    
+
     async loadDefaultInstances() {
         const { encodeInstanceValue, decodeInstanceValue } = await import('./requestarr-core.js');
         const movieSelect = document.getElementById('default-movie-instance');
         const tvSelect = document.getElementById('default-tv-instance');
-        
+
         if (!movieSelect || !tvSelect) return;
-        
+
         try {
             // Load Movie Hunt instances
             const _ts = Date.now();
             const movieHuntResponse = await fetch(`./api/requestarr/instances/movie_hunt?t=${_ts}`, { cache: 'no-store' });
             const movieHuntData = await movieHuntResponse.json();
-            
+
             // Load Radarr instances
             const radarrResponse = await fetch(`./api/requestarr/instances/radarr?t=${_ts}`, { cache: 'no-store' });
             const radarrData = await radarrResponse.json();
-            
+
             // Load Sonarr instances
             const sonarrResponse = await fetch(`./api/requestarr/instances/sonarr?t=${_ts}`, { cache: 'no-store' });
             const sonarrData = await sonarrResponse.json();
-            
+
             // Load saved defaults
             const defaultsResponse = await fetch('./api/requestarr/settings/default-instances');
             const defaultsData = await defaultsResponse.json();
-            
+
             let needsAutoSave = false;
-            
+
             // Build combined movie instances list: Movie Hunt first, then Radarr
             const movieHuntInstances = (movieHuntData.instances || []);
             const radarrInstances = (radarrData.instances || []);
             const allMovieInstances = [];
-            
+
             // Add Movie Hunt instances at the top
             movieHuntInstances.forEach(inst => {
                 allMovieInstances.push({
@@ -2344,7 +2351,7 @@ class RequestarrSettings {
                     name: inst.name
                 });
             });
-            
+
             // Add Radarr instances below
             radarrInstances.forEach(inst => {
                 allMovieInstances.push({
@@ -2354,7 +2361,7 @@ class RequestarrSettings {
                     name: inst.name
                 });
             });
-            
+
             // Populate movie instances dropdown
             if (allMovieInstances.length > 0) {
                 movieSelect.innerHTML = '';
@@ -2364,7 +2371,7 @@ class RequestarrSettings {
                     option.textContent = inst.label;
                     movieSelect.appendChild(option);
                 });
-                
+
                 // Set selection: saved default or first instance (never leave blank)
                 const savedMovie = defaultsData.success && defaultsData.defaults && defaultsData.defaults.movie_instance;
                 if (savedMovie) {
@@ -2394,7 +2401,7 @@ class RequestarrSettings {
             } else {
                 movieSelect.innerHTML = '<option value="">No movie instances configured</option>';
             }
-            
+
             // Populate TV instances (Sonarr only - unchanged)
             if (sonarrData.instances && sonarrData.instances.length > 0) {
                 tvSelect.innerHTML = '';
@@ -2404,7 +2411,7 @@ class RequestarrSettings {
                     option.textContent = `Sonarr - ${instance.name}`;
                     tvSelect.appendChild(option);
                 });
-                
+
                 // Set selection: saved default or first instance (never leave blank)
                 const savedTV = defaultsData.success && defaultsData.defaults && defaultsData.defaults.tv_instance;
                 const tvExists = savedTV && sonarrData.instances.some(i => i.name === defaultsData.defaults.tv_instance);
@@ -2417,7 +2424,7 @@ class RequestarrSettings {
             } else {
                 tvSelect.innerHTML = '<option value="">No Sonarr instances configured</option>';
             }
-            
+
             // Ensure neither dropdown is ever blank when instances exist
             if (allMovieInstances.length > 0 && !movieSelect.value) {
                 movieSelect.value = allMovieInstances[0].value;
@@ -2427,7 +2434,7 @@ class RequestarrSettings {
                 tvSelect.value = sonarrData.instances[0].name;
                 needsAutoSave = true;
             }
-            
+
             // Auto-save if we selected first instances
             if (needsAutoSave) {
                 console.log('[RequestarrSettings] Auto-saving first available instances as defaults');
@@ -2437,19 +2444,19 @@ class RequestarrSettings {
             console.error('[RequestarrDiscover] Error loading default instances:', error);
         }
     }
-    
+
     async saveDefaultInstances(silent = false) {
         const movieSelect = document.getElementById('default-movie-instance');
         const tvSelect = document.getElementById('default-tv-instance');
         const saveBtn = document.getElementById('save-default-instances');
-        
+
         if (!movieSelect || !tvSelect) return;
-        
+
         if (saveBtn && !silent) {
             saveBtn.disabled = true;
             saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
         }
-        
+
         try {
             const response = await fetch('./api/requestarr/settings/default-instances', {
                 method: 'POST',
@@ -2459,9 +2466,9 @@ class RequestarrSettings {
                     tv_instance: tvSelect.value || ''
                 })
             });
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
                 if (!silent) {
                     this.core.showNotification('Default instances saved! Reloading discovery content...', 'success');
@@ -2495,41 +2502,41 @@ class RequestarrSettings {
         const movieInstanceSelect = document.getElementById('default-movie-instance');
         const tvInstanceSelect = document.getElementById('default-tv-instance');
         if (!radarrSelect || !sonarrSelect) return;
-        
+
         // Prevent concurrent calls (race condition protection)
         if (this._loadingRootFolders) {
             console.log('[RequestarrSettings] loadDefaultRootFolders already in progress, skipping');
             return;
         }
         this._loadingRootFolders = true;
-        
+
         try {
             const defaultsRes = await fetch('./api/requestarr/settings/default-instances');
             const rootFoldersRes = await fetch('./api/requestarr/settings/default-root-folders');
             const defaultsData = await defaultsRes.json();
             const savedRootData = rootFoldersRes.ok ? await rootFoldersRes.json() : {};
-            
+
             // Decode the movie instance compound value to get app type and name
             // Prioritize the current dropdown value (user may have just changed it) over saved default
             const movieInstanceRaw = (movieInstanceSelect && movieInstanceSelect.value) || (defaultsData.defaults && defaultsData.defaults.movie_instance) || '';
             const tvInstance = (tvInstanceSelect && tvInstanceSelect.value) || (defaultsData.defaults && defaultsData.defaults.tv_instance) || '';
-            
+
             const movieDecoded = decodeInstanceValue(movieInstanceRaw);
             const movieAppType = movieDecoded.appType; // 'movie_hunt' or 'radarr'
             const movieInstanceName = movieDecoded.name;
-            
+
             // Update the root folder label dynamically based on instance type
             const radarrLabel = document.querySelector('label[for="default-root-folder-radarr"]');
             if (radarrLabel) {
                 radarrLabel.textContent = movieAppType === 'movie_hunt' ? 'Default Root Folder (Movie Hunt)' : 'Default Root Folder (Radarr)';
             }
-            
+
             // Determine which saved path to use
-            const savedMoviePath = movieAppType === 'movie_hunt' 
+            const savedMoviePath = movieAppType === 'movie_hunt'
                 ? (savedRootData.default_root_folder_movie_hunt || '').trim()
                 : (savedRootData.default_root_folder_radarr || '').trim();
             const savedSonarrPath = (savedRootData.default_root_folder_sonarr || '').trim();
-            
+
             const fallbackLabel = movieAppType === 'movie_hunt' ? 'Movie Hunt' : 'Radarr';
 
             // Movie root folders (from Radarr or Movie Hunt, depending on instance type)
@@ -2553,7 +2560,7 @@ class RequestarrSettings {
                         }
                     });
                     console.log(`[RequestarrSettings] After deduplication: ${seenPaths.size} unique ${fallbackLabel} root folders`);
-                    
+
                     if (seenPaths.size === 0) {
                         radarrSelect.innerHTML = `<option value="">Use first root folder in ${fallbackLabel}</option>`;
                     } else {
@@ -2593,7 +2600,7 @@ class RequestarrSettings {
                         }
                     });
                     console.log('[RequestarrSettings] After deduplication:', seenPaths.size, 'unique Sonarr root folders');
-                    
+
                     if (seenPaths.size === 0) {
                         sonarrSelect.innerHTML = '<option value="">Use first root folder in Sonarr</option>';
                     } else {
@@ -2636,18 +2643,18 @@ class RequestarrSettings {
             // Determine if the movie instance is Movie Hunt or Radarr
             const movieInstanceVal = movieInstanceSelect ? movieInstanceSelect.value : '';
             const movieDecoded = decodeInstanceValue(movieInstanceVal);
-            
+
             const body = {
                 default_root_folder_sonarr: sonarrSelect.value || ''
             };
-            
+
             // Save the root folder path under the correct key based on instance type
             if (movieDecoded.appType === 'movie_hunt') {
                 body.default_root_folder_movie_hunt = radarrSelect.value || '';
             } else {
                 body.default_root_folder_radarr = radarrSelect.value || '';
             }
-            
+
             const response = await fetch('./api/requestarr/settings/default-root-folders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -2669,7 +2676,7 @@ class RequestarrSettings {
             }
         }
     }
-    
+
     async loadDiscoverFilters() {
         // Load regions - Full TMDB region list
         const regions = [
@@ -2723,28 +2730,28 @@ class RequestarrSettings {
             { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
             { code: 'US', name: 'United States', flag: '🇺🇸' }
         ];
-        
+
         // Keep All Regions at top, sort the rest alphabetically
         const allRegions = regions[0];
         const otherRegions = regions.slice(1).sort((a, b) => a.name.localeCompare(b.name));
         this.regions = [allRegions, ...otherRegions];
-        
+
         this.selectedRegion = 'US'; // Default
-        
+
         // Initialize custom region select
         this.initializeRegionSelect();
-        
+
         // Initialize language multi-select
         this.initializeLanguageSelect();
 
         // Initialize provider multi-select
         this.initializeProviderSelect();
-        
+
         // Load saved filters
         try {
             const response = await fetch('./api/requestarr/settings/filters');
             const data = await response.json();
-            
+
             if (data.success && data.filters) {
                 if (data.filters.region !== undefined) {
                     this.selectedRegion = data.filters.region;
@@ -2781,29 +2788,29 @@ class RequestarrSettings {
 
         await this.loadProviders(this.selectedRegion);
     }
-    
+
     initializeRegionSelect() {
         const display = document.getElementById('region-select-display');
         const dropdown = document.getElementById('region-dropdown');
         const list = document.getElementById('region-list');
-        
+
         if (!display || !dropdown || !list) {
             return;
         }
-        
+
         // Check if already initialized
         if (this.regionSelectInitialized) {
             return;
         }
-        
+
         // Populate region list first
         this.renderRegionList();
-        
+
         // Toggle dropdown - Direct approach
         display.onclick = (e) => {
             e.stopPropagation();
             e.preventDefault();
-            
+
             if (dropdown.style.display === 'none' || !dropdown.style.display) {
                 dropdown.style.display = 'block';
                 display.classList.add('open');
@@ -2812,12 +2819,12 @@ class RequestarrSettings {
                 display.classList.remove('open');
             }
         };
-        
+
         // Prevent dropdown from closing when clicking inside it
         dropdown.onclick = (e) => {
             e.stopPropagation();
         };
-        
+
         // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
             if (!display.contains(e.target) && !dropdown.contains(e.target)) {
@@ -2825,30 +2832,30 @@ class RequestarrSettings {
                 display.classList.remove('open');
             }
         });
-        
+
         this.regionSelectInitialized = true;
     }
-    
+
     renderRegionList(filter = '') {
         const list = document.getElementById('region-list');
         if (!list) return;
-        
-        const filteredRegions = this.regions.filter(region => 
+
+        const filteredRegions = this.regions.filter(region =>
             region.name.toLowerCase().includes(filter)
         );
-        
+
         list.innerHTML = '';
-        
+
         filteredRegions.forEach(region => {
             const option = document.createElement('div');
             option.className = 'custom-select-option';
             option.textContent = `${region.flag} ${region.name}`;
             option.dataset.code = region.code;
-            
+
             if (this.selectedRegion === region.code) {
                 option.classList.add('selected');
             }
-            
+
             option.onclick = (e) => {
                 e.stopPropagation();
                 this.selectedRegion = region.code;
@@ -2858,37 +2865,37 @@ class RequestarrSettings {
                 document.getElementById('region-select-display').classList.remove('open');
                 this.handleRegionChange();
             };
-            
+
             list.appendChild(option);
         });
     }
-    
+
     updateRegionDisplay() {
         const selectedText = document.getElementById('region-selected-text');
         if (!selectedText) return;
-        
+
         const region = this.regions.find(r => r.code === this.selectedRegion);
         if (region) {
             selectedText.textContent = `${region.flag} ${region.name}`;
         }
     }
-    
+
     initializeLanguageSelect() {
         const input = document.getElementById('discover-language');
         const dropdown = document.getElementById('language-dropdown');
         const languageList = document.getElementById('language-list');
-        
+
         if (!input || !dropdown || !languageList) {
             return;
         }
-        
+
         // Check if already initialized
         if (this.languageSelectInitialized) {
             return;
         }
-        
+
         this.selectedLanguages = this.selectedLanguages || [];
-        
+
         // Common languages list
         this.languages = [
             { code: 'ar', name: 'Arabic' },
@@ -2912,24 +2919,24 @@ class RequestarrSettings {
             { code: 'th', name: 'Thai' },
             { code: 'tr', name: 'Turkish' }
         ];
-        
+
         // Populate language list
         this.renderLanguageList();
-        
+
         // Toggle dropdown
         input.onclick = (e) => {
             e.stopPropagation();
             const isVisible = dropdown.style.display === 'block';
             dropdown.style.display = isVisible ? 'none' : 'block';
         };
-        
+
         // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
             if (!dropdown.contains(e.target) && e.target !== input) {
                 dropdown.style.display = 'none';
             }
         });
-        
+
         this.languageSelectInitialized = true;
     }
 
@@ -2966,11 +2973,11 @@ class RequestarrSettings {
 
         this.providerSelectInitialized = true;
     }
-    
+
     renderLanguageList(filter = '') {
         const languageList = document.getElementById('language-list');
         if (!languageList) return;
-        
+
         languageList.innerHTML = '';
 
         const normalizedFilter = filter.trim().toLowerCase();
@@ -3007,15 +3014,15 @@ class RequestarrSettings {
             item.className = 'language-item';
             item.textContent = lang.name;
             item.dataset.code = lang.code;
-            
+
             if (this.selectedLanguages.includes(lang.code)) {
                 item.classList.add('selected');
             }
-            
+
             item.addEventListener('click', () => {
                 const code = item.dataset.code;
                 const index = this.selectedLanguages.indexOf(code);
-                
+
                 if (index > -1) {
                     this.selectedLanguages.splice(index, 1);
                     item.classList.remove('selected');
@@ -3023,26 +3030,26 @@ class RequestarrSettings {
                     this.selectedLanguages.push(code);
                     item.classList.add('selected');
                 }
-                
+
                 this.renderLanguageTags();
-                
+
                 // Close dropdown after selection
                 const dropdown = document.getElementById('language-dropdown');
                 if (dropdown) {
                     dropdown.style.display = 'none';
                 }
             });
-            
+
             languageList.appendChild(item);
         });
     }
-    
+
     renderLanguageTags() {
         const tagsContainer = document.getElementById('language-tags');
         if (!tagsContainer) return;
-        
+
         tagsContainer.innerHTML = '';
-        
+
         if (this.selectedLanguages.length === 0) {
             // Show "All Languages" as a tag/bubble instead of plain text
             const tag = document.createElement('div');
@@ -3052,18 +3059,18 @@ class RequestarrSettings {
             tagsContainer.appendChild(tag);
             return;
         }
-        
+
         this.selectedLanguages.forEach(code => {
             const lang = this.languages.find(l => l.code === code);
             if (!lang) return;
-            
+
             const tag = document.createElement('div');
             tag.className = 'language-tag';
             tag.innerHTML = `
                 ${lang.name}
                 <span class="language-tag-remove" data-code="${code}">×</span>
             `;
-            
+
             tag.querySelector('.language-tag-remove').addEventListener('click', (e) => {
                 e.stopPropagation();
                 const removeCode = e.target.dataset.code;
@@ -3071,7 +3078,7 @@ class RequestarrSettings {
                 this.renderLanguageTags();
                 this.renderLanguageList();
             });
-            
+
             tagsContainer.appendChild(tag);
         });
     }
@@ -3183,15 +3190,15 @@ class RequestarrSettings {
         this.renderProviderList();
         this.loadProviders(this.selectedRegion);
     }
-    
+
     async saveDiscoverFilters(silent = false) {
         const saveBtn = document.getElementById('save-discover-filters');
-        
+
         if (saveBtn) {
             saveBtn.disabled = true;
             saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
         }
-        
+
         try {
             const response = await fetch('./api/requestarr/settings/filters', {
                 method: 'POST',
@@ -3202,14 +3209,14 @@ class RequestarrSettings {
                     providers: this.selectedProviders || []
                 })
             });
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
                 if (!silent) {
                     this.core.showNotification('Filters saved! Reloading discover content...', 'success');
                 }
-                
+
                 // Reload all discover content with new filters
                 setTimeout(() => {
                     this.core.content.loadDiscoverContent();
@@ -3415,13 +3422,13 @@ class RequestarrContent {
         this.tvRequestToken = 0;
         this.activeMovieInstance = null;
         this.activeTVInstance = null;
-        
+
         // Instance tracking - unified across all Requestarr pages via server-side DB.
         // Loaded once via _loadServerDefaults(), saved via _saveServerDefaults().
         this.selectedMovieInstance = null;
         this.selectedTVInstance = null;
         this._serverDefaultsLoaded = false;
-        
+
         // Smart Hunt grid state
         this.smarthuntPage = 0;
         this.smarthuntHasMore = true;
@@ -3464,18 +3471,18 @@ class RequestarrContent {
      * added/removed instances appear without a full page reload.
      */
     async refreshInstanceSelectors() {
-            this._serverDefaultsLoaded = false;
-            this._movieInstancesPopulated = false;
-            this._tvInstancesPopulated = false;
-            this._bundleDropdownCache = null;
-            await this._loadServerDefaults();
-            await Promise.all([
-                this._populateDiscoverMovieInstances(),
-                this._populateDiscoverTVInstances()
-            ]);
-            await this.loadMovieInstances();
-            await this.loadTVInstances();
-        }
+        this._serverDefaultsLoaded = false;
+        this._movieInstancesPopulated = false;
+        this._tvInstancesPopulated = false;
+        this._bundleDropdownCache = null;
+        await this._loadServerDefaults();
+        await Promise.all([
+            this._populateDiscoverMovieInstances(),
+            this._populateDiscoverTVInstances()
+        ]);
+        await this.loadMovieInstances();
+        await this.loadTVInstances();
+    }
 
     // ----------------------------------------
     // SERVER-SIDE INSTANCE PERSISTENCE
@@ -3805,71 +3812,71 @@ class RequestarrContent {
     }
 
     async loadTVInstances() {
-            const select = document.getElementById('tv-instance-select');
-            if (!select) return;
+        const select = document.getElementById('tv-instance-select');
+        if (!select) return;
 
-            if (this._tvInstancesPopulated) {
-                this._syncAllTVSelectors();
-                return;
-            }
-
-            if (this._loadingTVInstances) return;
-            this._loadingTVInstances = true;
-
-            select.innerHTML = '<option value="">Loading instances...</option>';
-
-            try {
-                const dd = await this._fetchBundleDropdownOptions();
-                const savedValue = this.selectedTVInstance;
-                const matched = this._populateSelectFromOptions(select, dd.tv_options, savedValue);
-
-                if (matched) {
-                    this._setTVInstance(matched);
-                } else {
-                    this.selectedTVInstance = null;
-                }
-
-                // Setup change handler (remove old listener via clone)
-                const newSelect = select.cloneNode(true);
-                if (select.parentNode) {
-                    select.parentNode.replaceChild(newSelect, select);
-                } else {
-                    const currentSelect = document.getElementById('tv-instance-select');
-                    if (currentSelect && currentSelect.parentNode) {
-                        currentSelect.parentNode.replaceChild(newSelect, currentSelect);
-                    }
-                }
-
-                newSelect.addEventListener('change', async () => {
-                    await this._setTVInstance(newSelect.value);
-
-                    const grid = document.getElementById('tv-grid');
-                    if (grid) {
-                        grid.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading TV shows...</p></div>';
-                    }
-
-                    if (this.tvObserver) {
-                        this.tvObserver.disconnect();
-                        this.tvObserver = null;
-                    }
-
-                    this.tvPage = 1;
-                    this.tvHasMore = true;
-                    this.isLoadingTV = false;
-                    this.tvRequestToken++;
-
-                    await new Promise(resolve => setTimeout(resolve, 50));
-                    await this.loadTV();
-                    this.setupTVInfiniteScroll();
-                });
-                this._tvInstancesPopulated = true;
-            } catch (error) {
-                console.error('[RequestarrContent] Error loading TV instances:', error);
-                select.innerHTML = '<option value="">Error loading instances</option>';
-            } finally {
-                this._loadingTVInstances = false;
-            }
+        if (this._tvInstancesPopulated) {
+            this._syncAllTVSelectors();
+            return;
         }
+
+        if (this._loadingTVInstances) return;
+        this._loadingTVInstances = true;
+
+        select.innerHTML = '<option value="">Loading instances...</option>';
+
+        try {
+            const dd = await this._fetchBundleDropdownOptions();
+            const savedValue = this.selectedTVInstance;
+            const matched = this._populateSelectFromOptions(select, dd.tv_options, savedValue);
+
+            if (matched) {
+                this._setTVInstance(matched);
+            } else {
+                this.selectedTVInstance = null;
+            }
+
+            // Setup change handler (remove old listener via clone)
+            const newSelect = select.cloneNode(true);
+            if (select.parentNode) {
+                select.parentNode.replaceChild(newSelect, select);
+            } else {
+                const currentSelect = document.getElementById('tv-instance-select');
+                if (currentSelect && currentSelect.parentNode) {
+                    currentSelect.parentNode.replaceChild(newSelect, currentSelect);
+                }
+            }
+
+            newSelect.addEventListener('change', async () => {
+                await this._setTVInstance(newSelect.value);
+
+                const grid = document.getElementById('tv-grid');
+                if (grid) {
+                    grid.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading TV shows...</p></div>';
+                }
+
+                if (this.tvObserver) {
+                    this.tvObserver.disconnect();
+                    this.tvObserver = null;
+                }
+
+                this.tvPage = 1;
+                this.tvHasMore = true;
+                this.isLoadingTV = false;
+                this.tvRequestToken++;
+
+                await new Promise(resolve => setTimeout(resolve, 50));
+                await this.loadTV();
+                this.setupTVInfiniteScroll();
+            });
+            this._tvInstancesPopulated = true;
+        } catch (error) {
+            console.error('[RequestarrContent] Error loading TV instances:', error);
+            select.innerHTML = '<option value="">Error loading instances</option>';
+        } finally {
+            this._loadingTVInstances = false;
+        }
+    }
 
     // ========================================
     // CONTENT LOADING
@@ -3879,13 +3886,13 @@ class RequestarrContent {
         // Load server defaults + discover instance selectors
         await this._loadServerDefaults();
         await this.setupDiscoverInstances();
-        
+
         // Load hidden media IDs for filtering
         await this.loadHiddenMediaIds();
 
         // Initialize Smart Hunt carousel on the Discover page (check main settings toggle)
         this._initDiscoverSmartHunt();
-        
+
         await Promise.all([
             this.loadTrending(),
             this.loadPopularMovies(),
@@ -3923,7 +3930,7 @@ class RequestarrContent {
             const hiddenItems = Array.isArray(data.hidden_media)
                 ? data.hidden_media
                 : (Array.isArray(data.items) ? data.items : []);
-            
+
             // Store hidden media as a Set of "tmdb_id:media_type" for fast cross-instance lookup
             this.hiddenMediaSet = new Set();
             hiddenItems.forEach(item => {
@@ -3967,11 +3974,11 @@ class RequestarrContent {
             try {
                 var mf = JSON.parse(localStorage.getItem('huntarr_movie_filters') || '{}');
                 hideAvailMovie = !!mf.hideAvailable;
-            } catch(e) {}
+            } catch (e) { }
             try {
                 var tf = JSON.parse(localStorage.getItem('huntarr_tv_filters') || '{}');
                 hideAvailTV = !!tf.hideAvailable;
-            } catch(e) {}
+            } catch (e) { }
             results.forEach(item => {
                 // Hide library items if user has the filter enabled for this media type
                 if (item.media_type === 'movie' && hideAvailMovie && (item.in_library || item.partial)) return;
@@ -4246,7 +4253,7 @@ class RequestarrContent {
 
     async loadMovies(page = 1) {
         const grid = document.getElementById('movies-grid');
-        
+
         if (!grid) {
             return;
         }
@@ -4264,16 +4271,16 @@ class RequestarrContent {
         if (this.moviesPage === 1) {
             grid.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading movies...</p></div>';
         }
-        
+
         try {
             let url = `./api/requestarr/discover/movies?page=${this.moviesPage}&_=${Date.now()}`;
-            
+
             // Add instance info for library status checking (decode compound value)
             if (this.selectedMovieInstance) {
                 const decoded = decodeInstanceValue(this.selectedMovieInstance);
                 url += `&app_type=${decoded.appType}&instance_name=${encodeURIComponent(decoded.name)}`;
             }
-            
+
             // Add filter parameters
             if (this.core.filters) {
                 const filterParams = this.core.filters.getFilterParams();
@@ -4281,13 +4288,13 @@ class RequestarrContent {
                     url += `&${filterParams}`;
                 }
             }
-            
+
             const response = await fetch(url, { cache: 'no-store' });
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             const data = await response.json();
 
             // Always clear the grid first to remove loading spinner (even for stale requests)
@@ -4300,7 +4307,7 @@ class RequestarrContent {
                 console.log('[RequestarrContent] Cancelled stale movies request, but spinner already cleared');
                 return;
             }
-            
+
             if (data.results && data.results.length > 0) {
                 data.results.forEach((item) => {
                     // Filter out hidden media (decode compound value for correct app_type)
@@ -4350,7 +4357,7 @@ class RequestarrContent {
             }
         }
     }
-    
+
     loadMoreMovies() {
         if (this.moviesHasMore && !this.isLoadingMovies) {
             this.moviesPage++;
@@ -4360,7 +4367,7 @@ class RequestarrContent {
 
     async loadTV(page = 1) {
         const grid = document.getElementById('tv-grid');
-        
+
         if (!grid) {
             return;
         }
@@ -4378,16 +4385,16 @@ class RequestarrContent {
         if (this.tvPage === 1) {
             grid.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading TV shows...</p></div>';
         }
-        
+
         try {
             let url = `./api/requestarr/discover/tv?page=${this.tvPage}&_=${Date.now()}`;
-            
+
             // Add instance info for library status checking
             if (this.selectedTVInstance) {
                 const decoded = decodeInstanceValue(this.selectedTVInstance, 'sonarr');
                 url += `&app_type=${encodeURIComponent(decoded.appType || 'sonarr')}&instance_name=${encodeURIComponent(decoded.name || '')}`;
             }
-            
+
             // Add filter parameters
             if (this.core.tvFilters) {
                 const filterParams = this.core.tvFilters.getFilterParams();
@@ -4395,13 +4402,13 @@ class RequestarrContent {
                     url += `&${filterParams}`;
                 }
             }
-            
+
             const response = await fetch(url, { cache: 'no-store' });
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             const data = await response.json();
 
             // Always clear the grid first to remove loading spinner (even for stale requests)
@@ -4414,7 +4421,7 @@ class RequestarrContent {
                 console.log('[RequestarrContent] Cancelled stale TV request, but spinner already cleared');
                 return;
             }
-            
+
             if (data.results && data.results.length > 0) {
                 const tvDecoded = this.selectedTVInstance ? decodeInstanceValue(this.selectedTVInstance, 'sonarr') : null;
                 data.results.forEach((item) => {
@@ -4462,7 +4469,7 @@ class RequestarrContent {
             }
         }
     }
-    
+
     setupTVInfiniteScroll() {
         const sentinel = document.getElementById('tv-scroll-sentinel');
         if (!sentinel || this.tvObserver) {
@@ -4486,7 +4493,7 @@ class RequestarrContent {
 
         this.tvObserver.observe(sentinel);
     }
-    
+
     loadMoreTV() {
         if (this.tvHasMore && !this.isLoadingTV) {
             this.tvPage++;
@@ -4877,21 +4884,21 @@ class RequestarrContent {
     createMediaCard(item, suggestedInstance = null) {
         const card = document.createElement('div');
         card.className = 'media-card';
-        
+
         // Store tmdb_id and media_type as data attributes for easy updates
         card.setAttribute('data-tmdb-id', item.tmdb_id);
         card.setAttribute('data-media-type', item.media_type);
         // Store full item data for hide functionality
         card.itemData = item;
-        
+
         // Store suggested instance for modal
         card.suggestedInstance = suggestedInstance;
-        
+
         const posterUrl = item.poster_path || './static/images/blackout.jpg';
         const year = item.year || 'N/A';
         const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
         const overview = item.overview || 'No description available.';
-        
+
         const inLibrary = item.in_library || false;
         const partial = item.partial || false;
         const importable = item.importable || false;
@@ -4900,27 +4907,27 @@ class RequestarrContent {
             ? ((this.core.instances.radarr || []).length > 0 || (this.core.instances.movie_hunt || []).length > 0)
             : ((this.core.instances.sonarr || []).length > 0 || (this.core.instances.tv_hunt || []).length > 0);
         const metaClassName = hasInstance ? 'media-card-meta' : 'media-card-meta no-hide';
-        
+
         // Determine status badge (shared utility)
         const statusBadgeHTML = window.MediaUtils ? window.MediaUtils.getStatusBadge(inLibrary, partial, hasInstance, importable, pending) : '';
-        
+
         if (inLibrary || partial) {
             card.classList.add('in-library');
         }
-        
+
         // Only show Request button when not in library or collection
         const showRequestBtn = !inLibrary && !partial;
         const overlayActionHTML = showRequestBtn
             ? '<button class="media-card-request-btn"><i class="fas fa-download"></i> Request</button>'
             : '';
-        
+
         const typeBadgeLabel = item.media_type === 'tv' ? 'TV' : 'Movie';
         const typeBadgeHTML = `<span class="media-type-badge">${typeBadgeLabel}</span>`;
 
         // Check if globally blacklisted
         const isBlacklisted = this.isGloballyBlacklisted(item.tmdb_id, item.media_type);
         const blacklistBadgeHTML = isBlacklisted ? '<span class="media-blacklist-badge"><i class="fas fa-ban"></i> Blacklisted</span>' : '';
-        const blacklistOverlayHTML = isBlacklisted ? '<div class="media-card-blacklist-overlay"><i class="fas fa-ban"></i> Globally Blacklisted</div>' : '';
+        const blacklistOverlayHTML = isBlacklisted ? '<div class="media-card-blacklist-overlay"><i class="fas fa-globe"></i> Blacklisted</div>' : '';
 
         card.innerHTML = `
             <div class="media-card-poster">
@@ -4949,7 +4956,7 @@ class RequestarrContent {
                 </div>
             </div>
         `;
-        
+
         // Load and cache image asynchronously after card is created
         if (posterUrl && !posterUrl.includes('./static/images/') && window.getCachedTMDBImage && window.tmdbImageCache) {
             const imgElement = card.querySelector('.media-card-poster img');
@@ -4963,11 +4970,11 @@ class RequestarrContent {
                 });
             }
         }
-        
+
         const requestBtn = card.querySelector('.media-card-request-btn');
         const hideBtn = card.querySelector('.media-card-hide-btn');
         const deleteBtn = card.querySelector('.media-card-delete-btn');
-        
+
         // Click anywhere on card opens detail page (poster/body); Request button opens modal
         card.style.cursor = 'pointer';
         card.addEventListener('click', (e) => {
@@ -4992,7 +4999,7 @@ class RequestarrContent {
                 this.hideMedia(item.tmdb_id, item.media_type, item.title, card);
                 return;
             }
-            
+
             // Check live card state — badge may have been updated by _syncCardBadge
             // after initial render (e.g. modal detected show exists in collection)
             const liveInLibrary = card.classList.contains('in-library');
@@ -5027,7 +5034,7 @@ class RequestarrContent {
                 }
             }
         });
-        
+
         return card;
     }
 
@@ -5066,7 +5073,7 @@ class RequestarrContent {
             status: status,
             hasFile: inLibrary,
             appType: appType,
-            onDeleted: function() {
+            onDeleted: function () {
                 window.MediaUtils.animateCardRemoval(cardElement);
             }
         });
@@ -7644,7 +7651,6 @@ window.RequestarrUsers = {
         manage_users: 'Manage Users',
         view_requests: 'View All Requests',
         hide_media_global: 'Hide Media (Global)',
-        disable_chat: 'Disable Chat',
     },
 
     async init() {
@@ -7748,8 +7754,6 @@ window.RequestarrUsers = {
         const permsHtml = Object.entries(this.permissionLabels).map(([key, label]) => {
             const checked = perms[key] ? 'checked' : '';
             const disabled = isOwner ? 'disabled' : '';
-            // Hide disable_chat for owner — owner can never be chat-disabled
-            if (key === 'disable_chat' && isOwner) return '';
             return `<label class="requsers-perm-item">
                 <input type="checkbox" name="perm_${key}" ${checked} ${disabled}>
                 <span>${label}</span>
@@ -7819,7 +7823,7 @@ window.RequestarrUsers = {
                 input.type = 'text';
                 input.value = data.password;
                 // Copy to clipboard
-                try { await navigator.clipboard.writeText(data.password); } catch (_) {}
+                try { await navigator.clipboard.writeText(data.password); } catch (_) { }
                 if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('Password generated and copied to clipboard', 'success');
             }
         } catch (e) {
@@ -7840,7 +7844,7 @@ window.RequestarrUsers = {
                 const key = cb.name.replace('perm_', '');
                 cb.checked = !!perms[key];
             });
-        } catch (_) {}
+        } catch (_) { }
     },
 
     async saveUser(userId) {
@@ -8127,73 +8131,73 @@ window.RequestarrUsers = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user_mode: true, popup_mode: true })
         })
-        .then(r => r.json())
-        .then(data => {
-            if (!data.success) {
-                statusEl.className = 'plex-status error';
-                statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + (data.error || 'Failed to create PIN');
-                return;
-            }
-            pinId = data.pin_id;
-            statusEl.innerHTML = '<i class="fas fa-external-link-alt"></i> A Plex window has opened. Please sign in there.';
-
-            // Open popup
-            const w = 600, h = 700;
-            const left = Math.max(0, Math.round(window.screenX + (window.outerWidth - w) / 2));
-            const top = Math.max(0, Math.round(window.screenY + (window.outerHeight - h) / 2));
-            plexPopup = window.open(data.auth_url, 'PlexAuth', `width=${w},height=${h},left=${left},top=${top},toolbar=no,menubar=no,scrollbars=yes`);
-
-            // Poll for claim
-            pollInterval = setInterval(() => {
-                fetch(`./api/auth/plex/check/${pinId}`)
-                    .then(r => r.json())
-                    .then(d => {
-                        if (d.success && d.claimed) {
-                            clearInterval(pollInterval); pollInterval = null;
-                            if (plexPopup && !plexPopup.closed) plexPopup.close();
-                            statusEl.className = 'plex-status success';
-                            statusEl.innerHTML = '<i class="fas fa-check"></i> Plex authenticated! Linking account...';
-                            // Link the account
-                            fetch('./api/auth/plex/link', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                credentials: 'include',
-                                body: JSON.stringify({ token: d.token, setup_mode: true })
-                            })
-                            .then(r => r.json())
-                            .then(linkResult => {
-                                if (linkResult.success) {
-                                    statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Plex linked! Loading friends...';
-                                    setTimeout(() => {
-                                        cleanup();
-                                        this.openPlexImportModal();
-                                    }, 1000);
-                                } else {
-                                    statusEl.className = 'plex-status error';
-                                    statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + (linkResult.error || 'Linking failed');
-                                }
-                            })
-                            .catch(() => {
-                                statusEl.className = 'plex-status error';
-                                statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Network error linking account';
-                            });
-                        }
-                    })
-                    .catch(() => {});
-            }, 2000);
-
-            // 10 min timeout
-            setTimeout(() => {
-                if (pollInterval) {
-                    cleanup();
-                    if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('Plex authentication timed out', 'error');
+            .then(r => r.json())
+            .then(data => {
+                if (!data.success) {
+                    statusEl.className = 'plex-status error';
+                    statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + (data.error || 'Failed to create PIN');
+                    return;
                 }
-            }, 600000);
-        })
-        .catch(() => {
-            statusEl.className = 'plex-status error';
-            statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Network error creating PIN';
-        });
+                pinId = data.pin_id;
+                statusEl.innerHTML = '<i class="fas fa-external-link-alt"></i> A Plex window has opened. Please sign in there.';
+
+                // Open popup
+                const w = 600, h = 700;
+                const left = Math.max(0, Math.round(window.screenX + (window.outerWidth - w) / 2));
+                const top = Math.max(0, Math.round(window.screenY + (window.outerHeight - h) / 2));
+                plexPopup = window.open(data.auth_url, 'PlexAuth', `width=${w},height=${h},left=${left},top=${top},toolbar=no,menubar=no,scrollbars=yes`);
+
+                // Poll for claim
+                pollInterval = setInterval(() => {
+                    fetch(`./api/auth/plex/check/${pinId}`)
+                        .then(r => r.json())
+                        .then(d => {
+                            if (d.success && d.claimed) {
+                                clearInterval(pollInterval); pollInterval = null;
+                                if (plexPopup && !plexPopup.closed) plexPopup.close();
+                                statusEl.className = 'plex-status success';
+                                statusEl.innerHTML = '<i class="fas fa-check"></i> Plex authenticated! Linking account...';
+                                // Link the account
+                                fetch('./api/auth/plex/link', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    credentials: 'include',
+                                    body: JSON.stringify({ token: d.token, setup_mode: true })
+                                })
+                                    .then(r => r.json())
+                                    .then(linkResult => {
+                                        if (linkResult.success) {
+                                            statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Plex linked! Loading friends...';
+                                            setTimeout(() => {
+                                                cleanup();
+                                                this.openPlexImportModal();
+                                            }, 1000);
+                                        } else {
+                                            statusEl.className = 'plex-status error';
+                                            statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + (linkResult.error || 'Linking failed');
+                                        }
+                                    })
+                                    .catch(() => {
+                                        statusEl.className = 'plex-status error';
+                                        statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Network error linking account';
+                                    });
+                            }
+                        })
+                        .catch(() => { });
+                }, 2000);
+
+                // 10 min timeout
+                setTimeout(() => {
+                    if (pollInterval) {
+                        cleanup();
+                        if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('Plex authentication timed out', 'error');
+                    }
+                }, 600000);
+            })
+            .catch(() => {
+                statusEl.className = 'plex-status error';
+                statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Network error creating PIN';
+            });
     },
 };
 

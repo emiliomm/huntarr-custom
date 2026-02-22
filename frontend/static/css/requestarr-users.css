@@ -55,6 +55,7 @@
     background: var(--button-primary-bg);
     color: var(--button-primary-text);
 }
+
 .requsers-btn-primary:hover {
     background: var(--button-primary-hover);
 }
@@ -63,6 +64,7 @@
     background: #e5a00d;
     color: #000;
 }
+
 .requsers-btn-plex:hover {
     background: #f0b429;
 }
@@ -71,6 +73,7 @@
     background: var(--button-danger-bg);
     color: #fff;
 }
+
 .requsers-btn-danger:hover {
     background: var(--button-danger-hover);
 }
@@ -256,6 +259,7 @@
     cursor: pointer;
     padding: 4px;
 }
+
 .requsers-modal-close:hover {
     color: var(--text-primary);
 }
@@ -494,9 +498,11 @@
         flex-direction: column;
         align-items: flex-start;
     }
+
     .requsers-perms-grid {
         grid-template-columns: 1fr;
     }
+
     .requsers-table th:nth-child(2),
     .requsers-table td:nth-child(2) {
         display: none;
@@ -656,10 +662,12 @@
     color: var(--text-dim, #9ca3af);
     margin-top: 4px;
 }
+
 .reqrequests-also i {
     margin-right: 4px;
     opacity: 0.7;
 }
+
 .reqrequests-demand {
     display: inline-block;
     background: rgba(245, 158, 11, 0.15);
@@ -705,6 +713,7 @@
     color: #22c55e;
     border-color: rgba(34, 197, 94, 0.3);
 }
+
 .reqrequests-action-approve:hover:not(:disabled) {
     background: rgba(34, 197, 94, 0.25);
 }
@@ -714,6 +723,7 @@
     color: #ef4444;
     border-color: rgba(239, 68, 68, 0.3);
 }
+
 .reqrequests-action-deny:hover:not(:disabled) {
     background: rgba(239, 68, 68, 0.25);
 }
@@ -723,6 +733,7 @@
     color: #eab308;
     border-color: rgba(234, 179, 8, 0.25);
 }
+
 .reqrequests-action-blacklist:hover:not(:disabled) {
     background: rgba(234, 179, 8, 0.22);
 }
@@ -732,6 +743,7 @@
     color: #94a3b8;
     border-color: rgba(148, 163, 184, 0.3);
 }
+
 .reqrequests-action-withdraw:hover:not(:disabled) {
     background: rgba(148, 163, 184, 0.25);
 }
@@ -741,12 +753,14 @@
     .reqrequests-card {
         flex-wrap: wrap;
     }
+
     .reqrequests-right {
         flex-direction: row;
         width: 100%;
         justify-content: space-between;
         align-items: center;
     }
+
     .reqrequests-filters {
         flex-wrap: wrap;
     }
@@ -794,6 +808,7 @@
     background: var(--bg-tertiary);
     color: var(--text-secondary);
 }
+
 .requsers-btn-secondary:hover {
     background: var(--bg-hover);
 }
@@ -911,6 +926,10 @@
     color: #fff;
     top: auto !important;
     bottom: 6px;
+    left: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
 /* ── Non-owner mode: hide elements outside the standalone sidebar ── */

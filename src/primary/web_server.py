@@ -328,9 +328,6 @@ app.register_blueprint(requestarr_bundles_bp)
 from src.primary.routes.user_notification_routes import user_notification_bp
 app.register_blueprint(user_notification_bp)
 
-# Chat
-from src.primary.routes.chat_routes import chat_bp
-app.register_blueprint(chat_bp)
 
 app.register_blueprint(stateful_api, url_prefix='/api/stateful')
 app.register_blueprint(history_blueprint, url_prefix='/api/hunt-manager')

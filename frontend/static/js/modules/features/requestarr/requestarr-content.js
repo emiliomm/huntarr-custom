@@ -18,13 +18,13 @@ export class RequestarrContent {
         this.tvRequestToken = 0;
         this.activeMovieInstance = null;
         this.activeTVInstance = null;
-        
+
         // Instance tracking - unified across all Requestarr pages via server-side DB.
         // Loaded once via _loadServerDefaults(), saved via _saveServerDefaults().
         this.selectedMovieInstance = null;
         this.selectedTVInstance = null;
         this._serverDefaultsLoaded = false;
-        
+
         // Smart Hunt grid state
         this.smarthuntPage = 0;
         this.smarthuntHasMore = true;
@@ -67,18 +67,18 @@ export class RequestarrContent {
      * added/removed instances appear without a full page reload.
      */
     async refreshInstanceSelectors() {
-            this._serverDefaultsLoaded = false;
-            this._movieInstancesPopulated = false;
-            this._tvInstancesPopulated = false;
-            this._bundleDropdownCache = null;
-            await this._loadServerDefaults();
-            await Promise.all([
-                this._populateDiscoverMovieInstances(),
-                this._populateDiscoverTVInstances()
-            ]);
-            await this.loadMovieInstances();
-            await this.loadTVInstances();
-        }
+        this._serverDefaultsLoaded = false;
+        this._movieInstancesPopulated = false;
+        this._tvInstancesPopulated = false;
+        this._bundleDropdownCache = null;
+        await this._loadServerDefaults();
+        await Promise.all([
+            this._populateDiscoverMovieInstances(),
+            this._populateDiscoverTVInstances()
+        ]);
+        await this.loadMovieInstances();
+        await this.loadTVInstances();
+    }
 
     // ----------------------------------------
     // SERVER-SIDE INSTANCE PERSISTENCE
@@ -408,71 +408,71 @@ export class RequestarrContent {
     }
 
     async loadTVInstances() {
-            const select = document.getElementById('tv-instance-select');
-            if (!select) return;
+        const select = document.getElementById('tv-instance-select');
+        if (!select) return;
 
-            if (this._tvInstancesPopulated) {
-                this._syncAllTVSelectors();
-                return;
-            }
-
-            if (this._loadingTVInstances) return;
-            this._loadingTVInstances = true;
-
-            select.innerHTML = '<option value="">Loading instances...</option>';
-
-            try {
-                const dd = await this._fetchBundleDropdownOptions();
-                const savedValue = this.selectedTVInstance;
-                const matched = this._populateSelectFromOptions(select, dd.tv_options, savedValue);
-
-                if (matched) {
-                    this._setTVInstance(matched);
-                } else {
-                    this.selectedTVInstance = null;
-                }
-
-                // Setup change handler (remove old listener via clone)
-                const newSelect = select.cloneNode(true);
-                if (select.parentNode) {
-                    select.parentNode.replaceChild(newSelect, select);
-                } else {
-                    const currentSelect = document.getElementById('tv-instance-select');
-                    if (currentSelect && currentSelect.parentNode) {
-                        currentSelect.parentNode.replaceChild(newSelect, currentSelect);
-                    }
-                }
-
-                newSelect.addEventListener('change', async () => {
-                    await this._setTVInstance(newSelect.value);
-
-                    const grid = document.getElementById('tv-grid');
-                    if (grid) {
-                        grid.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading TV shows...</p></div>';
-                    }
-
-                    if (this.tvObserver) {
-                        this.tvObserver.disconnect();
-                        this.tvObserver = null;
-                    }
-
-                    this.tvPage = 1;
-                    this.tvHasMore = true;
-                    this.isLoadingTV = false;
-                    this.tvRequestToken++;
-
-                    await new Promise(resolve => setTimeout(resolve, 50));
-                    await this.loadTV();
-                    this.setupTVInfiniteScroll();
-                });
-                this._tvInstancesPopulated = true;
-            } catch (error) {
-                console.error('[RequestarrContent] Error loading TV instances:', error);
-                select.innerHTML = '<option value="">Error loading instances</option>';
-            } finally {
-                this._loadingTVInstances = false;
-            }
+        if (this._tvInstancesPopulated) {
+            this._syncAllTVSelectors();
+            return;
         }
+
+        if (this._loadingTVInstances) return;
+        this._loadingTVInstances = true;
+
+        select.innerHTML = '<option value="">Loading instances...</option>';
+
+        try {
+            const dd = await this._fetchBundleDropdownOptions();
+            const savedValue = this.selectedTVInstance;
+            const matched = this._populateSelectFromOptions(select, dd.tv_options, savedValue);
+
+            if (matched) {
+                this._setTVInstance(matched);
+            } else {
+                this.selectedTVInstance = null;
+            }
+
+            // Setup change handler (remove old listener via clone)
+            const newSelect = select.cloneNode(true);
+            if (select.parentNode) {
+                select.parentNode.replaceChild(newSelect, select);
+            } else {
+                const currentSelect = document.getElementById('tv-instance-select');
+                if (currentSelect && currentSelect.parentNode) {
+                    currentSelect.parentNode.replaceChild(newSelect, currentSelect);
+                }
+            }
+
+            newSelect.addEventListener('change', async () => {
+                await this._setTVInstance(newSelect.value);
+
+                const grid = document.getElementById('tv-grid');
+                if (grid) {
+                    grid.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading TV shows...</p></div>';
+                }
+
+                if (this.tvObserver) {
+                    this.tvObserver.disconnect();
+                    this.tvObserver = null;
+                }
+
+                this.tvPage = 1;
+                this.tvHasMore = true;
+                this.isLoadingTV = false;
+                this.tvRequestToken++;
+
+                await new Promise(resolve => setTimeout(resolve, 50));
+                await this.loadTV();
+                this.setupTVInfiniteScroll();
+            });
+            this._tvInstancesPopulated = true;
+        } catch (error) {
+            console.error('[RequestarrContent] Error loading TV instances:', error);
+            select.innerHTML = '<option value="">Error loading instances</option>';
+        } finally {
+            this._loadingTVInstances = false;
+        }
+    }
 
     // ========================================
     // CONTENT LOADING
@@ -482,13 +482,13 @@ export class RequestarrContent {
         // Load server defaults + discover instance selectors
         await this._loadServerDefaults();
         await this.setupDiscoverInstances();
-        
+
         // Load hidden media IDs for filtering
         await this.loadHiddenMediaIds();
 
         // Initialize Smart Hunt carousel on the Discover page (check main settings toggle)
         this._initDiscoverSmartHunt();
-        
+
         await Promise.all([
             this.loadTrending(),
             this.loadPopularMovies(),
@@ -526,7 +526,7 @@ export class RequestarrContent {
             const hiddenItems = Array.isArray(data.hidden_media)
                 ? data.hidden_media
                 : (Array.isArray(data.items) ? data.items : []);
-            
+
             // Store hidden media as a Set of "tmdb_id:media_type" for fast cross-instance lookup
             this.hiddenMediaSet = new Set();
             hiddenItems.forEach(item => {
@@ -570,11 +570,11 @@ export class RequestarrContent {
             try {
                 var mf = JSON.parse(localStorage.getItem('huntarr_movie_filters') || '{}');
                 hideAvailMovie = !!mf.hideAvailable;
-            } catch(e) {}
+            } catch (e) { }
             try {
                 var tf = JSON.parse(localStorage.getItem('huntarr_tv_filters') || '{}');
                 hideAvailTV = !!tf.hideAvailable;
-            } catch(e) {}
+            } catch (e) { }
             results.forEach(item => {
                 // Hide library items if user has the filter enabled for this media type
                 if (item.media_type === 'movie' && hideAvailMovie && (item.in_library || item.partial)) return;
@@ -849,7 +849,7 @@ export class RequestarrContent {
 
     async loadMovies(page = 1) {
         const grid = document.getElementById('movies-grid');
-        
+
         if (!grid) {
             return;
         }
@@ -867,16 +867,16 @@ export class RequestarrContent {
         if (this.moviesPage === 1) {
             grid.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading movies...</p></div>';
         }
-        
+
         try {
             let url = `./api/requestarr/discover/movies?page=${this.moviesPage}&_=${Date.now()}`;
-            
+
             // Add instance info for library status checking (decode compound value)
             if (this.selectedMovieInstance) {
                 const decoded = decodeInstanceValue(this.selectedMovieInstance);
                 url += `&app_type=${decoded.appType}&instance_name=${encodeURIComponent(decoded.name)}`;
             }
-            
+
             // Add filter parameters
             if (this.core.filters) {
                 const filterParams = this.core.filters.getFilterParams();
@@ -884,13 +884,13 @@ export class RequestarrContent {
                     url += `&${filterParams}`;
                 }
             }
-            
+
             const response = await fetch(url, { cache: 'no-store' });
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             const data = await response.json();
 
             // Always clear the grid first to remove loading spinner (even for stale requests)
@@ -903,7 +903,7 @@ export class RequestarrContent {
                 console.log('[RequestarrContent] Cancelled stale movies request, but spinner already cleared');
                 return;
             }
-            
+
             if (data.results && data.results.length > 0) {
                 data.results.forEach((item) => {
                     // Filter out hidden media (decode compound value for correct app_type)
@@ -953,7 +953,7 @@ export class RequestarrContent {
             }
         }
     }
-    
+
     loadMoreMovies() {
         if (this.moviesHasMore && !this.isLoadingMovies) {
             this.moviesPage++;
@@ -963,7 +963,7 @@ export class RequestarrContent {
 
     async loadTV(page = 1) {
         const grid = document.getElementById('tv-grid');
-        
+
         if (!grid) {
             return;
         }
@@ -981,16 +981,16 @@ export class RequestarrContent {
         if (this.tvPage === 1) {
             grid.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading TV shows...</p></div>';
         }
-        
+
         try {
             let url = `./api/requestarr/discover/tv?page=${this.tvPage}&_=${Date.now()}`;
-            
+
             // Add instance info for library status checking
             if (this.selectedTVInstance) {
                 const decoded = decodeInstanceValue(this.selectedTVInstance, 'sonarr');
                 url += `&app_type=${encodeURIComponent(decoded.appType || 'sonarr')}&instance_name=${encodeURIComponent(decoded.name || '')}`;
             }
-            
+
             // Add filter parameters
             if (this.core.tvFilters) {
                 const filterParams = this.core.tvFilters.getFilterParams();
@@ -998,13 +998,13 @@ export class RequestarrContent {
                     url += `&${filterParams}`;
                 }
             }
-            
+
             const response = await fetch(url, { cache: 'no-store' });
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             const data = await response.json();
 
             // Always clear the grid first to remove loading spinner (even for stale requests)
@@ -1017,7 +1017,7 @@ export class RequestarrContent {
                 console.log('[RequestarrContent] Cancelled stale TV request, but spinner already cleared');
                 return;
             }
-            
+
             if (data.results && data.results.length > 0) {
                 const tvDecoded = this.selectedTVInstance ? decodeInstanceValue(this.selectedTVInstance, 'sonarr') : null;
                 data.results.forEach((item) => {
@@ -1065,7 +1065,7 @@ export class RequestarrContent {
             }
         }
     }
-    
+
     setupTVInfiniteScroll() {
         const sentinel = document.getElementById('tv-scroll-sentinel');
         if (!sentinel || this.tvObserver) {
@@ -1089,7 +1089,7 @@ export class RequestarrContent {
 
         this.tvObserver.observe(sentinel);
     }
-    
+
     loadMoreTV() {
         if (this.tvHasMore && !this.isLoadingTV) {
             this.tvPage++;
@@ -1480,21 +1480,21 @@ export class RequestarrContent {
     createMediaCard(item, suggestedInstance = null) {
         const card = document.createElement('div');
         card.className = 'media-card';
-        
+
         // Store tmdb_id and media_type as data attributes for easy updates
         card.setAttribute('data-tmdb-id', item.tmdb_id);
         card.setAttribute('data-media-type', item.media_type);
         // Store full item data for hide functionality
         card.itemData = item;
-        
+
         // Store suggested instance for modal
         card.suggestedInstance = suggestedInstance;
-        
+
         const posterUrl = item.poster_path || './static/images/blackout.jpg';
         const year = item.year || 'N/A';
         const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
         const overview = item.overview || 'No description available.';
-        
+
         const inLibrary = item.in_library || false;
         const partial = item.partial || false;
         const importable = item.importable || false;
@@ -1503,27 +1503,27 @@ export class RequestarrContent {
             ? ((this.core.instances.radarr || []).length > 0 || (this.core.instances.movie_hunt || []).length > 0)
             : ((this.core.instances.sonarr || []).length > 0 || (this.core.instances.tv_hunt || []).length > 0);
         const metaClassName = hasInstance ? 'media-card-meta' : 'media-card-meta no-hide';
-        
+
         // Determine status badge (shared utility)
         const statusBadgeHTML = window.MediaUtils ? window.MediaUtils.getStatusBadge(inLibrary, partial, hasInstance, importable, pending) : '';
-        
+
         if (inLibrary || partial) {
             card.classList.add('in-library');
         }
-        
+
         // Only show Request button when not in library or collection
         const showRequestBtn = !inLibrary && !partial;
         const overlayActionHTML = showRequestBtn
             ? '<button class="media-card-request-btn"><i class="fas fa-download"></i> Request</button>'
             : '';
-        
+
         const typeBadgeLabel = item.media_type === 'tv' ? 'TV' : 'Movie';
         const typeBadgeHTML = `<span class="media-type-badge">${typeBadgeLabel}</span>`;
 
         // Check if globally blacklisted
         const isBlacklisted = this.isGloballyBlacklisted(item.tmdb_id, item.media_type);
         const blacklistBadgeHTML = isBlacklisted ? '<span class="media-blacklist-badge"><i class="fas fa-ban"></i> Blacklisted</span>' : '';
-        const blacklistOverlayHTML = isBlacklisted ? '<div class="media-card-blacklist-overlay"><i class="fas fa-ban"></i> Globally Blacklisted</div>' : '';
+        const blacklistOverlayHTML = isBlacklisted ? '<div class="media-card-blacklist-overlay"><i class="fas fa-globe"></i> Blacklisted</div>' : '';
 
         card.innerHTML = `
             <div class="media-card-poster">
@@ -1552,7 +1552,7 @@ export class RequestarrContent {
                 </div>
             </div>
         `;
-        
+
         // Load and cache image asynchronously after card is created
         if (posterUrl && !posterUrl.includes('./static/images/') && window.getCachedTMDBImage && window.tmdbImageCache) {
             const imgElement = card.querySelector('.media-card-poster img');
@@ -1566,11 +1566,11 @@ export class RequestarrContent {
                 });
             }
         }
-        
+
         const requestBtn = card.querySelector('.media-card-request-btn');
         const hideBtn = card.querySelector('.media-card-hide-btn');
         const deleteBtn = card.querySelector('.media-card-delete-btn');
-        
+
         // Click anywhere on card opens detail page (poster/body); Request button opens modal
         card.style.cursor = 'pointer';
         card.addEventListener('click', (e) => {
@@ -1595,7 +1595,7 @@ export class RequestarrContent {
                 this.hideMedia(item.tmdb_id, item.media_type, item.title, card);
                 return;
             }
-            
+
             // Check live card state — badge may have been updated by _syncCardBadge
             // after initial render (e.g. modal detected show exists in collection)
             const liveInLibrary = card.classList.contains('in-library');
@@ -1630,7 +1630,7 @@ export class RequestarrContent {
                 }
             }
         });
-        
+
         return card;
     }
 
@@ -1669,7 +1669,7 @@ export class RequestarrContent {
             status: status,
             hasFile: inLibrary,
             appType: appType,
-            onDeleted: function() {
+            onDeleted: function () {
                 window.MediaUtils.animateCardRemoval(cardElement);
             }
         });
