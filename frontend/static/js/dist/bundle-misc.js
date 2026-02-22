@@ -1658,6 +1658,8 @@
                     </div>
                 </div>
                 <div class="mh-detail-body">
+                    ${seasonsHTML}
+
                     <!-- Series Details -->
                     <div class="mh-section">
                         <h2 class="mh-section-title"><i class="fas fa-info-circle"></i> Series Details</h2>
@@ -1702,8 +1704,6 @@
                         </div>
                     </div>
                     ` : ''}
-
-                    ${seasonsHTML}
 
                     ${similarShows.length > 0 ? `
                     <!-- Similar Shows -->
