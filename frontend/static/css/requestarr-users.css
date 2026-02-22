@@ -20,7 +20,8 @@
 .requsers-toolbar-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .requsers-toolbar-right {
@@ -28,6 +29,71 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+}
+
+/* ── Checkbox Cells ──────────────────────────────────────────── */
+
+.requsers-checkbox-cell {
+    width: 36px;
+    text-align: center;
+    padding-left: 12px !important;
+    padding-right: 4px !important;
+}
+
+.requsers-checkbox-cell input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent-color, #6366f1);
+    cursor: pointer;
+}
+
+.requsers-row-cb {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent-color, #6366f1);
+    cursor: pointer;
+}
+
+/* ── Bulk Edit Button ────────────────────────────────────────── */
+
+.requsers-btn-bulk {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.requsers-btn-bulk:hover {
+    background: rgba(245, 158, 11, 0.25);
+}
+
+/* ── Bulk Edit Permission Dropdowns ──────────────────────── */
+
+.requsers-bulk-perm-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.requsers-bulk-perm-select {
+    width: 100%;
+    padding: 6px 8px;
+    background: var(--input-bg, rgba(15, 23, 42, 0.6));
+    border: 1px solid var(--input-border, rgba(71, 85, 105, 0.4));
+    border-radius: var(--input-radius, 6px);
+    color: var(--input-text, #e2e8f0);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+
+.requsers-bulk-perm-select:focus {
+    outline: none;
+    border-color: var(--input-focus-border, rgba(99, 102, 241, 0.5));
+}
+
+.requsers-bulk-perm-select option {
+    background: #0f172a;
+    color: #e2e8f0;
 }
 
 .requsers-title {

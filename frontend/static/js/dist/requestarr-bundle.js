@@ -7672,9 +7672,13 @@ window.RequestarrUsers = {
         }
     },
 
+    selectedUserIds: new Set(),
+
     render() {
         const container = document.getElementById('requsers-content');
         if (!container) return;
+
+        const nonOwnerUsers = this.users.filter(u => u.role !== 'owner');
 
         const rows = this.users.map(u => {
             const initials = (u.username || '?').substring(0, 2).toUpperCase();
@@ -7684,8 +7688,12 @@ window.RequestarrUsers = {
             const roleClass = `requsers-role-${u.role || 'user'}`;
             const joined = u.created_at ? new Date(u.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '—';
             const isOwner = u.role === 'owner';
+            const isChecked = this.selectedUserIds.has(u.id) ? 'checked' : '';
 
             return `<tr data-user-id="${u.id}">
+                <td class="requsers-checkbox-cell">
+                    ${!isOwner ? `<input type="checkbox" class="requsers-row-cb" data-user-id="${u.id}" ${isChecked} onchange="RequestarrUsers.onRowCheckChange()">` : ''}
+                </td>
                 <td>
                     <div class="requsers-user-cell">
                         <div class="requsers-avatar">${avatarHtml}</div>
@@ -7707,11 +7715,17 @@ window.RequestarrUsers = {
             </tr>`;
         }).join('');
 
+        const allChecked = nonOwnerUsers.length > 0 && nonOwnerUsers.every(u => this.selectedUserIds.has(u.id));
+        const someChecked = nonOwnerUsers.some(u => this.selectedUserIds.has(u.id));
+
         container.innerHTML = `
             <div class="requsers-table-wrap">
                 <table class="requsers-table">
                     <thead>
                         <tr>
+                            <th class="requsers-checkbox-cell">
+                                <input type="checkbox" id="requsers-select-all-cb" ${allChecked ? 'checked' : ''} onchange="RequestarrUsers.onSelectAllChange(this.checked)">
+                            </th>
                             <th>User</th>
                             <th>Requests</th>
                             <th>Role</th>
@@ -7719,13 +7733,172 @@ window.RequestarrUsers = {
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>${rows || '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-muted);">No users found</td></tr>'}</tbody>
+                    <tbody>${rows || '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted);">No users found</td></tr>'}</tbody>
                 </table>
                 <div class="requsers-pagination">
                     <span>Showing ${this.users.length} user${this.users.length !== 1 ? 's' : ''}</span>
                 </div>
             </div>`;
+
+        // Update select-all indeterminate state
+        const selectAllCb = document.getElementById('requsers-select-all-cb');
+        if (selectAllCb) {
+            selectAllCb.indeterminate = someChecked && !allChecked;
+        }
+
+        // Show/hide bulk edit button
+        this._updateBulkEditButton();
     },
+
+    onRowCheckChange() {
+        // Sync selectedUserIds from DOM checkboxes
+        this.selectedUserIds.clear();
+        document.querySelectorAll('.requsers-row-cb:checked').forEach(cb => {
+            this.selectedUserIds.add(parseInt(cb.dataset.userId));
+        });
+        // Update select-all checkbox state
+        const nonOwnerUsers = this.users.filter(u => u.role !== 'owner');
+        const allChecked = nonOwnerUsers.length > 0 && nonOwnerUsers.every(u => this.selectedUserIds.has(u.id));
+        const someChecked = nonOwnerUsers.some(u => this.selectedUserIds.has(u.id));
+        const selectAllCb = document.getElementById('requsers-select-all-cb');
+        if (selectAllCb) {
+            selectAllCb.checked = allChecked;
+            selectAllCb.indeterminate = someChecked && !allChecked;
+        }
+        this._updateBulkEditButton();
+    },
+
+    onSelectAllChange(checked) {
+        const nonOwnerUsers = this.users.filter(u => u.role !== 'owner');
+        this.selectedUserIds.clear();
+        if (checked) {
+            nonOwnerUsers.forEach(u => this.selectedUserIds.add(u.id));
+        }
+        document.querySelectorAll('.requsers-row-cb').forEach(cb => {
+            cb.checked = checked;
+        });
+        this._updateBulkEditButton();
+    },
+
+    _updateBulkEditButton() {
+        const btn = document.getElementById('requsers-bulk-edit-btn');
+        if (!btn) return;
+        if (this.selectedUserIds.size > 0) {
+            btn.style.display = 'inline-flex';
+            btn.innerHTML = `<i class="fas fa-pen"></i> Bulk Edit (${this.selectedUserIds.size})`;
+        } else {
+            btn.style.display = 'none';
+        }
+    },
+
+    openBulkEditModal() {
+        if (this.selectedUserIds.size === 0) return;
+
+        const selectedNames = this.users
+            .filter(u => this.selectedUserIds.has(u.id))
+            .map(u => u.username);
+
+        const permsHtml = Object.entries(this.permissionLabels).map(([key, label]) => {
+            return `<label class="requsers-perm-item requsers-bulk-perm-item">
+                <select name="bulk_perm_${key}" class="requsers-bulk-perm-select">
+                    <option value="unchanged" selected>— No Change —</option>
+                    <option value="true">Enable</option>
+                    <option value="false">Disable</option>
+                </select>
+                <span>${label}</span>
+            </label>`;
+        }).join('');
+
+        const html = `<div class="requsers-modal-overlay" id="requsers-modal-overlay" onclick="if(event.target===this)RequestarrUsers.closeModal()">
+            <div class="requsers-modal">
+                <div class="requsers-modal-header">
+                    <h3 class="requsers-modal-title"><i class="fas fa-pen" style="color:var(--accent-color);margin-right:6px;"></i> Bulk Edit Permissions</h3>
+                    <button class="requsers-modal-close" onclick="RequestarrUsers.closeModal()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="requsers-modal-body">
+                    <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:14px;">
+                        Editing <strong style="color:var(--text-primary);">${selectedNames.length}</strong> user${selectedNames.length !== 1 ? 's' : ''}:
+                        <span style="color:var(--text-secondary);">${selectedNames.map(n => this._esc(n)).join(', ')}</span>
+                    </p>
+                    <div class="requsers-field">
+                        <label>Permissions</label>
+                        <p style="color:var(--text-dim);font-size:0.78rem;margin-bottom:10px;">Select "Enable" or "Disable" to change. Leave as "No Change" to keep current value.</p>
+                        <div class="requsers-perms-grid requsers-bulk-perms-grid" id="requsers-bulk-perms-grid">${permsHtml}</div>
+                    </div>
+                </div>
+                <div class="requsers-modal-footer">
+                    <button class="requsers-btn" style="background:var(--bg-tertiary);color:var(--text-secondary);" onclick="RequestarrUsers.closeModal()">Cancel</button>
+                    <button class="requsers-btn requsers-btn-primary" id="requsers-bulk-save-btn" onclick="RequestarrUsers.saveBulkEdit()">Apply to ${selectedNames.length} User${selectedNames.length !== 1 ? 's' : ''}</button>
+                </div>
+            </div>
+        </div>`;
+
+        this.closeModal();
+        document.body.insertAdjacentHTML('beforeend', html);
+    },
+
+    async saveBulkEdit() {
+        const grid = document.getElementById('requsers-bulk-perms-grid');
+        if (!grid) return;
+
+        // Collect permission changes (only non-"unchanged" values)
+        const permChanges = {};
+        grid.querySelectorAll('.requsers-bulk-perm-select').forEach(sel => {
+            if (sel.value !== 'unchanged') {
+                const key = sel.name.replace('bulk_perm_', '');
+                permChanges[key] = sel.value === 'true';
+            }
+        });
+
+        if (Object.keys(permChanges).length === 0) {
+            if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('No changes selected', 'info');
+            return;
+        }
+
+        const saveBtn = document.getElementById('requsers-bulk-save-btn');
+        if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Applying...'; }
+
+        let successCount = 0;
+        let failCount = 0;
+
+        for (const userId of this.selectedUserIds) {
+            try {
+                // Get user's current permissions and merge changes
+                const user = this.users.find(u => u.id === userId);
+                if (!user || user.role === 'owner') continue;
+
+                const currentPerms = (typeof user.permissions === 'object') ? { ...user.permissions } : {};
+                const mergedPerms = { ...currentPerms, ...permChanges };
+
+                const resp = await fetch(`./api/requestarr/users/${userId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ permissions: mergedPerms }),
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    successCount++;
+                } else {
+                    failCount++;
+                }
+            } catch (e) {
+                console.error(`[RequestarrUsers] Bulk edit error for user ${userId}:`, e);
+                failCount++;
+            }
+        }
+
+        this.closeModal();
+        this.selectedUserIds.clear();
+
+        if (successCount > 0) {
+            if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification(`Updated ${successCount} user${successCount !== 1 ? 's' : ''}${failCount > 0 ? `, ${failCount} failed` : ''}`, 'success');
+        } else {
+            if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('Failed to update users', 'error');
+        }
+
+        await this.loadUsers();
+    },
+
 
     renderError() {
         const container = document.getElementById('requsers-content');
