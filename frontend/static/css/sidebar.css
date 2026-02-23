@@ -1139,8 +1139,7 @@ input:checked+.slider:before {
     order: 12;
 }
 
-/* Daughter's Sponsors: only visible on home page (no focused mode) */
-.sidebar.requests-focused #main-sidebar-partner-projects-group,
+/* Daughter's Sponsors: hidden in all focused modes EXCEPT requests-focused (non-owners are always requests-focused) */
 .sidebar.system-focused #main-sidebar-partner-projects-group,
 .sidebar.media-focused #main-sidebar-partner-projects-group,
 .sidebar.nzb-focused #main-sidebar-partner-projects-group,
