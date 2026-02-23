@@ -8581,27 +8581,27 @@ window.HuntarrStats = {
 
     // App metadata: order, display names, icons, accent colors
     APP_META: {
-        tv_hunt:    { label: 'TV Hunt',    icon: './static/logo/256.png', accent: '#a855f7' },
+        tv_hunt: { label: 'TV Hunt', icon: './static/logo/256.png', accent: '#a855f7' },
         movie_hunt: { label: 'Movie Hunt', icon: './static/logo/256.png', accent: '#f59e0b' },
-        sonarr:     { label: 'Sonarr',     icon: './static/images/app-icons/sonarr.png', accent: '#6366f1' },
-        radarr:     { label: 'Radarr',     icon: './static/images/app-icons/radarr.png', accent: '#f59e0b' },
-        lidarr:     { label: 'Lidarr',     icon: './static/images/app-icons/lidarr.png', accent: '#22c55e' },
-        readarr:    { label: 'Readarr',    icon: './static/images/app-icons/readarr.png', accent: '#a855f7' },
-        whisparr:   { label: 'Whisparr V2', icon: './static/images/app-icons/whisparr.png', accent: '#ec4899' },
-        eros:       { label: 'Whisparr V3', icon: './static/images/app-icons/whisparr.png', accent: '#ec4899' }
+        sonarr: { label: 'Sonarr', icon: './static/images/app-icons/sonarr.png', accent: '#6366f1' },
+        radarr: { label: 'Radarr', icon: './static/images/app-icons/radarr.png', accent: '#f59e0b' },
+        lidarr: { label: 'Lidarr', icon: './static/images/app-icons/lidarr.png', accent: '#22c55e' },
+        readarr: { label: 'Readarr', icon: './static/images/app-icons/readarr.png', accent: '#a855f7' },
+        whisparr: { label: 'Whisparr V2', icon: './static/images/app-icons/whisparr.png', accent: '#ec4899' },
+        eros: { label: 'Whisparr V3', icon: './static/images/app-icons/whisparr.png', accent: '#ec4899' }
     },
     DEFAULT_APP_ORDER: ['tv_hunt', 'movie_hunt', 'sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros'],
 
     // ─── Polling ──────────────────────────────────────────────────────
-    startPolling: function() {
+    startPolling: function () {
         this.stopPolling();
         var self = this;
-        this._pollInterval = setInterval(function() {
+        this._pollInterval = setInterval(function () {
             self.loadMediaStats(true);
         }, 15000);
     },
 
-    stopPolling: function() {
+    stopPolling: function () {
         if (this._pollInterval) {
             clearInterval(this._pollInterval);
             this._pollInterval = null;
@@ -8610,19 +8610,19 @@ window.HuntarrStats = {
     },
 
     // ─── Layout Persistence ───────────────────────────────────────────
-    _getLayout: function() {
+    _getLayout: function () {
         return HuntarrUtils.getUIPreference('dashboard-layout', null);
     },
 
-    _saveLayout: function(layout) {
+    _saveLayout: function (layout) {
         HuntarrUtils.setUIPreference('dashboard-layout', layout);
     },
 
-    _getGroupOrder: function() {
+    _getGroupOrder: function () {
         var layout = this._getLayout();
         if (layout && Array.isArray(layout.groups) && layout.groups.length > 0) {
             var order = layout.groups.slice();
-            this.DEFAULT_APP_ORDER.forEach(function(app) {
+            this.DEFAULT_APP_ORDER.forEach(function (app) {
                 if (order.indexOf(app) === -1) order.push(app);
             });
             return order;
@@ -8630,7 +8630,7 @@ window.HuntarrStats = {
         return this.DEFAULT_APP_ORDER.slice();
     },
 
-    _getCardOrder: function() {
+    _getCardOrder: function () {
         var layout = this._getLayout();
         if (layout && Array.isArray(layout.cards) && layout.cards.length > 0) {
             return layout.cards;
@@ -8639,12 +8639,12 @@ window.HuntarrStats = {
     },
 
     // Collect card order for grid mode (flat list of {app, instance} pairs)
-    _collectGridOrder: function() {
+    _collectGridOrder: function () {
         var grid = document.getElementById('app-stats-grid');
         if (!grid) return;
         var cards = grid.querySelectorAll('.app-stats-card[data-app][data-instance-name]');
         var cardOrder = [];
-        cards.forEach(function(c) {
+        cards.forEach(function (c) {
             cardOrder.push({
                 app: c.getAttribute('data-app'),
                 instance: c.getAttribute('data-instance-name')
@@ -8653,7 +8653,7 @@ window.HuntarrStats = {
         // Also build group order from the card order (for list mode)
         var seen = {};
         var groups = [];
-        cardOrder.forEach(function(c) {
+        cardOrder.forEach(function (c) {
             if (!seen[c.app]) {
                 seen[c.app] = true;
                 groups.push(c.app);
@@ -8663,12 +8663,12 @@ window.HuntarrStats = {
     },
 
     // Collect group order for list mode
-    _collectListOrder: function() {
+    _collectListOrder: function () {
         var grid = document.getElementById('app-stats-grid');
         if (!grid) return;
         var groupEls = grid.querySelectorAll('.app-group');
         var groups = [];
-        groupEls.forEach(function(g) {
+        groupEls.forEach(function (g) {
             var app = g.getAttribute('data-app');
             if (app) groups.push(app);
         });
@@ -8678,18 +8678,18 @@ window.HuntarrStats = {
     },
 
     // ─── View Mode ────────────────────────────────────────────────────
-    _getViewMode: function() {
+    _getViewMode: function () {
         var mode = HuntarrUtils.getUIPreference('dashboard-view-mode', 'list');
         if (mode === 'list' || mode === 'grid') return mode;
         return 'list';
     },
 
-    _setViewMode: function(mode) {
+    _setViewMode: function (mode) {
         this._currentViewMode = mode;
         HuntarrUtils.setUIPreference('dashboard-view-mode', mode);
     },
 
-    initViewToggle: function() {
+    initViewToggle: function () {
         var self = this;
         var savedMode = this._getViewMode();
         var needsRerender = (this._lastRenderedMode && savedMode !== this._lastRenderedMode);
@@ -8703,12 +8703,12 @@ window.HuntarrStats = {
         toggleGroup.parentNode.replaceChild(newToggle, toggleGroup);
 
         var btns = newToggle.querySelectorAll('.view-toggle-btn');
-        btns.forEach(function(btn) {
+        btns.forEach(function (btn) {
             btn.classList.toggle('active', btn.getAttribute('data-view') === self._currentViewMode);
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 var mode = this.getAttribute('data-view');
                 if (mode === self._currentViewMode) return;
-                btns.forEach(function(b) { b.classList.remove('active'); });
+                btns.forEach(function (b) { b.classList.remove('active'); });
                 this.classList.add('active');
                 self._setViewMode(mode);
                 self._clearDynamicContent();
@@ -8726,7 +8726,7 @@ window.HuntarrStats = {
     },
 
     // Clear all dynamically generated content + sortable instances
-    _clearDynamicContent: function() {
+    _clearDynamicContent: function () {
         // Destroy sortable instances
         if (this._sortableGrid) {
             this._sortableGrid.destroy();
@@ -8736,12 +8736,12 @@ window.HuntarrStats = {
         if (!grid) return;
         // Remove all dynamic elements (app-group containers and direct app-stats-cards we created)
         var dynamicEls = grid.querySelectorAll('.app-group, .app-stats-card.dynamic-card');
-        dynamicEls.forEach(function(el) { el.remove(); });
+        dynamicEls.forEach(function (el) { el.remove(); });
         this._lastRenderedMode = null;
     },
 
     // ─── Stats Loading ────────────────────────────────────────────────
-    loadMediaStats: function(skipCache) {
+    loadMediaStats: function (skipCache) {
         if (this.isLoadingStats) return;
         this.isLoadingStats = true;
 
@@ -8769,7 +8769,7 @@ window.HuntarrStats = {
                             // Show grid immediately from cache so it's not blank while checking connections
                             this.updateEmptyStateVisibility(true);
                         }
-                    } catch (e) {}
+                    } catch (e) { }
                 }
             }
         }
@@ -8780,11 +8780,11 @@ window.HuntarrStats = {
         }
 
         HuntarrUtils.fetchWithTimeout('./api/stats')
-            .then(function(response) {
+            .then(function (response) {
                 if (!response.ok) throw new Error('Network response was not ok');
                 return response.json();
             })
-            .then(function(data) {
+            .then(function (data) {
                 if (data.success && data.stats) {
                     window.mediaStats = data.stats;
                     localStorage.setItem('huntarr-stats-cache', JSON.stringify({
@@ -8797,11 +8797,11 @@ window.HuntarrStats = {
                 // Always re-evaluate empty state after fresh data
                 self.updateEmptyStateVisibility();
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.error('Error fetching statistics:', error);
                 if (statsContainer) statsContainer.classList.remove('stats-loading');
             })
-            .finally(function() {
+            .finally(function () {
                 self.isLoadingStats = false;
             });
 
@@ -8812,7 +8812,7 @@ window.HuntarrStats = {
     },
 
     // ─── Main Display Update ──────────────────────────────────────────
-    updateStatsDisplay: function(stats, isFromCache) {
+    updateStatsDisplay: function (stats, isFromCache) {
         // If mode changed, clear and rebuild
         if (this._lastRenderedMode && this._lastRenderedMode !== this._currentViewMode) {
             this._clearDynamicContent();
@@ -8826,7 +8826,7 @@ window.HuntarrStats = {
     },
 
     // ─── Grid View (Flat Cards with Drag Handles) ─────────────────────
-    _renderGridView: function(stats, isFromCache) {
+    _renderGridView: function (stats, isFromCache) {
         var grid = document.getElementById('app-stats-grid');
         if (!grid) {
             grid = document.querySelector('.app-stats-grid');
@@ -8847,7 +8847,7 @@ window.HuntarrStats = {
         var ui = window.huntarrUI || {};
         var mediaHuntApps = { movie_hunt: true, tv_hunt: true };
         var thirdPartyApps = { sonarr: true, radarr: true, lidarr: true, readarr: true, whisparr: true, eros: true };
-        groupOrder.forEach(function(app) {
+        groupOrder.forEach(function (app) {
             if (!stats[app]) return;
             if (mediaHuntApps[app] && ui._enableMediaHunt === false) return;
             if (thirdPartyApps[app] && ui._enableThirdPartyApps === false) return;
@@ -8873,7 +8873,7 @@ window.HuntarrStats = {
                     }
                 });
             } else {
-                instances.forEach(function(inst) {
+                instances.forEach(function (inst) {
                     allCards.push({ app: app, meta: meta, inst: inst });
                 });
             }
@@ -8881,7 +8881,7 @@ window.HuntarrStats = {
 
         // Apply saved card order if available
         if (savedCardOrder && savedCardOrder.length > 0) {
-            allCards.sort(function(a, b) {
+            allCards.sort(function (a, b) {
                 var keyA = a.app + '|' + (a.inst.instance_name || '');
                 var keyB = b.app + '|' + (b.inst.instance_name || '');
                 var idxA = -1, idxB = -1;
@@ -8899,12 +8899,12 @@ window.HuntarrStats = {
         // Build/update cards in DOM
         var existingCards = grid.querySelectorAll('.app-stats-card.dynamic-card');
         var existingMap = {};
-        existingCards.forEach(function(c) {
+        existingCards.forEach(function (c) {
             var key = c.getAttribute('data-app') + '|' + c.getAttribute('data-instance-name');
             existingMap[key] = c;
         });
 
-        allCards.forEach(function(entry, idx) {
+        allCards.forEach(function (entry, idx) {
             var key = entry.app + '|' + (entry.inst.instance_name || '');
             var card = existingMap[key];
             if (!card) {
@@ -8920,13 +8920,13 @@ window.HuntarrStats = {
         });
 
         // Remove cards no longer in data
-        Object.keys(existingMap).forEach(function(key) {
+        Object.keys(existingMap).forEach(function (key) {
             existingMap[key].remove();
         });
 
         // Hide old static cards from template
         var oldCards = grid.querySelectorAll(':scope > .app-stats-card:not(.dynamic-card), :scope > .app-stats-card-wrapper, :scope > .app-group');
-        oldCards.forEach(function(c) { c.style.display = 'none'; });
+        oldCards.forEach(function (c) { c.style.display = 'none'; });
 
         // Initialize SortableJS for flat grid
         this._initGridSortable(grid);
@@ -8938,7 +8938,7 @@ window.HuntarrStats = {
         if (allCards.length > 0) {
             this.updateEmptyStateVisibility(true);
         }
-        setTimeout(function() {
+        setTimeout(function () {
             if (typeof window.loadHourlyCapData === 'function') {
                 window.loadHourlyCapData();
             }
@@ -8946,53 +8946,53 @@ window.HuntarrStats = {
     },
 
     // ─── Create a Card Element (with drag handle + baked-in timer) ────
-    _createCard: function(app, meta) {
+    _createCard: function (app, meta) {
         var card = document.createElement('div');
         card.className = 'app-stats-card ' + app;
         var cssClass = app.replace(/-/g, '');
         card.innerHTML =
             '<div class="card-drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></div>' +
             '<div class="hourly-cap-container">' +
-                '<div class="hourly-cap-status">' +
-                    '<span class="hourly-cap-icon"></span>' +
-                    '<span class="hourly-cap-text">API: <span>0</span> / <span>--</span></span>' +
-                '</div>' +
-                '<div class="api-progress-container">' +
-                    '<div class="api-progress-bar"><div class="api-progress-fill" style="width: 0%;"></div></div>' +
-                    '<div class="api-progress-text">API: <span>0</span> / <span>--</span></div>' +
-                '</div>' +
+            '<div class="hourly-cap-status">' +
+            '<span class="hourly-cap-icon"></span>' +
+            '<span class="hourly-cap-text">API: <span>0</span> / <span>--</span></span>' +
+            '</div>' +
+            '<div class="api-progress-container">' +
+            '<div class="api-progress-bar"><div class="api-progress-fill" style="width: 0%;"></div></div>' +
+            '<div class="api-progress-text">API: <span>0</span> / <span>--</span></div>' +
+            '</div>' +
             '</div>' +
             '<div class="app-content">' +
-                '<div class="app-icon-wrapper"><img src="' + meta.icon + '" alt="" class="app-logo"></div>' +
-                '<h4>' + meta.label + '</h4>' +
+            '<div class="app-icon-wrapper"><img src="' + meta.icon + '" alt="" class="app-logo"></div>' +
+            '<h4>' + meta.label + '</h4>' +
             '</div>' +
             '<div class="stats-numbers">' +
-                '<div class="stat-box">' +
-                    (app === 'movie_hunt' || app === 'tv_hunt'
-                        ? '<span class="stat-number-found-wrap"><span class="stat-number stat-found">0</span> / <span class="stat-number">0</span></span>'
-                        : '<span class="stat-number">0</span>') +
-                    '<span class="stat-label">' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'Found / Searched' : 'Searches Triggered') + '</span>' +
-                '</div>' +
-                '<div class="stat-box">' +
-                    (app === 'movie_hunt' || app === 'tv_hunt'
-                        ? '<span class="stat-number-found-wrap"><span class="stat-number stat-found">0</span> / <span class="stat-number">0</span></span>'
-                        : '<span class="stat-number">0</span>') +
-                    '<span class="stat-label">' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'Found / Upgrades' : 'Upgrades Triggered') + '</span>' +
-                '</div>' +
+            '<div class="stat-box">' +
+            (app === 'movie_hunt' || app === 'tv_hunt'
+                ? '<span class="stat-number-found-wrap"><span class="stat-number stat-found">0</span> / <span class="stat-number">0</span></span>'
+                : '<span class="stat-number">0</span>') +
+            '<span class="stat-label">' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'Found / Searched' : 'Searches Triggered') + '</span>' +
+            '</div>' +
+            '<div class="stat-box">' +
+            (app === 'movie_hunt' || app === 'tv_hunt'
+                ? '<span class="stat-number-found-wrap"><span class="stat-number stat-found">0</span> / <span class="stat-number">0</span></span>'
+                : '<span class="stat-number">0</span>') +
+            '<span class="stat-label">' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'Found / Upgrades' : 'Upgrades Triggered') + '</span>' +
+            '</div>' +
             '</div>' +
             '<div class="reset-button-container">' +
-                '<div class="reset-and-timer-container">' +
-                    '<button class="cycle-reset-button" data-app="' + app + '"><i class="fas fa-sync-alt"></i> Reset</button>' +
-                    '<div class="cycle-timer inline-timer ' + cssClass + '" data-app-type="' + app + '">' +
-                        '<i class="fas fa-clock ' + cssClass + '-icon"></i> <span class="timer-value">Loading...</span>' +
-                    '</div>' +
-                '</div>' +
+            '<div class="reset-and-timer-container">' +
+            '<button class="cycle-reset-button" data-app="' + app + '"><i class="fas fa-sync-alt"></i> Reset</button>' +
+            '<div class="cycle-timer inline-timer ' + cssClass + '" data-app-type="' + app + '">' +
+            '<i class="fas fa-clock ' + cssClass + '-icon"></i> <span class="timer-value">Loading...</span>' +
+            '</div>' +
+            '</div>' +
             '</div>';
         return card;
     },
 
     // ─── Update a Card Element ────────────────────────────────────────
-    _updateCard: function(card, app, meta, inst, isFromCache, appLabel) {
+    _updateCard: function (card, app, meta, inst, isFromCache, appLabel) {
         var hunted = Math.max(0, parseInt(inst.hunted) || 0);
         var upgraded = Math.max(0, parseInt(inst.upgraded) || 0);
         var name = inst.instance_name || 'Default';
@@ -9113,7 +9113,7 @@ window.HuntarrStats = {
     },
 
     // ─── List View (Compact Table — grouped) ──────────────────────────
-    _renderListView: function(stats, isFromCache) {
+    _renderListView: function (stats, isFromCache) {
         var grid = document.getElementById('app-stats-grid');
         if (!grid) {
             grid = document.querySelector('.app-stats-grid');
@@ -9130,7 +9130,7 @@ window.HuntarrStats = {
         var ui = window.huntarrUI || {};
         var mediaHuntApps = { movie_hunt: true, tv_hunt: true };
         var thirdPartyApps = { sonarr: true, radarr: true, lidarr: true, readarr: true, whisparr: true, eros: true };
-        groupOrder.forEach(function(app) {
+        groupOrder.forEach(function (app) {
             if (mediaHuntApps[app] && ui._enableMediaHunt === false) return;
             if (thirdPartyApps[app] && ui._enableThirdPartyApps === false) return;
             if (stats[app] && (stats[app].instances && stats[app].instances.length > 0 ||
@@ -9141,7 +9141,7 @@ window.HuntarrStats = {
             }
         });
 
-        visibleApps.forEach(function(app) {
+        visibleApps.forEach(function (app) {
             var meta = self.APP_META[app] || { label: app, icon: '', accent: '#94a3b8' };
             var group = grid.querySelector('.app-group[data-app="' + app + '"]');
 
@@ -9166,28 +9166,28 @@ window.HuntarrStats = {
 
             var html =
                 '<div class="app-group-header list-header">' +
-                    '<i class="fas fa-grip-vertical drag-handle group-drag-handle"></i>' +
-                    '<img src="' + meta.icon + '" class="app-group-logo" alt="">' +
-                    '<span class="app-group-label">' + meta.label + '</span>' +
+                '<i class="fas fa-grip-vertical drag-handle group-drag-handle"></i>' +
+                '<img src="' + meta.icon + '" class="app-group-logo" alt="">' +
+                '<span class="app-group-label">' + meta.label + '</span>' +
                 '</div>' +
                 '<table class="app-list-table">' +
-                    '<colgroup>' +
-                        '<col class="col-instance">' +
-                        '<col class="col-searches">' +
-                        '<col class="col-upgrades">' +
-                        '<col class="col-api-status">' +
-                        '<col class="col-actions">' +
-                    '</colgroup>' +
-                    '<thead><tr>' +
-                        '<th>Instance</th>' +
-                        '<th class="col-searches" data-abbr="' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'F/Srch' : 'Searches') + '">' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'Found / Searches' : 'Searches') + '</th>' +
-                        '<th class="col-upgrades" data-abbr="' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'F/Upg' : 'Upgrades') + '">' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'Found / Upgrades' : 'Upgrades') + '</th>' +
-                        '<th>API / Status</th>' +
-                        '<th></th>' +
-                    '</tr></thead><tbody>';
+                '<colgroup>' +
+                '<col class="col-instance">' +
+                '<col class="col-searches">' +
+                '<col class="col-upgrades">' +
+                '<col class="col-api-status">' +
+                '<col class="col-actions">' +
+                '</colgroup>' +
+                '<thead><tr>' +
+                '<th>Instance</th>' +
+                '<th class="col-searches" data-abbr="' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'F/Srch' : 'Searches') + '">' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'Found / Searches' : 'Searches') + '</th>' +
+                '<th class="col-upgrades" data-abbr="' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'F/Upg' : 'Upgrades') + '">' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'Found / Upgrades' : 'Upgrades') + '</th>' +
+                '<th>API / Status</th>' +
+                '<th></th>' +
+                '</tr></thead><tbody>';
 
             var cssClass = app.replace(/-/g, '');
-            instances.forEach(function(inst) {
+            instances.forEach(function (inst) {
                 var hunted = Math.max(0, parseInt(inst.hunted) || 0);
                 var upgraded = Math.max(0, parseInt(inst.upgraded) || 0);
                 var found = Math.max(0, parseInt(inst.found) || 0);
@@ -9196,6 +9196,18 @@ window.HuntarrStats = {
                 var apiLimit = Math.max(1, parseInt(inst.api_limit) || 20);
                 var pct = apiLimit > 0 ? Math.min(100, (apiHits / apiLimit) * 100) : 0;
                 var name = inst.instance_name || 'Default';
+
+                // State Management Reset info
+                var stateResetHtml = '';
+                var stateEnabled = inst.state_reset_enabled !== false;
+                var hoursUntil = inst.state_reset_hours_until;
+                if (!stateEnabled) {
+                    stateResetHtml = '<div class="list-state-reset" title="State Management Reset"><i class="fas fa-hourglass-half"></i> SM Reset: Disabled</div>';
+                } else if (hoursUntil != null && typeof hoursUntil === 'number' && hoursUntil > 0) {
+                    var h = Math.floor(hoursUntil);
+                    var label = h >= 1 ? '' + h + 'h' : '<1h';
+                    stateResetHtml = '<div class="list-state-reset" title="State Management Reset"><i class="fas fa-hourglass-half"></i> SM Reset: ' + label + '</div>';
+                }
 
                 // Movie Hunt shows "found / searched" and "found / upgrades"
                 var searchesCell = (app === 'movie_hunt' || app === 'tv_hunt')
@@ -9207,23 +9219,24 @@ window.HuntarrStats = {
 
                 html +=
                     '<tr data-instance-name="' + name + '">' +
-                        '<td class="list-instance-name">' + name + '</td>' +
-                        '<td class="list-stat ' + app + '">' + searchesCell + '</td>' +
-                        '<td class="list-stat ' + app + '">' + upgradesCell + '</td>' +
-                        '<td class="list-api-status">' +
-                            '<div class="list-api-row">' +
-                                '<div class="list-api-bar"><div class="list-api-fill ' + app + '" style="width:' + pct + '%;"></div></div>' +
-                                '<span class="list-api-text">' + apiHits + '/' + apiLimit + '</span>' +
-                            '</div>' +
-                            '<div class="list-status-row">' +
-                                '<div class="cycle-timer inline-timer ' + cssClass + '" data-app-type="' + app + '">' +
-                                    '<i class="fas fa-clock ' + cssClass + '-icon"></i> <span class="timer-value">Loading...</span>' +
-                                '</div>' +
-                            '</div>' +
-                        '</td>' +
-                        '<td class="list-actions">' +
-                            '<button class="cycle-reset-button" data-app="' + app + '" data-instance-name="' + name + '" title="Reset Cycle"><i class="fas fa-sync-alt"></i></button>' +
-                        '</td>' +
+                    '<td class="list-instance-name">' + name + '</td>' +
+                    '<td class="list-stat ' + app + '">' + searchesCell + '</td>' +
+                    '<td class="list-stat ' + app + '">' + upgradesCell + '</td>' +
+                    '<td class="list-api-status">' +
+                    '<div class="list-api-row">' +
+                    '<div class="list-api-bar"><div class="list-api-fill ' + app + '" style="width:' + pct + '%;"></div></div>' +
+                    '<span class="list-api-text">' + apiHits + '/' + apiLimit + '</span>' +
+                    '</div>' +
+                    '<div class="list-status-row">' +
+                    '<div class="cycle-timer inline-timer ' + cssClass + '" data-app-type="' + app + '">' +
+                    '<i class="fas fa-clock ' + cssClass + '-icon"></i> <span class="timer-value">Loading...</span>' +
+                    '</div>' +
+                    stateResetHtml +
+                    '</div>' +
+                    '</td>' +
+                    '<td class="list-actions">' +
+                    '<button class="cycle-reset-button" data-app="' + app + '" data-instance-name="' + name + '" title="Reset Cycle"><i class="fas fa-sync-alt"></i></button>' +
+                    '</td>' +
                     '</tr>';
             });
 
@@ -9233,7 +9246,7 @@ window.HuntarrStats = {
         });
 
         // Hide groups for non-visible apps
-        grid.querySelectorAll('.app-group').forEach(function(g) {
+        grid.querySelectorAll('.app-group').forEach(function (g) {
             if (visibleApps.indexOf(g.getAttribute('data-app')) === -1) {
                 g.style.display = 'none';
             }
@@ -9241,20 +9254,20 @@ window.HuntarrStats = {
 
         // Reorder groups
         var currentGroups = Array.from(grid.querySelectorAll('.app-group'));
-        var sorted = currentGroups.slice().sort(function(a, b) {
+        var sorted = currentGroups.slice().sort(function (a, b) {
             var ia = groupOrder.indexOf(a.getAttribute('data-app'));
             var ib = groupOrder.indexOf(b.getAttribute('data-app'));
             if (ia === -1) ia = 9999;
             if (ib === -1) ib = 9999;
             return ia - ib;
         });
-        sorted.forEach(function(g) { grid.appendChild(g); });
+        sorted.forEach(function (g) { grid.appendChild(g); });
 
         this._initListSortable(grid);
 
         // Hide old static cards & dynamic grid cards
         var oldCards = grid.querySelectorAll(':scope > .app-stats-card, :scope > .app-stats-card-wrapper');
-        oldCards.forEach(function(c) { c.style.display = 'none'; });
+        oldCards.forEach(function (c) { c.style.display = 'none'; });
 
         // Refresh cycle timers — timer elements are baked into each <tr>
         this._refreshCycleTimers();
@@ -9265,7 +9278,7 @@ window.HuntarrStats = {
     },
 
     // ─── Refresh Cycle Timers after view render ──────────────────────
-    _refreshCycleTimers: function() {
+    _refreshCycleTimers: function () {
         if (typeof window.CycleCountdown === 'undefined') return;
         // Let CycleCountdown discover any new timer elements it doesn't know about
         if (window.CycleCountdown.refreshTimerElements) {
@@ -9280,7 +9293,7 @@ window.HuntarrStats = {
     // ─── SortableJS for Grid (flat cards) ─────────────────────────────
     _sortableGrid: null,
 
-    _initGridSortable: function(grid) {
+    _initGridSortable: function (grid) {
         if (typeof Sortable === 'undefined') return;
         var self = this;
 
@@ -9296,14 +9309,14 @@ window.HuntarrStats = {
             ghostClass: 'sortable-ghost',
             chosenClass: 'sortable-chosen',
             filter: '.app-stats-card:not(.dynamic-card), .app-stats-card-wrapper, .app-group',
-            onEnd: function() {
+            onEnd: function () {
                 self._collectGridOrder();
             }
         });
     },
 
     // ─── SortableJS for List (group-level drag) ───────────────────────
-    _initListSortable: function(grid) {
+    _initListSortable: function (grid) {
         if (typeof Sortable === 'undefined') return;
         var self = this;
 
@@ -9318,14 +9331,14 @@ window.HuntarrStats = {
             draggable: '.app-group',
             ghostClass: 'sortable-ghost',
             chosenClass: 'sortable-chosen',
-            onEnd: function() {
+            onEnd: function () {
                 self._collectListOrder();
             }
         });
     },
 
     // ─── Number Formatting / Animation ────────────────────────────────
-    parseFormattedNumber: function(formattedStr) {
+    parseFormattedNumber: function (formattedStr) {
         if (!formattedStr || typeof formattedStr !== 'string') return 0;
         var cleanStr = formattedStr.replace(/[^\d.-]/g, '');
         var parsed = parseInt(cleanStr);
@@ -9334,14 +9347,14 @@ window.HuntarrStats = {
         return isNaN(parsed) ? 0 : Math.max(0, parsed);
     },
 
-    animateNumber: function(element, start, end) {
+    animateNumber: function (element, start, end) {
         start = Math.max(0, parseInt(start) || 0);
         end = Math.max(0, parseInt(end) || 0);
         if (start === end) { element.textContent = this.formatLargeNumber(end); return; }
         var self = this;
         var duration = 600;
         var startTime = performance.now();
-        var updateNumber = function(currentTime) {
+        var updateNumber = function (currentTime) {
             var elapsed = currentTime - startTime;
             var progress = Math.min(elapsed / duration, 1);
             var easeOutQuad = progress * (2 - progress);
@@ -9357,7 +9370,7 @@ window.HuntarrStats = {
         element.animationFrame = requestAnimationFrame(updateNumber);
     },
 
-    formatLargeNumber: function(num) {
+    formatLargeNumber: function (num) {
         if (num < 1000) return num.toString();
         else if (num < 10000) return (num / 1000).toFixed(1) + 'K';
         else if (num < 100000) return (num / 1000).toFixed(1) + 'K';
@@ -9372,12 +9385,12 @@ window.HuntarrStats = {
     },
 
     // ─── Stats Reset ──────────────────────────────────────────────────
-    resetMediaStats: function(appType) {
+    resetMediaStats: function (appType) {
         var confirmMessage = appType
             ? 'Are you sure you want to reset all ' + (appType.charAt(0).toUpperCase() + appType.slice(1)) + ' statistics? This will clear all tracked hunted and upgraded items.'
             : 'Are you sure you want to reset ALL statistics for ALL apps? This cannot be undone.';
         var self = this;
-        var doReset = function() {
+        var doReset = function () {
             var endpoint = './api/stats/reset';
             var body = appType ? JSON.stringify({ app_type: appType }) : '{}';
             HuntarrUtils.fetchWithTimeout(endpoint, {
@@ -9385,29 +9398,29 @@ window.HuntarrStats = {
                 headers: { 'Content-Type': 'application/json' },
                 body: body
             })
-            .then(function(response) { return response.json().then(function(data) { return { ok: response.ok, data: data }; }); })
-            .then(function(result) {
-                if (result.ok && result.data && result.data.success) {
-                    if (window.huntarrUI && window.huntarrUI.showNotification) {
-                        var msg = appType
-                            ? (appType.charAt(0).toUpperCase() + appType.slice(1)) + ' statistics reset successfully'
-                            : 'All statistics reset successfully';
-                        window.huntarrUI.showNotification(msg, 'success');
+                .then(function (response) { return response.json().then(function (data) { return { ok: response.ok, data: data }; }); })
+                .then(function (result) {
+                    if (result.ok && result.data && result.data.success) {
+                        if (window.huntarrUI && window.huntarrUI.showNotification) {
+                            var msg = appType
+                                ? (appType.charAt(0).toUpperCase() + appType.slice(1)) + ' statistics reset successfully'
+                                : 'All statistics reset successfully';
+                            window.huntarrUI.showNotification(msg, 'success');
+                        }
+                        self.loadMediaStats(true);
+                    } else {
+                        var errMsg = (result.data && result.data.error) ? result.data.error : 'Failed to reset statistics';
+                        if (window.huntarrUI && window.huntarrUI.showNotification) {
+                            window.huntarrUI.showNotification(errMsg, 'error');
+                        }
                     }
-                    self.loadMediaStats(true);
-                } else {
-                    var errMsg = (result.data && result.data.error) ? result.data.error : 'Failed to reset statistics';
+                })
+                .catch(function (error) {
+                    console.error('Error resetting statistics:', error);
                     if (window.huntarrUI && window.huntarrUI.showNotification) {
-                        window.huntarrUI.showNotification(errMsg, 'error');
+                        window.huntarrUI.showNotification('Error resetting statistics', 'error');
                     }
-                }
-            })
-            .catch(function(error) {
-                console.error('Error resetting statistics:', error);
-                if (window.huntarrUI && window.huntarrUI.showNotification) {
-                    window.huntarrUI.showNotification('Error resetting statistics', 'error');
-                }
-            });
+                });
         };
         if (window.HuntarrConfirm && window.HuntarrConfirm.show) {
             window.HuntarrConfirm.show({ title: 'Reset Statistics', message: confirmMessage, confirmLabel: 'Reset', onConfirm: doReset });
@@ -9418,7 +9431,7 @@ window.HuntarrStats = {
     },
 
     // ─── Dashboard Layout Reset ───────────────────────────────────────
-    resetDashboardLayout: function() {
+    resetDashboardLayout: function () {
         HuntarrUtils.setUIPreference('dashboard-layout', null);
         HuntarrUtils.setUIPreference('dashboard-view-mode', 'list');
         this._currentViewMode = 'list';
@@ -9426,7 +9439,7 @@ window.HuntarrStats = {
         // Reset toggle
         var toggleGroup = document.getElementById('dashboard-view-toggle');
         if (toggleGroup) {
-            toggleGroup.querySelectorAll('.view-toggle-btn').forEach(function(b) {
+            toggleGroup.querySelectorAll('.view-toggle-btn').forEach(function (b) {
                 b.classList.toggle('active', b.getAttribute('data-view') === 'grid');
             });
         }
@@ -9437,27 +9450,27 @@ window.HuntarrStats = {
     },
 
     // ─── App Connection Checks ────────────────────────────────────────
-    checkAppConnections: function() {
+    checkAppConnections: function () {
         if (!window.huntarrUI) return;
         var self = this;
         var apps = ['movie_hunt', 'tv_hunt', 'sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros'];
-        var checkPromises = apps.map(function(app) { return self.checkAppConnection(app); });
+        var checkPromises = apps.map(function (app) { return self.checkAppConnection(app); });
         Promise.all(checkPromises)
-            .then(function() {
+            .then(function () {
                 window.huntarrUI.configuredAppsInitialized = true;
                 self.updateEmptyStateVisibility();
             })
-            .catch(function() {
+            .catch(function () {
                 window.huntarrUI.configuredAppsInitialized = true;
                 self.updateEmptyStateVisibility();
             });
     },
 
-    checkAppConnection: function(app) {
+    checkAppConnection: function (app) {
         var self = this;
         return HuntarrUtils.fetchWithTimeout('./api/status/' + app)
-            .then(function(response) { return response.json(); })
-            .then(function(data) {
+            .then(function (response) { return response.json(); })
+            .then(function (data) {
                 self.updateConnectionStatus(app, data);
                 var isConfigured = data.configured === true;
                 if (['movie_hunt', 'tv_hunt', 'sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros', 'swaparr'].indexOf(app) !== -1) {
@@ -9465,14 +9478,14 @@ window.HuntarrStats = {
                 }
                 if (window.huntarrUI) window.huntarrUI.configuredApps[app] = isConfigured;
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.error('Error checking ' + app + ' connection:', error);
                 self.updateConnectionStatus(app, { configured: false, connected: false });
                 if (window.huntarrUI) window.huntarrUI.configuredApps[app] = false;
             });
     },
 
-    updateConnectionStatus: function(app, statusData) {
+    updateConnectionStatus: function (app, statusData) {
         if (!window.huntarrUI) return;
         var statusElement = (window.huntarrUI.elements && window.huntarrUI.elements[app + 'HomeStatus']) || null;
         if (!statusElement) {
@@ -9497,7 +9510,7 @@ window.HuntarrStats = {
         var container = wrapper || card;
         if (isConfigured) {
             if (container) container.style.display = '';
-            if (wrapper) wrapper.querySelectorAll('.app-stats-card').forEach(function(c) { c.style.display = ''; });
+            if (wrapper) wrapper.querySelectorAll('.app-stats-card').forEach(function (c) { c.style.display = ''; });
             if (statusContainer) statusContainer.style.display = '';
         } else {
             if (container) container.style.display = 'none';
@@ -9524,31 +9537,31 @@ window.HuntarrStats = {
     // ─── NZB Hunt Home Status Bar ──────────────────────────────────
     _nzbHomePollTimer: null,
 
-    _checkNzbHuntWarning: function() {
+    _checkNzbHuntWarning: function () {
         var banner = document.getElementById('nzb-hunt-home-warning');
         if (!banner) return;
         // Banner is visible by default in HTML; only hide when API confirms servers exist
         fetch('./api/nzb-hunt/home-stats?t=' + Date.now())
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
                 banner.style.display = (data.show_nzb_warning === true || data.has_servers !== true) ? 'flex' : 'none';
             })
-            .catch(function() {
+            .catch(function () {
                 /* keep visible on error - user has no servers until we know otherwise */
             });
         // Retry after 1.5s in case API was not ready
-        setTimeout(function() {
+        setTimeout(function () {
             if (!banner) return;
             fetch('./api/nzb-hunt/home-stats?t=' + Date.now())
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
                     banner.style.display = (data.show_nzb_warning === true || data.has_servers !== true) ? 'flex' : 'none';
                 })
-                .catch(function() {});
+                .catch(function () { });
         }, 1500);
     },
 
-    _fetchNzbHuntHomeStats: function() {
+    _fetchNzbHuntHomeStats: function () {
         var card = document.getElementById('nzb-hunt-home-card');
         if (!card) return;
         // Hide if Media Hunt is disabled (NZB Hunt is under Media Hunt umbrella)
@@ -9562,8 +9575,8 @@ window.HuntarrStats = {
 
         // First check visibility setting
         fetch('./api/nzb-hunt/home-stats?t=' + Date.now())
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
                 if (!data.visible) {
                     card.style.display = 'none';
                     self._stopNzbHomePoll();
@@ -9575,24 +9588,24 @@ window.HuntarrStats = {
                 // Start polling if not already
                 self._startNzbHomePoll();
             })
-            .catch(function() {
+            .catch(function () {
                 if (card) card.style.display = 'none';
             });
     },
 
-    _fetchNzbHuntStatus: function() {
+    _fetchNzbHuntStatus: function () {
         var card = document.getElementById('nzb-hunt-home-card');
         if (!card || card.style.display === 'none') return;
 
         fetch('./api/nzb-hunt/status?t=' + Date.now())
-            .then(function(r) { return r.json(); })
-            .then(function(status) {
+            .then(function (r) { return r.json(); })
+            .then(function (status) {
                 // Connections
                 var connEl = document.getElementById('nzb-home-connections');
                 if (connEl) {
                     var connStats = status.connection_stats || [];
-                    var totalActive = connStats.reduce(function(s, c) { return s + (c.active || 0); }, 0);
-                    var totalMax = connStats.reduce(function(s, c) { return s + (c.max || 0); }, 0);
+                    var totalActive = connStats.reduce(function (s, c) { return s + (c.active || 0); }, 0);
+                    var totalMax = connStats.reduce(function (s, c) { return s + (c.max || 0); }, 0);
                     connEl.textContent = totalMax > 0 ? totalActive + ' / ' + totalMax : String(totalActive);
                 }
                 // Speed
@@ -9615,65 +9628,65 @@ window.HuntarrStats = {
                     pauseBtn.title = status.paused_global ? 'Resume all downloads' : 'Pause all downloads';
                 }
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.error('[HuntarrStats] NZB Hunt status fetch error:', err);
             });
     },
 
-    _startNzbHomePoll: function() {
+    _startNzbHomePoll: function () {
         if (this._nzbHomePollTimer) return; // already polling
         var self = this;
         // Poll every 5 seconds for home page status
-        this._nzbHomePollTimer = setInterval(function() {
+        this._nzbHomePollTimer = setInterval(function () {
             self._fetchNzbHuntStatus();
         }, 5000);
     },
 
-    _stopNzbHomePoll: function() {
+    _stopNzbHomePoll: function () {
         if (this._nzbHomePollTimer) {
             clearInterval(this._nzbHomePollTimer);
             this._nzbHomePollTimer = null;
         }
     },
 
-    _initNzbHomePauseBtn: function() {
+    _initNzbHomePauseBtn: function () {
         var btn = document.getElementById('nzb-home-pause-btn');
         if (!btn || btn._nzbBound) return;
         btn._nzbBound = true;
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             var icon = btn.querySelector('i');
             var isPaused = icon && icon.classList.contains('fa-play');
             var endpoint = isPaused ? './api/nzb-hunt/queue/resume-all' : './api/nzb-hunt/queue/pause-all';
             fetch(endpoint, { method: 'POST' })
-                .then(function(r) { return r.json(); })
-                .then(function() {
+                .then(function (r) { return r.json(); })
+                .then(function () {
                     // Flip the icon immediately for responsiveness
                     if (icon) {
                         icon.className = isPaused ? 'fas fa-pause' : 'fas fa-play';
                         btn.title = isPaused ? 'Pause all downloads' : 'Resume all downloads';
                     }
                 })
-                .catch(function() {});
+                .catch(function () { });
         });
     },
 
-    updateEmptyStateVisibility: function(forceShowGrid) {
+    updateEmptyStateVisibility: function (forceShowGrid) {
         if (!window.huntarrUI) return;
-        
+
         // Don't evaluate until settings have loaded — prevents flash of wrong state
         if (!window.huntarrUI._settingsLoaded && !forceShowGrid) return;
-        
+
         // If we don't have a final answer on configuration yet and aren't forcing the grid, stay quiet
         if (!window.huntarrUI.configuredAppsInitialized && !forceShowGrid) return;
-        
+
         var ui = window.huntarrUI;
         var mediaHuntApps = ['movie_hunt', 'tv_hunt'];
         var thirdPartyApps = ['sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros'];
-        
+
         // Check if any ENABLED app is configured
         var anyConfigured = false;
         if (ui.configuredApps) {
-            Object.keys(ui.configuredApps).forEach(function(app) {
+            Object.keys(ui.configuredApps).forEach(function (app) {
                 if (!ui.configuredApps[app]) return;
                 // Skip disabled categories
                 if (mediaHuntApps.indexOf(app) !== -1 && ui._enableMediaHunt === false) return;
@@ -9681,17 +9694,17 @@ window.HuntarrStats = {
                 anyConfigured = true;
             });
         }
-        
+
         // If we are forcing the grid (from cache), check if any enabled category exists
         if (forceShowGrid && !anyConfigured) {
             // Don't force-show if all categories are disabled
             var hasEnabledCategory = (ui._enableMediaHunt !== false) || (ui._enableThirdPartyApps !== false);
             if (hasEnabledCategory) anyConfigured = true;
         }
-        
+
         var emptyState = document.getElementById('live-hunts-empty-state');
         var statsGrid = document.getElementById('app-stats-grid') || document.querySelector('.app-stats-grid');
-        
+
         if (anyConfigured) {
             if (emptyState) emptyState.style.display = 'none';
             if (statsGrid) statsGrid.style.display = '';
@@ -9706,13 +9719,13 @@ window.HuntarrStats = {
         }
     },
 
-    _updateEmptyStateButtons: function() {
+    _updateEmptyStateButtons: function () {
         var emptyState = document.getElementById('live-hunts-empty-state');
         if (!emptyState) return;
         var ui = window.huntarrUI || {};
         var mediaEnabled = ui._enableMediaHunt !== false;
         var appsEnabled = ui._enableThirdPartyApps !== false;
-        
+
         // Update the message text
         var msgEl = emptyState.querySelector('p:nth-of-type(2)');
         if (msgEl) {
@@ -9726,7 +9739,7 @@ window.HuntarrStats = {
                 msgEl.textContent = 'Get started by heading to Media Hunt or configure your 3rd Party Apps.';
             }
         }
-        
+
         // Update button visibility
         var btns = emptyState.querySelectorAll('.action-button');
         var separator = emptyState.querySelector('span');
