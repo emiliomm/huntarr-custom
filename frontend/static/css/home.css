@@ -360,105 +360,157 @@
 
 /* ── Requestarr Home Card — cleaner glass ───────────────────────── */
 #homeSection .requestarr-home-card {
-    background: rgba(15, 23, 42, 0.6) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    border-radius: 12px !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
-    padding: 16px 20px 12px !important;
+    padding: 0 !important;
 }
 
-/* ── Search Bar — refined ───────────────────────────────────────── */
-#homeSection .global-search-bar {
-    background: rgba(30, 41, 59, 0.8) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 10px !important;
+/* ── Search Toolbar — Logs style unified bar ────────────────────── */
+.home-search-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 16px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.06);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.home-search-toolbar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+}
+
+/* ── Filter Chips — Logs style ──────────────────────────────────── */
+.home-search-filters {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.home-filter-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.08);
+    border-radius: 8px;
+    padding: 0 4px 0 10px;
+    height: 36px;
+    transition: border-color 0.2s;
+}
+
+.home-filter-chip:hover,
+.home-filter-chip:focus-within {
+    border-color: rgba(148, 163, 184, 0.15);
+}
+
+.home-filter-chip i {
+    color: #64748b;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.home-filter-chip .chip-select {
+    background: transparent;
+    border: none;
+    color: #cbd5e1;
+    font-size: 0.8rem;
+    font-weight: 500;
+    outline: none;
+    cursor: pointer;
+    padding: 6px 4px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2364748b'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 6px center;
+    padding-right: 20px;
+}
+
+.home-filter-chip .chip-select option {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+/* ── Search Bar — Logs style ────────────────────────────────────── */
+.home-search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.08);
+    border-radius: 8px;
+    padding: 0 10px;
+    height: 36px;
+    min-width: 160px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.home-search-bar:focus-within {
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.06);
+}
+
+.home-search-bar i {
+    color: #475569;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+.home-search-bar input {
+    background: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
-    transition: border-color 0.2s, box-shadow 0.2s !important;
-}
-
-#homeSection .global-search-bar:focus-within {
-    border-color: rgba(99, 102, 241, 0.5) !important;
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1) !important;
-}
-
-#homeSection .global-search-bar i {
-    color: #475569 !important;
-}
-
-#homeSection .global-search-bar input {
     color: #e2e8f0 !important;
+    font-size: 0.78rem;
+    outline: none;
+    width: 100%;
+    height: auto;
+    padding: 0;
 }
 
-#homeSection .global-search-bar input::placeholder {
-    color: #475569 !important;
+.home-search-bar input::placeholder {
+    color: #475569;
 }
 
-/* ── Section Titles (Smart Hunt, etc.) — match request/discover page size ────────────── */
+@media (max-width: 768px) {
+    .home-search-toolbar-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .home-search-filters {
+        width: 100%;
+        gap: 6px;
+    }
+
+    .home-filter-chip {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .home-search-bar {
+        min-width: unset;
+        width: 100%;
+    }
+}
+
+/* ── Section Titles (Smart Hunt, etc.) ──────────────────────────── */
 #homeSection .section-title {
     font-size: 1.4em !important;
     font-weight: 700 !important;
     color: #e2e8f0 !important;
     letter-spacing: 0.02em !important;
-}
-
-/* ── Home Instance Selectors — modern chip pills ─────────────── */
-#homeSection .home-instance-controls {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-    margin: 12px 0 14px 0;
-    padding: 0;
-}
-
-#homeSection .home-instance-controls .instance-selector-container {
-    flex-shrink: 0;
-}
-
-#homeSection .home-instance-controls .instance-select {
-    background: rgba(30, 41, 59, 0.4) !important;
-    border: 1px solid rgba(148, 163, 184, 0.08) !important;
-    border-radius: 8px !important;
-    color: #cbd5e1 !important;
-    padding: 7px 16px 7px 12px !important;
-    font-size: 12px !important;
-    font-weight: 500 !important;
-    min-width: 140px;
-    letter-spacing: 0.01em;
-    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-    cursor: pointer;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
-    background-repeat: no-repeat !important;
-    background-position: right 10px center !important;
-    padding-right: 28px !important;
-}
-
-#homeSection .home-instance-controls .instance-select:hover {
-    border-color: rgba(148, 163, 184, 0.15) !important;
-    background: rgba(30, 41, 59, 0.6) !important;
-    color: #e2e8f0 !important;
-}
-
-#homeSection .home-instance-controls .instance-select:focus {
-    border-color: rgba(99, 102, 241, 0.3) !important;
-    box-shadow: 0 0 12px rgba(99, 102, 241, 0.06) !important;
-    outline: none;
-}
-
-@media (max-width: 768px) {
-    #homeSection .home-instance-controls {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-    }
-
-    #homeSection .home-instance-controls .instance-select {
-        width: 100%;
-        min-width: unset;
-    }
 }
 
 /* ── Trending bar accent ────────────────────────────────────────── */
@@ -682,7 +734,7 @@
 
 /* Column widths for alignment */
 .app-list-table colgroup .col-instance {
-    width: 20%;
+    width: 16%;
 }
 
 .app-list-table colgroup .col-searches {
@@ -694,11 +746,15 @@
 }
 
 .app-list-table colgroup .col-api-status {
-    width: 32%;
+    width: 28%;
+}
+
+.app-list-table colgroup .col-sm-reset {
+    width: 10%;
 }
 
 .app-list-table colgroup .col-actions {
-    width: 8%;
+    width: 6%;
 }
 
 .app-list-table thead th {
@@ -901,20 +957,32 @@
     background: rgba(239, 68, 68, 0.08) !important;
 }
 
-/* State Management Reset in list mode */
-.list-state-reset {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.65rem;
-    color: rgba(148, 163, 184, 0.45);
-    margin-top: 2px;
-    cursor: help;
+/* State Management Reset column in list mode */
+.list-sm-reset {
+    color: #64748b;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    vertical-align: middle;
 }
 
-.list-state-reset i {
-    font-size: 0.6rem;
-    opacity: 0.7;
+.list-sm-reset .sm-reset-icon {
+    font-size: 0.65rem;
+    opacity: 0.5;
+    margin-right: 2px;
+}
+
+.list-sm-reset .sm-reset-value {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #94a3b8;
+    font-variant-numeric: tabular-nums;
+}
+
+.list-sm-reset .sm-reset-off {
+    font-weight: 600;
+    font-size: 0.72rem;
+    color: #475569;
+    letter-spacing: 0.04em;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -923,23 +991,27 @@
    ═══════════════════════════════════════════════════════════════════ */
 @media (max-width: 1100px) and (min-width: 769px) {
     .app-list-table colgroup .col-instance {
-        width: 16%;
+        width: 14%;
     }
 
     .app-list-table colgroup .col-searches {
-        width: 11%;
+        width: 10%;
     }
 
     .app-list-table colgroup .col-upgrades {
-        width: 11%;
+        width: 10%;
     }
 
     .app-list-table colgroup .col-api-status {
-        width: 36%;
+        width: 30%;
+    }
+
+    .app-list-table colgroup .col-sm-reset {
+        width: 10%;
     }
 
     .app-list-table colgroup .col-actions {
-        width: 8%;
+        width: 6%;
     }
 
     /* Shrink API bar further in narrow view */

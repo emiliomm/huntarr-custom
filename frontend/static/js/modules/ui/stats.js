@@ -607,6 +607,7 @@ window.HuntarrStats = {
                 '<col class="col-searches">' +
                 '<col class="col-upgrades">' +
                 '<col class="col-api-status">' +
+                '<col class="col-sm-reset">' +
                 '<col class="col-actions">' +
                 '</colgroup>' +
                 '<thead><tr>' +
@@ -614,6 +615,7 @@ window.HuntarrStats = {
                 '<th class="col-searches" data-abbr="' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'F/Srch' : 'Searches') + '">' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'Found / Searches' : 'Searches') + '</th>' +
                 '<th class="col-upgrades" data-abbr="' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'F/Upg' : 'Upgrades') + '">' + (app === 'movie_hunt' || app === 'tv_hunt' ? 'Found / Upgrades' : 'Upgrades') + '</th>' +
                 '<th>API / Status</th>' +
+                '<th>SM Reset</th>' +
                 '<th></th>' +
                 '</tr></thead><tbody>';
 
@@ -628,16 +630,15 @@ window.HuntarrStats = {
                 var pct = apiLimit > 0 ? Math.min(100, (apiHits / apiLimit) * 100) : 0;
                 var name = inst.instance_name || 'Default';
 
-                // State Management Reset info
-                var stateResetHtml = '';
+                // State Management Reset — own column
                 var stateEnabled = inst.state_reset_enabled !== false;
                 var hoursUntil = inst.state_reset_hours_until;
+                var smResetValue = '--';
                 if (!stateEnabled) {
-                    stateResetHtml = '<div class="list-state-reset" title="State Management Reset"><i class="fas fa-hourglass-half"></i> SM Reset: Disabled</div>';
+                    smResetValue = '<span class="sm-reset-off">OFF</span>';
                 } else if (hoursUntil != null && typeof hoursUntil === 'number' && hoursUntil > 0) {
                     var h = Math.floor(hoursUntil);
-                    var label = h >= 1 ? '' + h + 'h' : '<1h';
-                    stateResetHtml = '<div class="list-state-reset" title="State Management Reset"><i class="fas fa-hourglass-half"></i> SM Reset: ' + label + '</div>';
+                    smResetValue = '<span class="sm-reset-value">' + (h >= 1 ? h + 'h' : '<1h') + '</span>';
                 }
 
                 // Movie Hunt shows "found / searched" and "found / upgrades"
@@ -662,9 +663,9 @@ window.HuntarrStats = {
                     '<div class="cycle-timer inline-timer ' + cssClass + '" data-app-type="' + app + '">' +
                     '<i class="fas fa-clock ' + cssClass + '-icon"></i> <span class="timer-value">Loading...</span>' +
                     '</div>' +
-                    stateResetHtml +
                     '</div>' +
                     '</td>' +
+                    '<td class="list-sm-reset"><i class="fas fa-hourglass-half sm-reset-icon"></i> ' + smResetValue + '</td>' +
                     '<td class="list-actions">' +
                     '<button class="cycle-reset-button" data-app="' + app + '" data-instance-name="' + name + '" title="Reset Cycle"><i class="fas fa-sync-alt"></i></button>' +
                     '</td>' +
