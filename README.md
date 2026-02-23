@@ -41,7 +41,7 @@
 
 My 12-year-old daughter loves singing, dancing, and exploring STEM. She's an A-B honor roll student with big dreams. Any donation you make goes directly toward her college fund, helping her turn those dreams into reality. Thank you sincerely for your support!
 
-[![Donate with PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate?hosted_button_id=58AYJ68VVMGSC)
+[![Donate with PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://github.com/MGHazz/huntarr.io-archive/)
 
 ---
 
