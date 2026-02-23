@@ -457,12 +457,14 @@ window.RequestarrRequests = {
             ? (item.poster_path.startsWith('http') ? item.poster_path : `https://image.tmdb.org/t/p/w185${item.poster_path}`)
             : './static/images/blackout.jpg';
         const typeBadgeLabel = item.media_type === 'tv' ? 'TV' : 'Movie';
-
         card.innerHTML = `
             <div class="media-card-poster">
                 <button class="media-card-unhide-btn" title="Remove from Global Blacklist"><i class="fas fa-undo-alt"></i></button>
                 <img src="${posterUrl}" alt="${this._esc(item.title)}" onerror="this.src='./static/images/blackout.jpg'">
                 <span class="media-type-badge">${typeBadgeLabel}</span>
+            </div>
+            <div class="media-card-info">
+                <div class="media-card-title" title="${this._esc(item.title)}">${this._esc(item.title)}</div>
             </div>
         `;
 
@@ -472,7 +474,7 @@ window.RequestarrRequests = {
             if (imgEl) {
                 window.getCachedTMDBImage(posterUrl, window.tmdbImageCache).then(cachedUrl => {
                     if (cachedUrl && cachedUrl !== posterUrl) imgEl.src = cachedUrl;
-                }).catch(() => {});
+                }).catch(() => { });
             }
         }
 

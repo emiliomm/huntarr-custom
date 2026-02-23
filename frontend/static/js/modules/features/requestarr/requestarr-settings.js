@@ -344,11 +344,8 @@ export class RequestarrSettings {
             scopeBadge = '<span class="hidden-scope-badge hidden-scope-personal" title="Hidden by you (personal)">Personal Blacklist</span>';
         }
 
-        // Only show unhide button if NOT globally blacklisted (or if owner and it's a personal hide)
-        const showUnhide = !isGlobalBlacklist || (isOwner && item._source !== 'global_blacklist');
-
-        const year = item.year || item.release_year || 'N/A';
-        const rating = item.vote_average ? parseFloat(item.vote_average).toFixed(1) : 'N/A';
+        // Owner can unhide anything; non-owners can only unhide their personal items
+        const showUnhide = isOwner || !isGlobalBlacklist;
 
         card.innerHTML = `
             <div class="media-card-poster">
@@ -359,10 +356,6 @@ export class RequestarrSettings {
             </div>
             <div class="media-card-info">
                 <div class="media-card-title" title="${item.title}">${item.title}</div>
-                <div class="media-card-meta">
-                    <span class="media-card-year">${year}</span>
-                    <span class="media-card-rating"><i class="fas fa-star"></i> ${rating}</span>
-                </div>
             </div>
         `;
 
@@ -380,23 +373,38 @@ export class RequestarrSettings {
         if (unhideBtn) {
             unhideBtn.addEventListener('click', async (e) => {
                 e.stopPropagation();
-                await this.unhideMedia(item.tmdb_id, item.media_type, item.title, card);
+                await this.unhideMedia(item.tmdb_id, item.media_type, item.title, card, item._source);
             });
         }
 
         return card;
     }
 
-    async unhideMedia(tmdbId, mediaType, title, cardElement) {
+    async unhideMedia(tmdbId, mediaType, title, cardElement, source) {
         const self = this;
+        const isGlobal = source === 'global_blacklist';
         const doUnhide = async function () {
             try {
-                const response = await fetch(`./api/requestarr/hidden-media/${tmdbId}/${mediaType}`, {
-                    method: 'DELETE'
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to unhide media');
+                // For global blacklist items (owner), remove from global blacklist AND hidden media
+                if (isGlobal) {
+                    const glResp = await fetch(`./api/requestarr/requests/global-blacklist/${tmdbId}/${mediaType}`, {
+                        method: 'DELETE'
+                    });
+                    if (!glResp.ok) {
+                        throw new Error('Failed to remove from global blacklist');
+                    }
+                    // Also try to remove from hidden media (may not exist, ignore errors)
+                    await fetch(`./api/requestarr/hidden-media/${tmdbId}/${mediaType}`, {
+                        method: 'DELETE'
+                    }).catch(() => { });
+                } else {
+                    // Personal item: just remove from hidden media
+                    const response = await fetch(`./api/requestarr/hidden-media/${tmdbId}/${mediaType}`, {
+                        method: 'DELETE'
+                    });
+                    if (!response.ok) {
+                        throw new Error('Failed to unhide media');
+                    }
                 }
 
                 // Remove from local cache and re-render
@@ -405,13 +413,16 @@ export class RequestarrSettings {
                 });
                 self.renderHiddenMediaPage();
 
-                console.log(`[RequestarrSettings] Unhidden media: ${title} (${mediaType})`);
+                const label = isGlobal ? 'global blacklist' : 'personal blacklist';
+                console.log(`[RequestarrSettings] Removed from ${label}: ${title} (${mediaType})`);
+                if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification(`Removed "${title}" from ${label}`, 'success');
             } catch (error) {
                 console.error('[RequestarrSettings] Error unhiding media:', error);
                 if (window.huntarrUI && window.huntarrUI.showNotification) window.huntarrUI.showNotification('Failed to unhide media. Please try again.', 'error');
             }
         };
-        window.HuntarrConfirm.show({ title: 'Unblacklist Media', message: `Remove "${title}" from your personal blacklist? It will appear in discovery again.`, confirmLabel: 'Unblacklist', onConfirm: function () { doUnhide(); } });
+        const msgLabel = isGlobal ? 'the global blacklist' : 'your personal blacklist';
+        window.HuntarrConfirm.show({ title: 'Unblacklist Media', message: `Remove "${title}" from ${msgLabel}? It will appear in discovery again.`, confirmLabel: 'Unblacklist', onConfirm: function () { doUnhide(); } });
     }
 
     // ========================================
