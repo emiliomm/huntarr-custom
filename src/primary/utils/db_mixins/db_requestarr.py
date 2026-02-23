@@ -180,7 +180,7 @@ class RequestarrMixin:
             logger.error(f"Error deleting requestarr request {request_id}: {e}")
             return False
 
-    def get_requestarr_request_count(self, user_id: int = None, status: str = None) -> int:
+    def get_requestarr_request_count(self, user_id: int = None, status: str = None, media_type: str = None) -> int:
         """Get count of requests with optional filters. Excludes old media-tracking rows."""
         try:
             with self.get_connection() as conn:
@@ -193,6 +193,9 @@ class RequestarrMixin:
                 if status:
                     conditions.append('status = ?')
                     params.append(status)
+                if media_type:
+                    conditions.append('media_type = ?')
+                    params.append(media_type)
                 where = ' WHERE ' + ' AND '.join(conditions)
                 row = conn.execute(f'SELECT COUNT(*) FROM requestarr_requests{where}', params).fetchone()
                 return row[0] if row else 0

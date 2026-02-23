@@ -697,6 +697,32 @@
     min-width: 140px;
 }
 
+.reqrequests-pagination-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.reqrequests-pagination-bar .pagination-btn {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    color: #94a3b8;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reqrequests-pagination-bar .pagination-btn:hover:not(:disabled) {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: #e2e8f0;
+}
+
+.reqrequests-pagination-bar .pagination-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
 .reqrequests-empty {
     display: flex;
     flex-direction: column;

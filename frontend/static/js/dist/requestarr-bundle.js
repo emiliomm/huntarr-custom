@@ -9076,6 +9076,8 @@ window.RequestarrServices = RequestarrServices;
 window.RequestarrRequests = {
     requests: [],
     total: 0,
+    _page: 1,
+    _pageSize: 20,
     // Global blacklist state
     _glBlacklistItems: [],
     _glBlacklistSearch: '',
@@ -9093,6 +9095,33 @@ window.RequestarrRequests = {
         await this.loadRequests();
     },
 
+    onFilterChange() {
+        this._page = 1;
+        this.loadRequests();
+    },
+
+    onPageSizeChange() {
+        const sel = document.getElementById('reqrequests-page-size');
+        if (sel) this._pageSize = parseInt(sel.value, 10) || 20;
+        this._page = 1;
+        this.loadRequests();
+    },
+
+    prevPage() {
+        if (this._page > 1) {
+            this._page--;
+            this.loadRequests();
+        }
+    },
+
+    nextPage() {
+        const totalPages = Math.max(1, Math.ceil(this.total / this._pageSize));
+        if (this._page < totalPages) {
+            this._page++;
+            this.loadRequests();
+        }
+    },
+
     async loadRequests() {
         const container = document.getElementById('reqrequests-content');
         if (!container) return;
@@ -9106,7 +9135,8 @@ window.RequestarrRequests = {
             const params = new URLSearchParams();
             if (status) params.set('status', status);
             if (mediaType) params.set('media_type', mediaType);
-            params.set('limit', '100');
+            params.set('limit', String(this._pageSize));
+            params.set('offset', String((this._page - 1) * this._pageSize));
 
             const resp = await fetch(`./api/requestarr/requests?${params}`, { cache: 'no-store' });
             if (!resp.ok) throw new Error('Failed to load requests');
@@ -9114,10 +9144,24 @@ window.RequestarrRequests = {
             this.requests = data.requests || [];
             this.total = data.total || 0;
             this.render();
+            this._updatePagination();
         } catch (e) {
             console.error('[RequestarrRequests] Error:', e);
             container.innerHTML = '<p style="color:var(--error-color);padding:20px;">Failed to load requests.</p>';
         }
+    },
+
+    _updatePagination() {
+        const totalPages = Math.max(1, Math.ceil(this.total / this._pageSize));
+        if (this._page > totalPages) this._page = totalPages;
+
+        const pageInfo = document.getElementById('reqrequests-page-info');
+        const prevBtn = document.getElementById('reqrequests-prev-page');
+        const nextBtn = document.getElementById('reqrequests-next-page');
+
+        if (pageInfo) pageInfo.textContent = `Page ${this._page} of ${totalPages}`;
+        if (prevBtn) prevBtn.disabled = this._page <= 1;
+        if (nextBtn) nextBtn.disabled = this._page >= totalPages;
     },
 
     render() {
@@ -9136,11 +9180,7 @@ window.RequestarrRequests = {
         }
 
         const cards = this.requests.map(r => this._renderCard(r)).join('');
-        container.innerHTML = `
-            <div class="reqrequests-list">${cards}</div>
-            <div class="requsers-pagination">
-                <span>Showing ${this.requests.length} of ${this.total} request${this.total !== 1 ? 's' : ''}</span>
-            </div>`;
+        container.innerHTML = `<div class="reqrequests-list">${cards}</div>`;
     },
 
     _renderCard(req) {

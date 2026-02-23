@@ -359,7 +359,7 @@
             <div class="requsers-toolbar">
                 <div class="reqrequests-filters">
                     <select id="reqrequests-status-filter" class="control-select"
-                        onchange="window.RequestarrRequests && window.RequestarrRequests.loadRequests()">
+                        onchange="window.RequestarrRequests && window.RequestarrRequests.onFilterChange()">
                         <option value="" selected>All Statuses</option>
                         <option value="pending">Pending</option>
                         <option value="approved">Approved</option>
@@ -367,11 +367,31 @@
                         <option value="blacklisted">Blacklisted</option>
                     </select>
                     <select id="reqrequests-type-filter" class="control-select"
-                        onchange="window.RequestarrRequests && window.RequestarrRequests.loadRequests()">
+                        onchange="window.RequestarrRequests && window.RequestarrRequests.onFilterChange()">
                         <option value="">All Types</option>
                         <option value="movie">Movies</option>
                         <option value="tv">TV Shows</option>
                     </select>
+                </div>
+                <div class="reqrequests-pagination-bar">
+                    <span style="color:#94a3b8; font-size:13px;">Show</span>
+                    <select id="reqrequests-page-size" class="control-select"
+                        style="min-width:60px; padding:4px 8px; font-size:13px;"
+                        onchange="window.RequestarrRequests && window.RequestarrRequests.onPageSizeChange()">
+                        <option value="10">10</option>
+                        <option value="20" selected>20</option>
+                        <option value="50">50</option>
+                    </select>
+                    <button id="reqrequests-prev-page" class="pagination-btn" style="padding:4px 10px; font-size:13px;"
+                        onclick="window.RequestarrRequests && window.RequestarrRequests.prevPage()" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span id="reqrequests-page-info" style="color:#94a3b8; font-size:13px; white-space:nowrap;">Page 1
+                        of 1</span>
+                    <button id="reqrequests-next-page" class="pagination-btn" style="padding:4px 10px; font-size:13px;"
+                        onclick="window.RequestarrRequests && window.RequestarrRequests.nextPage()" disabled>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
             <div id="reqrequests-content">

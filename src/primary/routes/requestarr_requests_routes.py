@@ -148,7 +148,7 @@ def list_requests():
         status=status_filter, user_id=user_id_filter,
         media_type=media_type, limit=limit, offset=offset
     )
-    total = db.get_requestarr_request_count(user_id=user_id_filter, status=status_filter)
+    total = db.get_requestarr_request_count(user_id=user_id_filter, status=status_filter, media_type=media_type)
 
     # For owner: enrich each request with all requesters AND consolidate
     # so the same media item appears as ONE card with all requesters listed
@@ -167,7 +167,7 @@ def list_requests():
             seen[key] = req
             consolidated.append(req)
         requests_list = consolidated
-        total = len(consolidated)
+        # Keep DB-level total for pagination (don't override with page-level count)
 
     return jsonify({'requests': requests_list, 'total': total})
 
