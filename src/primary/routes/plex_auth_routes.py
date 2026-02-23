@@ -448,48 +448,50 @@ def plex_status():
     """Get Plex authentication status for current user"""
     try:
         from src.primary.utils.database import get_database
-        from src.primary.auth import get_username_from_session, SESSION_COOKIE_NAME
         db = get_database()
 
-        # Determine current user
-        session_id = session.get(SESSION_COOKIE_NAME) or request.cookies.get(SESSION_COOKIE_NAME)
-        username = get_username_from_session(session_id) if session_id else None
+        # Try to determine current user from session
+        username = None
+        try:
+            session_id = session.get(SESSION_COOKIE_NAME) or request.cookies.get(SESSION_COOKIE_NAME)
+            if session_id:
+                username = get_username_from_session(session_id)
+        except Exception:
+            pass
 
-        if not username:
-            return jsonify({'success': False, 'error': 'Not authenticated'}), 401
+        # If we have a username, check if this is a non-owner
+        if username:
+            req_user = db.get_requestarr_user_by_username(username)
+            if req_user and req_user.get('role') != 'owner':
+                # Non-owner: check plex_user_data in requestarr_users
+                import json as _json
+                plex_data_raw = req_user.get('plex_user_data')
+                plex_user_data = {}
+                if plex_data_raw:
+                    if isinstance(plex_data_raw, str):
+                        try:
+                            plex_user_data = _json.loads(plex_data_raw)
+                        except Exception:
+                            plex_user_data = {}
+                    elif isinstance(plex_data_raw, dict):
+                        plex_user_data = plex_data_raw
 
-        # Check if this is a non-owner
-        req_user = db.get_requestarr_user_by_username(username)
-        if req_user and req_user.get('role') != 'owner':
-            # Non-owner: check plex_user_data in requestarr_users
-            import json as _json
-            plex_data_raw = req_user.get('plex_user_data')
-            plex_user_data = {}
-            if plex_data_raw:
-                if isinstance(plex_data_raw, str):
-                    try:
-                        plex_user_data = _json.loads(plex_data_raw)
-                    except Exception:
-                        plex_user_data = {}
-                elif isinstance(plex_data_raw, dict):
-                    plex_user_data = plex_data_raw
+                plex_linked = bool(plex_user_data)
+                response_data = {
+                    'success': True,
+                    'plex_linked': plex_linked,
+                    'auth_type': 'plex' if plex_linked else 'local'
+                }
+                if plex_linked:
+                    response_data.update({
+                        'plex_username': plex_user_data.get('username', 'Unknown'),
+                        'plex_email': plex_user_data.get('email', 'N/A'),
+                        'plex_linked_at': req_user.get('created_at')
+                    })
+                return jsonify(response_data)
 
-            plex_linked = bool(plex_user_data)
-            response_data = {
-                'success': True,
-                'plex_linked': plex_linked,
-                'auth_type': 'plex' if plex_linked else 'local'
-            }
-            if plex_linked:
-                response_data.update({
-                    'plex_username': plex_user_data.get('username', 'Unknown'),
-                    'plex_email': plex_user_data.get('email', 'N/A'),
-                    'plex_linked_at': req_user.get('created_at')
-                })
-            return jsonify(response_data)
-
-        # Owner: check main users table
-        user_data = db.get_user_by_username(username) or db.get_first_user()
+        # Owner or no session: check main users table (original behavior)
+        user_data = (db.get_user_by_username(username) if username else None) or db.get_first_user()
         if not user_data:
             return jsonify({'success': False, 'error': 'No user found'}), 404
         

@@ -5238,7 +5238,8 @@ class UserModule {
             const userData = await userResponse.json();
 
             // Update username
-            document.getElementById('currentUsername').textContent = userData.username || 'Unknown';
+            var usernameEl = document.getElementById('currentUsername');
+            if (usernameEl) usernameEl.textContent = userData.username || 'Unknown';
 
             // Update 2FA status
             this.update2FAStatus(userData.is_2fa_enabled);
@@ -5854,24 +5855,25 @@ class UserModule {
         const disableSection = document.getElementById('disableTwoFactorSection');
         const recoverySection = document.getElementById('recoveryTwoFactorSection');
 
+        if (!statusBadge) return;
         statusBadge.style.display = 'inline-block';
 
         if (enabled) {
             statusBadge.textContent = 'Enabled';
             statusBadge.className = 'status-badge enabled';
 
-            enableSection.style.display = 'none';
-            setupSection.style.display = 'none';
-            disableSection.style.display = 'block';
-            recoverySection.style.display = 'block';
+            if (enableSection) enableSection.style.display = 'none';
+            if (setupSection) setupSection.style.display = 'none';
+            if (disableSection) disableSection.style.display = 'block';
+            if (recoverySection) recoverySection.style.display = 'block';
         } else {
             statusBadge.textContent = 'Disabled';
             statusBadge.className = 'status-badge disabled';
 
-            enableSection.style.display = 'block';
-            setupSection.style.display = 'none';
-            disableSection.style.display = 'none';
-            recoverySection.style.display = 'none';
+            if (enableSection) enableSection.style.display = 'block';
+            if (setupSection) setupSection.style.display = 'none';
+            if (disableSection) disableSection.style.display = 'none';
+            if (recoverySection) recoverySection.style.display = 'none';
         }
     }
 
@@ -5880,37 +5882,41 @@ class UserModule {
         const notLinkedSection = document.getElementById('plexNotLinkedSection');
         const linkedSection = document.getElementById('plexLinkedSection');
 
+        if (!statusBadge) return;
         statusBadge.style.display = 'inline-block';
 
         if (plexData && plexData.plex_linked) {
             statusBadge.textContent = 'Linked';
             statusBadge.className = 'status-badge enabled';
 
-            document.getElementById('plexUsername').textContent = plexData.plex_username || 'Unknown';
-            document.getElementById('plexEmail').textContent = plexData.plex_email || 'N/A';
+            var plexUsernameEl = document.getElementById('plexUsername');
+            if (plexUsernameEl) plexUsernameEl.textContent = plexData.plex_username || 'Unknown';
+            var plexEmailEl = document.getElementById('plexEmail');
+            if (plexEmailEl) plexEmailEl.textContent = plexData.plex_email || 'N/A';
 
             // Format the timestamp properly
             let linkedAtText = 'Unknown';
             if (plexData.plex_linked_at) {
                 try {
                     const timestamp = plexData.plex_linked_at;
-                    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
-                    linkedAtText = date.toLocaleString(); // Format as readable date/time
+                    const date = new Date(timestamp * 1000);
+                    linkedAtText = date.toLocaleString();
                 } catch (error) {
                     console.error('Error formatting plex_linked_at timestamp:', error);
                     linkedAtText = 'Invalid Date';
                 }
             }
-            document.getElementById('plexLinkedAt').textContent = linkedAtText;
+            var plexLinkedAtEl = document.getElementById('plexLinkedAt');
+            if (plexLinkedAtEl) plexLinkedAtEl.textContent = linkedAtText;
 
-            notLinkedSection.style.display = 'none';
-            linkedSection.style.display = 'block';
+            if (notLinkedSection) notLinkedSection.style.display = 'none';
+            if (linkedSection) linkedSection.style.display = 'block';
         } else {
             statusBadge.textContent = 'Not Linked';
             statusBadge.className = 'status-badge disabled';
 
-            notLinkedSection.style.display = 'block';
-            linkedSection.style.display = 'none';
+            if (notLinkedSection) notLinkedSection.style.display = 'block';
+            if (linkedSection) linkedSection.style.display = 'none';
         }
     }
 

@@ -682,6 +682,17 @@ def change_username_route():
         logger.warning("Username change attempt failed: Not authenticated and not in bypass mode.")
         return jsonify({"error": "Not authenticated"}), 401
 
+    # Non-owners cannot change their username
+    try:
+        from src.primary.utils.database import get_database
+        db = get_database()
+        req_user = db.get_requestarr_user_by_username(current_username)
+        if req_user and req_user.get('role') != 'owner':
+            logger.warning(f"Username change blocked for non-owner '{current_username}'.")
+            return jsonify({"success": False, "error": "Only the owner can change their username"}), 403
+    except Exception as e:
+        logger.error(f"Error checking user role for username change: {e}")
+
     data = request.json
     new_username = data.get('username')
     password = data.get('password') # Get password from request
