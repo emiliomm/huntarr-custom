@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +10,14 @@
     </script>
     <link rel="preload" href="./static/logo/256.png" as="image" fetchpriority="high">
     <link rel="stylesheet" href="./static/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a" crossorigin="anonymous"
+        referrerpolicy="no-referrer">
     <link rel="icon" href="./static/logo/16.png">
     <script src="./static/js/modules/core/theme-preload.js"></script>
     <link rel="stylesheet" href="./static/css/setup.css">
 </head>
+
 <body class="setup-page dark-mode">
     <!-- Rotating backdrop layers -->
     <div class="setup-backdrop-layer" id="backdropA"></div>
@@ -104,14 +108,16 @@
                             <i class="fas fa-lock"></i>
                             <span>Password</span>
                         </label>
-                        <input type="password" id="password" name="password" placeholder="Minimum 8 characters" required>
+                        <input type="password" id="password" name="password" placeholder="Minimum 8 characters"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="confirm_password">
                             <i class="fas fa-check-circle"></i>
                             <span>Confirm Password</span>
                         </label>
-                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter your password" required>
+                        <input type="password" id="confirm_password" name="confirm_password"
+                            placeholder="Re-enter your password" required>
                     </div>
                     <div class="error-message" id="errorMessage" style="display: none;"></div>
                     <div class="setup-step-actions">
@@ -150,7 +156,8 @@
                                 <i class="fas fa-shield-alt"></i>
                                 <span>Verification Code</span>
                             </label>
-                            <input type="text" id="verificationCode" placeholder="Enter 6-digit code" maxlength="6" autocomplete="off">
+                            <input type="text" id="verificationCode" placeholder="Enter 6-digit code" maxlength="6"
+                                autocomplete="off">
                         </div>
                     </div>
                     <div class="error-message" id="twoFactorErrorMessage" style="display: none;"></div>
@@ -174,7 +181,8 @@
                             <div class="setup-plex-card-icon"><i class="fas fa-link"></i></div>
                             <div class="setup-plex-card-body">
                                 <strong>Link Plex Account</strong>
-                                <p>Use Plex as a secondary backup login &mdash; sign in even if you forget your password.</p>
+                                <p>Use Plex as a secondary backup login &mdash; sign in even if you forget your
+                                    password.</p>
                             </div>
                         </div>
                         <div class="setup-plex-card setup-plex-card-skip" id="plexCardSkip">
@@ -208,7 +216,8 @@
                             <i class="fas fa-shield-alt radio-card-icon"></i>
                             <div class="radio-card-body">
                                 <div class="radio-card-title">Login Mode</div>
-                                <div class="radio-card-desc">Standard login required for all connections. Recommended for most users.</div>
+                                <div class="radio-card-desc">Standard login required for all connections. Recommended
+                                    for most users.</div>
                             </div>
                         </div>
                         <div class="radio-card" data-value="local_bypass">
@@ -216,7 +225,8 @@
                             <i class="fas fa-house-signal radio-card-icon"></i>
                             <div class="radio-card-body">
                                 <div class="radio-card-title">Local Bypass Mode</div>
-                                <div class="radio-card-desc">Local network connections bypass login. External access still requires authentication.</div>
+                                <div class="radio-card-desc">Local network connections bypass login. External access
+                                    still requires authentication.</div>
                             </div>
                         </div>
                         <div class="radio-card" data-value="no_login">
@@ -224,14 +234,16 @@
                             <i class="fas fa-lock-open radio-card-icon"></i>
                             <div class="radio-card-body">
                                 <div class="radio-card-title">No Login Mode</div>
-                                <div class="radio-card-desc">Disable authentication. Only recommended behind a secured reverse proxy.</div>
+                                <div class="radio-card-desc">Disable authentication. Only recommended behind a secured
+                                    reverse proxy.</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="auth-warning" id="authWarning">
                         <i class="fas fa-exclamation-triangle"></i>
-                        <strong>Warning:</strong> Only use No Login Mode if your reverse proxy is properly securing access!
+                        <strong>Warning:</strong> Only use No Login Mode if your reverse proxy is properly securing
+                        access!
                     </div>
 
                     <div class="error-message" id="authModeErrorMessage" style="display: none;"></div>
@@ -253,7 +265,10 @@
                             <div class="setup-key-top-row">
                                 <i class="fas fa-shield-alt"></i>
                                 <div class="setup-key-info">
-                                    This is the <strong>only way</strong> to recover your account if you lose your password or 2FA device. Huntarr cannot reset your credentials or assist with account recovery &mdash; your security is fully self-sovereign to harden against cybersecurity attacks.
+                                    This is the <strong>only way</strong> to recover your account if you lose your
+                                    password or 2FA device. Huntarr cannot reset your credentials or assist with account
+                                    recovery &mdash; your security is fully self-sovereign to harden against
+                                    cybersecurity attacks.
                                 </div>
                             </div>
                             <div class="setup-key-value">
@@ -278,7 +293,8 @@
 
                             <div id="confirmationSection" style="display: none;">
                                 <div class="setup-confirm-prompt">
-                                    <span><i class="fas fa-question-circle"></i> Have you copied your recovery key?</span>
+                                    <span><i class="fas fa-question-circle"></i> Have you copied your recovery
+                                        key?</span>
                                     <div class="setup-confirm-buttons">
                                         <button type="button" id="confirmCopiedButton" class="setup-btn-primary">
                                             <i class="fas fa-check"></i> Yes, I've copied it
@@ -308,19 +324,31 @@
                             <i class="fas fa-heart thankyou-heart"></i>
                             <p class="finish-title">Thank You For Using Huntarr</p>
                             <p class="finish-body">
-                                If you love the program, any future donation to my daughter's college fund would make her day! Regardless, enjoy Huntarr and please join us on Discord and Reddit for community support.
+                                If you love the program, future donations to my daughter's 529 college fund make her
+                                day! I never profit from this, and actually put a lot into supporting this. Regardless,
+                                enjoy Huntarr and also check out <a href="https://huntarros.com" target="_blank"
+                                    rel="noopener noreferrer"
+                                    style="color: #a5b4fc; text-decoration: underline;">HuntarrOS.com</a> for cool
+                                Docker deployment orchestration.
                             </p>
+                            <a href="https://plexguide.github.io/Huntarr.io/donate.html" target="_blank"
+                                rel="noopener noreferrer" class="setup-btn-ghost"
+                                style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+                                <i class="fas fa-heart" style="color: #ec4899;"></i> Donate
+                            </a>
                             <p class="finish-sig">- Admin9705 & Huntarr Crew</p>
                         </div>
 
                         <div class="setup-special-thanks">
                             <p class="special-thanks-title">Special Thanks</p>
                             <div class="special-thanks-list">
-                                <a href="https://github.com/nwithan8" target="_blank" rel="noopener noreferrer" class="special-thanks-item">
+                                <a href="https://github.com/nwithan8" target="_blank" rel="noopener noreferrer"
+                                    class="special-thanks-item">
                                     <i class="fab fa-github"></i>
                                     <span>Nwithan8</span>
                                 </a>
-                                <a href="https://www.reddit.com/r/unRAID/" target="_blank" rel="noopener noreferrer" class="special-thanks-item">
+                                <a href="https://www.reddit.com/r/unRAID/" target="_blank" rel="noopener noreferrer"
+                                    class="special-thanks-item">
                                     <i class="fab fa-reddit-alien"></i>
                                     <span>r/unRAID Community</span>
                                 </a>
@@ -359,13 +387,13 @@
         let userData = { username: '', password: '' };
 
         // Wire up Plex card clicks to hidden buttons
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var plexCardLink = document.getElementById('plexCardLink');
             var plexCardSkip = document.getElementById('plexCardSkip');
-            if (plexCardLink) plexCardLink.addEventListener('click', function() {
+            if (plexCardLink) plexCardLink.addEventListener('click', function () {
                 document.getElementById('linkPlexButton').click();
             });
-            if (plexCardSkip) plexCardSkip.addEventListener('click', function() {
+            if (plexCardSkip) plexCardSkip.addEventListener('click', function () {
                 document.getElementById('skipPlexButton').click();
             });
         });
@@ -400,91 +428,91 @@
             }
 
             cancelBtn.addEventListener('click', cleanup);
-            overlay.addEventListener('click', function(e) { if (e.target === overlay) cleanup(); });
+            overlay.addEventListener('click', function (e) { if (e.target === overlay) cleanup(); });
 
             HuntarrUtils.fetchWithTimeout('./api/auth/plex/pin', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ user_mode: true, popup_mode: true, setup_mode: true })
             })
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                if (!data.success) {
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (!data.success) {
+                        statusEl.className = 'plex-status error';
+                        statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + (data.error || 'Failed to create PIN');
+                        return;
+                    }
+                    currentPlexPinId = data.pin_id;
+                    statusEl.innerHTML = '<i class="fas fa-external-link-alt"></i> A Plex window has opened. Please sign in there.';
+
+                    // Open popup window
+                    var w = 600, h = 700;
+                    var left = Math.max(0, Math.round(window.screenX + (window.outerWidth - w) / 2));
+                    var top = Math.max(0, Math.round(window.screenY + (window.outerHeight - h) / 2));
+                    plexPopup = window.open(data.auth_url, 'PlexAuth', 'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ',toolbar=no,menubar=no,scrollbars=yes');
+
+                    // Poll for claim
+                    pollInterval = setInterval(function () {
+                        fetch('./api/auth/plex/check/' + currentPlexPinId)
+                            .then(function (r) { return r.json(); })
+                            .then(function (d) {
+                                if (d.success && d.claimed) {
+                                    clearInterval(pollInterval); pollInterval = null;
+                                    if (plexPopup && !plexPopup.closed) plexPopup.close();
+                                    statusEl.className = 'plex-status success';
+                                    statusEl.style.background = 'rgba(40,167,69,0.2)';
+                                    statusEl.style.borderColor = 'rgba(40,167,69,0.3)';
+                                    statusEl.style.color = '#2ecc71';
+                                    statusEl.innerHTML = '<i class="fas fa-check"></i> Plex authenticated! Linking account...';
+
+                                    // Resolve username
+                                    var username = '';
+                                    var usernameInput = document.getElementById('username');
+                                    if (usernameInput && usernameInput.value) username = usernameInput.value.trim();
+                                    else if (userData && userData.username) username = userData.username;
+                                    else { var s = localStorage.getItem('huntarr-setup-username'); if (s) username = s; }
+
+                                    fetch('./api/auth/plex/link', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        credentials: 'include',
+                                        body: JSON.stringify({ username: username, token: d.token, setup_mode: true })
+                                    })
+                                        .then(function (r) { return r.json(); })
+                                        .then(function (linkResult) {
+                                            if (linkResult.success) {
+                                                statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Plex account linked!';
+                                                setTimeout(function () {
+                                                    cleanup();
+                                                    if (window.saveSetupProgress) window.saveSetupProgress({ current_step: 4, plex_setup_done: true, completed_steps: [1, 2, 3] });
+                                                    if (window.showStep) window.showStep(4);
+                                                }, 1500);
+                                            } else {
+                                                statusEl.className = 'plex-status error';
+                                                statusEl.style.background = 'rgba(220,53,69,0.2)';
+                                                statusEl.style.borderColor = 'rgba(220,53,69,0.3)';
+                                                statusEl.style.color = '#ff6b6b';
+                                                statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + (linkResult.error || 'Linking failed');
+                                            }
+                                        })
+                                        .catch(function () {
+                                            statusEl.className = 'plex-status error';
+                                            statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Network error linking account';
+                                        });
+                                }
+                            })
+                            .catch(function () { });
+                    }, 2000);
+
+                    // 10 min timeout
+                    setTimeout(function () {
+                        if (pollInterval) { cleanup(); }
+                    }, 600000);
+                })
+                .catch(function () {
                     statusEl.className = 'plex-status error';
-                    statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + (data.error || 'Failed to create PIN');
-                    return;
-                }
-                currentPlexPinId = data.pin_id;
-                statusEl.innerHTML = '<i class="fas fa-external-link-alt"></i> A Plex window has opened. Please sign in there.';
-
-                // Open popup window
-                var w = 600, h = 700;
-                var left = Math.max(0, Math.round(window.screenX + (window.outerWidth - w) / 2));
-                var top = Math.max(0, Math.round(window.screenY + (window.outerHeight - h) / 2));
-                plexPopup = window.open(data.auth_url, 'PlexAuth', 'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ',toolbar=no,menubar=no,scrollbars=yes');
-
-                // Poll for claim
-                pollInterval = setInterval(function() {
-                    fetch('./api/auth/plex/check/' + currentPlexPinId)
-                        .then(function(r) { return r.json(); })
-                        .then(function(d) {
-                            if (d.success && d.claimed) {
-                                clearInterval(pollInterval); pollInterval = null;
-                                if (plexPopup && !plexPopup.closed) plexPopup.close();
-                                statusEl.className = 'plex-status success';
-                                statusEl.style.background = 'rgba(40,167,69,0.2)';
-                                statusEl.style.borderColor = 'rgba(40,167,69,0.3)';
-                                statusEl.style.color = '#2ecc71';
-                                statusEl.innerHTML = '<i class="fas fa-check"></i> Plex authenticated! Linking account...';
-
-                                // Resolve username
-                                var username = '';
-                                var usernameInput = document.getElementById('username');
-                                if (usernameInput && usernameInput.value) username = usernameInput.value.trim();
-                                else if (userData && userData.username) username = userData.username;
-                                else { var s = localStorage.getItem('huntarr-setup-username'); if (s) username = s; }
-
-                                fetch('./api/auth/plex/link', {
-                                    method: 'POST',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    credentials: 'include',
-                                    body: JSON.stringify({ username: username, token: d.token, setup_mode: true })
-                                })
-                                .then(function(r) { return r.json(); })
-                                .then(function(linkResult) {
-                                    if (linkResult.success) {
-                                        statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Plex account linked!';
-                                        setTimeout(function() {
-                                            cleanup();
-                                            if (window.saveSetupProgress) window.saveSetupProgress({ current_step: 4, plex_setup_done: true, completed_steps: [1, 2, 3] });
-                                            if (window.showStep) window.showStep(4);
-                                        }, 1500);
-                                    } else {
-                                        statusEl.className = 'plex-status error';
-                                        statusEl.style.background = 'rgba(220,53,69,0.2)';
-                                        statusEl.style.borderColor = 'rgba(220,53,69,0.3)';
-                                        statusEl.style.color = '#ff6b6b';
-                                        statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + (linkResult.error || 'Linking failed');
-                                    }
-                                })
-                                .catch(function() {
-                                    statusEl.className = 'plex-status error';
-                                    statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Network error linking account';
-                                });
-                            }
-                        })
-                        .catch(function() {});
-                }, 2000);
-
-                // 10 min timeout
-                setTimeout(function() {
-                    if (pollInterval) { cleanup(); }
-                }, 600000);
-            })
-            .catch(function() {
-                statusEl.className = 'plex-status error';
-                statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Network error: Unable to connect to Plex.';
-            });
+                    statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Network error: Unable to connect to Plex.';
+                });
         }
 
         function openQRModal(imageSrc) {
@@ -494,7 +522,7 @@
         }
         function closeQRModal() { document.getElementById('qrModal').style.display = 'none'; }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const steps = document.querySelectorAll('.setup-stepper-item');
             const screens = document.querySelectorAll('.setup-section');
             const errorMessage = document.getElementById('errorMessage');
@@ -523,7 +551,7 @@
             let twoFactorEnabled = false;
 
             if (authModeCards) {
-                authModeCards.addEventListener('click', function(e) {
+                authModeCards.addEventListener('click', function (e) {
                     const card = e.target.closest('.radio-card');
                     if (!card) return;
                     authModeCards.querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
@@ -549,10 +577,10 @@
                             if (qrCodeImg) {
                                 qrCodeImg.src = data.qr_code_url;
                                 qrCodeImg.style.display = 'block';
-                                qrCodeElement.addEventListener('click', function() { openQRModal(data.qr_code_url); });
+                                qrCodeElement.addEventListener('click', function () { openQRModal(data.qr_code_url); });
                             } else {
                                 qrCodeElement.innerHTML = '<img src="' + data.qr_code_url + '" alt="QR Code" style="display:block;max-width:100%;height:auto;">';
-                                qrCodeElement.addEventListener('click', function() { openQRModal(data.qr_code_url); });
+                                qrCodeElement.addEventListener('click', function () { openQRModal(data.qr_code_url); });
                             }
                             secretKeyElement.textContent = data.secret;
                         } else {
@@ -562,7 +590,7 @@
                     .catch(error => { secretKeyElement.textContent = 'Failed to generate'; });
             }
 
-            window.showStep = function(step) {
+            window.showStep = function (step) {
                 steps.forEach((s, index) => {
                     if (index + 1 < step) {
                         s.classList.remove('active'); s.classList.add('completed');
@@ -578,8 +606,8 @@
                         if (circle) circle.textContent = String(index + 1);
                     }
                 });
-                var sectionIds = ['accountSetup','twoFactorSetup','plexSetup','authModeSetup','recoveryKeySetup','setupComplete'];
-                sectionIds.forEach(function(id, i) {
+                var sectionIds = ['accountSetup', 'twoFactorSetup', 'plexSetup', 'authModeSetup', 'recoveryKeySetup', 'setupComplete'];
+                sectionIds.forEach(function (id, i) {
                     var el = document.getElementById(id);
                     if (el) { if (i + 1 === step) el.classList.add('active'); else el.classList.remove('active'); }
                 });
@@ -605,7 +633,7 @@
                 return null;
             }
 
-            accountNextButton.addEventListener('click', function() {
+            accountNextButton.addEventListener('click', function () {
                 const username = usernameInput.value.trim();
                 const password = passwordInput.value;
                 const confirmPassword = confirmPasswordInput.value;
@@ -624,53 +652,53 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username: username, password: password, confirm_password: confirmPassword })
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        const ct = response.headers.get('content-type');
-                        if (ct && ct.indexOf('application/json') !== -1) return response.json().then(d => { throw new Error(d.error || d.message || 'Server error: ' + response.status); });
-                        else throw new Error('HTTP error! status: ' + response.status);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        accountCreated = true;
-                        if (usernameInput && usernameInput.value) localStorage.setItem('huntarr-setup-username', usernameInput.value.trim());
-                        showStep(2);
-                    } else { showError(data.error || 'Account creation failed.'); }
-                })
-                .catch(error => { showError('Error: ' + error.message); });
+                    .then(response => {
+                        if (!response.ok) {
+                            const ct = response.headers.get('content-type');
+                            if (ct && ct.indexOf('application/json') !== -1) return response.json().then(d => { throw new Error(d.error || d.message || 'Server error: ' + response.status); });
+                            else throw new Error('HTTP error! status: ' + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            accountCreated = true;
+                            if (usernameInput && usernameInput.value) localStorage.setItem('huntarr-setup-username', usernameInput.value.trim());
+                            showStep(2);
+                        } else { showError(data.error || 'Account creation failed.'); }
+                    })
+                    .catch(error => { showError('Error: ' + error.message); });
             });
 
-            twoFactorNextButton.addEventListener('click', function() {
+            twoFactorNextButton.addEventListener('click', function () {
                 const code = verificationCodeInput.value;
                 if (!code || code.length !== 6 || !/^\d{6}$/.test(code)) { show2FAError('Please enter a valid 6-digit verification code'); return; }
                 HuntarrUtils.fetchWithTimeout('./api/user/2fa/verify', {
                     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: code })
                 })
-                .then(response => response.json().then(data => {
-                    if (response.ok && data.success) {
-                        twoFactorEnabled = true;
-                        saveSetupProgress({ current_step: 3, two_factor_enabled: true, completed_steps: [1, 2] });
-                        showStep(3);
-                    } else { show2FAError(data.error || data.message || 'Invalid verification code'); }
-                }))
-                .catch(error => { show2FAError('Failed to verify code'); });
+                    .then(response => response.json().then(data => {
+                        if (response.ok && data.success) {
+                            twoFactorEnabled = true;
+                            saveSetupProgress({ current_step: 3, two_factor_enabled: true, completed_steps: [1, 2] });
+                            showStep(3);
+                        } else { show2FAError(data.error || data.message || 'Invalid verification code'); }
+                    }))
+                    .catch(error => { show2FAError('Failed to verify code'); });
             });
 
-            skip2FALink.addEventListener('click', function() {
+            skip2FALink.addEventListener('click', function () {
                 saveSetupProgress({ current_step: 3, completed_steps: [1, 2] });
                 showStep(3);
             });
 
-            authModeNextButton.addEventListener('click', function() {
+            authModeNextButton.addEventListener('click', function () {
                 HuntarrUtils.fetchWithTimeout('./api/settings/general', {
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ base_url: window.HUNTARR_BASE_URL, auth_mode: authModeSelect.value, local_access_bypass: authModeSelect.value === 'local_bypass', proxy_auth_bypass: authModeSelect.value === 'no_login' })
                 })
-                .then(response => { if (!response.ok) return response.json().then(d => { throw new Error(d.error || 'Error: ' + response.status); }); return response.json(); })
-                .then(data => { saveSetupProgress({ current_step: 5, auth_mode_selected: true, completed_steps: [1, 2, 3, 4] }); showStep(5); })
-                .catch(error => { authModeErrorMessage.textContent = error.message || 'Error saving settings'; authModeErrorMessage.style.display = 'block'; setTimeout(() => { authModeErrorMessage.style.display = 'none'; }, 5000); });
+                    .then(response => { if (!response.ok) return response.json().then(d => { throw new Error(d.error || 'Error: ' + response.status); }); return response.json(); })
+                    .then(data => { saveSetupProgress({ current_step: 5, auth_mode_selected: true, completed_steps: [1, 2, 3, 4] }); showStep(5); })
+                    .catch(error => { authModeErrorMessage.textContent = error.message || 'Error saving settings'; authModeErrorMessage.style.display = 'block'; setTimeout(() => { authModeErrorMessage.style.display = 'none'; }, 5000); });
             });
 
             // Recovery key
@@ -688,12 +716,12 @@
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password: userData.password, setup_mode: true })
                 })
-                .then(r => r.json())
-                .then(data => {
-                    if (data.success) { document.getElementById('recoveryKeyValue').textContent = data.recovery_key; recoveryKeyGenerated = true; startCountdown(); }
-                    else { showRecoveryKeyStatus(data.error || 'Failed to generate recovery key', 'error'); }
-                })
-                .catch(error => { showRecoveryKeyStatus('Error: ' + error.message, 'error'); });
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.success) { document.getElementById('recoveryKeyValue').textContent = data.recovery_key; recoveryKeyGenerated = true; startCountdown(); }
+                        else { showRecoveryKeyStatus(data.error || 'Failed to generate recovery key', 'error'); }
+                    })
+                    .catch(error => { showRecoveryKeyStatus('Error: ' + error.message, 'error'); });
             }
 
             function startCountdown() {
@@ -707,7 +735,7 @@
                 }, 1000);
             }
 
-            copyRecoveryKeyButton.addEventListener('click', function() {
+            copyRecoveryKeyButton.addEventListener('click', function () {
                 const key = document.getElementById('recoveryKeyValue').textContent;
                 if (!key || key === 'Generating...') return;
                 const btn = this;
@@ -719,16 +747,16 @@
             function fallbackCopy(text, onSuccess) {
                 const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
                 document.body.appendChild(ta); ta.select();
-                try { document.execCommand('copy'); if (onSuccess) onSuccess(); } catch (e) {}
+                try { document.execCommand('copy'); if (onSuccess) onSuccess(); } catch (e) { }
                 document.body.removeChild(ta);
             }
 
-            confirmCopiedButton.addEventListener('click', function() {
+            confirmCopiedButton.addEventListener('click', function () {
                 if (countdownInterval) clearInterval(countdownInterval);
                 saveSetupProgress({ current_step: 6, recovery_key_generated: true, completed_steps: [1, 2, 3, 4, 5] });
                 showStep(6);
             });
-            needMoreTimeButton.addEventListener('click', function() { if (countdownInterval) clearInterval(countdownInterval); startCountdown(); });
+            needMoreTimeButton.addEventListener('click', function () { if (countdownInterval) clearInterval(countdownInterval); startCountdown(); });
 
             function showRecoveryKeyStatus(message, type) {
                 const el = document.getElementById('recoveryKeyStatus');
@@ -736,13 +764,13 @@
                 el.style.display = 'block'; setTimeout(() => { el.style.display = 'none'; }, 5000);
             }
 
-            linkPlexButton.addEventListener('click', function() { startPlexLinking(); });
-            skipPlexButton.addEventListener('click', function() {
+            linkPlexButton.addEventListener('click', function () { startPlexLinking(); });
+            skipPlexButton.addEventListener('click', function () {
                 saveSetupProgress({ current_step: 4, plex_setup_done: true, completed_steps: [1, 2, 3] });
                 showStep(4);
             });
 
-            finishSetupButton.addEventListener('click', async function() {
+            finishSetupButton.addEventListener('click', async function () {
                 localStorage.removeItem('huntarr-setup-username');
                 localStorage.removeItem('huntarr-plex-linking');
                 localStorage.removeItem('huntarr-plex-pin-id');
@@ -750,7 +778,7 @@
                 window.location.href = './';
             });
 
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     if (currentStep === 1) accountNextButton.click();
@@ -771,8 +799,8 @@
                     const response = await fetch('./api/setup/progress');
                     if (response.ok) { const data = await response.json(); if (data.success && data.progress) { restoreSetupState(data.progress); return; } }
                     const local = localStorage.getItem('huntarr-setup-progress');
-                    if (local) { try { restoreSetupState(JSON.parse(local)); } catch (e) {} }
-                } catch (error) {}
+                    if (local) { try { restoreSetupState(JSON.parse(local)); } catch (e) { } }
+                } catch (error) { }
             }
             function restoreSetupState(progress) {
                 if (progress.account_created) accountCreated = true;
@@ -785,7 +813,7 @@
                 stepData = stepData || {};
                 const progress = { current_step: currentStep, completed_steps: getCompletedSteps(), account_created: accountCreated, two_factor_enabled: twoFactorEnabled, username: usernameInput ? usernameInput.value : null, timestamp: new Date().toISOString(), ...stepData };
                 localStorage.setItem('huntarr-setup-progress', JSON.stringify(progress));
-                try { await fetch('./api/setup/progress', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ progress }) }); } catch (e) {}
+                try { await fetch('./api/setup/progress', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ progress }) }); } catch (e) { }
             }
             function getCompletedSteps() {
                 const completed = [];
@@ -794,7 +822,7 @@
             }
             async function clearSetupProgress() {
                 localStorage.removeItem('huntarr-setup-progress');
-                try { await fetch('./api/setup/clear', { method: 'POST' }); } catch (e) {}
+                try { await fetch('./api/setup/clear', { method: 'POST' }); } catch (e) { }
             }
 
             loadSetupProgress();
@@ -805,8 +833,8 @@
             localStorage.removeItem('huntarr-plex-pin-id');
             localStorage.removeItem('huntarr-plex-setup-mode');
 
-            document.addEventListener('click', function(e) { if (e.target === document.getElementById('qrModal')) closeQRModal(); });
-            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeQRModal(); });
+            document.addEventListener('click', function (e) { if (e.target === document.getElementById('qrModal')) closeQRModal(); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeQRModal(); });
         });
 
         function copySecretKeySetup() {
@@ -818,7 +846,7 @@
                 btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; btn.style.color = '#28a745';
                 setTimeout(() => { btn.innerHTML = o; btn.style.color = ''; }, 2000);
             }
-            function fallback(text, cb) { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); if (cb) cb(); } catch (e) {} document.body.removeChild(ta); }
+            function fallback(text, cb) { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); if (cb) cb(); } catch (e) { } document.body.removeChild(ta); }
             if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(secretKey).then(showCopied).catch(() => fallback(secretKey, showCopied));
             else fallback(secretKey, showCopied);
         }
@@ -826,7 +854,7 @@
         // ════════════════════════════════════════════════════════
         //  Rotating Backdrop — TMDB trending images
         // ════════════════════════════════════════════════════════
-        (function() {
+        (function () {
             var layerA = document.getElementById('backdropA');
             var layerB = document.getElementById('backdropB');
             if (!layerA || !layerB) return;
@@ -850,10 +878,10 @@
             // Preload an image and return a promise
             function preload(url) {
                 if (preloaded[url]) return Promise.resolve(url);
-                return new Promise(function(resolve) {
+                return new Promise(function (resolve) {
                     var img = new Image();
-                    img.onload = function() { preloaded[url] = true; resolve(url); };
-                    img.onerror = function() { resolve(null); };
+                    img.onload = function () { preloaded[url] = true; resolve(url); };
+                    img.onerror = function () { resolve(null); };
                     img.src = url;
                 });
             }
@@ -899,19 +927,19 @@
             // Fetch backdrop URLs and start rotation
             function init() {
                 fetch('./api/setup/backdrops')
-                    .then(function(r) { return r.json(); })
-                    .then(function(data) {
+                    .then(function (r) { return r.json(); })
+                    .then(function (data) {
                         if (!data.success || !data.images || data.images.length === 0) return;
                         images = shuffle(data.images.slice());
 
                         // Preload first 3 images, then start
                         Promise.all([preload(images[0]), preload(images[1] || images[0]), preload(images[2] || images[0])])
-                            .then(function() {
+                            .then(function () {
                                 showNext(); // show first image immediately
                                 rotationTimer = setInterval(showNext, INTERVAL);
                             });
                     })
-                    .catch(function() { /* fail silently — no backdrops is fine */ });
+                    .catch(function () { /* fail silently — no backdrops is fine */ });
             }
 
             // Start when DOM is ready
@@ -923,4 +951,5 @@
         })();
     </script>
 </body>
+
 </html>

@@ -411,7 +411,7 @@
                 '<div class="mh-modal-body">' +
                 '<div class="mh-form-row"><label>Root Folder</label><select id="mh-edit-root-folder" class="mh-select">' + rfOpts + '</select></div>' +
                 '<div class="mh-form-row"><label>Quality Profile</label><select id="mh-edit-quality-profile" class="mh-select">' + profileOpts + '</select></div>' +
-                '<div class="mh-form-row"><label>Minimum Availability</label><select id="mh-edit-min-availability" class="mh-select">' + availOpts + '</select></div>' +
+                '<div class="mh-form-row"><label>Min Availability</label><select id="mh-edit-min-availability" class="mh-select">' + availOpts + '</select></div>' +
                 '</div>' +
                 '<div class="mh-modal-footer">' +
                 '<button class="mh-btn mh-btn-secondary" id="mh-edit-cancel">Cancel</button>' +

@@ -203,17 +203,18 @@
                     <div style="flex:1;min-width:0;">
                         <h2 style="margin-top:0;">A Message from Admin9705</h2>
                         <p>Huntarr started as a simple bash script to solve a real problem: *arr apps don't actively
-                            search for missing content already in your library. What you see today evolved from that
-                            need, with input from thousands of users who discovered significant gaps they didn't even
-                            know existed. The best validation I ever got? My wife finally cancelled our streaming
-                            subscriptions because our own setup actually works.</p>
-                        <p>If you love what we've built, any donation toward my daughter's college fund would truly make
-                            her day — 100% of donations go toward her education. Regardless, enjoy Huntarr and please
-                            join us on <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank"
-                                rel="noopener">Discord</a> and <a href="https://www.reddit.com/r/huntarr/"
-                                target="_blank" rel="noopener">Reddit</a>. &nbsp;<a
-                                href="https://plexguide.github.io/Huntarr.io/donate.html" target="_blank"
-                                rel="noopener"><i class="fas fa-heart" style="color:#e74c3c;"></i> Donate</a></p>
+                            search for missing content in your existing library. What you see today evolved from that
+                            need, with input from users who discovered they had significant gaps they didn't even
+                            know existed. The best validation? My wife finally cancelled our streaming
+                            subscriptions because our setup actually works.</p>
+                        <p>If you love the program, future donations to my daughter's 529 college fund make her day!
+                            I never profit from this, and actually put a lot into supporting this. Regardless, enjoy
+                            Huntarr and also check out <a href="https://huntarros.com" target="_blank"
+                                rel="noopener">HuntarrOS.com</a> for cool Docker deployment orchestration.</p>
+                        <p style="margin-bottom:0;"><a href="https://plexguide.github.io/Huntarr.io/donate.html"
+                                target="_blank" rel="noopener" class="btn btn-secondary"
+                                style="border-color:rgba(231,76,60,0.3);color:#e74c3c;"><i class="fas fa-heart"></i>
+                                Donate</a></p>
                     </div>
                 </section>
 
@@ -248,7 +249,79 @@
                     and Sonarr), <strong>Index Master</strong> (a Prowlarr alternative built right in), <strong>NZB
                         Hunt</strong> (a fully self-contained Usenet download client), and <strong>Requestarr</strong>
                     (a complete user request and approval system). Use all of them, some of them, or none — your
-                    existing *arr stack always works alongside whatever you choose.</p>
+                    existing *arr stack always works alongside whatever you choose.
+                </p>
+
+                <!-- New to Huntarr - Step by step -->
+                <h2>New to Huntarr? Start Here</h2>
+                <p>If you're installing Huntarr for the first time, follow these steps in order. Most users are up and
+                    running in under 10 minutes.</p>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon icon-blue"><i class="fas fa-download"></i></div>
+                        <h3>1. Install Huntarr</h3>
+                        <p>Run Huntarr via Docker (recommended), Unraid Community Apps, or as a standalone process on
+                            any Linux/macOS/Windows machine. See the <a
+                                href="getting-started/installation.html">Installation Guide</a>.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-gold"><i class="fas fa-magic"></i></div>
+                        <h3>2. Complete Setup Wizard</h3>
+                        <p>Create your admin account, optionally enable 2FA, and link your Plex account for easy user
+                            sign-in. The wizard walks you through it. See <a
+                                href="getting-started/setup-wizard.html">Setup Wizard</a>.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-green"><i class="fas fa-plug"></i></div>
+                        <h3>3. Connect Your *arr Apps</h3>
+                        <p>Go to <strong>Apps</strong> and add your Sonarr, Radarr, Lidarr, Readarr, or Whisparr
+                            instances. Enter the URL and API key — Huntarr will start hunting immediately.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-purple"><i class="fas fa-clock"></i></div>
+                        <h3>4. Customize Schedules</h3>
+                        <p>Visit <strong>Settings → Scheduling</strong> to configure how often Huntarr searches for
+                            missing and below-cutoff content. Start with defaults — they work well for most users.</p>
+                    </div>
+                </div>
+
+                <!-- How It Works -->
+                <h2>How It Works</h2>
+                <p>Understanding Huntarr's core concept helps you get the most out of it:</p>
+                <div class="alert alert-info">
+                    <strong><i class="fas fa-lightbulb"></i> The Core Problem</strong>
+                    <p>Your *arr apps (Sonarr, Radarr, etc.) are great at grabbing <em>new</em> releases from RSS. But
+                        they don't go back and search for content that was <em>already</em> missing when you added it,
+                        or content sitting below your quality cutoff. Over time, your library develops hundreds of
+                        invisible gaps.</p>
+                </div>
+                <p><strong>Huntarr solves this.</strong> It works alongside your existing *arr apps — it reads their
+                    libraries, finds every missing episode, movie, album, or book, and triggers searches in small, safe
+                    batches. It respects rate limits, pauses when your download queue is busy, and runs 24/7 on
+                    configurable schedules.</p>
+                <p>On top of that, Huntarr includes powerful built-in modules like <strong>Movie Hunt</strong> (a
+                    standalone Radarr alternative), <strong>NZB Hunt</strong> (a built-in Usenet client), and
+                    <strong>Requestarr</strong> (a full media request system for your family and friends). Each module
+                    is optional — enable what you need.</p>
+
+                <!-- Pro Tips -->
+                <h2>Pro Tips for New Users</h2>
+                <div class="alert alert-success">
+                    <strong><i class="fas fa-check-circle"></i> Tip 1: Start with defaults</strong>
+                    <p>Huntarr ships with sensible defaults. Let it run for 24 hours before tweaking schedules — you'll
+                        be surprised how much it finds on its own.</p>
+                </div>
+                <div class="alert alert-warning">
+                    <strong><i class="fas fa-exclamation-triangle"></i> Tip 2: Don't search too aggressively</strong>
+                    <p>Setting very short intervals (e.g., every 1 minute) will get your indexer accounts rate-limited
+                        or banned. The default 15–30 minute cycles are designed to be safe.</p>
+                </div>
+                <div class="alert alert-info">
+                    <strong><i class="fas fa-users"></i> Tip 3: Use Requestarr for your household</strong>
+                    <p>Enable Requestarr and let family members request movies and TV shows through a simple web UI. You
+                        can approve or auto-approve requests, and it broadcasts to all your connected instances at once.
+                    </p>
+                </div>
 
                 <!-- Feature cards -->
                 <h2>Key Features</h2>
