@@ -1833,9 +1833,22 @@ class RequestarrSettings {
                     this.fetchGlobalBlacklistItems(mediaType)
                 ]);
 
-                // Merge: mark personal items, then add global items that aren't already in personal list
-                personalItems.forEach(item => { item._source = 'personal'; });
+                // Use the is_global field from the API to properly classify items
+                // Items with is_global=true were added by the owner (global scope)
+                // Items with is_global=false are personal to this user
+                personalItems.forEach(item => {
+                    item._source = item.is_global ? 'global_blacklist' : 'personal';
+                });
 
+                // Also mark personal items that appear in the global blacklist requests
+                const globalKeys = new Set(globalItems.map(gi => `${gi.tmdb_id}:${gi.media_type}`));
+                personalItems.forEach(item => {
+                    if (globalKeys.has(`${item.tmdb_id}:${item.media_type}`)) {
+                        item._source = 'global_blacklist';
+                    }
+                });
+
+                // Add global blacklist items that aren't already in the hidden media list
                 const personalKeys = new Set(personalItems.map(i => `${i.tmdb_id}:${i.media_type}`));
                 const mergedGlobal = globalItems
                     .filter(gi => !personalKeys.has(`${gi.tmdb_id}:${gi.media_type}`))
@@ -1843,14 +1856,6 @@ class RequestarrSettings {
                         ...gi,
                         _source: 'global_blacklist'
                     }));
-
-                // Mark personal items that are also globally blacklisted
-                const globalKeys = new Set(globalItems.map(gi => `${gi.tmdb_id}:${gi.media_type}`));
-                personalItems.forEach(item => {
-                    if (globalKeys.has(`${item.tmdb_id}:${item.media_type}`)) {
-                        item._source = 'global_blacklist';
-                    }
-                });
 
                 this.hiddenMediaItems = [...personalItems, ...mergedGlobal];
             }

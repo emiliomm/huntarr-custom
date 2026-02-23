@@ -1094,16 +1094,17 @@ def add_hidden_media():
 def remove_hidden_media_simple(tmdb_id, media_type):
     """Remove media from hidden list (cross-instance, simplified route)."""
     try:
-        logger.info(f"DELETE /hidden-media/{tmdb_id}/{media_type} called (cross-instance)")
         username = _get_hidden_media_username()
-        success = requestarr_api.db.remove_hidden_media(tmdb_id, media_type, username=username)
+        user_id = _get_hidden_media_user_id()
+        logger.info(f"DELETE /hidden-media/{tmdb_id}/{media_type} called — resolved username={username}, user_id={user_id}")
+        success = requestarr_api.db.remove_hidden_media(tmdb_id, media_type, username=username, user_id=user_id)
         
         if success:
             logger.info(f"Successfully unhidden media: {tmdb_id}")
             return jsonify({'success': True, 'message': 'Media unhidden successfully'})
         else:
-            logger.error(f"Failed to unhide media: {tmdb_id}")
-            return jsonify({'error': 'Failed to unhide media'}), 500
+            logger.warning(f"No matching hidden media found for tmdb_id={tmdb_id}, media_type={media_type}, username={username}")
+            return jsonify({'success': False, 'error': 'No matching hidden media found (scope mismatch?)'}), 404
             
     except Exception as e:
         logger.error(f"Error unhiding media: {e}")

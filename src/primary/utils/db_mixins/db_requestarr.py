@@ -949,16 +949,25 @@ class RequestarrMixin:
             return False
     
     def remove_hidden_media(self, tmdb_id: int, media_type: str, app_type: str = None, instance_name: str = None, user_id: int = None, username: str = None) -> bool:
-        """Remove media from hidden list. Cross-instance: uses tmdb_id + media_type + username."""
+        """Remove media from hidden list. Cross-instance: uses tmdb_id + media_type + username/user_id."""
         try:
-            logger.debug(f"remove_hidden_media called with: tmdb_id={tmdb_id}, media_type={media_type}, username={username}")
+            logger.debug(f"remove_hidden_media called with: tmdb_id={tmdb_id}, media_type={media_type}, username={username}, user_id={user_id}")
             with self.get_connection() as conn:
-                if username:
-                    # Personal scope: delete by username
-                    cursor = conn.execute('''
+                if username or user_id:
+                    # Personal scope: delete by username OR user_id (handles legacy rows with user_id but no username)
+                    conditions = []
+                    params_list = [tmdb_id, media_type]
+                    if username:
+                        conditions.append("username = ?")
+                        params_list.append(username)
+                    if user_id:
+                        conditions.append("user_id = ?")
+                        params_list.append(user_id)
+                    scope_clause = " OR ".join(conditions)
+                    cursor = conn.execute(f'''
                         DELETE FROM requestarr_hidden_media 
-                        WHERE tmdb_id = ? AND media_type = ? AND username = ?
-                    ''', (tmdb_id, media_type, username))
+                        WHERE tmdb_id = ? AND media_type = ? AND ({scope_clause})
+                    ''', tuple(params_list))
                 else:
                     # Global scope (owner): delete where user_id IS NULL and username IS NULL/empty
                     cursor = conn.execute('''
@@ -968,7 +977,10 @@ class RequestarrMixin:
                 rows_deleted = cursor.rowcount
                 conn.commit()
                 
-                logger.info(f"Removed hidden media: TMDB ID {tmdb_id}, Type: {media_type}, username={username}, Rows deleted: {rows_deleted}")
+                logger.info(f"Removed hidden media: TMDB ID {tmdb_id}, Type: {media_type}, username={username}, user_id={user_id}, Rows deleted: {rows_deleted}")
+                if rows_deleted == 0:
+                    logger.warning(f"No rows deleted for hidden media: TMDB ID {tmdb_id}, Type: {media_type}, username={username}, user_id={user_id} — item may not exist or scope mismatch")
+                    return False
                 return True
         except Exception as e:
             logger.error(f"Error removing hidden media: {e}")
