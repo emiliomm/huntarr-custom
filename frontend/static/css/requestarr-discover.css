@@ -1140,38 +1140,47 @@
     color: #94a3b8;
 }
 
-/* Requestarr TV Detail - Season accordion */
+/* Requestarr TV Detail — Season accordion */
 .requestarr-tv-seasons-list {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
 }
 
 .requestarr-tv-season-item {
     display: flex;
     align-items: center;
-    padding: 12px 16px;
-    background: rgba(30, 30, 50, 0.5);
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 13px 16px;
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: 10px;
+    border: 1px solid rgba(148, 163, 184, 0.06);
     cursor: pointer;
     user-select: none;
-    transition: background 0.2s;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     gap: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) inset;
 }
 
 .requestarr-tv-season-item:hover {
-    background: rgba(30, 30, 50, 0.8);
+    background: rgba(15, 23, 42, 0.6);
+    border-color: rgba(99, 102, 241, 0.12);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) inset,
+        0 0 12px rgba(99, 102, 241, 0.04);
 }
 
 .requestarr-tv-season-item .season-chevron {
-    color: #888;
-    transition: transform 0.2s;
+    color: rgba(148, 163, 184, 0.45);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     width: 16px;
+}
+
+.requestarr-tv-season-item:hover .season-chevron {
+    color: rgba(148, 163, 184, 0.7);
 }
 
 .requestarr-tv-season-item.expanded .season-chevron {
     transform: rotate(90deg);
+    color: #a5b4fc;
 }
 
 .requestarr-tv-season-item .season-name {
@@ -3954,9 +3963,9 @@
     }
 }
 
-/* Hidden Media Page Styles */
+/* Hidden Media Page Styles — Premium */
 
-/* Search Bar - match Home/Discover global-search-bar (size + colors) */
+/* Search Bar — frosted glass (matches Discover) */
 #requestarr-hidden-view .hidden-media-search {
     position: relative;
     width: 100%;
@@ -3968,33 +3977,49 @@
     left: 18px;
     top: 50%;
     transform: translateY(-50%);
-    color: #475569;
+    color: rgba(148, 163, 184, 0.4);
     font-size: 14px;
     z-index: 1;
     pointer-events: none;
+    transition: color 0.2s;
+}
+
+#requestarr-hidden-view .hidden-media-search:focus-within i {
+    color: rgba(99, 102, 241, 0.6);
 }
 
 #requestarr-hidden-view .hidden-media-search-input {
     width: 100%;
-    padding: 12px 16px 12px 44px;
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
+    padding: 13px 16px 13px 46px;
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(148, 163, 184, 0.08);
+    border-radius: 12px;
     color: #e2e8f0;
     font-size: 14px;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    font-weight: 500;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+}
+
+#requestarr-hidden-view .hidden-media-search-input:hover {
+    border-color: rgba(148, 163, 184, 0.15);
+    background: rgba(15, 23, 42, 0.55);
 }
 
 #requestarr-hidden-view .hidden-media-search-input:focus {
     outline: none;
-    border-color: rgba(99, 102, 241, 0.5);
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
-    background: rgba(30, 41, 59, 0.9);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.1) inset,
+        0 0 0 3px rgba(99, 102, 241, 0.08),
+        0 0 20px rgba(99, 102, 241, 0.04);
+    background: rgba(15, 23, 42, 0.55);
 }
 
 #requestarr-hidden-view .hidden-media-search-input::placeholder {
-    color: #475569;
+    color: rgba(71, 85, 105, 0.6);
+    font-weight: 400;
 }
 
 /* Personal Blacklist grid: match Discover card sizing */
@@ -4057,33 +4082,49 @@
     left: 18px;
     top: 50%;
     transform: translateY(-50%);
-    color: #475569;
+    color: rgba(148, 163, 184, 0.4);
     font-size: 14px;
     z-index: 1;
     pointer-events: none;
+    transition: color 0.2s;
+}
+
+#requestarr-global-blacklist-view .hidden-media-search:focus-within i {
+    color: rgba(99, 102, 241, 0.6);
 }
 
 #requestarr-global-blacklist-view .hidden-media-search-input {
     width: 100%;
-    padding: 12px 16px 12px 44px;
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
+    padding: 13px 16px 13px 46px;
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(148, 163, 184, 0.08);
+    border-radius: 12px;
     color: #e2e8f0;
     font-size: 14px;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    font-weight: 500;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+}
+
+#requestarr-global-blacklist-view .hidden-media-search-input:hover {
+    border-color: rgba(148, 163, 184, 0.15);
+    background: rgba(15, 23, 42, 0.55);
 }
 
 #requestarr-global-blacklist-view .hidden-media-search-input:focus {
     outline: none;
-    border-color: rgba(99, 102, 241, 0.5);
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
-    background: rgba(30, 41, 59, 0.9);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.1) inset,
+        0 0 0 3px rgba(99, 102, 241, 0.08),
+        0 0 20px rgba(99, 102, 241, 0.04);
+    background: rgba(15, 23, 42, 0.55);
 }
 
 #requestarr-global-blacklist-view .hidden-media-search-input::placeholder {
-    color: #475569;
+    color: rgba(71, 85, 105, 0.6);
+    font-weight: 400;
 }
 
 /* Global blacklist cards: match discover card sizing */
@@ -4134,43 +4175,49 @@
 }
 
 .pagination-btn {
-    padding: 10px 20px;
-    background: rgba(31, 41, 55, 0.5);
-    border: 1px solid rgba(75, 85, 99, 0.5);
-    border-radius: 8px;
-    color: #9ca3af;
+    padding: 10px 22px;
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(148, 163, 184, 0.08);
+    border-radius: 10px;
+    color: rgba(148, 163, 184, 0.7);
     cursor: pointer;
-    transition: all 0.2s;
-    font-size: 14px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 13px;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) inset;
 }
 
 .pagination-btn:hover:not(:disabled) {
-    background: rgba(31, 41, 55, 0.8);
-    border-color: #f59e0b;
-    color: #fff;
+    background: rgba(245, 158, 11, 0.08);
+    border-color: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) inset,
+        0 0 12px rgba(245, 158, 11, 0.06);
 }
 
 .pagination-btn:disabled {
-    opacity: 0.4;
+    opacity: 0.3;
     cursor: not-allowed;
 }
 
 .page-info {
-    color: #9ca3af;
-    font-size: 14px;
+    color: rgba(148, 163, 184, 0.6);
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .page-subtitle {
-    color: #888;
-    font-size: 14px;
+    color: rgba(148, 163, 184, 0.5);
+    font-size: 13px;
     margin-top: -10px;
     margin-bottom: 25px;
+    font-weight: 500;
 }
 
-/* Unhide button on hidden media cards - matching discover card status badges */
+/* Unhide button — with green glow */
 .media-card .media-card-unhide-btn {
     position: absolute;
     top: 8px;
@@ -4182,22 +4229,24 @@
     align-items: center;
     justify-content: center;
     z-index: 10;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.35);
     background: #22c55e;
     border: 2px solid #16a34a;
     padding: 0;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .media-card .media-card-unhide-btn i {
     color: #fff;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .media-card .media-card-unhide-btn:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.6);
+    transform: translateY(-2px) scale(1.08);
+    box-shadow:
+        0 6px 20px rgba(34, 197, 94, 0.45),
+        0 0 30px rgba(34, 197, 94, 0.1);
 }
 
 /* Hidden media cards - match discover card dimensions exactly */
