@@ -119,7 +119,8 @@
                     tmdb_id: tmdbId,
                     media_type: mediaType,
                     title: title,
-                    poster_path: posterPath
+                    poster_path: posterPath,
+                    scope: 'personal'
                 })
             })
                 .then(function (r) {

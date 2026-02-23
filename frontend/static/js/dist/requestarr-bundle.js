@@ -1822,43 +1822,37 @@ class RequestarrSettings {
         container.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading hidden media...</p></div>';
 
         try {
-            const fetchKey = `${mediaType || 'all'}`;
+            // Always fetch fresh from server — no caching
+            const [personalItems, globalItems] = await Promise.all([
+                this.fetchHiddenMediaItems(mediaType),
+                this.fetchGlobalBlacklistItems(mediaType)
+            ]);
 
-            if (this.hiddenMediaFetchKey !== fetchKey) {
-                this.hiddenMediaFetchKey = fetchKey;
+            // Use the is_global field from the API to properly classify items
+            // Items with is_global=true were added by the owner (global scope)
+            // Items with is_global=false are personal to this user
+            personalItems.forEach(item => {
+                item._source = item.is_global ? 'global_blacklist' : 'personal';
+            });
 
-                // Fetch personal hidden media and global blacklist in parallel
-                const [personalItems, globalItems] = await Promise.all([
-                    this.fetchHiddenMediaItems(mediaType),
-                    this.fetchGlobalBlacklistItems(mediaType)
-                ]);
+            // Also mark personal items that appear in the global blacklist requests
+            const globalKeys = new Set(globalItems.map(gi => `${gi.tmdb_id}:${gi.media_type}`));
+            personalItems.forEach(item => {
+                if (globalKeys.has(`${item.tmdb_id}:${item.media_type}`)) {
+                    item._source = 'global_blacklist';
+                }
+            });
 
-                // Use the is_global field from the API to properly classify items
-                // Items with is_global=true were added by the owner (global scope)
-                // Items with is_global=false are personal to this user
-                personalItems.forEach(item => {
-                    item._source = item.is_global ? 'global_blacklist' : 'personal';
-                });
+            // Add global blacklist items that aren't already in the hidden media list
+            const personalKeys = new Set(personalItems.map(i => `${i.tmdb_id}:${i.media_type}`));
+            const mergedGlobal = globalItems
+                .filter(gi => !personalKeys.has(`${gi.tmdb_id}:${gi.media_type}`))
+                .map(gi => ({
+                    ...gi,
+                    _source: 'global_blacklist'
+                }));
 
-                // Also mark personal items that appear in the global blacklist requests
-                const globalKeys = new Set(globalItems.map(gi => `${gi.tmdb_id}:${gi.media_type}`));
-                personalItems.forEach(item => {
-                    if (globalKeys.has(`${item.tmdb_id}:${item.media_type}`)) {
-                        item._source = 'global_blacklist';
-                    }
-                });
-
-                // Add global blacklist items that aren't already in the hidden media list
-                const personalKeys = new Set(personalItems.map(i => `${i.tmdb_id}:${i.media_type}`));
-                const mergedGlobal = globalItems
-                    .filter(gi => !personalKeys.has(`${gi.tmdb_id}:${gi.media_type}`))
-                    .map(gi => ({
-                        ...gi,
-                        _source: 'global_blacklist'
-                    }));
-
-                this.hiddenMediaItems = [...personalItems, ...mergedGlobal];
-            }
+            this.hiddenMediaItems = [...personalItems, ...mergedGlobal];
 
             this.renderHiddenMediaPage();
         } catch (error) {

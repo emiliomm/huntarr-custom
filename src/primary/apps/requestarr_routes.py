@@ -1073,12 +1073,36 @@ def add_hidden_media():
         media_type = data.get('media_type')
         title = data.get('title')
         poster_path = data.get('poster_path')
+        scope = data.get('scope', '')  # 'personal' = force personal even for owner
         
         if not all([tmdb_id, media_type, title]):
             return jsonify({'error': 'Missing required fields: tmdb_id, media_type, title'}), 400
         
         username = _get_hidden_media_username()
         user_id = _get_hidden_media_user_id()
+        
+        # If scope is explicitly 'personal' and user is owner (username=None),
+        # force personal by using the owner's actual username and user_id
+        if scope == 'personal' and username is None:
+            try:
+                from src.primary.auth import get_username_from_session, SESSION_COOKIE_NAME
+                session_token = request.cookies.get(SESSION_COOKIE_NAME)
+                owner_username = get_username_from_session(session_token)
+                if owner_username:
+                    username = owner_username
+                    # Get user_id from requestarr_users or main users table
+                    db = requestarr_api.db
+                    req_user = db.get_requestarr_user_by_username(owner_username)
+                    if req_user:
+                        user_id = req_user.get('id')
+                    else:
+                        main_user = db.get_user_by_username(owner_username)
+                        if main_user:
+                            user_id = main_user.get('id')
+                    logger.info(f"Owner personal blacklist: forcing username={username}, user_id={user_id}")
+            except Exception as e:
+                logger.warning(f"Could not resolve owner identity for personal scope: {e}")
+        
         success = requestarr_api.db.add_hidden_media(tmdb_id, media_type, title, poster_path=poster_path, user_id=user_id, username=username)
         
         if success:
@@ -1096,14 +1120,43 @@ def remove_hidden_media_simple(tmdb_id, media_type):
     try:
         username = _get_hidden_media_username()
         user_id = _get_hidden_media_user_id()
-        logger.info(f"DELETE /hidden-media/{tmdb_id}/{media_type} called — resolved username={username}, user_id={user_id}")
-        success = requestarr_api.db.remove_hidden_media(tmdb_id, media_type, username=username, user_id=user_id)
+        
+        # For owner, also resolve actual username so personal items can be found
+        owner_username = None
+        owner_user_id = None
+        if username is None:
+            try:
+                from src.primary.auth import get_username_from_session, SESSION_COOKIE_NAME
+                session_token = request.cookies.get(SESSION_COOKIE_NAME)
+                owner_username = get_username_from_session(session_token)
+                if owner_username:
+                    from src.primary.utils.database import get_database
+                    db = get_database()
+                    req_user = db.get_requestarr_user_by_username(owner_username)
+                    if req_user:
+                        owner_user_id = req_user.get('id')
+                    else:
+                        main_user = db.get_user_by_username(owner_username)
+                        if main_user:
+                            owner_user_id = main_user.get('id')
+            except Exception:
+                pass
+        
+        logger.info(f"DELETE /hidden-media/{tmdb_id}/{media_type} — username={username}, user_id={user_id}, owner_username={owner_username}")
+        
+        # Try personal delete first (with owner's actual identity), then global
+        success = False
+        if owner_username:
+            success = requestarr_api.db.remove_hidden_media(tmdb_id, media_type, username=owner_username, user_id=owner_user_id)
+        if not success:
+            # Try global delete (owner scope: username=None)
+            success = requestarr_api.db.remove_hidden_media(tmdb_id, media_type, username=username, user_id=user_id)
         
         if success:
             logger.info(f"Successfully unhidden media: {tmdb_id}")
             return jsonify({'success': True, 'message': 'Media unhidden successfully'})
         else:
-            logger.warning(f"No matching hidden media found for tmdb_id={tmdb_id}, media_type={media_type}, username={username}")
+            logger.warning(f"No matching hidden media found for tmdb_id={tmdb_id}, media_type={media_type}")
             return jsonify({'success': False, 'error': 'No matching hidden media found (scope mismatch?)'}), 404
             
     except Exception as e:
@@ -1114,13 +1167,34 @@ def remove_hidden_media_simple(tmdb_id, media_type):
 def get_hidden_media():
     """Get list of hidden media with pagination and optional filters.
     Non-owner users see global + their personal items (cross-instance).
-    Owner sees global items only.
+    Owner also sees global + their personal items.
     """
     try:
         page, page_size = _safe_pagination()
         media_type = request.args.get('media_type')  # Optional filter
         
         username = _get_hidden_media_username()
+        
+        # For owner (username=None), resolve actual username so they see personal items too
+        if username is None:
+            try:
+                from src.primary.auth import get_username_from_session, SESSION_COOKIE_NAME
+                session_token = request.cookies.get(SESSION_COOKIE_NAME)
+                owner_username = get_username_from_session(session_token)
+                if not owner_username:
+                    from src.primary.settings_manager import load_settings
+                    settings = load_settings("general")
+                    if settings.get("local_access_bypass") or settings.get("proxy_auth_bypass"):
+                        from src.primary.utils.database import get_database
+                        db = get_database()
+                        main_user = db.get_first_user()
+                        if main_user:
+                            owner_username = main_user.get('username')
+                if owner_username:
+                    username = owner_username
+            except Exception:
+                pass
+        
         result = requestarr_api.db.get_hidden_media(page, page_size, media_type, username=username)
         return jsonify(result)
         
