@@ -1313,6 +1313,16 @@ class HuntarrDatabase(ConfigMixin, StateMixin, UsersMixin, RequestarrMixin, Extr
                 if 'movie_category' not in cols:
                     conn.execute("ALTER TABLE requestarr_users ADD COLUMN movie_category TEXT DEFAULT ''")
                     logger.info("Added movie_category column to requestarr_users")
+                # 2FA support for non-owner users
+                if 'two_fa_enabled' not in cols:
+                    conn.execute("ALTER TABLE requestarr_users ADD COLUMN two_fa_enabled BOOLEAN DEFAULT 0")
+                    logger.info("Added two_fa_enabled column to requestarr_users")
+                if 'two_fa_secret' not in cols:
+                    conn.execute("ALTER TABLE requestarr_users ADD COLUMN two_fa_secret TEXT")
+                    logger.info("Added two_fa_secret column to requestarr_users")
+                if 'temp_2fa_secret' not in cols:
+                    conn.execute("ALTER TABLE requestarr_users ADD COLUMN temp_2fa_secret TEXT")
+                    logger.info("Added temp_2fa_secret column to requestarr_users")
             except Exception as mig_err:
                 logger.warning(f"requestarr_users migration note: {mig_err}")
 

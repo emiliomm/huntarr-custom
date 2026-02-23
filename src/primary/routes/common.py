@@ -21,7 +21,7 @@ from ..auth import (
     update_session_username,
     validate_password_strength, logout, verify_session, disable_2fa_with_password_and_otp,
     user_exists, create_user, generate_2fa_secret, verify_2fa_code, is_2fa_enabled, # Add missing auth imports
-    hash_password, # Add hash_password import for recovery key reset
+    hash_password, verify_password, # Add hash_password and verify_password imports
     get_base_url_path, # For cookie path matching base URL
 )
 from ..utils.logger import logger
@@ -586,9 +586,48 @@ def get_user_info_route():
         logger.debug("Attempt to get user info failed: Not authenticated and not in bypass mode.")
         return jsonify({"error": "Not authenticated"}), 401
 
-    # Pass username to is_2fa_enabled
-    two_fa_status = is_2fa_enabled(username) # This function should now be defined via import
-    return jsonify({"username": username, "is_2fa_enabled": two_fa_status})
+    # Check main users table first
+    two_fa_status = is_2fa_enabled(username)
+    has_password = True  # Owners always have a password
+    role = 'owner'
+
+    # Check if this is a non-owner (requestarr_users table)
+    try:
+        from src.primary.utils.database import get_database
+        db = get_database()
+        req_user = db.get_requestarr_user_by_username(username)
+        main_user = db.get_user_by_username(username)
+
+        if req_user and req_user.get('role') != 'owner':
+            role = req_user.get('role', 'user')
+            # For non-owners, check 2FA from requestarr_users table
+            two_fa_status = bool(req_user.get('two_fa_enabled'))
+            # Check if they have a real password (not a temp random one they don't know)
+            stored_pw = req_user.get('password', '')
+            # They "have a password" if: they manually set one via the UI
+            # Plex-imported users get a random password they don't know
+            # We track this by checking a flag or relying on plex_user_data presence
+            plex_data = req_user.get('plex_user_data')
+            if plex_data and not req_user.get('password_set_by_user'):
+                # Plex-imported user — they may not know their password
+                # Check if they've changed it (password would look different from initial import)
+                # For now, we'll indicate has_password based on stored_pw existence
+                has_password = bool(stored_pw and len(stored_pw) > 0)
+            else:
+                has_password = bool(stored_pw and len(stored_pw) > 0)
+        elif main_user:
+            # Owner — always has password
+            stored_pw = main_user.get('password', '')
+            has_password = bool(stored_pw and len(stored_pw) > 0)
+    except Exception as e:
+        logger.warning(f"Error checking user details: {e}")
+
+    return jsonify({
+        "username": username,
+        "is_2fa_enabled": two_fa_status,
+        "has_password": has_password,
+        "role": role
+    })
 
 @common_bp.route('/api/user/me', methods=['GET'])
 def get_current_user_profile():
@@ -680,15 +719,58 @@ def change_password_route():
          return jsonify({"error": "Not authenticated"}), 401
 
     data = request.json
-    current_password = data.get('current_password')
+    current_password = data.get('current_password', '')
     new_password = data.get('new_password')
 
-    if not current_password or not new_password:
-        logger.warning(f"Password change attempt for user '{username}' failed: Missing current or new password.")
-        return jsonify({"success": False, "error": "Current and new passwords are required"}), 400
+    if not new_password:
+        return jsonify({"success": False, "error": "New password is required"}), 400
+
+    # Validate password strength
+    pw_error = validate_password_strength(new_password)
+    if pw_error:
+        return jsonify({"success": False, "error": pw_error}), 400
+
+    # Check if this is a non-owner (requestarr_users table)
+    try:
+        from src.primary.utils.database import get_database
+        db = get_database()
+        req_user = db.get_requestarr_user_by_username(username)
+        main_user = db.get_user_by_username(username)
+
+        if req_user and req_user.get('role') != 'owner':
+            # Non-owner user — update password in requestarr_users table
+            stored_pw = req_user.get('password', '')
+
+            if current_password:
+                # Verify current password if provided
+                if not verify_password(stored_pw, current_password):
+                    logger.warning(f"Password change failed for non-owner '{username}': Invalid current password.")
+                    return jsonify({"success": False, "error": "Current password is incorrect"}), 400
+            elif stored_pw:
+                # current_password is empty but there IS a stored password
+                # Only allow empty current_password if the user was Plex-imported (has plex_user_data)
+                plex_data = req_user.get('plex_user_data')
+                if not plex_data:
+                    logger.warning(f"Password change failed for non-owner '{username}': Current password required.")
+                    return jsonify({"success": False, "error": "Current password is required"}), 400
+                # Plex-imported user setting their password for the first time — allow it
+
+            # Update password in requestarr_users
+            hashed = hash_password(new_password)
+            if db.update_requestarr_user_password_by_username(username, hashed):
+                logger.info(f"Password changed successfully for non-owner user '{username}'.")
+                return jsonify({"success": True})
+            else:
+                return jsonify({"success": False, "error": "Failed to update password"}), 500
+    except Exception as e:
+        logger.error(f"Error in password change for non-owner: {e}")
+        return jsonify({"success": False, "error": "An internal error occurred"}), 500
+
+    # Fall through to owner password change
+    if not current_password:
+        return jsonify({"success": False, "error": "Current password is required"}), 400
 
     logger.info(f"Attempting to change password for user '{username}'.")
-    # Pass username? change_password might not need it. Assuming it doesn't for now.
     if auth_change_password(current_password, new_password):
         logger.info(f"Password changed successfully for user '{username}'.")
         return jsonify({"success": True})
@@ -700,10 +782,7 @@ def change_password_route():
 
 @common_bp.route('/api/user/2fa/setup', methods=['POST'])
 def setup_2fa():
-    # Get username handling bypass modes and setup context
     username = get_user_for_request()
-
-    # If no username from session/bypass, check if we're in setup mode
     if not username:
         try:
             from src.primary.utils.database import get_database
@@ -711,27 +790,47 @@ def setup_2fa():
             setup_progress = db.get_setup_progress()
             if setup_progress and setup_progress.get('username'):
                 username = setup_progress.get('username')
-                logger.debug(f"Using username from setup progress: {username}")
             else:
-                # If no setup progress, try to get the first user (single user system)
                 first_user = db.get_first_user()
                 if first_user:
                     username = first_user.get('username')
-                    logger.debug(f"Using first user for 2FA setup: {username}")
         except Exception as e:
             logger.error(f"Error getting username for 2FA setup: {e}")
-
     if not username:
-        logger.warning("2FA setup attempt failed: Not authenticated and not in bypass mode.")
         return jsonify({"error": "Not authenticated"}), 401
 
     try:
-        logger.info(f"Generating 2FA setup for user: {username}") # Add logging
-        # Pass username to generate_2fa_secret
-        secret, qr_code_data_uri = generate_2fa_secret(username) # This function should now be defined via import
+        from src.primary.utils.database import get_database
+        db = get_database()
+        req_user = db.get_requestarr_user_by_username(username)
 
-        # Return secret and QR code data URI
-        return jsonify({"success": True, "secret": secret, "qr_code_url": qr_code_data_uri}) # Match frontend expectation 'qr_code_url'
+        # Non-owner: handle 2FA via requestarr_users table
+        if req_user and req_user.get('role') != 'owner':
+            import pyotp as _pyotp
+            import qrcode as _qr
+            import io as _io
+            import base64 as _b64
+
+            secret = _pyotp.random_base32()
+            totp = _pyotp.TOTP(secret)
+            uri = totp.provisioning_uri(name=username, issuer_name="Huntarr")
+
+            qr_obj = _qr.QRCode(version=1, error_correction=_qr.constants.ERROR_CORRECT_L, box_size=10, border=4)
+            qr_obj.add_data(uri)
+            qr_obj.make(fit=True)
+            img = qr_obj.make_image(fill_color="black", back_color="white")
+            buf = _io.BytesIO()
+            img.save(buf, format="PNG")
+            img_str = _b64.b64encode(buf.getvalue()).decode()
+
+            db.update_requestarr_user_temp_2fa_secret(username, secret)
+            logger.info(f"Generated 2FA setup for non-owner user: {username}")
+            return jsonify({"success": True, "secret": secret, "qr_code_url": f"data:image/png;base64,{img_str}"})
+
+        # Owner: use existing generate_2fa_secret
+        logger.info(f"Generating 2FA setup for user: {username}")
+        secret, qr_code_data_uri = generate_2fa_secret(username)
+        return jsonify({"success": True, "secret": secret, "qr_code_url": qr_code_data_uri})
 
     except Exception as e:
         logger.error(f"Error during 2FA setup generation for user '{username}': {e}", exc_info=True)
@@ -739,10 +838,7 @@ def setup_2fa():
 
 @common_bp.route('/api/user/2fa/verify', methods=['POST'])
 def verify_2fa():
-    # Get username handling bypass modes and setup context
     username = get_user_for_request()
-
-    # If no username from session/bypass, check if we're in setup mode
     if not username:
         try:
             from src.primary.utils.database import get_database
@@ -750,67 +846,90 @@ def verify_2fa():
             setup_progress = db.get_setup_progress()
             if setup_progress and setup_progress.get('username'):
                 username = setup_progress.get('username')
-                logger.debug(f"Using username from setup progress: {username}")
             else:
-                # If no setup progress, try to get the first user (single user system)
                 first_user = db.get_first_user()
                 if first_user:
                     username = first_user.get('username')
-                    logger.debug(f"Using first user for 2FA verify: {username}")
         except Exception as e:
             logger.error(f"Error getting username for 2FA verify: {e}")
-
     if not username:
-        logger.warning("2FA verify attempt failed: Not authenticated and not in bypass mode.")
         return jsonify({"error": "Not authenticated"}), 401
 
     data = request.json
-    otp_code = data.get('code') # Match frontend key 'code'
-
-    if not otp_code or len(otp_code) != 6 or not otp_code.isdigit(): # Add validation
-        logger.warning(f"2FA verification for '{username}' failed: Invalid code format provided.")
+    otp_code = data.get('code')
+    if not otp_code or len(otp_code) != 6 or not otp_code.isdigit():
         return jsonify({"success": False, "error": "Invalid or missing 6-digit OTP code"}), 400
 
-    logger.info(f"Attempting to verify 2FA code for user '{username}'.")
-    # Pass username to verify_2fa_code
-    if verify_2fa_code(username, otp_code, enable_on_verify=True): # This function should now be defined via import
-        logger.info(f"Successfully verified and enabled 2FA for user: {username}") # Add logging
+    try:
+        from src.primary.utils.database import get_database
+        db = get_database()
+        req_user = db.get_requestarr_user_by_username(username)
+
+        if req_user and req_user.get('role') != 'owner':
+            import pyotp as _pyotp
+            temp_secret = req_user.get('temp_2fa_secret')
+            if not temp_secret:
+                return jsonify({"success": False, "error": "2FA setup not initiated. Please click Enable 2FA first."}), 400
+            totp = _pyotp.TOTP(temp_secret)
+            if totp.verify(otp_code, valid_window=1):
+                db.update_requestarr_user_2fa(username, True, temp_secret)
+                db.update_requestarr_user_temp_2fa_secret(username, None)
+                logger.info(f"2FA enabled for non-owner user: {username}")
+                return jsonify({"success": True})
+            else:
+                return jsonify({"success": False, "error": "Invalid OTP code"}), 400
+    except Exception as e:
+        logger.error(f"Error in 2FA verify for non-owner: {e}")
+
+    # Owner: use existing verify_2fa_code
+    if verify_2fa_code(username, otp_code, enable_on_verify=True):
+        logger.info(f"Successfully verified and enabled 2FA for user: {username}")
         return jsonify({"success": True})
     else:
-        # Reason logged in verify_2fa_code
-        logger.warning(f"2FA verification failed for user: {username}. Check logs in auth.py.")
-        return jsonify({"success": False, "error": "Invalid OTP code"}), 400 # Use 400 for bad request
+        return jsonify({"success": False, "error": "Invalid OTP code"}), 400
 
 @common_bp.route('/api/user/2fa/disable', methods=['POST'])
 def disable_2fa_route():
-    # Get username handling bypass modes
     username = get_user_for_request()
-
     if not username:
-        logger.warning("2FA disable attempt failed: Not authenticated and not in bypass mode.")
         return jsonify({"error": "Not authenticated"}), 401
 
     data = request.json
     password = data.get('password')
     otp_code = data.get('code')
 
-    # Require BOTH password and OTP code
     if not password or not otp_code:
-         logger.warning(f"2FA disable attempt for '{username}' failed: Missing password or OTP code.")
          return jsonify({"success": False, "error": "Both password and current OTP code are required to disable 2FA"}), 400
-
     if not (len(otp_code) == 6 and otp_code.isdigit()):
-        logger.warning(f"2FA disable attempt for '{username}' failed: Invalid OTP code format.")
         return jsonify({"success": False, "error": "Invalid 6-digit OTP code format"}), 400
 
-    # Call a function that verifies both password and OTP
+    try:
+        from src.primary.utils.database import get_database
+        db = get_database()
+        req_user = db.get_requestarr_user_by_username(username)
+
+        if req_user and req_user.get('role') != 'owner':
+            import pyotp as _pyotp
+            stored_pw = req_user.get('password', '')
+            if not verify_password(stored_pw, password):
+                return jsonify({"success": False, "error": "Invalid password"}), 400
+            two_fa_secret = req_user.get('two_fa_secret', '')
+            if two_fa_secret:
+                totp = _pyotp.TOTP(two_fa_secret)
+                if not totp.verify(otp_code, valid_window=1):
+                    return jsonify({"success": False, "error": "Invalid OTP code"}), 400
+            db.update_requestarr_user_2fa(username, False, None)
+            logger.info(f"2FA disabled for non-owner user: {username}")
+            return jsonify({"success": True})
+    except Exception as e:
+        logger.error(f"Error disabling 2FA for non-owner: {e}")
+        return jsonify({"success": False, "error": "An internal error occurred"}), 500
+
+    # Owner: use existing disable function
     if disable_2fa_with_password_and_otp(username, password, otp_code):
-        logger.info(f"2FA disabled successfully for user '{username}' using password and OTP.")
+        logger.info(f"2FA disabled successfully for user '{username}'.")
         return jsonify({"success": True})
     else:
-        # Reason logged in disable_2fa_with_password_and_otp
-        logger.warning(f"Failed to disable 2FA for user '{username}' using password and OTP. Check logs.")
-        # The auth function should log the specific reason (bad pass, bad otp)
         return jsonify({"success": False, "error": "Failed to disable 2FA. Invalid password or OTP code."}), 400
 
 # --- Recovery Key Management API Routes --- #

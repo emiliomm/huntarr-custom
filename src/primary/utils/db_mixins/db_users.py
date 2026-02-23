@@ -279,7 +279,7 @@ class UsersMixin:
     def update_requestarr_user(self, user_id: int, updates: Dict[str, Any]) -> bool:
         """Update a requestarr user by ID. Pass a dict of column->value."""
         try:
-            allowed = {'username', 'password', 'email', 'role', 'permissions', 'plex_user_data', 'avatar_url', 'request_count', 'tv_category', 'movie_category'}
+            allowed = {'username', 'password', 'email', 'role', 'permissions', 'plex_user_data', 'avatar_url', 'request_count', 'tv_category', 'movie_category', 'two_fa_enabled', 'two_fa_secret', 'temp_2fa_secret'}
             filtered = {k: v for k, v in updates.items() if k in allowed}
             if not filtered:
                 return True
@@ -300,6 +300,48 @@ class UsersMixin:
                 return True
         except Exception as e:
             logger.error(f"Error updating requestarr user {user_id}: {e}")
+            return False
+
+    def update_requestarr_user_password_by_username(self, username: str, hashed_password: str) -> bool:
+        """Update password for a requestarr user by username."""
+        try:
+            with self.get_connection() as conn:
+                conn.execute(
+                    'UPDATE requestarr_users SET password = ?, updated_at = CURRENT_TIMESTAMP WHERE username = ?',
+                    (hashed_password, username)
+                )
+                conn.commit()
+                return True
+        except Exception as e:
+            logger.error(f"Error updating requestarr user password for {username}: {e}")
+            return False
+
+    def update_requestarr_user_2fa(self, username: str, enabled: bool, secret: str = None) -> bool:
+        """Update 2FA settings for a requestarr user by username."""
+        try:
+            with self.get_connection() as conn:
+                conn.execute(
+                    'UPDATE requestarr_users SET two_fa_enabled = ?, two_fa_secret = ?, updated_at = CURRENT_TIMESTAMP WHERE username = ?',
+                    (1 if enabled else 0, secret, username)
+                )
+                conn.commit()
+                return True
+        except Exception as e:
+            logger.error(f"Error updating requestarr user 2FA for {username}: {e}")
+            return False
+
+    def update_requestarr_user_temp_2fa_secret(self, username: str, secret: str) -> bool:
+        """Update temporary 2FA secret for a requestarr user by username."""
+        try:
+            with self.get_connection() as conn:
+                conn.execute(
+                    'UPDATE requestarr_users SET temp_2fa_secret = ?, updated_at = CURRENT_TIMESTAMP WHERE username = ?',
+                    (secret, username)
+                )
+                conn.commit()
+                return True
+        except Exception as e:
+            logger.error(f"Error updating requestarr user temp 2FA secret for {username}: {e}")
             return False
 
     def delete_requestarr_user(self, user_id: int) -> bool:

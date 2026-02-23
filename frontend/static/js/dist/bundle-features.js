@@ -5131,9 +5131,51 @@ document.addEventListener('DOMContentLoaded', () => {
 /* === modules/features/user.js === */
 class UserModule {
     constructor() {
+        this._isNonOwner = window._huntarrUserRole && window._huntarrUserRole !== 'owner';
+        this._applyNonOwnerRestrictions();
         this.initializeEventListeners();
         this.loadUserData();
         this.loadAuthMode();
+    }
+
+    /**
+     * For non-owner users, hide cards they shouldn't see:
+     * - Authentication Mode (admin only)
+     * - Change Username (admin only)
+     * - Recovery Key (admin only)
+     * Also update the page header back-link
+     */
+    _applyNonOwnerRestrictions() {
+        if (!this._isNonOwner) return;
+
+        // Hide admin-only cards
+        // Auth Mode card is already display:none by default (only shown for owner)
+        // Hide Change Username card (2nd card in grid)
+        var cards = document.querySelectorAll('.uset-grid .mset-card');
+        // Cards order: 0=AuthMode, 1=Username, 2=Password, 3=2FA, 4=Recovery, 5=Plex
+        if (cards[1]) cards[1].style.display = 'none'; // Change Username
+        if (cards[4]) cards[4].style.display = 'none'; // Recovery Key
+
+        // Update password card for non-owners — hint about Plex users
+        if (cards[2]) {
+            var pwHeader = cards[2].querySelector('h3');
+            if (pwHeader) pwHeader.textContent = 'Set / Change Password';
+            // Add helpful note above the current password field
+            var currentPwField = document.getElementById('currentPassword');
+            if (currentPwField) {
+                var helpNote = document.createElement('p');
+                helpNote.className = 'help-text';
+                helpNote.style.marginBottom = '8px';
+                helpNote.innerHTML = '<i class="fas fa-info-circle"></i> If you signed up via Plex, leave "Current Password" blank to set your first password.';
+                currentPwField.parentNode.insertBefore(helpNote, currentPwField);
+            }
+        }
+
+        // Update page header — back goes to Discover, not Settings
+        var backLink = document.querySelector('.page-header .page-header-back');
+        if (backLink) backLink.setAttribute('href', './#requestarr-discover');
+        var parentLabel = document.querySelector('.page-header .page-header-parent-name');
+        if (parentLabel) parentLabel.textContent = 'Back';
     }
 
     initializeEventListeners() {
@@ -5149,26 +5191,36 @@ class UserModule {
             });
         }
 
-        // Username change
-        document.getElementById('saveUsername').addEventListener('click', () => this.saveUsername());
-        
+        // Username change (may be hidden for non-owners)
+        var saveUsernameBtn = document.getElementById('saveUsername');
+        if (saveUsernameBtn) saveUsernameBtn.addEventListener('click', () => this.saveUsername());
+
         // Password change
-        document.getElementById('savePassword').addEventListener('click', () => this.savePassword());
-        
+        var savePasswordBtn = document.getElementById('savePassword');
+        if (savePasswordBtn) savePasswordBtn.addEventListener('click', () => this.savePassword());
+
         // Two-Factor Authentication
-        document.getElementById('enableTwoFactor').addEventListener('click', () => this.enableTwoFactor());
-        document.getElementById('verifyTwoFactor').addEventListener('click', () => this.verifyTwoFactor());
-        document.getElementById('disableTwoFactor').addEventListener('click', () => this.disableTwoFactor());
-        
-        // Recovery Key
-        document.getElementById('generateRecoveryKey').addEventListener('click', () => this.generateRecoveryKey());
-        document.getElementById('copyRecoveryKey').addEventListener('click', () => this.copyRecoveryKey());
-        
+        var enable2faBtn = document.getElementById('enableTwoFactor');
+        if (enable2faBtn) enable2faBtn.addEventListener('click', () => this.enableTwoFactor());
+        var verify2faBtn = document.getElementById('verifyTwoFactor');
+        if (verify2faBtn) verify2faBtn.addEventListener('click', () => this.verifyTwoFactor());
+        var disable2faBtn = document.getElementById('disableTwoFactor');
+        if (disable2faBtn) disable2faBtn.addEventListener('click', () => this.disableTwoFactor());
+
+        // Recovery Key (may be hidden for non-owners)
+        var generateRecoveryBtn = document.getElementById('generateRecoveryKey');
+        if (generateRecoveryBtn) generateRecoveryBtn.addEventListener('click', () => this.generateRecoveryKey());
+        var copyRecoveryBtn = document.getElementById('copyRecoveryKey');
+        if (copyRecoveryBtn) copyRecoveryBtn.addEventListener('click', () => this.copyRecoveryKey());
+
         // Plex Account
-        document.getElementById('linkPlexAccount').addEventListener('click', () => this.linkPlexAccount());
-        document.getElementById('unlinkPlexAccount').addEventListener('click', () => this.unlinkPlexAccount());
-        document.getElementById('cancelPlexLink').addEventListener('click', () => this.cancelPlexLink());
-        
+        var linkPlexBtn = document.getElementById('linkPlexAccount');
+        if (linkPlexBtn) linkPlexBtn.addEventListener('click', () => this.linkPlexAccount());
+        var unlinkPlexBtn = document.getElementById('unlinkPlexAccount');
+        if (unlinkPlexBtn) unlinkPlexBtn.addEventListener('click', () => this.unlinkPlexAccount());
+        var cancelPlexBtn = document.getElementById('cancelPlexLink');
+        if (cancelPlexBtn) cancelPlexBtn.addEventListener('click', () => this.cancelPlexLink());
+
         // Copy buttons for secret keys
         document.querySelectorAll('.copy-button').forEach(button => {
             if (button.id !== 'copyRecoveryKey') {
@@ -5182,15 +5234,15 @@ class UserModule {
             // Load user info
             const userResponse = await fetch('./api/user/info', { credentials: 'include' });
             if (!userResponse.ok) throw new Error('Failed to fetch user data');
-            
+
             const userData = await userResponse.json();
-            
+
             // Update username
             document.getElementById('currentUsername').textContent = userData.username || 'Unknown';
-            
+
             // Update 2FA status
             this.update2FAStatus(userData.is_2fa_enabled);
-            
+
             // Load Plex status
             try {
                 const plexResponse = await fetch('./api/auth/plex/status', { credentials: 'include' });
@@ -5208,7 +5260,7 @@ class UserModule {
                 console.warn('Error loading Plex status:', plexError);
                 this.updatePlexStatus(null);
             }
-            
+
         } catch (error) {
             console.error('Error loading user data:', error);
         }
@@ -5339,8 +5391,13 @@ class UserModule {
         const confirmPassword = document.getElementById('confirmPassword').value;
         const statusElement = document.getElementById('passwordStatus');
 
-        if (!currentPassword || !newPassword || !confirmPassword) {
-            this.showStatus(statusElement, 'Please fill in all fields', 'error');
+        // Non-owners don't need current password (Plex-imported users may not know it)
+        if (!this._isNonOwner && !currentPassword) {
+            this.showStatus(statusElement, 'Please enter your current password', 'error');
+            return;
+        }
+        if (!newPassword || !confirmPassword) {
+            this.showStatus(statusElement, 'Please fill in the new password fields', 'error');
             return;
         }
 
@@ -5349,8 +5406,8 @@ class UserModule {
             return;
         }
 
-        if (newPassword.length < 6) {
-            this.showStatus(statusElement, 'Password must be at least 6 characters long', 'error');
+        if (newPassword.length < 8) {
+            this.showStatus(statusElement, 'Password must be at least 8 characters long', 'error');
             return;
         }
 
@@ -5381,8 +5438,33 @@ class UserModule {
     }
 
     async enableTwoFactor() {
+        // Non-owners must have a password set before enabling 2FA
+        if (this._isNonOwner) {
+            try {
+                const infoResp = await fetch('./api/user/info', { credentials: 'include' });
+                if (infoResp.ok) {
+                    const info = await infoResp.json();
+                    if (!info.has_password) {
+                        var statusEl = document.getElementById('verifyStatus') || document.getElementById('enableTwoFactorSection');
+                        if (window.HuntarrConfirm && window.HuntarrConfirm.show) {
+                            window.HuntarrConfirm.show({
+                                title: 'Password Required',
+                                message: 'You must set a password before enabling Two-Factor Authentication.<br><br>Please use the "Change Password" card to set your password first.',
+                                confirmLabel: 'OK',
+                                onConfirm: function () { },
+                            });
+                        } else {
+                            alert('You must set a password before enabling Two-Factor Authentication.');
+                        }
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.warn('[UserModule] Error checking password status for 2FA:', e);
+            }
+        }
         try {
-            const response = await fetch('./api/user/2fa/setup', { 
+            const response = await fetch('./api/user/2fa/setup', {
                 method: 'POST',
                 credentials: 'include'
             });
@@ -5391,7 +5473,7 @@ class UserModule {
             if (response.ok) {
                 document.getElementById('qrCode').src = result.qr_code_url;
                 document.getElementById('secretKey').textContent = result.secret;
-                
+
                 document.getElementById('enableTwoFactorSection').style.display = 'none';
                 document.getElementById('setupTwoFactorSection').style.display = 'block';
             } else {
@@ -5509,11 +5591,11 @@ class UserModule {
                 document.getElementById('recoveryKeyValue').textContent = result.recovery_key;
                 document.getElementById('recoveryKeyDisplay').style.display = 'block';
                 this.showStatus(statusElement, 'Recovery key generated successfully!', 'success');
-                
+
                 // Clear form
                 document.getElementById('currentPasswordForRecovery').value = '';
                 document.getElementById('recoveryTwoFactorCode').value = '';
-                
+
                 // Auto-hide after 5 minutes
                 setTimeout(() => {
                     document.getElementById('recoveryKeyDisplay').style.display = 'none';
@@ -5531,13 +5613,13 @@ class UserModule {
             var originalText = button.textContent;
             button.textContent = 'Copied!';
             button.classList.add('copied');
-            setTimeout(function() {
+            setTimeout(function () {
                 button.textContent = originalText;
                 button.classList.remove('copied');
             }, 2000);
         }
         if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(text).then(showCopied).catch(function() {
+            navigator.clipboard.writeText(text).then(showCopied).catch(function () {
                 fallbackCopy(text, showCopied);
             });
         } else {
@@ -5550,7 +5632,7 @@ class UserModule {
             ta.style.left = '-9999px';
             document.body.appendChild(ta);
             ta.select();
-            try { document.execCommand('copy'); if (onSuccess) onSuccess(); } catch (e) {}
+            try { document.execCommand('copy'); if (onSuccess) onSuccess(); } catch (e) { }
             document.body.removeChild(ta);
         }
     }
@@ -5569,10 +5651,10 @@ class UserModule {
 
     async linkPlexAccount() {
         const modal = document.getElementById('plexLinkModal');
-        
+
         modal.style.display = 'block';
         this.setPlexLinkStatus('waiting', '<i class="fas fa-spinner spinner"></i> Preparing Plex authentication...');
-        
+
         try {
             // Create Plex PIN with popup_mode — no forwardUrl, parent polls
             const response = await fetch('./api/auth/plex/pin', {
@@ -5580,20 +5662,20 @@ class UserModule {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ user_mode: true, popup_mode: true })
             });
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
                 this.currentPlexPinId = data.pin_id;
-                
+
                 this.setPlexLinkStatus('waiting', '<i class="fas fa-external-link-alt"></i> A Plex window has opened. Please sign in there.');
-                
+
                 // Open Plex auth in a popup window
                 const w = 600, h = 700;
                 const left = Math.max(0, Math.round(window.screenX + (window.outerWidth - w) / 2));
                 const top = Math.max(0, Math.round(window.screenY + (window.outerHeight - h) / 2));
                 this.plexPopup = window.open(data.auth_url, 'PlexAuth', `width=${w},height=${h},left=${left},top=${top},toolbar=no,menubar=no,scrollbars=yes`);
-                
+
                 // Start polling for PIN claim
                 this.startPlexPolling();
             } else {
@@ -5607,7 +5689,7 @@ class UserModule {
 
     setPlexLinkStatus(type, message) {
         const plexLinkStatus = document.getElementById('plexLinkStatus');
-        
+
         if (plexLinkStatus) {
             plexLinkStatus.className = `plex-status ${type}`;
             plexLinkStatus.innerHTML = message;
@@ -5621,20 +5703,20 @@ class UserModule {
             clearInterval(this.plexPollingInterval);
             this.plexPollingInterval = null;
         }
-        
+
         if (!this.currentPlexPinId) {
             this.setPlexLinkStatus('error', '<i class="fas fa-exclamation-triangle"></i> No PIN ID available. Please try again.');
             return;
         }
-        
+
         this.setPlexLinkStatus('waiting', '<i class="fas fa-hourglass-half"></i> Waiting for Plex authentication...');
-        
+
         this.plexPollingInterval = setInterval(() => {
             // Update status if user closed popup manually
             if (this.plexPopup && this.plexPopup.closed) {
                 this.setPlexLinkStatus('waiting', '<i class="fas fa-hourglass-half"></i> Checking if authentication completed...');
             }
-            
+
             fetch(`./api/auth/plex/check/${this.currentPlexPinId}`)
                 .then(response => response.json())
                 .then(data => {
@@ -5655,7 +5737,7 @@ class UserModule {
                     this.stopPlexLinking();
                 });
         }, 2000);
-        
+
         // Stop checking after 10 minutes
         setTimeout(() => {
             if (this.plexPollingInterval) {
@@ -5664,11 +5746,11 @@ class UserModule {
             }
         }, 600000);
     }
-    
+
     async linkWithPlexToken(token) {
         console.log('Linking with Plex token');
         this.setPlexLinkStatus('waiting', '<i class="fas fa-spinner spinner"></i> Finalizing account link...');
-        
+
         try {
             // Use the same approach as setup - let backend get username from database
             const linkResponse = await fetch('./api/auth/plex/link', {
@@ -5682,15 +5764,15 @@ class UserModule {
                     setup_mode: true  // Use setup mode like the working implementation
                 })
             });
-            
+
             const linkResult = await linkResponse.json();
-            
+
             if (linkResponse.ok && linkResult.success) {
                 this.setPlexLinkStatus('success', '<i class="fas fa-check-circle"></i> Plex account successfully linked!');
                 setTimeout(() => {
                     const modal = document.getElementById('plexLinkModal');
                     if (modal) modal.style.display = 'none';
-                    
+
                     // Reload user data to show updated Plex status
                     this.loadUserData();
                 }, 2000);
@@ -5706,7 +5788,7 @@ class UserModule {
             this.stopPlexLinking();
         }
     }
-    
+
     stopPlexLinking() {
         if (this.plexPollingInterval) {
             clearInterval(this.plexPollingInterval);
@@ -5726,39 +5808,39 @@ class UserModule {
     async unlinkPlexAccount() {
         const statusElement = document.getElementById('plexUnlinkStatus');
         const self = this;
-        const doUnlink = async function() {
-        try {
-            const response = await fetch('./api/auth/plex/unlink', { 
-                method: 'POST',
-                credentials: 'include'
-            });
-            const result = await response.json();
+        const doUnlink = async function () {
+            try {
+                const response = await fetch('./api/auth/plex/unlink', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                const result = await response.json();
 
-            if (response.ok) {
-                self.showStatus(statusElement, 'Plex account unlinked successfully!', 'success');
-                setTimeout(() => {
-                    self.updatePlexStatus(null);
-                }, 1500);
-            } else {
-                // Check if session expired - provide actionable guidance
-                if (result.session_expired) {
-                    self.showStatus(statusElement, result.error || 'Session expired. Please refresh the page and log in again.', 'error');
-                    // Auto-prompt user to refresh after showing message
+                if (response.ok) {
+                    self.showStatus(statusElement, 'Plex account unlinked successfully!', 'success');
                     setTimeout(() => {
-                        if (confirm('Your session has expired. Would you like to log in again now?')) {
-                            window.location.href = './logout'; // Redirect to logout which will clear session and redirect to login
-                        }
-                    }, 2000);
+                        self.updatePlexStatus(null);
+                    }, 1500);
                 } else {
-                    self.showStatus(statusElement, result.error || 'Failed to unlink Plex account', 'error');
+                    // Check if session expired - provide actionable guidance
+                    if (result.session_expired) {
+                        self.showStatus(statusElement, result.error || 'Session expired. Please refresh the page and log in again.', 'error');
+                        // Auto-prompt user to refresh after showing message
+                        setTimeout(() => {
+                            if (confirm('Your session has expired. Would you like to log in again now?')) {
+                                window.location.href = './logout'; // Redirect to logout which will clear session and redirect to login
+                            }
+                        }, 2000);
+                    } else {
+                        self.showStatus(statusElement, result.error || 'Failed to unlink Plex account', 'error');
+                    }
                 }
+            } catch (error) {
+                self.showStatus(statusElement, 'Error unlinking Plex account', 'error');
             }
-        } catch (error) {
-            self.showStatus(statusElement, 'Error unlinking Plex account', 'error');
-        }
         };
         if (window.HuntarrConfirm && window.HuntarrConfirm.show) {
-            window.HuntarrConfirm.show({ title: 'Unlink Plex Account', message: 'Are you sure you want to unlink your Plex account?', confirmLabel: 'Unlink', onConfirm: function() { doUnlink(); } });
+            window.HuntarrConfirm.show({ title: 'Unlink Plex Account', message: 'Are you sure you want to unlink your Plex account?', confirmLabel: 'Unlink', onConfirm: function () { doUnlink(); } });
         } else {
             if (!confirm('Are you sure you want to unlink your Plex account?')) return;
             doUnlink();
@@ -5777,7 +5859,7 @@ class UserModule {
         if (enabled) {
             statusBadge.textContent = 'Enabled';
             statusBadge.className = 'status-badge enabled';
-            
+
             enableSection.style.display = 'none';
             setupSection.style.display = 'none';
             disableSection.style.display = 'block';
@@ -5785,7 +5867,7 @@ class UserModule {
         } else {
             statusBadge.textContent = 'Disabled';
             statusBadge.className = 'status-badge disabled';
-            
+
             enableSection.style.display = 'block';
             setupSection.style.display = 'none';
             disableSection.style.display = 'none';
@@ -5803,10 +5885,10 @@ class UserModule {
         if (plexData && plexData.plex_linked) {
             statusBadge.textContent = 'Linked';
             statusBadge.className = 'status-badge enabled';
-            
+
             document.getElementById('plexUsername').textContent = plexData.plex_username || 'Unknown';
             document.getElementById('plexEmail').textContent = plexData.plex_email || 'N/A';
-            
+
             // Format the timestamp properly
             let linkedAtText = 'Unknown';
             if (plexData.plex_linked_at) {
@@ -5820,13 +5902,13 @@ class UserModule {
                 }
             }
             document.getElementById('plexLinkedAt').textContent = linkedAtText;
-            
+
             notLinkedSection.style.display = 'none';
             linkedSection.style.display = 'block';
         } else {
             statusBadge.textContent = 'Not Linked';
             statusBadge.className = 'status-badge disabled';
-            
+
             notLinkedSection.style.display = 'block';
             linkedSection.style.display = 'none';
         }
@@ -5840,7 +5922,7 @@ class UserModule {
         element.textContent = message;
         element.className = `status-message ${type}`;
         element.style.display = 'block';
-        
+
         element._statusTimeout = setTimeout(() => {
             element.style.display = 'none';
             element._statusTimeout = null;

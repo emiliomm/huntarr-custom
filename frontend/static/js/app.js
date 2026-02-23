@@ -410,7 +410,7 @@ let huntarrUI = {
         var allowedSections = [
             'requestarr', 'requestarr-discover', 'requestarr-movies',
             'requestarr-tv', 'requestarr-smarthunt', 'requestarr-hidden',
-            'requestarr-personal-blacklist', 'requestarr-requests',
+            'requestarr-personal-blacklist', 'requestarr-requests', 'user',
         ];
         if (allowedSections.indexOf(this.currentSection) === -1) {
             window.location.hash = '#requestarr-discover';
@@ -432,7 +432,7 @@ let huntarrUI = {
         var allowed = [
             'requestarr', 'requestarr-discover', 'requestarr-movies',
             'requestarr-tv', 'requestarr-smarthunt', 'requestarr-hidden',
-            'requestarr-personal-blacklist', 'requestarr-requests',
+            'requestarr-personal-blacklist', 'requestarr-requests', 'user',
         ];
         return allowed.indexOf(section) === -1;
     },

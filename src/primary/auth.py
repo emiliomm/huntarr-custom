@@ -355,7 +355,24 @@ def verify_user(username: str, password: str, otp_code: str = None) -> Tuple[boo
                 if not verify_password(stored_password, password):
                     logger.warning(f"Login attempt failed for requestarr user '{username}': Invalid password.")
                     return False, False
-                # Requestarr users don't have 2FA (yet)
+                # Check if 2FA is enabled for this requestarr user
+                two_fa_enabled = req_user.get("two_fa_enabled", False)
+                if two_fa_enabled:
+                    two_fa_secret = req_user.get("two_fa_secret") or ""
+                    if not two_fa_secret.strip():
+                        logger.warning(f"Login failed for requestarr user '{username}': 2FA enabled but secret missing.")
+                        return False, False
+                    if otp_code:
+                        totp = pyotp.TOTP(two_fa_secret)
+                        if totp.verify(otp_code, valid_window=1):
+                            logger.debug(f"Requestarr user '{username}' authenticated successfully with 2FA.")
+                            return True, False
+                        else:
+                            logger.warning(f"Login failed for requestarr user '{username}': Invalid 2FA code.")
+                            return False, True
+                    else:
+                        logger.debug(f"Requestarr user '{username}': 2FA code required.")
+                        return False, True
                 logger.debug(f"Requestarr user '{username}' authenticated successfully.")
                 return True, False
             logger.warning(f"Login attempt failed: User '{username}' not found.")
