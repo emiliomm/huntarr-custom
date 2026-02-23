@@ -358,18 +358,22 @@
     transform: none !important;
 }
 
-/* ── Requestarr Home Card — cleaner glass ───────────────────────── */
+/* ── Requestarr Home Card — no border/shadow/bg at all ─────────── */
+#homeSection .card.requestarr-home-card,
 #homeSection .requestarr-home-card {
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     padding: 0 !important;
+    outline: none !important;
 }
 
+#homeSection .card.requestarr-home-card:hover,
 #homeSection .requestarr-home-card:hover {
     border: none !important;
     box-shadow: none !important;
+    outline: none !important;
 }
 
 /* ── Search Toolbar — matches #media-hunt-collection style ──────── */
@@ -386,7 +390,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 4px 0 0 0;
+    padding: 0;
 }
 
 /* ── Filter Chips — exact clone of #media-hunt-collection control-select ── */
@@ -418,7 +422,7 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     transition: border-color 0.2s, box-shadow 0.2s;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -431,7 +435,7 @@
 
 .home-filter-chip .chip-select:hover {
     border-color: rgba(90, 109, 137, 0.6);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
 }
 
 .home-filter-chip .chip-select:focus {
