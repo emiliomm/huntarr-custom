@@ -2174,18 +2174,19 @@ class RequestarrSettings {
             try {
                 await self.saveDiscoverFilters(true);
                 await self.saveBlacklistedGenres(true);
+                await self.saveSmartHuntSettings(true);
                 if (window.huntarrUI && window.huntarrUI.showNotification) {
-                    window.huntarrUI.showNotification('All settings saved', 'success');
+                    window.huntarrUI.showNotification('All options saved successfully', 'success');
                 }
             } catch (e) {
                 console.error('[Requestarr Settings] Save all error:', e);
                 if (window.huntarrUI && window.huntarrUI.showNotification) {
-                    window.huntarrUI.showNotification('Error saving settings', 'error');
+                    window.huntarrUI.showNotification('Error saving options', 'error');
                 }
             } finally {
                 if (btn) {
                     btn.disabled = false;
-                    btn.innerHTML = '<i class="fas fa-save"></i> Save';
+                    btn.innerHTML = '<i class="fas fa-save" style="margin-right: 6px;"></i> Save Options';
                 }
             }
         };
@@ -3339,7 +3340,7 @@ class RequestarrSettings {
         }
     }
 
-    async saveSmartHuntSettings() {
+    async saveSmartHuntSettings(silent = false) {
         const saveBtn = document.getElementById('smarthunt-save-btn');
         if (saveBtn) {
             saveBtn.disabled = true;
@@ -3405,15 +3406,21 @@ class RequestarrSettings {
             const data = await resp.json();
 
             if (data.success) {
-                this.core.showNotification('Smart Hunt settings saved successfully', 'success');
+                if (!silent) {
+                    this.core.showNotification('Smart Hunt settings saved successfully', 'success');
+                }
                 // Invalidate frontend cache
                 if (window.invalidateSmartHuntCache) window.invalidateSmartHuntCache();
             } else {
-                this.core.showNotification('Failed to save Smart Hunt settings', 'error');
+                if (!silent) {
+                    this.core.showNotification('Failed to save Smart Hunt settings', 'error');
+                }
             }
         } catch (e) {
             console.error('[SmartHuntSettings] Error saving:', e);
-            this.core.showNotification('Failed to save Smart Hunt settings', 'error');
+            if (!silent) {
+                this.core.showNotification('Failed to save Smart Hunt settings', 'error');
+            }
         } finally {
             if (saveBtn) {
                 saveBtn.disabled = false;
@@ -6624,7 +6631,7 @@ class RequestarrDiscover {
         this.searchTimeouts = {};
         this.currentModal = null;
         this.currentModalData = null;
-        
+
         // Initialize modules
         this.content = new RequestarrContent(this);
         this.search = new RequestarrSearch(this);
@@ -6632,7 +6639,7 @@ class RequestarrDiscover {
         this.settings = new RequestarrSettings(this);
         this.filters = new RequestarrFilters(this);
         this.tvFilters = new RequestarrTVFilters(this);
-        
+
         this.init();
     }
 
@@ -6652,7 +6659,7 @@ class RequestarrDiscover {
             const _ts = Date.now();
             const response = await fetch(`./api/requestarr/instances?t=${_ts}`, { cache: 'no-store' });
             const data = await response.json();
-            
+
             if (data.sonarr || data.radarr || data.movie_hunt || data.tv_hunt) {
                 this.instances = {
                     sonarr: data.sonarr || [],
@@ -6666,23 +6673,23 @@ class RequestarrDiscover {
             console.error('[RequestarrDiscover] Error loading instances:', error);
         }
     }
-    
+
     async loadAllQualityProfiles() {
         // Load Radarr quality profiles
         for (const instance of this.instances.radarr) {
             await this.loadQualityProfilesForInstance('radarr', instance.name);
         }
-        
+
         // Load Sonarr quality profiles
         for (const instance of this.instances.sonarr) {
             await this.loadQualityProfilesForInstance('sonarr', instance.name);
         }
-        
+
         // Load Movie Hunt quality profiles
         for (const instance of this.instances.movie_hunt) {
             await this.loadQualityProfilesForInstance('movie_hunt', instance.name);
         }
-        
+
         // Load TV Hunt quality profiles
         for (const instance of this.instances.tv_hunt) {
             await this.loadQualityProfilesForInstance('tv_hunt', instance.name);
@@ -6709,13 +6716,13 @@ class RequestarrDiscover {
 
     switchView(view) {
         console.log(`[RequestarrDiscover] switchView called with: ${view}`);
-        
+
         // Clear global search
         const globalSearch = document.getElementById('global-search-input');
         if (globalSearch) {
             globalSearch.value = '';
         }
-        
+
         // Hide/show global search bar based on view
         // Use ID to find input, then get parent to ensure we have the right element
         let globalSearchBar = null;
@@ -6728,7 +6735,7 @@ class RequestarrDiscover {
 
         if (globalSearchBar) {
             console.log(`[RequestarrDiscover] Found global search bar, applying visibility for ${view}`);
-            if (view === 'hidden' || view === 'settings' || view === 'smarthunt-settings' || view === 'smarthunt' || view === 'users' || view === 'bundles' || view === 'requests' || view === 'global-blacklist') {
+            if (view === 'hidden' || view === 'options' || view === 'settings' || view === 'smarthunt-settings' || view === 'smarthunt' || view === 'users' || view === 'bundles' || view === 'requests' || view === 'global-blacklist') {
                 globalSearchBar.style.setProperty('display', 'none', 'important');
                 console.log('[RequestarrDiscover] Hiding global search bar');
             } else {
@@ -6738,13 +6745,13 @@ class RequestarrDiscover {
         } else {
             console.error('[RequestarrDiscover] Global search bar not found!');
         }
-        
+
         // Hide search results view
         const searchResultsView = document.getElementById('search-results-view');
         if (searchResultsView) {
             searchResultsView.style.display = 'none';
         }
-        
+
         // Hide all view headers, show the one for current view (settings/smarthunt have their own toolbar)
         document.querySelectorAll('.requestarr-view-header').forEach(el => {
             el.style.display = 'none';
@@ -6752,7 +6759,7 @@ class RequestarrDiscover {
         // Hide the entire header bar when settings/smarthunt-settings have their own toolbar
         const headerBar = document.querySelector('.requestarr-header-bar');
         const contentEl = document.querySelector('.requestarr-content');
-        if (view === 'settings' || view === 'smarthunt-settings') {
+        if (view === 'settings' || view === 'smarthunt-settings' || view === 'options') {
             if (headerBar) headerBar.style.display = 'none';
             // Allow dropdowns to overflow outside cards in settings view
             if (contentEl) contentEl.classList.add('settings-active');
@@ -6772,7 +6779,7 @@ class RequestarrDiscover {
             container.classList.remove('active');
             container.style.display = 'none';
         });
-        
+
         // Show target view
         const targetView = document.getElementById(`requestarr-${view}-view`);
         if (targetView) {
@@ -6808,6 +6815,10 @@ class RequestarrDiscover {
                 break;
             case 'hidden':
                 this.settings.loadHiddenMedia();
+                break;
+            case 'options':
+                this.settings.loadSettings();
+                this.settings.loadSmartHuntSettings();
                 break;
             case 'settings':
                 this.settings.loadSettings();
@@ -6849,7 +6860,7 @@ class RequestarrDiscover {
         const carousels = new Set();
         /** Per-carousel: once user has scrolled right, left arrow stays visible (so they know they can scroll back). */
         const hasScrolledRight = {};
-        
+
         // Collect all unique carousels
         arrows.forEach(arrow => {
             const targetId = arrow.dataset.target;
@@ -6858,26 +6869,26 @@ class RequestarrDiscover {
                 carousels.add(carousel);
             }
         });
-        
+
         // Setup scroll listeners for each carousel
         carousels.forEach(carousel => {
             const updateArrowVisibility = () => {
                 const carouselId = carousel.id;
                 const leftArrow = document.querySelector(`.carousel-arrow.left[data-target="${carouselId}"]`);
                 const rightArrow = document.querySelector(`.carousel-arrow.right[data-target="${carouselId}"]`);
-                
+
                 if (!leftArrow || !rightArrow) return;
-                
+
                 const scrollLeft = carousel.scrollLeft;
                 const maxScroll = carousel.scrollWidth - carousel.clientWidth;
                 const atStart = scrollLeft <= 5;
                 const atEnd = maxScroll > 5 && scrollLeft >= maxScroll - 5;
-                
+
                 // Once user scrolls right, left arrow stays visible so they know they can scroll back
                 if (!atStart) {
                     hasScrolledRight[carouselId] = true;
                 }
-                
+
                 // Left arrow: hidden at start until user scrolls right; then always visible
                 if (atStart && !hasScrolledRight[carouselId]) {
                     leftArrow.style.opacity = '0';
@@ -6886,7 +6897,7 @@ class RequestarrDiscover {
                     leftArrow.style.opacity = '0.8';
                     leftArrow.style.pointerEvents = 'auto';
                 }
-                
+
                 // Right arrow: always visible when there's more content (or content still loading); hide only at end
                 if (atEnd) {
                     rightArrow.style.opacity = '0';
@@ -6896,7 +6907,7 @@ class RequestarrDiscover {
                     rightArrow.style.pointerEvents = 'auto';
                 }
             };
-            
+
             carousel.addEventListener('scroll', updateArrowVisibility);
             setTimeout(() => updateArrowVisibility(), 100);
             window.addEventListener('resize', updateArrowVisibility);
@@ -6906,20 +6917,20 @@ class RequestarrDiscover {
             });
             observer.observe(carousel, { childList: true, subtree: true });
         });
-        
+
         // Click handlers
         arrows.forEach(arrow => {
             arrow.addEventListener('click', (e) => {
                 const targetId = arrow.dataset.target;
                 const carousel = document.getElementById(targetId);
-                
+
                 const carouselWidth = carousel.offsetWidth;
                 const cardWidth = 150;
                 const gap = 20;
                 const itemWidth = cardWidth + gap;
                 const visibleItems = Math.floor(carouselWidth / itemWidth);
                 const scrollAmount = visibleItems * itemWidth;
-                
+
                 if (arrow.classList.contains('left')) {
                     carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
                 } else {
@@ -6938,7 +6949,7 @@ class RequestarrDiscover {
             this.filters.closeFiltersModal();
         }
     }
-    
+
     closeTVFiltersModal() {
         if (this.tvFilters) {
             this.tvFilters.closeFiltersModal();
@@ -6964,11 +6975,11 @@ class RequestarrDiscover {
             <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
             <span>${message}</span>
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => notification.classList.add('show'), 10);
-        
+
         setTimeout(() => {
             notification.classList.remove('show');
             notification.classList.add('slideOut');

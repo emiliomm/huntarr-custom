@@ -3812,16 +3812,16 @@
     overflow: visible;
 }
 
-/* Settings view: allow dropdowns to overflow outside cards */
-#requestarr-settings-view {
+/* Options view: allow dropdowns to overflow outside cards */
+#requestarr-options-view {
     overflow: visible !important;
 }
 
-#requestarr-settings-view .reqset-card {
+#requestarr-options-view .reqset-card {
     overflow: visible !important;
 }
 
-#requestarr-settings-view .reqset-card-body {
+#requestarr-options-view .reqset-card-body {
     overflow: visible !important;
 }
 
@@ -4715,8 +4715,8 @@ body.requestarr-modal-open {
     color: #8892a4;
 }
 
-/* Toggle label for Smart Hunt settings */
-#requestarr-smarthunt-settings-view .toggle-label {
+/* Toggle label for Options settings */
+#requestarr-options-view .toggle-label {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -4725,7 +4725,7 @@ body.requestarr-modal-open {
 }
 
 /* Settings input (number) */
-#requestarr-smarthunt-settings-view .settings-input {
+#requestarr-options-view .settings-input {
     width: 100%;
     padding: 8px 12px;
     font-size: 14px;

@@ -450,8 +450,8 @@
             </div>
         </div>
 
-        <!-- Filters View -->
-        <div id="requestarr-settings-view" class="requestarr-view">
+        <!-- Options View (Filters + Smart Hunt Settings combined) -->
+        <div id="requestarr-options-view" class="requestarr-view" style="display: none;">
             <div class="reqset-container">
 
                 <!-- Toolbar -->
@@ -462,24 +462,24 @@
                             <i class="fas fa-arrow-left"></i> Back
                         </button>
                         <div class="reqset-breadcrumb">
-                            <i class="fas fa-filter"></i>
+                            <i class="fas fa-cog"></i>
                             <span>Requestarr</span>
                             <i class="fas fa-chevron-right reqset-breadcrumb-sep"></i>
-                            <span>Filters</span>
+                            <span>Options</span>
                         </div>
                     </div>
                     <div class="reqset-toolbar-right">
                         <button id="reqset-save-all-btn" class="reqset-save-btn"
                             onclick="window._reqsetSaveAll && window._reqsetSaveAll()">
-                            <i class="fas fa-save"></i> Save
+                            <i class="fas fa-save" style="margin-right: 6px;"></i> Save Options
                         </button>
                     </div>
                 </div>
 
-                <!-- Two-column layout -->
+                <!-- Row 1: Discovery Filters + Blacklisted Genres -->
                 <div class="reqset-grid">
 
-                    <!-- Left Column: Filters -->
+                    <!-- Discovery Filters -->
                     <div class="reqset-card">
                         <div class="reqset-card-header">
                             <div class="reqset-card-icon reqset-icon-blue">
@@ -532,7 +532,7 @@
                         </div>
                     </div>
 
-                    <!-- Right Column: Blacklisted Genres -->
+                    <!-- Blacklisted Genres -->
                     <div class="reqset-card">
                         <div class="reqset-card-header">
                             <div class="reqset-card-icon reqset-icon-red">
@@ -562,7 +562,187 @@
                         </div>
                     </div>
 
-                </div>
+                </div><!-- end row 1 -->
+
+                <!-- Row 2: Smart Hunt Settings -->
+                <div class="reqset-grid" style="margin-top: 16px;">
+
+                    <!-- Smart Hunt Config -->
+                    <div class="reqset-card">
+                        <div class="reqset-card-header">
+                            <div class="reqset-card-icon reqset-icon-blue">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <h3>Smart Hunt Settings</h3>
+                        </div>
+                        <div class="reqset-card-body">
+                            <div class="settings-field">
+                                <label class="toggle-label">
+                                    <span>Hide Library Items</span>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="smarthunt-hide-library" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </label>
+                                <small>Hide items already in library, requested, or hidden. Uses instances selected on
+                                    Discover or default instances on Home.</small>
+                            </div>
+                            <div class="settings-field">
+                                <label for="smarthunt-cache-ttl">Result Cache Duration</label>
+                                <select id="smarthunt-cache-ttl" class="settings-input">
+                                    <option value="0">Disabled (always fresh)</option>
+                                    <option value="30">30 Minutes</option>
+                                    <option value="60" selected>1 Hour (default)</option>
+                                    <option value="360">6 Hours</option>
+                                    <option value="720">12 Hours</option>
+                                    <option value="1080">18 Hours</option>
+                                    <option value="1440">24 Hours</option>
+                                </select>
+                                <small>How long Smart Hunt caches results before fetching new ones.</small>
+                            </div>
+                            <div class="settings-field">
+                                <label for="smarthunt-min-rating">Minimum TMDB Rating</label>
+                                <input type="number" id="smarthunt-min-rating" min="0" max="10" step="0.1" value="6.0"
+                                    class="settings-input">
+                                <small>Only items rated at or above this score are included (0–10).</small>
+                            </div>
+                            <div class="settings-field">
+                                <label for="smarthunt-min-votes">Minimum Vote Count</label>
+                                <input type="number" id="smarthunt-min-votes" min="0" max="100000" step="1" value="50"
+                                    class="settings-input">
+                                <small>Minimum number of TMDB votes required. Set to 0 to disable.</small>
+                            </div>
+                            <div class="settings-field">
+                                <label>Year Range</label>
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <input type="number" id="smarthunt-year-start" min="1900" max="2030" value="2000"
+                                        class="settings-input" style="flex:1;">
+                                    <span style="color: #888;">to</span>
+                                    <input type="number" id="smarthunt-year-end" min="1900" max="2030" value="2027"
+                                        class="settings-input" style="flex:1;">
+                                </div>
+                                <small>Filter results to this release year range.</small>
+                            </div>
+                            <div class="settings-field">
+                                <label for="smarthunt-max-certification">Maximum Age Rating (US)</label>
+                                <select id="smarthunt-max-certification" class="settings-input">
+                                    <option value="">No limit</option>
+                                    <option value="G">G</option>
+                                    <option value="PG">PG</option>
+                                    <option value="PG-13">PG-13</option>
+                                    <option value="R">R</option>
+                                    <option value="NC-17">NC-17</option>
+                                </select>
+                                <small>Restrict Smart Hunt results to this US certification or lower.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Smart Hunt Category Weights -->
+                    <div class="reqset-card">
+                        <div class="reqset-card-header">
+                            <div class="reqset-card-icon reqset-icon-purple">
+                                <i class="fas fa-sliders-h"></i>
+                            </div>
+                            <h3>Category Weights</h3>
+                        </div>
+                        <div class="reqset-card-body">
+                            <div class="smarthunt-total-bar" id="smarthunt-total-bar">
+                                <span>Total: </span><strong id="smarthunt-total-value">100</strong><span>%</span>
+                            </div>
+
+                            <div class="smarthunt-weight-row">
+                                <div class="smarthunt-weight-label">
+                                    <span>Similar to Library</span>
+                                    <small>Recommendations based on what's in your library</small>
+                                </div>
+                                <div class="smarthunt-weight-input">
+                                    <input type="number" id="smarthunt-pct-similar_library" min="0" max="100" value="40"
+                                        class="settings-input smarthunt-pct">
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div class="smarthunt-weight-row">
+                                <div class="smarthunt-weight-label">
+                                    <span>Trending</span>
+                                    <small>What's popular right now</small>
+                                </div>
+                                <div class="smarthunt-weight-input">
+                                    <input type="number" id="smarthunt-pct-trending" min="0" max="100" value="15"
+                                        class="settings-input smarthunt-pct">
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div class="smarthunt-weight-row">
+                                <div class="smarthunt-weight-label">
+                                    <span>Hidden Gems</span>
+                                    <small>High quality, low popularity picks</small>
+                                </div>
+                                <div class="smarthunt-weight-input">
+                                    <input type="number" id="smarthunt-pct-hidden_gems" min="0" max="100" value="10"
+                                        class="settings-input smarthunt-pct">
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div class="smarthunt-weight-row">
+                                <div class="smarthunt-weight-label">
+                                    <span>New Releases</span>
+                                    <small>Released in the last 3 months</small>
+                                </div>
+                                <div class="smarthunt-weight-input">
+                                    <input type="number" id="smarthunt-pct-new_releases" min="0" max="100" value="10"
+                                        class="settings-input smarthunt-pct">
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div class="smarthunt-weight-row">
+                                <div class="smarthunt-weight-label">
+                                    <span>Top Rated</span>
+                                    <small>Highest rated on TMDB</small>
+                                </div>
+                                <div class="smarthunt-weight-input">
+                                    <input type="number" id="smarthunt-pct-top_rated" min="0" max="100" value="10"
+                                        class="settings-input smarthunt-pct">
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div class="smarthunt-weight-row">
+                                <div class="smarthunt-weight-label">
+                                    <span>Genre Deep Dive</span>
+                                    <small>Genres your library is heavy in</small>
+                                </div>
+                                <div class="smarthunt-weight-input">
+                                    <input type="number" id="smarthunt-pct-genre_mix" min="0" max="100" value="5"
+                                        class="settings-input smarthunt-pct">
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div class="smarthunt-weight-row">
+                                <div class="smarthunt-weight-label">
+                                    <span>Upcoming</span>
+                                    <small>Not released yet</small>
+                                </div>
+                                <div class="smarthunt-weight-input">
+                                    <input type="number" id="smarthunt-pct-upcoming" min="0" max="100" value="5"
+                                        class="settings-input smarthunt-pct">
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div class="smarthunt-weight-row">
+                                <div class="smarthunt-weight-label">
+                                    <span>Random / Surprise Me</span>
+                                    <small>Surprise picks (auto-fills remaining %)</small>
+                                </div>
+                                <div class="smarthunt-weight-input">
+                                    <input type="number" id="smarthunt-pct-random" min="0" max="100" value="5"
+                                        class="settings-input smarthunt-pct">
+                                    <span>%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- end row 2 -->
             </div>
         </div>
     </div>
@@ -894,326 +1074,104 @@
         </div>
     </div>
 
-    <!-- Smart Hunt Settings View -->
-    <div id="requestarr-smarthunt-settings-view" class="requestarr-view" style="display: none;">
-        <div class="reqset-container">
-            <!-- Toolbar -->
-            <div class="reqset-toolbar">
-                <div class="reqset-toolbar-left">
-                    <button class="reqset-back-btn"
-                        onclick="window.RequestarrDiscover && window.RequestarrDiscover.switchView('discover')">
-                        <i class="fas fa-arrow-left"></i> Back
-                    </button>
-                    <div class="reqset-breadcrumb">
-                        <i class="fas fa-fire"></i>
-                        <span>Requestarr</span>
-                        <i class="fas fa-chevron-right reqset-breadcrumb-sep"></i>
-                        <span>Smart Hunt</span>
-                    </div>
-                </div>
-                <div class="reqset-toolbar-right">
-                    <button id="smarthunt-save-btn" class="reqset-save-btn">
-                        <i class="fas fa-save"></i> Save
-                    </button>
-                </div>
+
+<!-- Requestarr Request Modal – Two-column poster + form layout (matches Movie Hunt design) -->
+<div id="media-modal" class="mh-req-modal" style="display: none;">
+    <div class="modal-backdrop" id="requestarr-modal-backdrop"></div>
+    <div class="mh-req-card">
+        <button type="button" class="mh-req-close" id="requestarr-modal-close" aria-label="Close">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="mh-req-layout">
+            <!-- Poster column -->
+            <div class="mh-req-poster">
+                <img id="requestarr-modal-poster-img" src="./static/images/blackout.jpg" alt=""
+                    onerror="this.src='./static/images/blackout.jpg'">
             </div>
-
-            <!-- Two-column layout -->
-            <div class="reqset-grid">
-
-                <!-- Left Column: Smart Hunt Mix -->
-                <div class="reqset-card">
-                    <div class="reqset-card-header">
-                        <div class="reqset-card-icon reqset-icon-blue">
-                            <i class="fas fa-fire"></i>
-                        </div>
-                        <h3>Smart Hunt Mix</h3>
-                    </div>
-                    <div class="reqset-card-body">
-                        <div class="settings-field">
-                            <label class="toggle-label">
-                                <span>Hide Library Items</span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="smarthunt-hide-library" checked>
-                                    <span class="toggle-slider"></span>
-                                </label>
-                            </label>
-                            <small>Hide items already in library, requested, or hidden. Uses instances selected on
-                                Discover or default instances on Home.</small>
-                        </div>
-                        <div class="settings-field">
-                            <label for="smarthunt-cache-ttl">Result Cache Duration</label>
-                            <select id="smarthunt-cache-ttl" class="settings-input">
-                                <option value="0">Disabled (always fresh)</option>
-                                <option value="30">30 Minutes</option>
-                                <option value="60" selected>1 Hour (default)</option>
-                                <option value="360">6 Hours</option>
-                                <option value="720">12 Hours</option>
-                                <option value="1080">18 Hours</option>
-                                <option value="1440">24 Hours</option>
-                            </select>
-                            <small>How long Smart Hunt caches results before fetching new ones. Applies to both the
-                                server-side API cache and the browser cache. Also affects Discover page carousels
-                                (Trending, Popular Movies, Popular TV). 18h aligns with the metadata refresh cycle.
-                                Shorter = fresher results but more API calls.</small>
-                        </div>
-                        <div class="settings-field">
-                            <label for="smarthunt-min-rating">Minimum TMDB Rating</label>
-                            <input type="number" id="smarthunt-min-rating" min="0" max="10" step="0.1" value="6.0"
-                                class="settings-input">
-                            <small>TMDB ratings range from 0 to 10 (decimals allowed). Only items rated at or above this
-                                score are included.</small>
-                        </div>
-                        <div class="settings-field">
-                            <label for="smarthunt-min-votes">Minimum Vote Count</label>
-                            <input type="number" id="smarthunt-min-votes" min="0" max="100000" step="1" value="50"
-                                class="settings-input">
-                            <small>Minimum number of TMDB votes required. Filters out obscure titles with too few
-                                ratings. Set to 0 to disable.</small>
-                        </div>
-                        <div class="settings-field">
-                            <label>Year Range</label>
-                            <div style="display: flex; gap: 10px; align-items: center;">
-                                <input type="number" id="smarthunt-year-start" min="1900" max="2030" value="2000"
-                                    class="settings-input" style="flex:1;">
-                                <span style="color: #888;">to</span>
-                                <input type="number" id="smarthunt-year-end" min="1900" max="2030" value="2027"
-                                    class="settings-input" style="flex:1;">
-                            </div>
-                            <small>Filter results to this release year range</small>
-                        </div>
-                        <div class="settings-field">
-                            <label for="smarthunt-max-certification">Maximum Age Rating (US)</label>
-                            <select id="smarthunt-max-certification" class="settings-input">
-                                <option value="">No limit</option>
-                                <option value="G">G</option>
-                                <option value="PG">PG</option>
-                                <option value="PG-13">PG-13</option>
-                                <option value="R">R</option>
-                                <option value="NC-17">NC-17</option>
-                            </select>
-                            <small>Restrict Smart Hunt results to this US certification or lower. Leave empty to include
-                                all ratings.</small>
-                        </div>
-                        <div class="settings-field"
-                            style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(90, 109, 137, 0.15);">
-                            <small style="color: #9ca3af;">
-                                <i class="fas fa-info-circle" style="margin-right: 4px;"></i>
-                                <a href="#requestarr-filters" style="color: #818cf8; text-decoration: none;">Discovery
-                                    Filters</a>
-                                (region, languages, providers) and
-                                <a href="#requestarr-filters" style="color: #818cf8; text-decoration: none;">Blacklisted
-                                    Genres</a>
-                                from Requestarr Filters also apply to Smart Hunt results.
-                            </small>
-                        </div>
-                    </div>
+            <!-- Form column -->
+            <div class="mh-req-form">
+                <div class="mh-req-header">
+                    <span class="mh-req-label" id="requestarr-modal-label">Request Movie</span>
+                    <h2 class="mh-req-title" id="requestarr-modal-title"></h2>
+                    <div class="mh-req-meta" id="requestarr-modal-meta"></div>
                 </div>
-
-                <!-- Right Column: Category Weights -->
-                <div class="reqset-card">
-                    <div class="reqset-card-header">
-                        <div class="reqset-card-icon reqset-icon-purple">
-                            <i class="fas fa-sliders-h"></i>
-                        </div>
-                        <h3>Category Weights</h3>
-                    </div>
-                    <div class="reqset-card-body">
-                        <div class="smarthunt-total-bar" id="smarthunt-total-bar">
-                            <span>Total: </span><strong id="smarthunt-total-value">100</strong><span>%</span>
-                        </div>
-
-                        <div class="smarthunt-weight-row">
-                            <div class="smarthunt-weight-label">
-                                <span>Similar to Library</span>
-                                <small>Recommendations based on what's in your library</small>
-                            </div>
-                            <div class="smarthunt-weight-input">
-                                <input type="number" id="smarthunt-pct-similar_library" min="0" max="100" value="40"
-                                    class="settings-input smarthunt-pct">
-                                <span>%</span>
-                            </div>
-                        </div>
-                        <div class="smarthunt-weight-row">
-                            <div class="smarthunt-weight-label">
-                                <span>Trending</span>
-                                <small>What's popular right now</small>
-                            </div>
-                            <div class="smarthunt-weight-input">
-                                <input type="number" id="smarthunt-pct-trending" min="0" max="100" value="15"
-                                    class="settings-input smarthunt-pct">
-                                <span>%</span>
-                            </div>
-                        </div>
-                        <div class="smarthunt-weight-row">
-                            <div class="smarthunt-weight-label">
-                                <span>Hidden Gems</span>
-                                <small>High quality, low popularity picks</small>
-                            </div>
-                            <div class="smarthunt-weight-input">
-                                <input type="number" id="smarthunt-pct-hidden_gems" min="0" max="100" value="10"
-                                    class="settings-input smarthunt-pct">
-                                <span>%</span>
-                            </div>
-                        </div>
-                        <div class="smarthunt-weight-row">
-                            <div class="smarthunt-weight-label">
-                                <span>New Releases</span>
-                                <small>Released in the last 3 months</small>
-                            </div>
-                            <div class="smarthunt-weight-input">
-                                <input type="number" id="smarthunt-pct-new_releases" min="0" max="100" value="10"
-                                    class="settings-input smarthunt-pct">
-                                <span>%</span>
-                            </div>
-                        </div>
-                        <div class="smarthunt-weight-row">
-                            <div class="smarthunt-weight-label">
-                                <span>Top Rated</span>
-                                <small>Highest rated on TMDB</small>
-                            </div>
-                            <div class="smarthunt-weight-input">
-                                <input type="number" id="smarthunt-pct-top_rated" min="0" max="100" value="10"
-                                    class="settings-input smarthunt-pct">
-                                <span>%</span>
-                            </div>
-                        </div>
-                        <div class="smarthunt-weight-row">
-                            <div class="smarthunt-weight-label">
-                                <span>Genre Deep Dive</span>
-                                <small>Genres your library is heavy in</small>
-                            </div>
-                            <div class="smarthunt-weight-input">
-                                <input type="number" id="smarthunt-pct-genre_mix" min="0" max="100" value="5"
-                                    class="settings-input smarthunt-pct">
-                                <span>%</span>
-                            </div>
-                        </div>
-                        <div class="smarthunt-weight-row">
-                            <div class="smarthunt-weight-label">
-                                <span>Upcoming</span>
-                                <small>Not released yet</small>
-                            </div>
-                            <div class="smarthunt-weight-input">
-                                <input type="number" id="smarthunt-pct-upcoming" min="0" max="100" value="5"
-                                    class="settings-input smarthunt-pct">
-                                <span>%</span>
-                            </div>
-                        </div>
-                        <div class="smarthunt-weight-row">
-                            <div class="smarthunt-weight-label">
-                                <span>Random / Surprise Me</span>
-                                <small>Surprise picks (auto-fills remaining %)</small>
-                            </div>
-                            <div class="smarthunt-weight-input">
-                                <input type="number" id="smarthunt-pct-random" min="0" max="100" value="5"
-                                    class="settings-input smarthunt-pct">
-                                <span>%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Requestarr Request Modal – Two-column poster + form layout (matches Movie Hunt design) -->
-    <div id="media-modal" class="mh-req-modal" style="display: none;">
-        <div class="modal-backdrop" id="requestarr-modal-backdrop"></div>
-        <div class="mh-req-card">
-            <button type="button" class="mh-req-close" id="requestarr-modal-close" aria-label="Close">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="mh-req-layout">
-                <!-- Poster column -->
-                <div class="mh-req-poster">
-                    <img id="requestarr-modal-poster-img" src="./static/images/blackout.jpg" alt=""
-                        onerror="this.src='./static/images/blackout.jpg'">
-                </div>
-                <!-- Form column -->
-                <div class="mh-req-form">
-                    <div class="mh-req-header">
-                        <span class="mh-req-label" id="requestarr-modal-label">Request Movie</span>
-                        <h2 class="mh-req-title" id="requestarr-modal-title"></h2>
-                        <div class="mh-req-meta" id="requestarr-modal-meta"></div>
-                    </div>
-                    <div class="mh-req-status" id="requestarr-modal-status-container"></div>
-                    <div class="mh-req-fields">
-                        <div class="mh-req-field">
-                            <label>Instance</label>
-                            <div class="mh-req-instance-wrap">
-                                <a href="#" id="modal-instance-info-icon" class="mh-req-root-info-icon"
-                                    style="display: none;" title="Go to Instances to configure"
-                                    aria-label="Configure instances"><i class="fas fa-info-circle"></i></a>
-                                <select id="modal-instance-select" aria-label="Instance">
-                                    <option value="">Loading...</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mh-req-field">
-                            <label>Root Folder</label>
-                            <div class="mh-req-root-folder-wrap">
-                                <a href="#" id="modal-root-folder-info-icon" class="mh-req-root-info-icon"
-                                    style="display: none;" title="Go to Root Folders to configure"
-                                    aria-label="Configure root folders"><i class="fas fa-info-circle"></i></a>
-                                <select id="modal-root-folder">
-                                    <option value="">Loading...</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mh-req-field">
-                            <label>Quality Profile</label>
-                            <select id="modal-quality-profile">
+                <div class="mh-req-status" id="requestarr-modal-status-container"></div>
+                <div class="mh-req-fields">
+                    <div class="mh-req-field">
+                        <label>Instance</label>
+                        <div class="mh-req-instance-wrap">
+                            <a href="#" id="modal-instance-info-icon" class="mh-req-root-info-icon"
+                                style="display: none;" title="Go to Instances to configure"
+                                aria-label="Configure instances"><i class="fas fa-info-circle"></i></a>
+                            <select id="modal-instance-select" aria-label="Instance">
                                 <option value="">Loading...</option>
                             </select>
                         </div>
-                        <div class="mh-req-field mh-hidden" id="requestarr-modal-monitor-wrap">
-                            <label>Monitor</label>
-                            <select id="modal-monitor" aria-label="Monitor">
-                                <option value="all_episodes">All Episodes</option>
-                                <option value="future_episodes">Future Episodes</option>
-                                <option value="missing_episodes">Missing Episodes</option>
-                                <option value="existing_episodes">Existing Episodes</option>
-                                <option value="recent_episodes">Recent Episodes</option>
-                                <option value="pilot_episode">Pilot Episode</option>
-                                <option value="first_season">First Season</option>
-                                <option value="last_season">Last Season</option>
-                                <option value="monitor_specials">Monitor Specials</option>
-                                <option value="unmonitor_specials">Unmonitor Specials</option>
-                                <option value="none">None</option>
-                            </select>
-                        </div>
-                        <div class="mh-req-field mh-hidden" id="requestarr-modal-movie-monitor-wrap">
-                            <label>Monitor</label>
-                            <select id="modal-movie-monitor" aria-label="Monitor">
-                                <option value="movie_only" selected>Movie Only</option>
-                                <option value="movie_and_collection">Movie and Collection</option>
-                                <option value="none">None</option>
-                            </select>
-                        </div>
-                        <div class="mh-req-field mh-hidden" id="requestarr-modal-min-availability-wrap">
-                            <label>Minimum Availability</label>
-                            <select id="modal-minimum-availability" aria-label="Minimum Availability">
-                                <option value="released" selected>Released</option>
-                                <option value="inCinemas">In Cinemas</option>
-                                <option value="announced">Announced</option>
+                    </div>
+                    <div class="mh-req-field">
+                        <label>Root Folder</label>
+                        <div class="mh-req-root-folder-wrap">
+                            <a href="#" id="modal-root-folder-info-icon" class="mh-req-root-info-icon"
+                                style="display: none;" title="Go to Root Folders to configure"
+                                aria-label="Configure root folders"><i class="fas fa-info-circle"></i></a>
+                            <select id="modal-root-folder">
+                                <option value="">Loading...</option>
                             </select>
                         </div>
                     </div>
-                    <div class="mh-req-actions">
-                        <label class="mh-req-checkbox-wrap mh-hidden" id="requestarr-modal-start-search-wrap">
-                            <input type="checkbox" id="modal-start-search" checked>
-                            <span>Start search for missing movie</span>
-                        </label>
-                        <div class="mh-req-buttons">
-                            <button type="button" class="mh-req-btn mh-req-btn-cancel"
-                                id="requestarr-modal-cancel">Cancel</button>
-                            <button type="button" class="mh-req-btn mh-req-btn-submit"
-                                id="modal-request-btn">Request</button>
-                        </div>
+                    <div class="mh-req-field">
+                        <label>Quality Profile</label>
+                        <select id="modal-quality-profile">
+                            <option value="">Loading...</option>
+                        </select>
+                    </div>
+                    <div class="mh-req-field mh-hidden" id="requestarr-modal-monitor-wrap">
+                        <label>Monitor</label>
+                        <select id="modal-monitor" aria-label="Monitor">
+                            <option value="all_episodes">All Episodes</option>
+                            <option value="future_episodes">Future Episodes</option>
+                            <option value="missing_episodes">Missing Episodes</option>
+                            <option value="existing_episodes">Existing Episodes</option>
+                            <option value="recent_episodes">Recent Episodes</option>
+                            <option value="pilot_episode">Pilot Episode</option>
+                            <option value="first_season">First Season</option>
+                            <option value="last_season">Last Season</option>
+                            <option value="monitor_specials">Monitor Specials</option>
+                            <option value="unmonitor_specials">Unmonitor Specials</option>
+                            <option value="none">None</option>
+                        </select>
+                    </div>
+                    <div class="mh-req-field mh-hidden" id="requestarr-modal-movie-monitor-wrap">
+                        <label>Monitor</label>
+                        <select id="modal-movie-monitor" aria-label="Monitor">
+                            <option value="movie_only" selected>Movie Only</option>
+                            <option value="movie_and_collection">Movie and Collection</option>
+                            <option value="none">None</option>
+                        </select>
+                    </div>
+                    <div class="mh-req-field mh-hidden" id="requestarr-modal-min-availability-wrap">
+                        <label>Minimum Availability</label>
+                        <select id="modal-minimum-availability" aria-label="Minimum Availability">
+                            <option value="released" selected>Released</option>
+                            <option value="inCinemas">In Cinemas</option>
+                            <option value="announced">Announced</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mh-req-actions">
+                    <label class="mh-req-checkbox-wrap mh-hidden" id="requestarr-modal-start-search-wrap">
+                        <input type="checkbox" id="modal-start-search" checked>
+                        <span>Start search for missing movie</span>
+                    </label>
+                    <div class="mh-req-buttons">
+                        <button type="button" class="mh-req-btn mh-req-btn-cancel"
+                            id="requestarr-modal-cancel">Cancel</button>
+                        <button type="button" class="mh-req-btn mh-req-btn-submit"
+                            id="modal-request-btn">Request</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

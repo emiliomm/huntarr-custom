@@ -465,18 +465,19 @@ export class RequestarrSettings {
             try {
                 await self.saveDiscoverFilters(true);
                 await self.saveBlacklistedGenres(true);
+                await self.saveSmartHuntSettings(true);
                 if (window.huntarrUI && window.huntarrUI.showNotification) {
-                    window.huntarrUI.showNotification('All settings saved', 'success');
+                    window.huntarrUI.showNotification('All options saved successfully', 'success');
                 }
             } catch (e) {
                 console.error('[Requestarr Settings] Save all error:', e);
                 if (window.huntarrUI && window.huntarrUI.showNotification) {
-                    window.huntarrUI.showNotification('Error saving settings', 'error');
+                    window.huntarrUI.showNotification('Error saving options', 'error');
                 }
             } finally {
                 if (btn) {
                     btn.disabled = false;
-                    btn.innerHTML = '<i class="fas fa-save"></i> Save';
+                    btn.innerHTML = '<i class="fas fa-save" style="margin-right: 6px;"></i> Save Options';
                 }
             }
         };
@@ -1630,7 +1631,7 @@ export class RequestarrSettings {
         }
     }
 
-    async saveSmartHuntSettings() {
+    async saveSmartHuntSettings(silent = false) {
         const saveBtn = document.getElementById('smarthunt-save-btn');
         if (saveBtn) {
             saveBtn.disabled = true;
@@ -1696,15 +1697,21 @@ export class RequestarrSettings {
             const data = await resp.json();
 
             if (data.success) {
-                this.core.showNotification('Smart Hunt settings saved successfully', 'success');
+                if (!silent) {
+                    this.core.showNotification('Smart Hunt settings saved successfully', 'success');
+                }
                 // Invalidate frontend cache
                 if (window.invalidateSmartHuntCache) window.invalidateSmartHuntCache();
             } else {
-                this.core.showNotification('Failed to save Smart Hunt settings', 'error');
+                if (!silent) {
+                    this.core.showNotification('Failed to save Smart Hunt settings', 'error');
+                }
             }
         } catch (e) {
             console.error('[SmartHuntSettings] Error saving:', e);
-            this.core.showNotification('Failed to save Smart Hunt settings', 'error');
+            if (!silent) {
+                this.core.showNotification('Failed to save Smart Hunt settings', 'error');
+            }
         } finally {
             if (saveBtn) {
                 saveBtn.disabled = false;

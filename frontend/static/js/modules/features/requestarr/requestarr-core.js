@@ -35,7 +35,7 @@ export class RequestarrDiscover {
         this.searchTimeouts = {};
         this.currentModal = null;
         this.currentModalData = null;
-        
+
         // Initialize modules
         this.content = new RequestarrContent(this);
         this.search = new RequestarrSearch(this);
@@ -43,7 +43,7 @@ export class RequestarrDiscover {
         this.settings = new RequestarrSettings(this);
         this.filters = new RequestarrFilters(this);
         this.tvFilters = new RequestarrTVFilters(this);
-        
+
         this.init();
     }
 
@@ -63,7 +63,7 @@ export class RequestarrDiscover {
             const _ts = Date.now();
             const response = await fetch(`./api/requestarr/instances?t=${_ts}`, { cache: 'no-store' });
             const data = await response.json();
-            
+
             if (data.sonarr || data.radarr || data.movie_hunt || data.tv_hunt) {
                 this.instances = {
                     sonarr: data.sonarr || [],
@@ -77,23 +77,23 @@ export class RequestarrDiscover {
             console.error('[RequestarrDiscover] Error loading instances:', error);
         }
     }
-    
+
     async loadAllQualityProfiles() {
         // Load Radarr quality profiles
         for (const instance of this.instances.radarr) {
             await this.loadQualityProfilesForInstance('radarr', instance.name);
         }
-        
+
         // Load Sonarr quality profiles
         for (const instance of this.instances.sonarr) {
             await this.loadQualityProfilesForInstance('sonarr', instance.name);
         }
-        
+
         // Load Movie Hunt quality profiles
         for (const instance of this.instances.movie_hunt) {
             await this.loadQualityProfilesForInstance('movie_hunt', instance.name);
         }
-        
+
         // Load TV Hunt quality profiles
         for (const instance of this.instances.tv_hunt) {
             await this.loadQualityProfilesForInstance('tv_hunt', instance.name);
@@ -120,13 +120,13 @@ export class RequestarrDiscover {
 
     switchView(view) {
         console.log(`[RequestarrDiscover] switchView called with: ${view}`);
-        
+
         // Clear global search
         const globalSearch = document.getElementById('global-search-input');
         if (globalSearch) {
             globalSearch.value = '';
         }
-        
+
         // Hide/show global search bar based on view
         // Use ID to find input, then get parent to ensure we have the right element
         let globalSearchBar = null;
@@ -139,7 +139,7 @@ export class RequestarrDiscover {
 
         if (globalSearchBar) {
             console.log(`[RequestarrDiscover] Found global search bar, applying visibility for ${view}`);
-            if (view === 'hidden' || view === 'settings' || view === 'smarthunt-settings' || view === 'smarthunt' || view === 'users' || view === 'bundles' || view === 'requests' || view === 'global-blacklist') {
+            if (view === 'hidden' || view === 'options' || view === 'settings' || view === 'smarthunt-settings' || view === 'smarthunt' || view === 'users' || view === 'bundles' || view === 'requests' || view === 'global-blacklist') {
                 globalSearchBar.style.setProperty('display', 'none', 'important');
                 console.log('[RequestarrDiscover] Hiding global search bar');
             } else {
@@ -149,13 +149,13 @@ export class RequestarrDiscover {
         } else {
             console.error('[RequestarrDiscover] Global search bar not found!');
         }
-        
+
         // Hide search results view
         const searchResultsView = document.getElementById('search-results-view');
         if (searchResultsView) {
             searchResultsView.style.display = 'none';
         }
-        
+
         // Hide all view headers, show the one for current view (settings/smarthunt have their own toolbar)
         document.querySelectorAll('.requestarr-view-header').forEach(el => {
             el.style.display = 'none';
@@ -163,7 +163,7 @@ export class RequestarrDiscover {
         // Hide the entire header bar when settings/smarthunt-settings have their own toolbar
         const headerBar = document.querySelector('.requestarr-header-bar');
         const contentEl = document.querySelector('.requestarr-content');
-        if (view === 'settings' || view === 'smarthunt-settings') {
+        if (view === 'settings' || view === 'smarthunt-settings' || view === 'options') {
             if (headerBar) headerBar.style.display = 'none';
             // Allow dropdowns to overflow outside cards in settings view
             if (contentEl) contentEl.classList.add('settings-active');
@@ -183,7 +183,7 @@ export class RequestarrDiscover {
             container.classList.remove('active');
             container.style.display = 'none';
         });
-        
+
         // Show target view
         const targetView = document.getElementById(`requestarr-${view}-view`);
         if (targetView) {
@@ -219,6 +219,10 @@ export class RequestarrDiscover {
                 break;
             case 'hidden':
                 this.settings.loadHiddenMedia();
+                break;
+            case 'options':
+                this.settings.loadSettings();
+                this.settings.loadSmartHuntSettings();
                 break;
             case 'settings':
                 this.settings.loadSettings();
@@ -260,7 +264,7 @@ export class RequestarrDiscover {
         const carousels = new Set();
         /** Per-carousel: once user has scrolled right, left arrow stays visible (so they know they can scroll back). */
         const hasScrolledRight = {};
-        
+
         // Collect all unique carousels
         arrows.forEach(arrow => {
             const targetId = arrow.dataset.target;
@@ -269,26 +273,26 @@ export class RequestarrDiscover {
                 carousels.add(carousel);
             }
         });
-        
+
         // Setup scroll listeners for each carousel
         carousels.forEach(carousel => {
             const updateArrowVisibility = () => {
                 const carouselId = carousel.id;
                 const leftArrow = document.querySelector(`.carousel-arrow.left[data-target="${carouselId}"]`);
                 const rightArrow = document.querySelector(`.carousel-arrow.right[data-target="${carouselId}"]`);
-                
+
                 if (!leftArrow || !rightArrow) return;
-                
+
                 const scrollLeft = carousel.scrollLeft;
                 const maxScroll = carousel.scrollWidth - carousel.clientWidth;
                 const atStart = scrollLeft <= 5;
                 const atEnd = maxScroll > 5 && scrollLeft >= maxScroll - 5;
-                
+
                 // Once user scrolls right, left arrow stays visible so they know they can scroll back
                 if (!atStart) {
                     hasScrolledRight[carouselId] = true;
                 }
-                
+
                 // Left arrow: hidden at start until user scrolls right; then always visible
                 if (atStart && !hasScrolledRight[carouselId]) {
                     leftArrow.style.opacity = '0';
@@ -297,7 +301,7 @@ export class RequestarrDiscover {
                     leftArrow.style.opacity = '0.8';
                     leftArrow.style.pointerEvents = 'auto';
                 }
-                
+
                 // Right arrow: always visible when there's more content (or content still loading); hide only at end
                 if (atEnd) {
                     rightArrow.style.opacity = '0';
@@ -307,7 +311,7 @@ export class RequestarrDiscover {
                     rightArrow.style.pointerEvents = 'auto';
                 }
             };
-            
+
             carousel.addEventListener('scroll', updateArrowVisibility);
             setTimeout(() => updateArrowVisibility(), 100);
             window.addEventListener('resize', updateArrowVisibility);
@@ -317,20 +321,20 @@ export class RequestarrDiscover {
             });
             observer.observe(carousel, { childList: true, subtree: true });
         });
-        
+
         // Click handlers
         arrows.forEach(arrow => {
             arrow.addEventListener('click', (e) => {
                 const targetId = arrow.dataset.target;
                 const carousel = document.getElementById(targetId);
-                
+
                 const carouselWidth = carousel.offsetWidth;
                 const cardWidth = 150;
                 const gap = 20;
                 const itemWidth = cardWidth + gap;
                 const visibleItems = Math.floor(carouselWidth / itemWidth);
                 const scrollAmount = visibleItems * itemWidth;
-                
+
                 if (arrow.classList.contains('left')) {
                     carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
                 } else {
@@ -349,7 +353,7 @@ export class RequestarrDiscover {
             this.filters.closeFiltersModal();
         }
     }
-    
+
     closeTVFiltersModal() {
         if (this.tvFilters) {
             this.tvFilters.closeFiltersModal();
@@ -375,11 +379,11 @@ export class RequestarrDiscover {
             <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
             <span>${message}</span>
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => notification.classList.add('show'), 10);
-        
+
         setTimeout(() => {
             notification.classList.remove('show');
             notification.classList.add('slideOut');

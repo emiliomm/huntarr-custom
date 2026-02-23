@@ -60,15 +60,10 @@
                         <div class="nav-icon-wrapper"><i class="fas fa-layer-group"></i></div>
                         <span>Bundles</span>
                     </a>
-                    <a href="./#requestarr-smarthunt-settings" class="nav-item nav-item-sub nav-item-deep"
-                        id="requestarrSmartHuntSettingsNav">
-                        <div class="nav-icon-wrapper"><i class="fas fa-fire"></i></div>
-                        <span>SH Options</span>
-                    </a>
-                    <a href="./#requestarr-filters" class="nav-item nav-item-sub nav-item-deep"
-                        id="requestarrSettingsNav">
-                        <div class="nav-icon-wrapper"><i class="fas fa-filter"></i></div>
-                        <span>Filters</span>
+                    <a href="./#requestarr-options" class="nav-item nav-item-sub nav-item-deep"
+                        id="requestarrOptionsNav">
+                        <div class="nav-icon-wrapper"><i class="fas fa-cog"></i></div>
+                        <span>Options</span>
                     </a>
                     <div class="nav-user-support-label" id="requestarrUserSupportLabel">
                         <i class="fas fa-headset"></i>
@@ -598,8 +593,7 @@
         else if (h === '#requestarr-movies') { selector = '#requestarrMoviesNav'; group = 'sidebar-group-requests'; }
         else if (h === '#requestarr-smarthunt') { selector = '#requestarrSmartHuntNav'; group = 'sidebar-group-requests'; }
         else if (h === '#requestarr-hidden' || h === '#requestarr-personal-blacklist') { selector = '#requestarrPersonalBlacklistNav'; group = 'sidebar-group-requests'; }
-        else if (h === '#requestarr-smarthunt-settings') { selector = '#requestarrSmartHuntSettingsNav'; group = 'sidebar-group-requests'; }
-        else if (h === '#requestarr-filters' || h === '#requestarr-settings') { selector = '#requestarrSettingsNav'; group = 'sidebar-group-requests'; }
+        else if (h === '#requestarr-options' || h === '#requestarr-smarthunt-settings' || h === '#requestarr-filters' || h === '#requestarr-settings') { selector = '#requestarrOptionsNav'; group = 'sidebar-group-requests'; }
         else if (h === '#requestarr-users') { selector = '#requestarrUsersNav'; group = 'sidebar-group-requests'; }
         else if (h === '#requestarr-requests') {
             if (window._huntarrUserRole === 'owner') {
