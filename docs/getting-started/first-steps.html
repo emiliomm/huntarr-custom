@@ -1,239 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>First Steps - Huntarr Docs</title>
+    <title>First Steps - Huntarr Documentation</title>
+    <meta name="description"
+        content="What to do after installing Huntarr — connect apps, configure schedules, set up notifications, and start your first hunt.">
     <link rel="icon" type="image/png" href="../images/huntarr-logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/main.css">
 </head>
+
 <body>
 
-<!-- Mobile Topbar -->
-<div class="docs-mobile-topbar">
-    <button class="mob-hamburger" aria-label="Open navigation"><span></span><span></span><span></span></button>
-    <img src="../images/huntarr-logo.png" alt="Huntarr" class="mob-logo">
-    <span class="mob-title">Documentation</span>
-</div>
+    <!-- Mobile Topbar -->
+    <div class="docs-mobile-topbar">
+        <button class="mob-hamburger" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <img src="../images/huntarr-logo.png" alt="Huntarr" class="mob-logo">
+        <span class="mob-title">Documentation</span>
+    </div>
 
-<!-- Sidebar Backdrop (mobile) -->
-<div class="docs-sidebar-backdrop"></div>
+    <!-- Sidebar Backdrop (mobile) -->
+    <div class="docs-sidebar-backdrop"></div>
 
-<div class="docs-layout">
+    <div class="docs-layout">
 
-    <!-- ===== SIDEBAR ===== -->
-    <nav class="docs-sidebar" aria-label="Documentation navigation">
-        <a href="../index.html" class="sidebar-brand">
-            <img src="../images/huntarr-logo.png" alt="Huntarr">
-            <span>Huntarr</span>
-        </a>
+        <!-- ===== SIDEBAR ===== -->
+        <nav class="docs-sidebar" aria-label="Documentation navigation">
+            <a href="../index.html" class="sidebar-brand">
+                <img src="../images/huntarr-logo.png" alt="Huntarr">
+                <span>Huntarr</span>
+            </a>
 
-        <div class="sidebar-scroll">
+            <div class="sidebar-scroll">
+                <a href="https://plexguide.github.io/Huntarr.io/donate.html" target="_blank" rel="noopener"
+                    class="sidebar-donate-link"><i class="fas fa-heart"></i> Donate</a>
 
-            <!-- Getting Started -->
-            <div class="nav-group">
-                <div class="nav-group-title">Getting Started</div>
-                <div class="nav-group-items">
-                    <a href="../index.html"><i class="fas fa-home"></i> Welcome</a>
-                    <a href="installation.html"><i class="fas fa-download"></i> Installation</a>
-                    <a href="setup-wizard.html"><i class="fas fa-magic"></i> Setup Wizard</a>
-                    <a href="first-steps.html" class="active"><i class="fas fa-rocket"></i> First Steps</a>
+                <!-- Getting Started -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Getting Started</div>
+                    <div class="nav-group-items">
+                        <a href="../index.html"><i class="fas fa-home"></i> Welcome</a>
+                        <a href="installation.html"><i class="fas fa-download"></i> Installation</a>
+                        <a href="setup-wizard.html"><i class="fas fa-magic"></i> Setup Wizard</a>
+                        <a href="first-steps.html" class="active"><i class="fas fa-rocket"></i> First Steps</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Apps -->
-            <div class="nav-group">
-                <div class="nav-group-title">Apps</div>
-                <div class="nav-group-items">
-                    <a href="../apps/index.html"><i class="fas fa-plug"></i> 3rd Party Apps</a>
+                <!-- Apps -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Apps</div>
+                    <div class="nav-group-items">
+                        <a href="../apps/index.html"><i class="fas fa-plug"></i> 3rd Party Apps</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Movie Hunt -->
-            <div class="nav-group">
-                <div class="nav-group-title">Movie Hunt</div>
-                <div class="nav-group-items">
-                    <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span class="nav-badge nav-badge-beta">Beta</span></a>
-                    <a href="../movie-hunt/media-collection.html"><i class="fas fa-photo-film"></i> Media Collection</a>
-                    <a href="../movie-hunt/indexers-clients.html"><i class="fas fa-server"></i> Indexers &amp; Clients</a>
-                    <a href="../movie-hunt/profiles.html"><i class="fas fa-sliders"></i> Profiles</a>
+                <!-- Movie Hunt -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Movie Hunt</div>
+                    <div class="nav-group-items">
+                        <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span
+                                class="nav-badge nav-badge-beta">Beta</span></a>
+                        <a href="../movie-hunt/media-collection.html"><i class="fas fa-photo-film"></i> Media
+                            Collection</a>
+                        <a href="../movie-hunt/indexers-clients.html"><i class="fas fa-server"></i> Indexers &amp;
+                            Clients</a>
+                        <a href="../movie-hunt/profiles.html"><i class="fas fa-sliders"></i> Profiles</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- NZB Hunt -->
-            <div class="nav-group">
-                <div class="nav-group-title">NZB Hunt</div>
-                <div class="nav-group-items">
-                    <a href="../nzb-hunt/index.html"><i class="fas fa-newspaper"></i> Overview <span class="nav-badge nav-badge-beta">Beta</span></a>
+                <!-- NZB Hunt -->
+                <div class="nav-group">
+                    <div class="nav-group-title">NZB Hunt</div>
+                    <div class="nav-group-items">
+                        <a href="../nzb-hunt/index.html"><i class="fas fa-newspaper"></i> Overview <span
+                                class="nav-badge nav-badge-beta">Beta</span></a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Requestarr -->
-            <div class="nav-group">
-                <div class="nav-group-title">Requests</div>
-                <div class="nav-group-items">
-                    <a href="../requestarr/index.html"><i class="fas fa-hand-paper"></i> Requests</a>
+                <!-- Requestarr -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Requests</div>
+                    <div class="nav-group-items">
+                        <a href="../requestarr/index.html"><i class="fas fa-hand-paper"></i> Requests</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Settings -->
-            <div class="nav-group">
-                <div class="nav-group-title">Settings</div>
-                <div class="nav-group-items">
-                    <a href="../settings/index.html"><i class="fas fa-cog"></i> Main Settings</a>
-                    <a href="../settings/scheduling.html"><i class="fas fa-clock"></i> Scheduling</a>
-                    <a href="../settings/notifications.html"><i class="fas fa-bell"></i> Notifications</a>
-                    <a href="../settings/backup-restore.html"><i class="fas fa-database"></i> Backup &amp; Restore</a>
-                    <a href="../settings/log-settings.html"><i class="fas fa-file-alt"></i> Log Settings</a>
-                    <a href="../settings/user-account.html"><i class="fas fa-user-shield"></i> User Account</a>
+                <!-- Settings -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Settings</div>
+                    <div class="nav-group-items">
+                        <a href="../settings/index.html"><i class="fas fa-cog"></i> Main Settings</a>
+                        <a href="../settings/scheduling.html"><i class="fas fa-clock"></i> Scheduling</a>
+                        <a href="../settings/notifications.html"><i class="fas fa-bell"></i> Notifications</a>
+                        <a href="../settings/backup-restore.html"><i class="fas fa-database"></i> Backup &amp;
+                            Restore</a>
+                        <a href="../settings/log-settings.html"><i class="fas fa-file-alt"></i> Log Settings</a>
+                        <a href="../settings/user-account.html"><i class="fas fa-user-shield"></i> User Account</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- System -->
-            <div class="nav-group">
-                <div class="nav-group-title">System</div>
-                <div class="nav-group-items">
-                    <a href="../system/hunt-manager.html"><i class="fas fa-tasks"></i> Hunt Manager</a>
-                    <a href="../system/logs.html"><i class="fas fa-scroll"></i> Logs</a>
-                    <a href="../system/api.html"><i class="fas fa-code"></i> API Reference</a>
+                <!-- System -->
+                <div class="nav-group">
+                    <div class="nav-group-title">System</div>
+                    <div class="nav-group-items">
+                        <a href="../system/hunt-manager.html"><i class="fas fa-tasks"></i> Hunt Manager</a>
+                        <a href="../system/logs.html"><i class="fas fa-scroll"></i> Logs</a>
+                        <a href="../system/api.html"><i class="fas fa-code"></i> API Reference</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Help -->
-            <div class="nav-group">
-                <div class="nav-group-title">Help</div>
-                <div class="nav-group-items">
-                    <a href="../help/faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
-                    <a href="../help/community.html"><i class="fas fa-users"></i> Community</a>
-                    <a href="https://plexguide.github.io/Huntarr.io/donate.html"><i class="fas fa-heart"></i> Donate</a>
+                <!-- Help -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Help</div>
+                    <div class="nav-group-items">
+                        <a href="../help/faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
+                        <a href="../help/community.html"><i class="fas fa-users"></i> Community</a>
+                        <a href="https://plexguide.github.io/Huntarr.io/donate.html"><i class="fas fa-heart"></i>
+                            Donate</a>
+                    </div>
                 </div>
+
+            </div><!-- /sidebar-scroll -->
+
+            <div class="sidebar-footer">
+                <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank" class="sf-discord" title="Discord"><i
+                        class="fab fa-discord"></i></a>
+                <a href="https://www.reddit.com/r/huntarr/" target="_blank" class="sf-reddit" title="Reddit"><i
+                        class="fab fa-reddit-alien"></i></a>
+                <a href="https://github.com/plexguide/Huntarr.io" target="_blank" class="sf-github" title="GitHub"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://plexguide.github.io/Huntarr.io/donate.html" class="sf-heart" title="Donate"><i
+                        class="fas fa-heart"></i></a>
             </div>
+        </nav>
 
-        </div><!-- /sidebar-scroll -->
+        <!-- ===== MAIN ===== -->
+        <main class="docs-main">
+            <div class="docs-content">
 
-        <div class="sidebar-footer">
-            <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank" class="sf-discord" title="Discord"><i class="fab fa-discord"></i></a>
-            <a href="https://www.reddit.com/r/huntarr/" target="_blank" class="sf-reddit" title="Reddit"><i class="fab fa-reddit-alien"></i></a>
-            <a href="https://github.com/plexguide/Huntarr.io" target="_blank" class="sf-github" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://plexguide.github.io/Huntarr.io/donate.html" class="sf-heart" title="Donate"><i class="fas fa-heart"></i></a>
-        </div>
-    </nav>
+                <h1>First Steps</h1>
+                <p class="page-subtitle">Huntarr is installed and running. Here's how to get it working properly — from
+                    connecting your apps to your first successful hunt.</p>
 
-    <!-- ===== MAIN ===== -->
-    <main class="docs-main">
-        <div class="docs-content">
+                <!-- Step 1 -->
+                <h2>Step 1 — Connect Your Apps</h2>
+                <p>Huntarr can't hunt anything until it knows where to look. Start by connecting your existing *arr
+                    apps.</p>
+                <ol>
+                    <li>Open the sidebar and click <strong>Apps</strong> → <strong>3rd Party Apps</strong>.</li>
+                    <li>Select the app type you want to add (Sonarr, Radarr, Lidarr, Readarr, or Whisparr).</li>
+                    <li>Click <strong>Add Instance</strong>.</li>
+                    <li>Enter a name, the URL (e.g., <code>http://192.168.1.100:8989</code>), and the API key from your
+                        app's settings.</li>
+                    <li>Click <strong>Test Connection</strong> to verify, then <strong>Save</strong>.</li>
+                </ol>
 
-            <h1>First Steps</h1>
-            <p class="page-subtitle">You've installed Huntarr and completed setup. Here's what to do next.</p>
+                <div class="alert alert-info">
+                    <strong>Multiple instances supported.</strong> You can add multiple instances of the same app. For
+                    example, a 1080p Sonarr and a separate 4K Sonarr. Each gets its own independent schedule and search
+                    caps.
+                </div>
+                <div class="alert alert-info">
+                    <strong>Docker networking tip.</strong> If Huntarr and your *arr apps are on the same Docker
+                    network, use the container name as the hostname (e.g., <code>http://sonarr:8989</code>). If they're
+                    on separate networks or the host, use the server's LAN IP. Never use <code>localhost</code> — inside
+                    Huntarr's container that refers to itself, not your host.
+                </div>
 
-            <h2>Your Dashboard</h2>
-            <ul>
-                <li>The home page shows all connected apps and their hunt status</li>
-                <li>Grid view shows app cards with stats (missing, upgrading, completed)</li>
-                <li>List view shows detailed hunt activity entries</li>
-                <li>Toggle between views with the icons in the top-right of the Hunt Activities section</li>
-            </ul>
+                <!-- Step 2 -->
+                <h2>Step 2 — Understand Your Dashboard</h2>
+                <p>The Huntarr home page is your control center. Here's what you'll see:</p>
+                <ul>
+                    <li><strong>App cards</strong> — each connected *arr instance appears as a card showing its hunt
+                        status, last run time, and statistics (missing items found, upgrades triggered, completed this
+                        cycle)</li>
+                    <li><strong>Grid view / List view</strong> — toggle between a visual card layout and a detailed
+                        activity log using the icons in the top-right of the Hunt Activities section</li>
+                    <li><strong>Hunt status indicator</strong> — each card shows whether Huntarr is currently hunting,
+                        waiting for the next cycle, or paused</li>
+                    <li><strong>Recent activity</strong> — a running log of what Huntarr searched for and whether it
+                        found anything</li>
+                </ul>
 
-            <h2>Connect All Your Apps</h2>
-            <p>If you only connected one app during setup, add the rest now:</p>
-            <ol>
-                <li>Click on "Apps" in the sidebar</li>
-                <li>Select the app type (Sonarr, Radarr, Lidarr, etc.)</li>
-                <li>Click "Add Instance"</li>
-                <li>Fill in the URL and API key</li>
-                <li>Test and save</li>
-            </ol>
+                <!-- Step 3 -->
+                <h2>Step 3 — Configure Schedules</h2>
+                <p>By default, Huntarr runs on a basic schedule. Tuning this properly is the most important step for
+                    long-term success — too aggressive and your indexers will rate-limit you; too conservative and your
+                    library fills slowly.</p>
+                <ol>
+                    <li>Go to <strong>Settings → Scheduling</strong>.</li>
+                    <li>Select the app and instance you want to configure.</li>
+                    <li>Set the <strong>hunt interval</strong> — how often Huntarr checks this instance (in minutes).
+                    </li>
+                    <li>Set the <strong>missing items cap</strong> — maximum number of missing items to search per
+                        cycle.</li>
+                    <li>Set the <strong>upgrade items cap</strong> — maximum quality upgrades to attempt per cycle.</li>
+                    <li>Save and repeat for each connected app/instance.</li>
+                </ol>
 
-            <div class="alert alert-info">
-                <strong>Multiple instances</strong>
-                <p>Huntarr supports multiple instances of the same app. For example, you can have separate Sonarr instances for 1080p and 4K libraries.</p>
-            </div>
+                <p><strong>Recommended starting settings:</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Recommended Start</th>
+                            <th>Why</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hunt Interval</td>
+                            <td>30 – 60 minutes</td>
+                            <td>Frequent enough to be useful; not so frequent indexers complain</td>
+                        </tr>
+                        <tr>
+                            <td>Missing Items per Cycle</td>
+                            <td>3 – 5</td>
+                            <td>Small batches are polite to indexers; you can increase once things are stable</td>
+                        </tr>
+                        <tr>
+                            <td>Upgrade Items per Cycle</td>
+                            <td>1 – 3</td>
+                            <td>Upgrades generate more API calls; start conservative</td>
+                        </tr>
+                        <tr>
+                            <td>Queue Full Pause</td>
+                            <td>Enabled</td>
+                            <td>Huntarr pauses when your download queue is full — avoids piling up searches you can't
+                                download yet</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <h2>Configure Schedules</h2>
-            <p>By default, Huntarr checks all apps on a regular cycle. Customize this:</p>
-            <ol>
-                <li>Go to Settings &gt; Scheduling</li>
-                <li>Select the app and instance</li>
-                <li>Set the cycle interval (how often to hunt)</li>
-                <li>Set caps (max items per cycle) to avoid overloading indexers</li>
-            </ol>
+                <div class="alert alert-info">
+                    <strong>Start small and scale up.</strong> It's much better to start with conservative caps and
+                    increase them gradually than to start aggressive and get rate-limited by your indexer. Most indexers
+                    allow 100–200 API calls per day per user.
+                </div>
 
-            <p>Recommended starting configuration:</p>
-            <table>
-                <thead>
-                    <tr><th>Setting</th><th>Recommended</th><th>Description</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Hunt Interval</td><td>30 minutes</td><td>Time between hunt cycles</td></tr>
-                    <tr><td>Missing Items per Cycle</td><td>5</td><td>How many missing items to search per cycle</td></tr>
-                    <tr><td>Upgrade Items per Cycle</td><td>3</td><td>How many items to attempt upgrading per cycle</td></tr>
-                </tbody>
-            </table>
+                <!-- Step 4 -->
+                <h2>Step 4 — Set Up Notifications</h2>
+                <p>Huntarr can notify you whenever it grabs something, completes a cycle, or hits an error. This is
+                    optional but highly recommended — you'll know immediately when something new lands in your library.
+                </p>
+                <ol>
+                    <li>Go to <strong>Settings → Notifications</strong>.</li>
+                    <li>Click <strong>Add Connection</strong>.</li>
+                    <li>Choose your provider (Discord, Telegram, Pushover, Email, Apprise, and more).</li>
+                    <li>Configure the required credentials (webhook URL, bot token, etc.).</li>
+                    <li>Click <strong>Test</strong> to send a test notification and confirm it works.</li>
+                    <li>Choose which apps and instances trigger this notification — you can have different notification
+                        channels for different apps.</li>
+                </ol>
 
-            <h2>Set Up Notifications</h2>
-            <ol>
-                <li>Go to Settings &gt; Notifications</li>
-                <li>Click "Add Connection"</li>
-                <li>Choose your provider (Discord, Telegram, etc.)</li>
-                <li>Configure credentials</li>
-                <li>Send a test notification</li>
-                <li>Choose which apps/instances trigger this notification</li>
-            </ol>
+                <!-- Step 5 -->
+                <h2>Step 5 — Set Up Backups</h2>
+                <p>Huntarr stores all its configuration, database, and state in <code>/config</code>. Enable automatic
+                    backups so you don't lose your setup if something goes wrong.</p>
+                <ol>
+                    <li>Go to <strong>Settings → Backup &amp; Restore</strong>.</li>
+                    <li>Enable <strong>Automatic Backups</strong>.</li>
+                    <li>Set your preferred backup frequency.</li>
+                    <li>Optionally configure a backup retention limit.</li>
+                </ol>
+                <p>Backups are stored inside <code>/config/backups/</code> and can be downloaded or restored from the
+                    same page.</p>
 
-            <h2>Explore Movie Hunt (Optional)</h2>
-            <p>Movie Hunt is Huntarr's standalone movie grabber — it works independently of Radarr:</p>
-            <ol>
-                <li>Navigate to Movie Hunt in the sidebar</li>
-                <li>Add indexers (NZB or Torrent)</li>
-                <li>Add a download client (SABnzbd, qBittorrent, etc.)</li>
-                <li>Browse, search, and grab movies directly</li>
-            </ol>
+                <!-- Step 6 -->
+                <h2>Step 6 — Watch Your First Hunt</h2>
+                <p>Once you've connected apps and set a schedule, Huntarr will run its first hunt automatically. You can
+                    also trigger one manually:</p>
+                <ol>
+                    <li>Go to <strong>System → Hunt Manager</strong>.</li>
+                    <li>Find the app instance you want to test.</li>
+                    <li>Click <strong>Run Now</strong> to trigger an immediate hunt cycle.</li>
+                    <li>Switch back to the home page or go to <strong>System → Logs</strong> to watch what Huntarr does
+                        in real time.</li>
+                </ol>
 
-            <h2>Tips for Success</h2>
-            <ul>
-                <li><strong>Start small</strong>: Begin with low caps (3-5 items per cycle) and increase gradually</li>
-                <li><strong>Check logs</strong>: If hunts aren't working, check Settings &gt; Logs for detailed output</li>
-                <li><strong>Multiple instances</strong>: Use separate schedules for different instances to spread the load</li>
-                <li><strong>Backup regularly</strong>: Enable automatic backups under Settings &gt; Backup &amp; Restore</li>
-            </ul>
+                <!-- Step 7 — Optional modules -->
+                <h2>Step 7 — Explore Optional Modules (Optional)</h2>
 
-            <h2>Next Steps</h2>
-            <p>Explore the rest of the documentation:</p>
+                <h3>Movie Hunt &amp; TV Hunt</h3>
+                <p>If you want to manage movies or TV shows independently of Radarr and Sonarr, Movie Hunt and TV Hunt
+                    are built-in alternatives. They include their own indexer configuration, download client support,
+                    and a visual library browser.</p>
+                <ol>
+                    <li>Navigate to <strong>Movie Hunt</strong> or <strong>TV Hunt</strong> in the sidebar.</li>
+                    <li>Configure <strong>Indexers</strong> — add your Usenet or torrent indexers via <strong>Index
+                            Master</strong>.</li>
+                    <li>Configure <strong>Download Clients</strong> — add SABnzbd, NZBGet, qBittorrent, NZB Hunt, or
+                        others.</li>
+                    <li>Set up a <strong>Root Folder</strong> — where downloaded media lands on disk.</li>
+                    <li>Create a <strong>Quality Profile</strong> — define preferred formats and cutoffs.</li>
+                    <li>Start browsing and adding movies or shows to your library.</li>
+                </ol>
 
-            <div class="card-grid">
-                <a href="../apps/index.html" class="card">
-                    <div class="card-icon icon-green"><i class="fas fa-th-large"></i></div>
-                    <h3>Apps</h3>
-                    <p>Learn how to configure each app</p>
-                </a>
-                <a href="../movie-hunt/index.html" class="card">
-                    <div class="card-icon icon-red"><i class="fas fa-clapperboard"></i></div>
-                    <h3>Movie Hunt</h3>
-                    <p>Set up the standalone movie grabber</p>
-                </a>
-                <a href="../settings/scheduling.html" class="card">
-                    <div class="card-icon icon-gold"><i class="fas fa-clock"></i></div>
-                    <h3>Scheduling</h3>
-                    <p>Fine-tune your hunt schedules</p>
-                </a>
-                <a href="../help/faq.html" class="card">
-                    <div class="card-icon icon-purple"><i class="fas fa-question-circle"></i></div>
-                    <h3>FAQ</h3>
-                    <p>Common questions and troubleshooting</p>
-                </a>
-            </div>
+                <h3>NZB Hunt (Built-in Usenet Client)</h3>
+                <p>NZB Hunt replaces SABnzbd or NZBGet with a fully built-in Usenet downloader.</p>
+                <ol>
+                    <li>Navigate to <strong>NZB Hunt</strong> in the sidebar.</li>
+                    <li>Go to <strong>Settings → Servers</strong> and add your NNTP server credentials (host, port, SSL,
+                        username, password, connection count).</li>
+                    <li>Configure your download folder under <strong>Settings → Folders</strong>.</li>
+                    <li>Tune advanced settings like <strong>Direct Unpack</strong> (on by default for new installs) and
+                        the <strong>encrypted RAR action</strong> (abort by default).</li>
+                    <li>Connect NZB Hunt as a download client in Movie Hunt or TV Hunt under <strong>Indexers &amp;
+                            Clients</strong>.</li>
+                </ol>
 
-        </div><!-- /docs-content -->
+                <h3>Requestarr (Media Requests)</h3>
+                <p>Requestarr lets users discover and request movies and TV shows, which flow through an approval queue
+                    you control.</p>
+                <ol>
+                    <li>Navigate to <strong>Requests</strong> in the sidebar.</li>
+                    <li>Configure which instances and apps receive approved requests.</li>
+                    <li>Optionally invite other users with limited permissions — they can browse and request, but can't
+                        manage instances or settings.</li>
+                    <li>Enable <strong>auto-approve</strong> for trusted users to skip the queue entirely.</li>
+                </ol>
 
-        <footer class="docs-footer">
-            <p>Huntarr is open source. <a href="https://github.com/plexguide/Huntarr.io" target="_blank">GitHub</a> · <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank">Discord</a> · <a href="https://www.reddit.com/r/huntarr/" target="_blank">Reddit</a></p>
-        </footer>
-    </main>
+                <!-- Tips -->
+                <h2>Tips for a Healthy Setup</h2>
+                <ul>
+                    <li><strong>Start conservative with caps</strong> — begin at 3–5 items per cycle and increase
+                        gradually once you confirm your indexer handles it without complaint</li>
+                    <li><strong>Check the logs</strong> — if hunts aren't finding anything or are erroring, go to
+                        <strong>System → Logs</strong> for detailed output that usually tells you exactly what's wrong
+                    </li>
+                    <li><strong>Use separate schedules</strong> — if you have multiple instances (e.g., 1080p Sonarr and
+                        4K Sonarr), stagger their schedules by 15–30 minutes to avoid simultaneous indexer load</li>
+                    <li><strong>Enable the queue full pause</strong> — this prevents Huntarr from searching for more
+                        content when your downloader is already at capacity</li>
+                    <li><strong>Back up regularly</strong> — enable automatic backups in Settings → Backup &amp; Restore
+                        before making major changes</li>
+                    <li><strong>Use Docker volumes</strong> — if running via Docker, always map <code>/config</code> to
+                        a persistent host path, never use an anonymous Docker volume</li>
+                </ul>
 
-</div><!-- /docs-layout -->
+                <!-- Next steps -->
+                <h2>Where to Go Next</h2>
+                <div class="card-grid">
+                    <a href="../apps/index.html" class="card">
+                        <div class="card-icon icon-green"><i class="fas fa-plug"></i></div>
+                        <h3>3rd Party Apps</h3>
+                        <p>Learn how to configure each *arr app connection in detail</p>
+                    </a>
+                    <a href="../movie-hunt/index.html" class="card">
+                        <div class="card-icon icon-red"><i class="fas fa-clapperboard"></i></div>
+                        <h3>Movie Hunt</h3>
+                        <p>Set up the standalone movie grabber with indexers and download clients</p>
+                    </a>
+                    <a href="../nzb-hunt/index.html" class="card">
+                        <div class="card-icon icon-cyan"><i class="fas fa-newspaper"></i></div>
+                        <h3>NZB Hunt</h3>
+                        <p>Configure the built-in Usenet download client and connect your NNTP servers</p>
+                    </a>
+                    <a href="../settings/scheduling.html" class="card">
+                        <div class="card-icon icon-gold"><i class="fas fa-clock"></i></div>
+                        <h3>Scheduling</h3>
+                        <p>Fine-tune hunt intervals, caps, and cycle settings per app and instance</p>
+                    </a>
+                    <a href="../requestarr/index.html" class="card">
+                        <div class="card-icon icon-orange"><i class="fas fa-hand-paper"></i></div>
+                        <h3>Requestarr</h3>
+                        <p>Set up user request management with approval queues and bundles</p>
+                    </a>
+                    <a href="../help/faq.html" class="card">
+                        <div class="card-icon icon-purple"><i class="fas fa-question-circle"></i></div>
+                        <h3>FAQ</h3>
+                        <p>Common questions, issues, and step-by-step solutions</p>
+                    </a>
+                </div>
 
-<button class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
-<script src="../js/main.js"></script>
+            </div><!-- /docs-content -->
+
+            <footer class="docs-footer">
+                <p>Huntarr is open source. <a href="https://github.com/plexguide/Huntarr.io" target="_blank">GitHub</a>
+                    · <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank">Discord</a> · <a
+                        href="https://www.reddit.com/r/huntarr/" target="_blank">Reddit</a></p>
+            </footer>
+        </main>
+
+    </div><!-- /docs-layout -->
+
+    <button class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+    <script src="../js/main.js"></script>
 </body>
+
 </html>
