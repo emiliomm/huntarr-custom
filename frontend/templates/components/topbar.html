@@ -1,21 +1,28 @@
 <div class="top-bar">
     <!-- Animated gradient accent line -->
     <div class="topbar-accent-line"></div>
-    
+
     <div class="topbar-section left">
         <div class="page-title" id="currentPageTitle"></div>
     </div>
-    
+
     <div class="topbar-section center"></div>
-    
+
     <div class="topbar-section right">
-        <a href="https://github.com/plexguide/huntarr" target="_blank" rel="noopener" class="topbar-chip star-chip" title="Star on GitHub">
+        <a href="https://github.com/plexguide/huntarr" target="_blank" rel="noopener" class="topbar-chip star-chip"
+            title="Star on GitHub">
             <span class="chip-icon"><i class="fas fa-star"></i></span>
             <span id="github-stars-value" class="chip-value">--</span>
         </a>
-        <a href="https://plexguide.github.io/Huntarr.io/donate.html" target="_blank" rel="noopener noreferrer" class="topbar-sponsor-btn" title="Sponsor">
+        <a href="https://plexguide.github.io/Huntarr.io/donate.html" target="_blank" rel="noopener noreferrer"
+            class="topbar-sponsor-btn" title="Sponsor">
             <i class="fas fa-heart"></i>
             <span>Sponsor</span>
+        </a>
+        <a href="https://huntarros.com" target="_blank" rel="noopener" class="topbar-chip huntarros-chip"
+            title="HuntarrOS — The Ultimate Media Server OS">
+            <span class="chip-icon"><i class="fas fa-rocket"></i></span>
+            <span class="chip-value">HuntarrOS</span>
         </a>
     </div>
 </div>
@@ -25,10 +32,9 @@
     .top-bar {
         height: 44px;
         background: linear-gradient(180deg,
-            rgba(16, 21, 32, 0.99) 0%,
-            rgba(12, 17, 28, 0.99) 50%,
-            rgba(14, 19, 30, 0.99) 100%
-        );
+                rgba(16, 21, 32, 0.99) 0%,
+                rgba(12, 17, 28, 0.99) 50%,
+                rgba(14, 19, 30, 0.99) 100%);
         display: flex;
         align-items: center;
         padding: 0 24px;
@@ -37,7 +43,7 @@
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         border-bottom: 1px solid rgba(99, 102, 241, 0.04);
-        box-shadow: 
+        box-shadow:
             0 1px 0 rgba(255, 255, 255, 0.02) inset,
             0 2px 12px rgba(0, 0, 0, 0.2);
     }
@@ -49,15 +55,14 @@
         left: 0;
         right: 0;
         height: 2px;
-        background: linear-gradient(90deg, 
-            rgba(99, 102, 241, 0) 0%,
-            rgba(99, 102, 241, 0.4) 15%,
-            #6366f1 35%, 
-            #818cf8 50%, 
-            #6366f1 65%,
-            rgba(99, 102, 241, 0.4) 85%, 
-            rgba(99, 102, 241, 0) 100%
-        );
+        background: linear-gradient(90deg,
+                rgba(99, 102, 241, 0) 0%,
+                rgba(99, 102, 241, 0.4) 15%,
+                #6366f1 35%,
+                #818cf8 50%,
+                #6366f1 65%,
+                rgba(99, 102, 241, 0.4) 85%,
+                rgba(99, 102, 241, 0) 100%);
         z-index: 10;
         opacity: 0.7;
     }
@@ -68,18 +73,18 @@
         align-items: center;
         height: 100%;
     }
-    
+
     .topbar-section.left {
         flex: 1;
         justify-content: flex-start;
         min-width: 0;
     }
-    
+
     .topbar-section.center {
         flex: 0 1 auto;
         justify-content: center;
     }
-    
+
     .topbar-section.right {
         flex: 1;
         justify-content: flex-end;
@@ -103,7 +108,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    
+
     .top-bar .page-title .client-editor-title-app {
         color: #f59e0b;
         font-weight: 700;
@@ -121,31 +126,25 @@
     .topbar-chip {
         display: inline-flex;
         align-items: center;
-        gap: 5px;
-        height: 26px;
-        padding: 0 10px;
-        border-radius: 13px;
+        gap: 6px;
+        height: 28px;
+        padding: 0 12px;
+        border-radius: 8px;
         font-size: 12px;
         font-weight: 600;
         text-decoration: none;
-        border: 1px solid transparent;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(148, 163, 184, 0.08);
+        background: rgba(30, 41, 59, 0.4);
+        transition: all 0.2s ease;
         cursor: pointer;
         position: relative;
-        overflow: hidden;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
-    
-    .topbar-chip::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        opacity: 0;
-        transition: opacity 0.25s ease;
-    }
-    
+
     .topbar-chip:hover {
-        transform: translateY(-1px);
+        border-color: rgba(148, 163, 184, 0.15);
+        background: rgba(30, 41, 59, 0.6);
         text-decoration: none;
     }
 
@@ -153,9 +152,8 @@
         display: flex;
         align-items: center;
         font-size: 10px;
-        opacity: 0.8;
     }
-    
+
     .chip-value {
         font-weight: 700;
         font-variant-numeric: tabular-nums;
@@ -163,71 +161,107 @@
 
     /* ===== STAR CHIP ===== */
     .star-chip {
-        background: rgba(255, 193, 7, 0.06);
-        border-color: rgba(255, 193, 7, 0.15);
-        color: #fbbf24;
+        color: #e2e8f0;
     }
-    
-    .star-chip .chip-icon { 
+
+    .star-chip .chip-icon {
         color: #fbbf24;
+        filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.3));
     }
-    .star-chip .chip-value { color: #fbbf24; font-weight: 700; }
-    
+
+    .star-chip .chip-value {
+        color: #cbd5e1;
+        font-weight: 600;
+    }
+
     .star-chip:hover {
-        background: rgba(255, 193, 7, 0.12);
-        border-color: rgba(255, 193, 7, 0.3);
-        box-shadow: 0 2px 8px rgba(255, 193, 7, 0.12);
+        border-color: rgba(251, 191, 36, 0.15);
+        box-shadow: 0 0 12px rgba(251, 191, 36, 0.06);
+    }
+
+    .star-chip:hover .chip-value {
+        color: #fbbf24;
     }
 
     /* ===== SPONSOR BUTTON ===== */
     .topbar-sponsor-btn {
         display: inline-flex;
         align-items: center;
-        gap: 5px;
-        height: 26px;
-        padding: 0 10px;
-        border-radius: 13px;
+        gap: 6px;
+        height: 28px;
+        padding: 0 12px;
+        border-radius: 8px;
         font-size: 11px;
         font-weight: 600;
         text-decoration: none;
-        color: #f472b6;
-        background: rgba(236, 72, 153, 0.06);
-        border: 1px solid rgba(236, 72, 153, 0.15);
+        color: #cbd5e1;
+        background: rgba(30, 41, 59, 0.4);
+        border: 1px solid rgba(148, 163, 184, 0.08);
         transition: all 0.2s ease;
         white-space: nowrap;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
+
     .topbar-sponsor-btn i {
         font-size: 10px;
         color: #ec4899;
+        filter: drop-shadow(0 0 3px rgba(236, 72, 153, 0.3));
     }
+
     .topbar-sponsor-btn:hover {
-        background: rgba(236, 72, 153, 0.12);
-        border-color: rgba(236, 72, 153, 0.3);
+        border-color: rgba(236, 72, 153, 0.15);
         color: #f9a8d4;
-        box-shadow: 0 2px 8px rgba(236, 72, 153, 0.12);
-        transform: translateY(-1px);
+        box-shadow: 0 0 12px rgba(236, 72, 153, 0.06);
         text-decoration: none;
+    }
+
+    /* ===== HUNTARROS CHIP ===== */
+    .huntarros-chip .chip-icon {
+        color: #a78bfa;
+        filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.4));
+    }
+
+    .huntarros-chip .chip-value {
+        font-size: 11px;
+        font-weight: 600;
+        color: #94a3b8;
+    }
+
+    .huntarros-chip:hover {
+        border-color: rgba(139, 92, 246, 0.15);
+        box-shadow: 0 0 12px rgba(139, 92, 246, 0.06);
+    }
+
+    .huntarros-chip:hover .chip-value {
+        color: #c4b5fd;
     }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1100px) {
-        .topbar-info-strip { gap: 4px; }
-        .topbar-chip { padding: 0 8px; }
+        .topbar-info-strip {
+            gap: 4px;
+        }
+
+        .topbar-chip {
+            padding: 0 8px;
+        }
     }
-    
-    @media (max-width: 900px) {
-    }
+
+    @media (max-width: 900px) {}
 
     /* Mobile: hide desktop topbar — mobile.css handles the rest */
     @media (max-width: 768px) {
-        .top-bar { display: none !important; }
+        .top-bar {
+            display: none !important;
+        }
     }
 </style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const starsElement = document.getElementById('github-stars-value');
-        
+
         function updateVersionInfo() {
             try {
                 const starsInfo = localStorage.getItem('huntarr-github-stars');
@@ -245,10 +279,10 @@
                 console.error('Error updating version info:', e);
             }
         }
-        
+
         updateVersionInfo();
-        
-        window.addEventListener('storage', function(e) {
+
+        window.addEventListener('storage', function (e) {
             if (e.key === 'huntarr-github-stars') {
                 updateVersionInfo();
             }
