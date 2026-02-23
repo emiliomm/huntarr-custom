@@ -106,6 +106,12 @@ class UserModule {
 
             const userData = await userResponse.json();
 
+            // Detect non-owner from API response and apply restrictions
+            if (userData.role && userData.role !== 'owner') {
+                this._isNonOwner = true;
+                this._applyNonOwnerRestrictions();
+            }
+
             // Update username
             var usernameEl = document.getElementById('currentUsername');
             if (usernameEl) usernameEl.textContent = userData.username || 'Unknown';
