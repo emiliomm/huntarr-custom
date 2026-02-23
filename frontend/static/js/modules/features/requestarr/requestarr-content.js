@@ -1185,7 +1185,7 @@ export class RequestarrContent {
             this._smarthuntAllResults = (this._smarthuntAllResults || []).concat(results);
 
             this.smarthuntPage = nextPage;
-            this.smarthuntHasMore = nextPage < 5 && results.length > 0;
+            this.smarthuntHasMore = results.length > 0;
 
             // Re-render with filters
             this._renderSmartHuntGrid();

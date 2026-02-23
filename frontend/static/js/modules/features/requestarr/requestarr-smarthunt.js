@@ -93,7 +93,7 @@ class SmartHunt {
             const results = await this._fetchPage(page);
             this._render(results, append);
             this.currentPage = page;
-            this.hasMore = page < 5 && results.length > 0;
+            this.hasMore = results.length > 0;
         } catch (err) {
             console.error('[SmartHunt] Error loading page', page, err);
             if (!append) {
