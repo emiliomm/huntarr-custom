@@ -4,9 +4,13 @@
  */
 
 /* ===============================================================
-   MOBILE TOPBAR (.mtb)
+   MOBILE TOPBAR (.mtb) — Premium Design
    =============================================================== */
-.mtb { display: none; }  /* hidden on desktop */
+.mtb {
+    display: none;
+}
+
+/* hidden on desktop */
 
 @media (max-width: 768px) {
     .mtb {
@@ -14,56 +18,82 @@
         position: sticky;
         top: 0;
         z-index: 200;
-        background: linear-gradient(135deg, rgba(22,30,44,.98), rgba(15,22,35,.98));
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(255,255,255,.04);
-        box-shadow: 0 2px 12px rgba(0,0,0,.3);
+        background: linear-gradient(168deg,
+                rgba(16, 22, 36, 0.95) 0%,
+                rgba(12, 17, 30, 0.97) 50%,
+                rgba(10, 14, 26, 0.98) 100%);
+        backdrop-filter: blur(20px) saturate(1.2);
+        -webkit-backdrop-filter: blur(20px) saturate(1.2);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.04);
+        box-shadow:
+            0 1px 0 0 rgba(255, 255, 255, 0.02) inset,
+            0 4px 20px rgba(0, 0, 0, 0.35),
+            0 0 40px -12px rgba(99, 102, 241, 0.06);
     }
+
     .mtb-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 48px;
-        padding: 0 12px;
+        height: 52px;
+        padding: 0 14px;
     }
+
     .mtb-left {
         display: flex;
         align-items: center;
         gap: 10px;
         min-width: 0;
     }
+
     .mtb-right {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
         flex-shrink: 0;
     }
 
-    /* Hamburger button */
+    /* Hamburger button — modern rounded bars */
     .mtb-hamburger {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 4px;
-        width: 32px;
-        height: 32px;
-        padding: 6px;
-        background: none;
-        border: none;
+        gap: 5px;
+        width: 34px;
+        height: 34px;
+        padding: 7px;
+        background: rgba(148, 163, 184, 0.04);
+        border: 1px solid rgba(148, 163, 184, 0.06);
+        border-radius: 10px;
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
-        border-radius: 6px;
-        transition: background .15s;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .mtb-hamburger:active { background: rgba(255,255,255,.08); }
+
+    .mtb-hamburger:active {
+        background: rgba(99, 102, 241, 0.12);
+        border-color: rgba(99, 102, 241, 0.15);
+        transform: scale(0.95);
+    }
+
     .mtb-hamburger span {
         display: block;
-        width: 18px;
         height: 2px;
-        background: #c8d0dc;
-        border-radius: 1px;
-        transition: .2s;
+        background: rgba(200, 210, 225, 0.7);
+        border-radius: 2px;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mtb-hamburger span:nth-child(1) {
+        width: 18px;
+    }
+
+    .mtb-hamburger span:nth-child(2) {
+        width: 14px;
+    }
+
+    .mtb-hamburger span:nth-child(3) {
+        width: 10px;
     }
 
     /* Logo link */
@@ -72,109 +102,168 @@
         align-items: center;
         flex-shrink: 0;
     }
+
     .mtb-logo {
-        border-radius: 6px;
+        border-radius: 8px;
+        filter: drop-shadow(0 2px 6px rgba(99, 102, 241, 0.15));
+        transition: all 0.2s ease;
+    }
+
+    .mtb-logo:active {
+        transform: scale(0.95);
     }
 
     /* Page title */
     .mtb-title {
         font-size: 15px;
         font-weight: 700;
-        color: #e8ecf2;
+        color: #f0f3f8;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        letter-spacing: .3px;
+        letter-spacing: -0.01em;
     }
 
-    /* Topbar chips (stars, version) */
+    /* Stars chip — golden premium */
     .mtb-chip {
         display: inline-flex;
         align-items: center;
-        gap: 4px;
-        height: 24px;
-        padding: 0 7px;
-        border-radius: 12px;
+        gap: 5px;
+        height: 26px;
+        padding: 0 9px;
+        border-radius: 8px;
         font-size: 11px;
         font-weight: 700;
         text-decoration: none;
-        border: 1px solid transparent;
         white-space: nowrap;
+        transition: all 0.2s ease;
     }
-    .mtb-chip i { font-size: 9px; opacity: .8; }
-    .mtb-chip-stars {
-        background: rgba(255,193,7,.1);
-        border-color: rgba(255,193,7,.25);
-        color: #f5d060;
-    }
-    .mtb-chip-stars i { color: #ffd700; }
 
-    /* Icon buttons (Discord, Reddit, Docs, Heart) */
+    .mtb-chip i {
+        font-size: 9px;
+    }
+
+    .mtb-chip-stars {
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid rgba(245, 158, 11, 0.15);
+        color: #fbbf24;
+    }
+
+    .mtb-chip-stars:active {
+        background: rgba(245, 158, 11, 0.15);
+        transform: scale(0.95);
+    }
+
+    .mtb-chip-stars i {
+        color: #f59e0b;
+    }
+
+    /* Icon buttons — frosted glass circles */
     .mtb-icon-btn {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        border-radius: 9px;
         text-decoration: none;
-        transition: background .15s, transform .15s;
         font-size: 13px;
+        border: 1px solid transparent;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .mtb-icon-btn:active { transform: scale(.9); }
-    .mtb-discord {
-        color: #5865f2;
-        background: rgba(88,101,242,.1);
-    }
-    .mtb-discord:hover { background: rgba(88,101,242,.2); color: #7289da; }
-    .mtb-reddit {
-        color: #ff4500;
-        background: rgba(255,69,0,.1);
-    }
-    .mtb-reddit:hover { background: rgba(255,69,0,.2); color: #ff6633; }
-    .mtb-docs {
-        color: #6366f1;
-        background: rgba(99,102,241,.1);
-    }
-    .mtb-docs:hover { background: rgba(99,102,241,.2); color: #818cf8; }
-    .mtb-heart {
-        color: #ef4444;
-        background: rgba(231,76,60,.1);
-    }
-    .mtb-heart:hover { background: rgba(231,76,60,.2); color: #ff6b6b; }
 
-    /* Accent line */
+    .mtb-icon-btn:active {
+        transform: scale(0.9);
+    }
+
+    .mtb-discord {
+        color: rgba(88, 101, 242, 0.85);
+        background: rgba(88, 101, 242, 0.08);
+        border-color: rgba(88, 101, 242, 0.06);
+    }
+
+    .mtb-discord:active {
+        background: rgba(88, 101, 242, 0.18);
+        box-shadow: 0 0 12px rgba(88, 101, 242, 0.15);
+    }
+
+    .mtb-reddit {
+        color: rgba(255, 69, 0, 0.85);
+        background: rgba(255, 69, 0, 0.08);
+        border-color: rgba(255, 69, 0, 0.06);
+    }
+
+    .mtb-reddit:active {
+        background: rgba(255, 69, 0, 0.18);
+        box-shadow: 0 0 12px rgba(255, 69, 0, 0.15);
+    }
+
+    .mtb-docs {
+        color: rgba(99, 102, 241, 0.85);
+        background: rgba(99, 102, 241, 0.08);
+        border-color: rgba(99, 102, 241, 0.06);
+    }
+
+    .mtb-docs:active {
+        background: rgba(99, 102, 241, 0.18);
+        box-shadow: 0 0 12px rgba(99, 102, 241, 0.15);
+    }
+
+    .mtb-heart {
+        color: rgba(239, 68, 68, 0.85);
+        background: rgba(239, 68, 68, 0.08);
+        border-color: rgba(239, 68, 68, 0.06);
+    }
+
+    .mtb-heart:active {
+        background: rgba(239, 68, 68, 0.18);
+        box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+    }
+
+    /* Accent line — indigo-to-amber gradient (matches login/modal design) */
     .mtb-accent {
-        height: 2px;
-        background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), #818cf8, #818cf8, #818cf8, rgba(99, 102, 241, 0.15));
-        opacity: .8;
+        height: 1px;
+        background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(99, 102, 241, 0.3) 15%,
+                rgba(139, 92, 246, 0.4) 35%,
+                rgba(245, 158, 11, 0.3) 50%,
+                rgba(139, 92, 246, 0.4) 65%,
+                rgba(99, 102, 241, 0.3) 85%,
+                transparent 100%);
     }
 }
 
 /* ===============================================================
    MOBILE: hamburger opens desktop sidebar (no separate mobile menu)
    =============================================================== */
-.mobile-sidebar-backdrop { display: none; }
+.mobile-sidebar-backdrop {
+    display: none;
+}
 
 @media (max-width: 768px) {
+
     /* Backdrop when desktop sidebar is open */
     .mobile-sidebar-backdrop {
         display: block;
         position: fixed;
         inset: 0;
         z-index: 998;
-        background: rgba(0,0,0,.55);
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
         opacity: 0;
         pointer-events: none;
-        transition: opacity .25s ease;
+        transition: opacity .3s ease;
     }
+
     body.mobile-sidebar-open .mobile-sidebar-backdrop {
         opacity: 1;
         pointer-events: auto;
     }
 
     /* Desktop sidebar slides in from left — same menu as desktop */
-    .app-container > .sidebar-wrapper {
+    .app-container>.sidebar-wrapper {
         position: fixed !important;
         top: 0;
         left: 0;
@@ -183,22 +272,29 @@
         max-width: 85vw;
         z-index: 999;
         transform: translateX(-100%);
-        transition: transform .28s cubic-bezier(.4,0,.2,1);
-        box-shadow: 4px 0 24px rgba(0,0,0,.5);
+        transition: transform .3s cubic-bezier(.16, 1, .3, 1);
+        box-shadow:
+            8px 0 40px rgba(0, 0, 0, 0.5),
+            2px 0 12px rgba(0, 0, 0, 0.3);
     }
-    body.mobile-sidebar-open .app-container > .sidebar-wrapper {
+
+    body.mobile-sidebar-open .app-container>.sidebar-wrapper {
         transform: translateX(0);
     }
-    body.mobile-sidebar-open { overflow: hidden; }
+
+    body.mobile-sidebar-open {
+        overflow: hidden;
+    }
 
     /* Full desktop-style sidebar when open — text labels visible, not icon-only */
-    body.mobile-sidebar-open .app-container > .sidebar-wrapper .sidebar {
+    body.mobile-sidebar-open .app-container>.sidebar-wrapper .sidebar {
         width: 100% !important;
         min-width: 0;
     }
-    body.mobile-sidebar-open .app-container > .sidebar-wrapper .sidebar h1,
-    body.mobile-sidebar-open .app-container > .sidebar-wrapper .nav-item span,
-    body.mobile-sidebar-open .app-container > .sidebar-wrapper .switch-label {
+
+    body.mobile-sidebar-open .app-container>.sidebar-wrapper .sidebar h1,
+    body.mobile-sidebar-open .app-container>.sidebar-wrapper .nav-item span,
+    body.mobile-sidebar-open .app-container>.sidebar-wrapper .switch-label {
         display: block !important;
     }
 
@@ -207,6 +303,7 @@
         display: flex;
         flex-direction: column !important;
     }
+
     .main-content {
         margin-left: 0 !important;
         width: 100% !important;
@@ -228,6 +325,7 @@
         padding: 12px;
         box-sizing: border-box;
     }
+
     .content-section.active {
         display: flex;
         flex-direction: column;
@@ -236,18 +334,52 @@
 
 /* ===== SMALL PHONES ===== */
 @media (max-width: 480px) {
-    .mtb-inner { height: 44px; padding: 0 8px; }
-    .mtb-title { font-size: 13px; }
-    .mtb-right { gap: 4px; }
-    .mtb-chip { padding: 0 5px; font-size: 10px; height: 22px; }
-    .mtb-chip i { font-size: 8px; }
-    .mtb-icon-btn { width: 26px; height: 26px; font-size: 12px; }
-    .app-container > .sidebar-wrapper { width: 240px; }
+    .mtb-inner {
+        height: 48px;
+        padding: 0 10px;
+    }
+
+    .mtb-title {
+        font-size: 13px;
+    }
+
+    .mtb-right {
+        gap: 4px;
+    }
+
+    .mtb-chip {
+        padding: 0 7px;
+        font-size: 10px;
+        height: 24px;
+    }
+
+    .mtb-chip i {
+        font-size: 8px;
+    }
+
+    .mtb-icon-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+    .app-container>.sidebar-wrapper {
+        width: 240px;
+    }
 }
+
 @media (max-width: 380px) {
+
     /* Very small: hide stars + social icons to save space */
-    .mtb-chip-stars { display: none; }
-    .mtb-discord, .mtb-reddit { display: none; }
+    .mtb-chip-stars {
+        display: none;
+    }
+
+    .mtb-discord,
+    .mtb-reddit {
+        display: none;
+    }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
