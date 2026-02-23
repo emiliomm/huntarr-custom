@@ -1,3 +1,18 @@
+> [!IMPORTANT]
+> This is an archive of the repo formerly at plexguide/huntarr.io. It is preserved for posterity after the original author went scorched earth when significant security vulnerabilities were pointed out to them.
+>
+> **THIS REPO IS NOT UNDER ACTIVE DEVELOPMENT. USE THIS CODE AT YOUR OWN RISK!**
+> 
+> Discussion: [Reddit: The Huntarr Github page has been taken down](https://www.reddit.com/r/selfhosted/comments/1rcmgnn/) ([Archive link](https://archive.is/rKnQb))
+> 
+> Git mirror imported from https://git.aronwk.com/mirror/Huntarr
+
+> [!CAUTION]
+> Significant security vulnerabilites have been reported with this code.
+> 
+> See: [Reddit: Huntarr - Your passwords and your entire arr stack's API keys are exposed to anyone on your network, or worse, the internet.](https://www.reddit.com/r/selfhosted/comments/1rckopd/huntarr_your_passwords_and_your_entire_arr_stacks/) ([Archive link](https://archive.is/Tn5pu))
+
+
 <h1 align="center">Huntarr</h1>
 
 <p align="center">
