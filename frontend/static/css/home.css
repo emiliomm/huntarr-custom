@@ -358,7 +358,7 @@
     transform: none !important;
 }
 
-/* ── Requestarr Home Card — no border/shadow/bg at all ─────────── */
+/* ── Requestarr Home Card — no border/shadow/bg/pseudo-line at all ─ */
 #homeSection .card.requestarr-home-card,
 #homeSection .requestarr-home-card {
     background: transparent !important;
@@ -374,6 +374,13 @@
     border: none !important;
     box-shadow: none !important;
     outline: none !important;
+}
+
+/* Kill the ::before indigo gradient line injected by components.css .card::before */
+#homeSection .card.requestarr-home-card::before,
+#homeSection .requestarr-home-card::before {
+    display: none !important;
+    content: none !important;
 }
 
 /* ── Search Toolbar — matches #media-hunt-collection style ──────── */
@@ -493,20 +500,30 @@
 @media (max-width: 768px) {
     .home-search-toolbar-row {
         flex-direction: column;
-        gap: 8px;
+        align-items: stretch;
+        gap: 12px;
     }
 
     .home-search-filters {
+        flex-direction: column;
         width: 100%;
-        gap: 8px;
+        gap: 12px;
+        order: 2;
+        /* Move dropdowns below the search bar */
     }
 
     .home-filter-chip {
-        flex: 1;
+        width: 100%;
+    }
+
+    .home-filter-chip .chip-select {
+        width: 100%;
     }
 
     .home-search-bar {
         width: 100%;
+        order: 1;
+        /* Move search bar to the top */
     }
 }
 
