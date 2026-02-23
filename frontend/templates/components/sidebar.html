@@ -134,31 +134,34 @@
                             <span>Calendar</span>
                         </a>
                     </div>
-                    <a href="./#activity-history" class="nav-item nav-item-sub" id="movieHuntActivityToggle">
-                        <div class="nav-icon-wrapper"><i class="fas fa-clock"></i></div>
-                        <span>Activity</span>
-                    </a>
-                    <div class="nav-sub-group" id="movie-hunt-activity-sub">
-                        <a href="./#media-hunt-collection" class="nav-item nav-item-sub media-hunt-config-back"
-                            id="mediaHuntActivityBackNav">
-                            <div class="nav-icon-wrapper"><i class="fas fa-arrow-left"></i></div>
-                            <span>Back</span>
-                        </a>
-                        <a href="./#activity-history" class="nav-item nav-item-sub" id="movieHuntActivityHistoryNav">
-                            <div class="nav-icon-wrapper"><i class="fas fa-history"></i></div>
-                            <span>History</span>
-                        </a>
-
-                        <a href="./#activity-blocklist" class="nav-item nav-item-sub"
-                            id="movieHuntActivityBlocklistNav">
-                            <div class="nav-icon-wrapper"><i class="fas fa-ban"></i></div>
-                            <span>Blocklist</span>
-                        </a>
-                        <a href="./#logs-media-hunt" class="nav-item nav-item-sub" id="movieHuntActivityLogsNav">
-                            <div class="nav-icon-wrapper"><i class="fas fa-file-alt"></i></div>
-                            <span>Logs</span>
-                        </a>
+                    <!-- Activity sub-group (expands inline like Import) -->
+                    <div class="nav-sub-group" id="media-hunt-activity-nav-sub">
+                        <div class="nav-item nav-item-sub nav-sub-group-header"
+                            data-sub-group="media-hunt-activity-sub-body" id="movieHuntActivityToggle">
+                            <div class="nav-icon-wrapper"><i class="fas fa-clock"></i></div>
+                            <span>Activity</span>
+                            <i class="fas fa-chevron-right nav-sub-chevron"></i>
+                        </div>
+                        <div class="nav-sub-group-body collapsed" id="media-hunt-activity-sub-body">
+                            <a href="./#activity-history" class="nav-item nav-item-sub nav-item-deep"
+                                id="movieHuntActivityHistoryNav">
+                                <div class="nav-icon-wrapper"><i class="fas fa-history"></i></div>
+                                <span>History</span>
+                            </a>
+                            <a href="./#activity-blocklist" class="nav-item nav-item-sub nav-item-deep"
+                                id="movieHuntActivityBlocklistNav">
+                                <div class="nav-icon-wrapper"><i class="fas fa-ban"></i></div>
+                                <span>Blocklist</span>
+                            </a>
+                            <a href="./#logs-media-hunt" class="nav-item nav-item-sub nav-item-deep"
+                                id="movieHuntActivityLogsNav">
+                                <div class="nav-icon-wrapper"><i class="fas fa-file-alt"></i></div>
+                                <span>Logs</span>
+                            </a>
+                        </div>
                     </div>
+                    <!-- Hidden legacy element — keeps old JS references working -->
+                    <div id="movie-hunt-activity-sub" style="display:none;"></div>
                     <div class="nav-user-support-label" id="mediaHuntConfigLabel">
                         <i class="fas fa-sliders-h"></i>
                         <span>Configuration</span>
@@ -460,9 +463,16 @@
     // ── All sub-group IDs (within Media Hunt) ──
     var ALL_SUB_GROUP_IDS = [
         'movie-hunt-collection-sub',
-        'movie-hunt-activity-sub',
+        'movie-hunt-activity-sub',       // legacy hidden stub
         'index-master-sub',
         'index-master-view-sub'
+    ];
+
+    // ── All sub-group-body IDs (accordion bodies toggled by nav-sub-group-header) ──
+    var ALL_SUB_GROUP_BODY_IDS = [
+        'requestarr-blacklist-sub-body',
+        'media-hunt-import-sub-body',
+        'media-hunt-activity-sub-body'
     ];
 
     // ── Expand / collapse helpers ────────────────────────────────
@@ -563,7 +573,7 @@
         }
     });
 
-    // ── Sub-group toggle (e.g. Blacklist > Personal / Global) ──
+    // ── Sub-group toggle (e.g. Blacklist > Personal / Global, Activity, Import) ──
     document.addEventListener('click', function (e) {
         var subHeader = e.target.closest('.nav-sub-group-header');
         if (!subHeader) return;
@@ -572,6 +582,15 @@
         var subBody = document.getElementById(subBodyId);
         if (!subBody) return;
         var collapsed = subBody.classList.contains('collapsed');
+        // Close all other sub-group bodies first (single-accordion within a group)
+        ALL_SUB_GROUP_BODY_IDS.forEach(function (id) {
+            if (id !== subBodyId) {
+                var other = document.getElementById(id);
+                var otherHeader = other && other.previousElementSibling;
+                if (other) other.classList.add('collapsed');
+                if (otherHeader) otherHeader.classList.remove('expanded');
+            }
+        });
         if (collapsed) {
             subBody.classList.remove('collapsed');
             subHeader.classList.add('expanded');
@@ -609,10 +628,10 @@
         else if (h === '#media-hunt-instances') { selector = '#movieHuntInstancesNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; }
         else if (h === '#media-hunt-calendar' || h === '#movie-hunt-calendar' || h === '#tv-hunt-calendar') { selector = '#movieHuntCalendarNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; }
         else if (h === '#settings-import-media') { selector = '#movieHuntImportMediaNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; subGroupToExpand = 'media-hunt-import-sub-body'; }
-        else if (h === '#activity-queue') { selector = '#movieHuntActivityQueueNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-activity-sub'; if (mhBody) mhBody.classList.add('activity-view'); }
-        else if (h === '#activity-history') { selector = '#movieHuntActivityHistoryNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-activity-sub'; if (mhBody) mhBody.classList.add('activity-view'); }
-        else if (h === '#activity-blocklist') { selector = '#movieHuntActivityBlocklistNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-activity-sub'; if (mhBody) mhBody.classList.add('activity-view'); }
-        else if (h === '#activity-logs' || h === '#logs-media-hunt' || h === '#logs-tv-hunt') { selector = '#movieHuntActivityLogsNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-activity-sub'; if (mhBody) mhBody.classList.add('activity-view'); }
+        else if (h === '#activity-queue') { selector = '#movieHuntActivityToggle'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; subGroupToExpand = 'media-hunt-activity-sub-body'; }
+        else if (h === '#activity-history') { selector = '#movieHuntActivityHistoryNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; subGroupToExpand = 'media-hunt-activity-sub-body'; }
+        else if (h === '#activity-blocklist') { selector = '#movieHuntActivityBlocklistNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; subGroupToExpand = 'media-hunt-activity-sub-body'; }
+        else if (h === '#activity-logs' || h === '#logs-media-hunt' || h === '#logs-tv-hunt') { selector = '#movieHuntActivityLogsNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; subGroupToExpand = 'media-hunt-activity-sub-body'; }
 
         // ── Media Hunt > Configuration ──────────────────
         else if (h === '#media-hunt-settings' || h === '#movie-hunt-settings') { selector = '#movieHuntSettingsMovieManagementNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; }
@@ -711,15 +730,26 @@
             if (blacklistSubHeader) blacklistSubHeader.classList.remove('expanded');
         }
 
-        // Media Hunt sub-groups (e.g. Import Actions)
+        // Media Hunt sub-groups (e.g. Import Actions, Activity)
         var importSubBody = document.getElementById('media-hunt-import-sub-body');
         var importSubHeader = document.getElementById('mediaHuntImportGroupHeader');
+        var activitySubBody = document.getElementById('media-hunt-activity-sub-body');
+        var activitySubHeader = document.getElementById('movieHuntActivityToggle');
         if (subGroupToExpand === 'media-hunt-import-sub-body') {
             if (importSubBody) importSubBody.classList.remove('collapsed');
             if (importSubHeader) importSubHeader.classList.add('expanded');
+            if (activitySubBody) activitySubBody.classList.add('collapsed');
+            if (activitySubHeader) activitySubHeader.classList.remove('expanded');
+        } else if (subGroupToExpand === 'media-hunt-activity-sub-body') {
+            if (activitySubBody) activitySubBody.classList.remove('collapsed');
+            if (activitySubHeader) activitySubHeader.classList.add('expanded');
+            if (importSubBody) importSubBody.classList.add('collapsed');
+            if (importSubHeader) importSubHeader.classList.remove('expanded');
         } else {
             if (importSubBody) importSubBody.classList.add('collapsed');
             if (importSubHeader) importSubHeader.classList.remove('expanded');
+            if (activitySubBody) activitySubBody.classList.add('collapsed');
+            if (activitySubHeader) activitySubHeader.classList.remove('expanded');
         }
 
         // Expand the correct group (accordion)
