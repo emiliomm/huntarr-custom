@@ -3,15 +3,26 @@
     <div class="huntarr-confirm-modal-backdrop" id="huntarr-confirm-modal-backdrop"></div>
     <div class="huntarr-confirm-modal-content">
         <div class="huntarr-confirm-modal-header">
-            <button type="button" class="huntarr-confirm-modal-close" id="huntarr-confirm-modal-close" aria-label="Close">
+            <button type="button" class="huntarr-confirm-modal-close" id="huntarr-confirm-modal-close"
+                aria-label="Close">
                 <i class="fas fa-times"></i>
             </button>
             <h2 class="huntarr-confirm-modal-title" id="huntarr-confirm-modal-title"></h2>
             <p class="huntarr-confirm-modal-message" id="huntarr-confirm-modal-message"></p>
         </div>
+        <div class="huntarr-confirm-modal-input-wrap" id="huntarr-confirm-modal-input-wrap"
+            style="display:none; padding: 0 24px 16px;">
+            <label id="huntarr-confirm-modal-input-label"
+                style="display:block; color:#94a3b8; font-size:13px; margin-bottom:6px;"></label>
+            <input type="text" id="huntarr-confirm-modal-input"
+                style="width:100%; padding:10px 14px; background:rgba(15,23,42,0.6); border:1px solid rgba(148,163,184,0.15); border-radius:8px; color:#e2e8f0; font-size:14px; box-sizing:border-box; outline:none; transition: border-color 0.2s;"
+                onfocus="this.style.borderColor='rgba(99,102,241,0.5)'"
+                onblur="this.style.borderColor='rgba(148,163,184,0.15)'" />
+        </div>
         <div class="huntarr-confirm-modal-actions">
             <button type="button" class="huntarr-confirm-modal-cancel" id="huntarr-confirm-modal-cancel">Cancel</button>
-            <button type="button" class="huntarr-confirm-modal-extra" id="huntarr-confirm-modal-extra" style="display:none;"></button>
+            <button type="button" class="huntarr-confirm-modal-extra" id="huntarr-confirm-modal-extra"
+                style="display:none;"></button>
             <button type="button" class="huntarr-confirm-modal-confirm" id="huntarr-confirm-modal-confirm"></button>
         </div>
     </div>

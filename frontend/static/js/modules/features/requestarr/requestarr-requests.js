@@ -177,28 +177,42 @@ window.RequestarrRequests = {
     },
 
     async denyRequest(requestId, btn) {
-        const notes = prompt('Reason for denial (optional):') || '';
-        // Instant feedback
-        const card = document.querySelector(`.reqrequests-card[data-request-id="${requestId}"]`);
-        if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Denying...'; }
-        if (card) card.classList.add('reqrequests-card-processing');
-        if (card) card.querySelectorAll('.reqrequests-action-btn').forEach(b => { if (b !== btn) b.disabled = true; });
-        try {
-            const resp = await fetch(`./api/requestarr/requests/${requestId}/deny`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ notes })
-            });
-            const data = await resp.json();
-            if (data.success) {
-                if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('Request denied', 'success');
-                await this.loadRequests();
-                this._refreshBadge();
-            } else {
-                if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification(data.error || 'Failed', 'error');
+        const doDeny = async (notes) => {
+            const card = document.querySelector(`.reqrequests-card[data-request-id="${requestId}"]`);
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Denying...'; }
+            if (card) card.classList.add('reqrequests-card-processing');
+            if (card) card.querySelectorAll('.reqrequests-action-btn').forEach(b => { if (b !== btn) b.disabled = true; });
+            try {
+                const resp = await fetch(`./api/requestarr/requests/${requestId}/deny`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ notes: notes || '' })
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('Request denied', 'success');
+                    await this.loadRequests();
+                    this._refreshBadge();
+                } else {
+                    if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification(data.error || 'Failed', 'error');
+                }
+            } catch (e) {
+                console.error('[RequestarrRequests] Deny error:', e);
             }
-        } catch (e) {
-            console.error('[RequestarrRequests] Deny error:', e);
+        };
+
+        if (window.HuntarrConfirm && typeof window.HuntarrConfirm.show === 'function') {
+            window.HuntarrConfirm.show({
+                title: 'Deny Request',
+                message: 'This will deny the request and notify the user.',
+                confirmLabel: 'Deny',
+                inputLabel: 'Reason for denial (optional)',
+                inputPlaceholder: 'Enter reason...',
+                onConfirm: (inputValue) => doDeny(inputValue),
+            });
+        } else {
+            const notes = prompt('Reason for denial (optional):') || '';
+            await doDeny(notes);
         }
     },
 
@@ -234,7 +248,7 @@ window.RequestarrRequests = {
         } else if (window.HuntarrConfirm && typeof window.HuntarrConfirm.show === 'function') {
             window.HuntarrConfirm.show({
                 title: 'Blacklist Request',
-                message: 'This will deny the request and add the media to the Global Blacklist.<br>No user will be able to request it again.',
+                message: 'This will deny the request and add the media to the Global Blacklist.\nNo user will be able to request it again.',
                 confirmLabel: 'Blacklist',
                 onConfirm: () => doBlacklist(),
             });
