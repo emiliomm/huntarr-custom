@@ -4198,10 +4198,10 @@ body.requestarr-modal-open {
 }
 
 /* ================================================================
-   Request Modal — Premium Design
+   Request Modal — Premium Design v2
    ================================================================ */
 
-/* Entrance animation */
+/* Entrance animations */
 @keyframes mhReqFadeIn {
     from {
         opacity: 0;
@@ -4215,12 +4215,34 @@ body.requestarr-modal-open {
 @keyframes mhReqSlideUp {
     from {
         opacity: 0;
-        transform: translateY(24px) scale(0.97);
+        transform: translateY(28px) scale(0.96);
     }
 
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes mhReqGlow {
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+@keyframes mhReqShimmer {
+    from {
+        background-position: -200% 0;
+    }
+
+    to {
+        background-position: 200% 0;
     }
 }
 
@@ -4235,40 +4257,63 @@ body.requestarr-modal-open {
     isolation: isolate;
     transform: translateZ(0);
     filter: none;
-    animation: mhReqFadeIn 0.2s ease-out;
+    animation: mhReqFadeIn 0.25s ease-out;
 }
 
 .mh-req-modal .modal-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
     z-index: 0;
 }
 
-/* Card — glassmorphism */
+/* Card — deep glass with ambient halo */
 .mh-req-card {
     position: relative;
     z-index: 2;
-    background: linear-gradient(165deg, rgba(30, 41, 59, 0.97), rgba(15, 23, 42, 0.98));
-    border: 1px solid rgba(148, 163, 184, 0.1);
-    border-radius: 16px;
+    background: linear-gradient(168deg,
+            rgba(30, 41, 59, 0.97) 0%,
+            rgba(20, 30, 48, 0.98) 40%,
+            rgba(15, 23, 42, 0.99) 100%);
+    border: 1px solid rgba(148, 163, 184, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 18px;
     box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.03) inset,
-        0 32px 100px -12px rgba(0, 0, 0, 0.65),
-        0 8px 32px -4px rgba(0, 0, 0, 0.3);
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+        0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+        0 40px 120px -16px rgba(0, 0, 0, 0.7),
+        0 12px 40px -8px rgba(0, 0, 0, 0.35),
+        0 0 80px -20px rgba(245, 158, 11, 0.08);
     overflow: hidden;
-    max-width: 640px;
+    max-width: 660px;
     width: 92vw;
     max-height: 90vh;
     overflow-y: auto;
-    animation: mhReqSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: mhReqSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Hide scrollbar but keep scrollable */
+/* Top-edge shimmer highlight */
+.mh-req-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(245, 158, 11, 0.3) 20%,
+            rgba(255, 255, 255, 0.12) 50%,
+            rgba(245, 158, 11, 0.3) 80%,
+            transparent 100%);
+    z-index: 10;
+}
+
+/* Scrollbar */
 .mh-req-card::-webkit-scrollbar {
-    width: 4px;
+    width: 3px;
 }
 
 .mh-req-card::-webkit-scrollbar-track {
@@ -4276,37 +4321,38 @@ body.requestarr-modal-open {
 }
 
 .mh-req-card::-webkit-scrollbar-thumb {
-    background: rgba(148, 163, 184, 0.15);
-    border-radius: 4px;
+    background: rgba(148, 163, 184, 0.12);
+    border-radius: 3px;
 }
 
-/* Close button */
+/* Close button — floating glass pill */
 .mh-req-close {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 5;
-    width: 34px;
-    height: 34px;
+    top: 14px;
+    right: 14px;
+    z-index: 15;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 8px;
-    color: rgba(255, 255, 255, 0.65);
-    font-size: 13px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .mh-req-close:hover {
-    background: rgba(239, 68, 68, 0.6);
-    border-color: rgba(239, 68, 68, 0.3);
+    background: rgba(239, 68, 68, 0.65);
+    border-color: rgba(239, 68, 68, 0.4);
     color: #fff;
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.25);
 }
 
 /* Two-column layout */
@@ -4314,22 +4360,38 @@ body.requestarr-modal-open {
     display: flex;
 }
 
-/* Poster column — with subtle bottom gradient overlay */
+/* Poster column — blended right edge */
 .mh-req-poster {
     flex-shrink: 0;
-    width: 210px;
+    width: 215px;
     background: #0f172a;
     position: relative;
+    overflow: hidden;
 }
 
+/* Right-edge blend: poster fades into form background */
+.mh-req-poster::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+    background: linear-gradient(to left, rgba(22, 33, 52, 0.95), transparent);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Bottom gradient */
 .mh-req-poster::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 50%;
-    background: linear-gradient(to top, rgba(15, 23, 42, 0.5), transparent);
+    height: 45%;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.65), transparent);
+    z-index: 2;
     pointer-events: none;
 }
 
@@ -4338,53 +4400,74 @@ body.requestarr-modal-open {
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Subtle zoom on card hover */
+.mh-req-card:hover .mh-req-poster img {
+    transform: scale(1.03);
 }
 
 /* Form column */
 .mh-req-form {
     flex: 1;
     min-width: 0;
-    padding: 28px 28px 22px;
+    padding: 28px 28px 24px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
+    position: relative;
+}
+
+/* Subtle noise texture on form area */
+.mh-req-form::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 0%, rgba(99, 102, 241, 0.03) 0%, transparent 60%);
+    pointer-events: none;
 }
 
 /* Header */
 .mh-req-header {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
+    position: relative;
+    z-index: 1;
 }
 
 .mh-req-label {
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.6px;
     color: #f59e0b;
-    opacity: 0.9;
+    opacity: 0.85;
 }
 
 .mh-req-title {
-    font-size: 22px;
+    font-size: 23px;
     font-weight: 800;
     color: #f8fafc;
     margin: 0;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
 }
 
 .mh-req-meta {
-    font-size: 13px;
-    color: rgba(148, 163, 184, 0.6);
-    margin-top: 2px;
-    font-weight: 400;
+    font-size: 12.5px;
+    color: rgba(148, 163, 184, 0.5);
+    margin-top: 1px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
 }
 
-/* Status badge */
+/* Status badge — glass style */
 .mh-req-status {
     display: flex;
+    position: relative;
+    z-index: 1;
 }
 
 .mh-req-badge {
@@ -4393,67 +4476,77 @@ body.requestarr-modal-open {
     gap: 7px;
     padding: 7px 14px;
     border-radius: 8px;
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 600;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
     transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 .mh-req-badge i {
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .mh-req-badge-ok {
     background: rgba(99, 102, 241, 0.1);
     color: #a5b4fc;
-    border: 1px solid rgba(99, 102, 241, 0.18);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.06) inset;
 }
 
 .mh-req-badge-lib {
     background: rgba(34, 197, 94, 0.1);
     color: #4ade80;
-    border: 1px solid rgba(34, 197, 94, 0.18);
+    border: 1px solid rgba(34, 197, 94, 0.15);
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.06) inset;
 }
 
 .mh-req-badge-loading {
-    background: rgba(148, 163, 184, 0.06);
-    color: rgba(148, 163, 184, 0.55);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    background: rgba(148, 163, 184, 0.05);
+    color: rgba(148, 163, 184, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.06);
 }
 
 .mh-req-badge-requested {
     background: rgba(245, 158, 11, 0.1);
     color: #fbbf24;
-    border: 1px solid rgba(245, 158, 11, 0.18);
+    border: 1px solid rgba(245, 158, 11, 0.15);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.06) inset;
 }
 
 .mh-req-badge-error {
     background: rgba(239, 68, 68, 0.1);
     color: #f87171;
-    border: 1px solid rgba(239, 68, 68, 0.18);
+    border: 1px solid rgba(239, 68, 68, 0.15);
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.06) inset;
 }
 
 .mh-req-badge-import {
     background: rgba(245, 158, 11, 0.12);
     color: #fbbf24;
-    border: 1px solid rgba(245, 158, 11, 0.25);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.08) inset;
 }
 
-/* Divider between status and fields */
+/* Fields container */
 .mh-req-fields {
     display: flex !important;
     flex-direction: column !important;
-    gap: 14px !important;
+    gap: 12px !important;
     width: 100% !important;
-    padding-top: 4px !important;
-    border-top: 1px solid rgba(148, 163, 184, 0.07) !important;
+    padding-top: 14px !important;
+    margin-top: 2px !important;
+    border-top: 1px solid rgba(148, 163, 184, 0.06) !important;
+    position: relative !important;
+    z-index: 1 !important;
 }
 
 /* Form field rows */
 .mh-req-field {
     display: grid !important;
-    grid-template-columns: 140px 1fr !important;
-    gap: 0 16px !important;
+    grid-template-columns: 130px 1fr !important;
+    gap: 0 14px !important;
     align-items: center !important;
     width: 100% !important;
     margin: 0 !important;
@@ -4467,16 +4560,22 @@ body.requestarr-modal-open {
 .mh-req-field label {
     grid-column: 1 !important;
     grid-row: 1 !important;
-    width: 140px !important;
-    min-width: 140px !important;
+    width: 130px !important;
+    min-width: 130px !important;
     display: flex !important;
     align-items: center !important;
     white-space: nowrap !important;
-    color: rgba(148, 163, 184, 0.55) !important;
-    font-size: 12.5px !important;
+    color: rgba(148, 163, 184, 0.45) !important;
+    font-size: 11.5px !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.4px !important;
+    letter-spacing: 0.6px !important;
+    transition: color 0.2s !important;
+}
+
+/* Highlight label on row hover */
+.mh-req-field:hover label {
+    color: rgba(148, 163, 184, 0.65) !important;
 }
 
 /* Instance and root folder fields: icon + select in a row */
@@ -4492,15 +4591,16 @@ body.requestarr-modal-open {
 .mh-req-instance-wrap .mh-req-root-info-icon,
 .mh-req-root-folder-wrap .mh-req-root-info-icon {
     flex-shrink: 0;
-    color: #94a3b8;
-    font-size: 16px;
+    color: rgba(148, 163, 184, 0.5);
+    font-size: 15px;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: all 0.2s;
 }
 
 .mh-req-instance-wrap .mh-req-root-info-icon:hover,
 .mh-req-root-folder-wrap .mh-req-root-info-icon:hover {
     color: #818cf8;
+    transform: scale(1.1);
 }
 
 .mh-req-instance-wrap select,
@@ -4509,18 +4609,18 @@ body.requestarr-modal-open {
     min-width: 0 !important;
 }
 
-/* Select dropdowns — premium style */
+/* Select dropdowns — frosted glass */
 .mh-req-field select {
     grid-column: 2 !important;
     grid-row: 1 !important;
     width: 100% !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
-    height: 38px !important;
-    padding: 0 36px 0 14px !important;
-    background-color: rgba(15, 23, 42, 0.5) !important;
-    border: 1px solid rgba(148, 163, 184, 0.12) !important;
-    border-radius: 8px !important;
+    height: 40px !important;
+    padding: 0 38px 0 14px !important;
+    background-color: rgba(15, 23, 42, 0.45) !important;
+    border: 1px solid rgba(148, 163, 184, 0.1) !important;
+    border-radius: 10px !important;
     color: #e2e8f0 !important;
     font-size: 13px !important;
     font-weight: 500 !important;
@@ -4528,33 +4628,41 @@ body.requestarr-modal-open {
     -webkit-appearance: none !important;
     -moz-appearance: none !important;
     appearance: none !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E") !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%236b7a8d' d='M5 7L0 2h10z'/%3E%3C/svg%3E") !important;
     background-repeat: no-repeat !important;
-    background-position: right 12px center !important;
-    transition: all 0.2s ease !important;
+    background-position: right 14px center !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) inset !important;
 }
 
 .mh-req-field select:hover {
-    border-color: rgba(148, 163, 184, 0.25) !important;
-    background-color: rgba(15, 23, 42, 0.7) !important;
+    border-color: rgba(148, 163, 184, 0.22) !important;
+    background-color: rgba(15, 23, 42, 0.6) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) inset,
+        0 0 0 1px rgba(148, 163, 184, 0.04) !important;
 }
 
 .mh-req-field select:focus {
     outline: none !important;
-    border-color: rgba(99, 102, 241, 0.5) !important;
-    background-color: rgba(15, 23, 42, 0.7) !important;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+    border-color: rgba(99, 102, 241, 0.45) !important;
+    background-color: rgba(15, 23, 42, 0.6) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) inset,
+        0 0 0 3px rgba(99, 102, 241, 0.08),
+        0 0 16px rgba(99, 102, 241, 0.06) !important;
 }
 
-/* Thin red border when no instance or no root configured */
+/* Warning state */
 .mh-req-field select.field-warning {
-    border: 1px solid rgba(239, 68, 68, 0.5) !important;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08) !important;
+    border: 1px solid rgba(239, 68, 68, 0.45) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) inset,
+        0 0 0 3px rgba(239, 68, 68, 0.06),
+        0 0 16px rgba(239, 68, 68, 0.04) !important;
 }
 
 .mh-req-field select option {
-    background-color: #1e293b !important;
-    color: #f1f5f9 !important;
+    background-color: #1a2332 !important;
+    color: #e2e8f0 !important;
+    padding: 8px !important;
 }
 
 /* Permissions status row (non-owner modal) */
@@ -4562,18 +4670,20 @@ body.requestarr-modal-open {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 600;
     padding: 8px 14px;
     border-radius: 8px;
     grid-column: 2;
     grid-row: 1;
+    letter-spacing: 0.01em;
 }
 
 .mh-req-perm-approved {
     color: #4ade80;
-    background: rgba(34, 197, 94, 0.08);
-    border: 1px solid rgba(34, 197, 94, 0.2);
+    background: rgba(34, 197, 94, 0.07);
+    border: 1px solid rgba(34, 197, 94, 0.18);
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.05) inset;
 }
 
 .mh-req-perm-approved i {
@@ -4582,8 +4692,9 @@ body.requestarr-modal-open {
 
 .mh-req-perm-pending {
     color: #fbbf24;
-    background: rgba(251, 191, 36, 0.08);
-    border: 1px solid rgba(251, 191, 36, 0.2);
+    background: rgba(251, 191, 36, 0.07);
+    border: 1px solid rgba(251, 191, 36, 0.18);
+    box-shadow: 0 0 8px rgba(251, 191, 36, 0.05) inset;
 }
 
 .mh-req-perm-pending i {
@@ -4596,8 +4707,11 @@ body.requestarr-modal-open {
     flex-direction: column;
     align-items: flex-end;
     gap: 14px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(148, 163, 184, 0.07);
+    padding-top: 14px;
+    margin-top: 2px;
+    border-top: 1px solid rgba(148, 163, 184, 0.06);
+    position: relative;
+    z-index: 1;
 }
 
 .mh-req-checkbox-wrap {
@@ -4605,7 +4719,7 @@ body.requestarr-modal-open {
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: rgba(148, 163, 184, 0.7);
+    color: rgba(148, 163, 184, 0.6);
     cursor: pointer;
     width: 100%;
     transition: color 0.15s;
@@ -4618,8 +4732,8 @@ body.requestarr-modal-open {
 .mh-req-checkbox-wrap input {
     cursor: pointer;
     accent-color: #f59e0b;
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
 }
 
 .mh-req-buttons {
@@ -4628,52 +4742,84 @@ body.requestarr-modal-open {
     gap: 10px;
 }
 
-/* Buttons — premium style */
+/* Buttons — premium glass style */
 .mh-req-btn {
-    padding: 10px 24px;
+    padding: 10px 26px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
-    letter-spacing: 0.01em;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.02em;
+    position: relative;
+    overflow: hidden;
 }
 
 .mh-req-btn-cancel {
-    background: rgba(148, 163, 184, 0.08);
-    color: rgba(148, 163, 184, 0.8);
-    border: 1px solid rgba(148, 163, 184, 0.12);
+    background: rgba(148, 163, 184, 0.06);
+    color: rgba(148, 163, 184, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.1);
 }
 
 .mh-req-btn-cancel:hover {
-    background: rgba(148, 163, 184, 0.14);
+    background: rgba(148, 163, 184, 0.12);
     color: #e2e8f0;
     border-color: rgba(148, 163, 184, 0.2);
+    transform: translateY(-1px);
 }
 
+.mh-req-btn-cancel:active {
+    transform: translateY(0);
+}
+
+/* Submit button — rich gradient with ambient glow */
 .mh-req-btn-submit {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
-    color: #000;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 30%, #d97706 65%, #b45309 100%);
+    color: rgba(0, 0, 0, 0.85);
     font-weight: 700;
-    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+    box-shadow:
+        0 2px 8px rgba(245, 158, 11, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Shimmer sweep on hover */
+.mh-req-btn-submit::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transition: left 0.4s ease;
+}
+
+.mh-req-btn-submit:hover:not(:disabled)::after {
+    left: 100%;
 }
 
 .mh-req-btn-submit:hover:not(:disabled) {
-    filter: brightness(1.1);
-    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
-    transform: translateY(-1px);
+    box-shadow:
+        0 6px 24px rgba(245, 158, 11, 0.4),
+        0 0 40px rgba(245, 158, 11, 0.12),
+        0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+    transform: translateY(-2px);
 }
 
 .mh-req-btn-submit:active:not(:disabled) {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    box-shadow:
+        0 2px 8px rgba(245, 158, 11, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
 }
 
 .mh-req-btn-submit:disabled {
-    opacity: 0.4;
+    opacity: 0.35;
     cursor: not-allowed;
     box-shadow: none;
+    filter: saturate(0.5);
 }
 
 .mh-req-more-info-icon {
@@ -4681,21 +4827,22 @@ body.requestarr-modal-open {
     align-items: center;
     justify-content: center;
     margin-left: 6px;
-    color: rgba(148, 163, 184, 0.45);
+    color: rgba(148, 163, 184, 0.4);
     font-size: 12px;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: all 0.2s;
 }
 
 .mh-req-more-info-icon:hover {
     color: #a5b4fc;
+    transform: scale(1.1);
 }
 
 /* Mobile responsive */
 @media (max-width: 600px) {
     .mh-req-card {
         max-width: 95vw !important;
-        border-radius: 14px !important;
+        border-radius: 16px !important;
     }
 
     .mh-req-layout {
@@ -4704,24 +4851,28 @@ body.requestarr-modal-open {
 
     .mh-req-poster {
         width: 100% !important;
-        height: 200px !important;
+        height: 220px !important;
     }
 
     .mh-req-poster img {
         object-position: center 20% !important;
     }
 
+    .mh-req-poster::before {
+        display: none !important;
+    }
+
     .mh-req-poster::after {
-        height: 60% !important;
+        height: 65% !important;
     }
 
     .mh-req-form {
-        padding: 20px 18px 18px !important;
+        padding: 22px 20px 20px !important;
     }
 
     .mh-req-field {
         grid-template-columns: 1fr !important;
-        gap: 6px !important;
+        gap: 5px !important;
     }
 
     .mh-req-field label {
@@ -4738,8 +4889,8 @@ body.requestarr-modal-open {
     }
 
     .mh-req-close {
-        top: 8px !important;
-        right: 8px !important;
+        top: 10px !important;
+        right: 10px !important;
     }
 
     .mh-req-title {
