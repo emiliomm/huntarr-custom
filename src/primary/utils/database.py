@@ -1295,12 +1295,26 @@ class HuntarrDatabase(ConfigMixin, StateMixin, UsersMixin, RequestarrMixin, Extr
                     plex_user_data TEXT,
                     avatar_url TEXT,
                     request_count INTEGER DEFAULT 0,
+                    tv_category TEXT DEFAULT '',
+                    movie_category TEXT DEFAULT '',
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             ''')
             conn.execute('CREATE INDEX IF NOT EXISTS idx_requestarr_users_role ON requestarr_users(role)')
             conn.execute('CREATE INDEX IF NOT EXISTS idx_requestarr_users_username ON requestarr_users(username)')
+
+            # ── Migration: add tv_category / movie_category columns if missing ──
+            try:
+                cols = [r[1] for r in conn.execute('PRAGMA table_info(requestarr_users)').fetchall()]
+                if 'tv_category' not in cols:
+                    conn.execute("ALTER TABLE requestarr_users ADD COLUMN tv_category TEXT DEFAULT ''")
+                    logger.info("Added tv_category column to requestarr_users")
+                if 'movie_category' not in cols:
+                    conn.execute("ALTER TABLE requestarr_users ADD COLUMN movie_category TEXT DEFAULT ''")
+                    logger.info("Added movie_category column to requestarr_users")
+            except Exception as mig_err:
+                logger.warning(f"requestarr_users migration note: {mig_err}")
 
             # ── Requestarr Services (which instances are enabled for requests) ──
             conn.execute('''

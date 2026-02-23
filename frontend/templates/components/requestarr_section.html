@@ -326,6 +326,16 @@
         <div id="requestarr-users-view" class="requestarr-view" style="display: none;">
             <div class="requsers-toolbar">
                 <div class="requsers-toolbar-left">
+                    <button class="requsers-btn requsers-btn-bulk" id="requsers-bulk-edit-btn" style="display:none;"
+                        onclick="window.RequestarrUsers && window.RequestarrUsers.openBulkEditModal()">
+                        <i class="fas fa-pen"></i> Bulk Edit
+                    </button>
+                </div>
+                <div class="requsers-toolbar-right">
+                    <button class="requsers-btn requsers-btn-defaults"
+                        onclick="window.RequestarrUsers && window.RequestarrUsers.openDefaultCategoriesModal()">
+                        <i class="fas fa-cog"></i> Default Categories
+                    </button>
                     <button class="requsers-btn requsers-btn-primary"
                         onclick="window.RequestarrUsers && window.RequestarrUsers.openCreateModal()">
                         <i class="fas fa-user-plus"></i> Create Local User
@@ -333,12 +343,6 @@
                     <button class="requsers-btn requsers-btn-plex"
                         onclick="window.RequestarrUsers && window.RequestarrUsers.openPlexImportModal()">
                         <i class="fas fa-download"></i> Import Plex Users
-                    </button>
-                </div>
-                <div class="requsers-toolbar-right">
-                    <button class="requsers-btn requsers-btn-bulk" id="requsers-bulk-edit-btn" style="display:none;"
-                        onclick="window.RequestarrUsers && window.RequestarrUsers.openBulkEditModal()">
-                        <i class="fas fa-pen"></i> Bulk Edit
                     </button>
                 </div>
             </div>

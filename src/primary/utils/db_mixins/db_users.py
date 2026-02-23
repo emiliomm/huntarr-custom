@@ -279,7 +279,7 @@ class UsersMixin:
     def update_requestarr_user(self, user_id: int, updates: Dict[str, Any]) -> bool:
         """Update a requestarr user by ID. Pass a dict of column->value."""
         try:
-            allowed = {'username', 'password', 'email', 'role', 'permissions', 'plex_user_data', 'avatar_url', 'request_count'}
+            allowed = {'username', 'password', 'email', 'role', 'permissions', 'plex_user_data', 'avatar_url', 'request_count', 'tv_category', 'movie_category'}
             filtered = {k: v for k, v in updates.items() if k in allowed}
             if not filtered:
                 return True

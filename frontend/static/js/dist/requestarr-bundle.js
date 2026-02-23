@@ -7636,11 +7636,12 @@ document.addEventListener('DOMContentLoaded', () => {
 /* === modules/features/requestarr/requestarr-users.js === */
 /**
  * Requestarr User Management Module
- * Handles user list, create/edit/delete, Plex import, and permissions.
+ * Handles user list, create/edit/delete, Plex import, permissions, and category assignment.
  */
 
 window.RequestarrUsers = {
     users: [],
+    dropdownOptions: null, // cached { movie_options, tv_options }
     permissionLabels: {
         request_movies: 'Request Movies',
         request_tv: 'Request TV',
@@ -7653,8 +7654,51 @@ window.RequestarrUsers = {
         hide_media_global: 'Hide Media (Global)',
     },
 
+    selectedUserIds: new Set(),
+
     async init() {
+        await this._loadDropdownOptions();
         await this.loadUsers();
+    },
+
+    async _loadDropdownOptions() {
+        try {
+            const resp = await fetch('./api/requestarr/bundles/dropdown', { cache: 'no-store' });
+            if (resp.ok) {
+                this.dropdownOptions = await resp.json();
+            }
+        } catch (e) {
+            console.warn('[RequestarrUsers] Could not load dropdown options:', e);
+        }
+    },
+
+    _maskEmail(email) {
+        if (!email) return '';
+        const atIdx = email.indexOf('@');
+        if (atIdx <= 0) return email;
+        return '*'.repeat(atIdx) + email.substring(atIdx);
+    },
+
+    _getCategoryLabel(value) {
+        if (!value) return '';
+        if (!this.dropdownOptions) return value;
+        const allOptions = [
+            ...(this.dropdownOptions.movie_options || []),
+            ...(this.dropdownOptions.tv_options || []),
+        ];
+        const match = allOptions.find(o => o.value === value);
+        // If the value is set but not found in known options, it's defunct
+        return match ? match.label : null;
+    },
+
+    _isCategoryValid(value) {
+        if (!value) return true; // empty = no instance, always valid
+        if (!this.dropdownOptions) return true; // can't validate without options
+        const allOptions = [
+            ...(this.dropdownOptions.movie_options || []),
+            ...(this.dropdownOptions.tv_options || []),
+        ];
+        return allOptions.some(o => o.value === value);
     },
 
     async loadUsers() {
@@ -7672,8 +7716,6 @@ window.RequestarrUsers = {
         }
     },
 
-    selectedUserIds: new Set(),
-
     render() {
         const container = document.getElementById('requsers-content');
         if (!container) return;
@@ -7689,6 +7731,32 @@ window.RequestarrUsers = {
             const joined = u.created_at ? new Date(u.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '—';
             const isOwner = u.role === 'owner';
             const isChecked = this.selectedUserIds.has(u.id) ? 'checked' : '';
+            const maskedEmail = this._maskEmail(u.email);
+
+            const movieCatLabel = this._getCategoryLabel(u.movie_category);
+            const tvCatLabel = this._getCategoryLabel(u.tv_category);
+            let movieCatHtml, tvCatHtml;
+            if (isOwner) {
+                movieCatHtml = '<span class="requsers-cat-none" title="Owner sees all instances">—</span>';
+                tvCatHtml = '<span class="requsers-cat-none" title="Owner sees all instances">—</span>';
+            } else {
+                // movieCatLabel is null if defunct, '' if no value, or a string label
+                if (u.movie_category && movieCatLabel === null) {
+                    // Defunct category - treat as no instance
+                    movieCatHtml = '<span class="requsers-cat-badge requsers-cat-none-badge" title="Category no longer exists">No Instance</span>';
+                } else if (movieCatLabel) {
+                    movieCatHtml = `<span class="requsers-cat-badge requsers-cat-movie"><i class="fas fa-film"></i> ${this._esc(movieCatLabel)}</span>`;
+                } else {
+                    movieCatHtml = '<span class="requsers-cat-badge requsers-cat-none-badge">No Instance</span>';
+                }
+                if (u.tv_category && tvCatLabel === null) {
+                    tvCatHtml = '<span class="requsers-cat-badge requsers-cat-none-badge" title="Category no longer exists">No Instance</span>';
+                } else if (tvCatLabel) {
+                    tvCatHtml = `<span class="requsers-cat-badge requsers-cat-tv"><i class="fas fa-tv"></i> ${this._esc(tvCatLabel)}</span>`;
+                } else {
+                    tvCatHtml = '<span class="requsers-cat-badge requsers-cat-none-badge">No Instance</span>';
+                }
+            }
 
             return `<tr data-user-id="${u.id}">
                 <td class="requsers-checkbox-cell">
@@ -7699,12 +7767,14 @@ window.RequestarrUsers = {
                         <div class="requsers-avatar">${avatarHtml}</div>
                         <div class="requsers-user-info">
                             <span class="requsers-user-name">${this._esc(u.username)}</span>
-                            ${u.email ? `<span class="requsers-user-email">${this._esc(u.email)}</span>` : ''}
+                            ${maskedEmail ? `<span class="requsers-user-email">${this._esc(maskedEmail)}</span>` : ''}
                         </div>
                     </div>
                 </td>
                 <td>${u.request_count || 0}</td>
                 <td><span class="requsers-role-badge ${roleClass}">${u.role || 'user'}</span></td>
+                <td class="requsers-cat-cell">${movieCatHtml}</td>
+                <td class="requsers-cat-cell">${tvCatHtml}</td>
                 <td>${joined}</td>
                 <td>
                     <div class="requsers-actions">
@@ -7729,11 +7799,13 @@ window.RequestarrUsers = {
                             <th>User</th>
                             <th>Requests</th>
                             <th>Role</th>
+                            <th>Movie Cat.</th>
+                            <th>TV Cat.</th>
                             <th>Joined</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>${rows || '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted);">No users found</td></tr>'}</tbody>
+                    <tbody>${rows || '<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted);">No users found</td></tr>'}</tbody>
                 </table>
                 <div class="requsers-pagination">
                     <span>Showing ${this.users.length} user${this.users.length !== 1 ? 's' : ''}</span>
@@ -7750,13 +7822,13 @@ window.RequestarrUsers = {
         this._updateBulkEditButton();
     },
 
+    // ── Selection / Bulk ─────────────────────────────────────
+
     onRowCheckChange() {
-        // Sync selectedUserIds from DOM checkboxes
         this.selectedUserIds.clear();
         document.querySelectorAll('.requsers-row-cb:checked').forEach(cb => {
             this.selectedUserIds.add(parseInt(cb.dataset.userId));
         });
-        // Update select-all checkbox state
         const nonOwnerUsers = this.users.filter(u => u.role !== 'owner');
         const allChecked = nonOwnerUsers.length > 0 && nonOwnerUsers.every(u => this.selectedUserIds.has(u.id));
         const someChecked = nonOwnerUsers.some(u => this.selectedUserIds.has(u.id));
@@ -7791,6 +7863,8 @@ window.RequestarrUsers = {
         }
     },
 
+    // ── Bulk Edit Modal ──────────────────────────────────────
+
     openBulkEditModal() {
         if (this.selectedUserIds.size === 0) return;
 
@@ -7809,10 +7883,13 @@ window.RequestarrUsers = {
             </label>`;
         }).join('');
 
+        const movieOpts = this._buildCategoryOptions('movies', '');
+        const tvOpts = this._buildCategoryOptions('tv', '');
+
         const html = `<div class="requsers-modal-overlay" id="requsers-modal-overlay" onclick="if(event.target===this)RequestarrUsers.closeModal()">
             <div class="requsers-modal">
                 <div class="requsers-modal-header">
-                    <h3 class="requsers-modal-title"><i class="fas fa-pen" style="color:var(--accent-color);margin-right:6px;"></i> Bulk Edit Permissions</h3>
+                    <h3 class="requsers-modal-title"><i class="fas fa-pen" style="color:var(--accent-color);margin-right:6px;"></i> Bulk Edit</h3>
                     <button class="requsers-modal-close" onclick="RequestarrUsers.closeModal()"><i class="fas fa-times"></i></button>
                 </div>
                 <div class="requsers-modal-body">
@@ -7821,8 +7898,24 @@ window.RequestarrUsers = {
                         <span style="color:var(--text-secondary);">${selectedNames.map(n => this._esc(n)).join(', ')}</span>
                     </p>
                     <div class="requsers-field">
+                        <label>Movie Category</label>
+                        <select id="requsers-bulk-movie-cat" class="requsers-bulk-perm-select" style="width:100%;margin-bottom:6px;">
+                            <option value="unchanged" selected>— No Change —</option>
+                            <option value="">No Instance</option>
+                            ${movieOpts}
+                        </select>
+                    </div>
+                    <div class="requsers-field">
+                        <label>TV Category</label>
+                        <select id="requsers-bulk-tv-cat" class="requsers-bulk-perm-select" style="width:100%;margin-bottom:6px;">
+                            <option value="unchanged" selected>— No Change —</option>
+                            <option value="">No Instance</option>
+                            ${tvOpts}
+                        </select>
+                    </div>
+                    <div class="requsers-field">
                         <label>Permissions</label>
-                        <p style="color:var(--text-dim);font-size:0.78rem;margin-bottom:10px;">Select "Enable" or "Disable" to change. Leave as "No Change" to keep current value.</p>
+                        <p style="color:var(--text-dim);font-size:0.78rem;margin-bottom:10px;">Leave as "No Change" to keep current value.</p>
                         <div class="requsers-perms-grid requsers-bulk-perms-grid" id="requsers-bulk-perms-grid">${permsHtml}</div>
                     </div>
                 </div>
@@ -7841,7 +7934,7 @@ window.RequestarrUsers = {
         const grid = document.getElementById('requsers-bulk-perms-grid');
         if (!grid) return;
 
-        // Collect permission changes (only non-"unchanged" values)
+        // Collect permission changes
         const permChanges = {};
         grid.querySelectorAll('.requsers-bulk-perm-select').forEach(sel => {
             if (sel.value !== 'unchanged') {
@@ -7850,7 +7943,13 @@ window.RequestarrUsers = {
             }
         });
 
-        if (Object.keys(permChanges).length === 0) {
+        // Collect category changes
+        const movieCatSel = document.getElementById('requsers-bulk-movie-cat');
+        const tvCatSel = document.getElementById('requsers-bulk-tv-cat');
+        const movieCatChanged = movieCatSel && movieCatSel.value !== 'unchanged';
+        const tvCatChanged = tvCatSel && tvCatSel.value !== 'unchanged';
+
+        if (Object.keys(permChanges).length === 0 && !movieCatChanged && !tvCatChanged) {
             if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('No changes selected', 'info');
             return;
         }
@@ -7863,24 +7962,28 @@ window.RequestarrUsers = {
 
         for (const userId of this.selectedUserIds) {
             try {
-                // Get user's current permissions and merge changes
                 const user = this.users.find(u => u.id === userId);
                 if (!user || user.role === 'owner') continue;
 
-                const currentPerms = (typeof user.permissions === 'object') ? { ...user.permissions } : {};
-                const mergedPerms = { ...currentPerms, ...permChanges };
+                const body = {};
+
+                // Merge permissions
+                if (Object.keys(permChanges).length > 0) {
+                    const currentPerms = (typeof user.permissions === 'object') ? { ...user.permissions } : {};
+                    body.permissions = { ...currentPerms, ...permChanges };
+                }
+
+                if (movieCatChanged) body.movie_category = movieCatSel.value;
+                if (tvCatChanged) body.tv_category = tvCatSel.value;
 
                 const resp = await fetch(`./api/requestarr/users/${userId}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ permissions: mergedPerms }),
+                    body: JSON.stringify(body),
                 });
                 const data = await resp.json();
-                if (data.success) {
-                    successCount++;
-                } else {
-                    failCount++;
-                }
+                if (data.success) successCount++;
+                else failCount++;
             } catch (e) {
                 console.error(`[RequestarrUsers] Bulk edit error for user ${userId}:`, e);
                 failCount++;
@@ -7899,6 +8002,16 @@ window.RequestarrUsers = {
         await this.loadUsers();
     },
 
+    // ── Helpers ──────────────────────────────────────────────
+
+    _buildCategoryOptions(type, currentValue) {
+        if (!this.dropdownOptions) return '';
+        const options = type === 'movies' ? (this.dropdownOptions.movie_options || []) : (this.dropdownOptions.tv_options || []);
+        return options.map(o => {
+            const selected = o.value === currentValue ? 'selected' : '';
+            return `<option value="${this._esc(o.value)}" ${selected}>${this._esc(o.label)}</option>`;
+        }).join('');
+    },
 
     renderError() {
         const container = document.getElementById('requsers-content');
@@ -7907,7 +8020,7 @@ window.RequestarrUsers = {
         }
     },
 
-    // ── Create User Modal ────────────────────────────────────
+    // ── Create / Edit User Modal ─────────────────────────────
 
     openCreateModal() {
         this._openModal('Create Local User', null);
@@ -7941,6 +8054,25 @@ window.RequestarrUsers = {
                         <div class="requsers-field-hint"><a href="#" onclick="RequestarrUsers.fillGeneratedPassword();return false;">Generate random password</a></div>
                     </div>`;
 
+        const movieCatValue = (isEdit && user.movie_category) ? user.movie_category : '';
+        const tvCatValue = (isEdit && user.tv_category) ? user.tv_category : '';
+
+        const categoriesHtml = isOwner ? '' : `
+                    <div class="requsers-field">
+                        <label>Movie Category</label>
+                        <select id="requsers-modal-movie-cat">
+                            <option value="">No Instance</option>
+                            ${this._buildCategoryOptions('movies', movieCatValue)}
+                        </select>
+                    </div>
+                    <div class="requsers-field">
+                        <label>TV Category</label>
+                        <select id="requsers-modal-tv-cat">
+                            <option value="">No Instance</option>
+                            ${this._buildCategoryOptions('tv', tvCatValue)}
+                        </select>
+                    </div>`;
+
         const html = `<div class="requsers-modal-overlay" id="requsers-modal-overlay" onclick="if(event.target===this)RequestarrUsers.closeModal()">
             <div class="requsers-modal">
                 <div class="requsers-modal-header">
@@ -7962,7 +8094,7 @@ window.RequestarrUsers = {
                             <option value="user" ${(!isEdit || user.role === 'user') ? 'selected' : ''}>User</option>
                             ${isOwner ? '<option value="owner" selected>Owner</option>' : ''}
                         </select>
-                    </div>
+                    </div>${categoriesHtml}
                     <div class="requsers-field">
                         <label>Permissions</label>
                         <div class="requsers-perms-grid" id="requsers-perms-grid">${permsHtml}</div>
@@ -7975,7 +8107,6 @@ window.RequestarrUsers = {
             </div>
         </div>`;
 
-        // Remove existing modal if any
         this.closeModal();
         document.body.insertAdjacentHTML('beforeend', html);
     },
@@ -7995,7 +8126,6 @@ window.RequestarrUsers = {
             if (input && data.password) {
                 input.type = 'text';
                 input.value = data.password;
-                // Copy to clipboard
                 try { await navigator.clipboard.writeText(data.password); } catch (_) { }
                 if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('Password generated and copied to clipboard', 'success');
             }
@@ -8005,7 +8135,6 @@ window.RequestarrUsers = {
     },
 
     async onRoleChange() {
-        // Load default permissions for the selected role
         try {
             const resp = await fetch('./api/requestarr/users/permissions-template');
             const templates = await resp.json();
@@ -8044,6 +8173,12 @@ window.RequestarrUsers = {
 
         const body = { username, email, role, permissions };
         if (password) body.password = password;
+
+        // Category assignment
+        const movieCatEl = document.getElementById('requsers-modal-movie-cat');
+        const tvCatEl = document.getElementById('requsers-modal-tv-cat');
+        if (movieCatEl) body.movie_category = movieCatEl.value;
+        if (tvCatEl) body.tv_category = tvCatEl.value;
 
         const isEdit = userId !== null;
         if (!isEdit && (!password || password.length < 8)) {
@@ -8116,7 +8251,6 @@ window.RequestarrUsers = {
             const resp = await fetch('./api/requestarr/users/plex/friends');
             const data = await resp.json();
             if (data.error) {
-                // No Plex linked — offer to link it right here via popup
                 if (window.HuntarrConfirm && window.HuntarrConfirm.show) {
                     window.HuntarrConfirm.show({
                         title: 'Plex Account Not Linked',
@@ -8128,7 +8262,6 @@ window.RequestarrUsers = {
                 return;
             }
             const allUsers = data.friends || [];
-            // Split into importable and already-imported
             const importable = allUsers.filter(f => !f.already_imported);
             const alreadyImported = allUsers.filter(f => f.already_imported);
 
@@ -8149,7 +8282,7 @@ window.RequestarrUsers = {
                     <div class="requsers-plex-avatar-wrap">${avatarHtml}</div>
                     <div class="requsers-user-info">
                         <span class="requsers-user-name">${this._esc(f.username)}</span>
-                        ${f.email ? `<span class="requsers-user-email">${this._esc(f.email)}</span>` : ''}
+                        ${f.email ? `<span class="requsers-user-email">${this._esc(this._maskEmail(f.email))}</span>` : ''}
                     </div>
                     ${disabled ? '<span class="requsers-plex-imported-badge">Imported</span>' : ''}
                 </label>`;
@@ -8185,11 +8318,10 @@ window.RequestarrUsers = {
 
             this.closeModal();
             document.body.insertAdjacentHTML('beforeend', html);
-            // Attach change listeners to individual checkboxes for select-all sync
             const plexOverlay = document.getElementById('requsers-plex-modal-overlay');
             if (plexOverlay) {
                 plexOverlay.querySelectorAll('.requsers-plex-list input[type="checkbox"]:not(:disabled)').forEach(cb => {
-                    cb.addEventListener('change', () => this._updateSelectAllState());
+                    cb.addEventListener('change', () => this._updatePlexSelectAllState());
                 });
             }
         } catch (e) {
@@ -8206,7 +8338,7 @@ window.RequestarrUsers = {
         });
     },
 
-    _updateSelectAllState() {
+    _updatePlexSelectAllState() {
         const overlay = document.getElementById('requsers-plex-modal-overlay');
         if (!overlay) return;
         const allCbs = overlay.querySelectorAll('.requsers-plex-list input[type="checkbox"]:not(:disabled)');
@@ -8266,7 +8398,6 @@ window.RequestarrUsers = {
      * On success, automatically opens the Plex import modal.
      */
     _startPlexLinkFromUsers() {
-        // Create a status overlay
         const overlay = document.createElement('div');
         overlay.id = 'requsers-plex-link-overlay';
         overlay.style.cssText = 'position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;';
@@ -8298,7 +8429,6 @@ window.RequestarrUsers = {
         cancelBtn.addEventListener('click', cleanup);
         overlay.addEventListener('click', (e) => { if (e.target === overlay) cleanup(); });
 
-        // Request PIN with popup_mode
         fetch('./api/auth/plex/pin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -8314,13 +8444,11 @@ window.RequestarrUsers = {
                 pinId = data.pin_id;
                 statusEl.innerHTML = '<i class="fas fa-external-link-alt"></i> A Plex window has opened. Please sign in there.';
 
-                // Open popup
                 const w = 600, h = 700;
                 const left = Math.max(0, Math.round(window.screenX + (window.outerWidth - w) / 2));
                 const top = Math.max(0, Math.round(window.screenY + (window.outerHeight - h) / 2));
                 plexPopup = window.open(data.auth_url, 'PlexAuth', `width=${w},height=${h},left=${left},top=${top},toolbar=no,menubar=no,scrollbars=yes`);
 
-                // Poll for claim
                 pollInterval = setInterval(() => {
                     fetch(`./api/auth/plex/check/${pinId}`)
                         .then(r => r.json())
@@ -8330,7 +8458,6 @@ window.RequestarrUsers = {
                                 if (plexPopup && !plexPopup.closed) plexPopup.close();
                                 statusEl.className = 'plex-status success';
                                 statusEl.innerHTML = '<i class="fas fa-check"></i> Plex authenticated! Linking account...';
-                                // Link the account
                                 fetch('./api/auth/plex/link', {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
@@ -8359,7 +8486,6 @@ window.RequestarrUsers = {
                         .catch(() => { });
                 }, 2000);
 
-                // 10 min timeout
                 setTimeout(() => {
                     if (pollInterval) {
                         cleanup();
@@ -8371,6 +8497,89 @@ window.RequestarrUsers = {
                 statusEl.className = 'plex-status error';
                 statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Network error creating PIN';
             });
+    },
+
+    // ── Default Categories Modal ─────────────────────────────
+
+    async openDefaultCategoriesModal() {
+        // Load current defaults
+        let currentDefaults = { default_movie_category: '', default_tv_category: '' };
+        try {
+            const resp = await fetch('./api/requestarr/users/default-categories', { cache: 'no-store' });
+            if (resp.ok) currentDefaults = await resp.json();
+        } catch (e) {
+            console.warn('[RequestarrUsers] Could not load default categories:', e);
+        }
+
+        const movieOpts = this._buildCategoryOptions('movies', currentDefaults.default_movie_category || '');
+        const tvOpts = this._buildCategoryOptions('tv', currentDefaults.default_tv_category || '');
+
+        const html = `<div class="requsers-modal-overlay" id="requsers-modal-overlay" onclick="if(event.target===this)RequestarrUsers.closeModal()">
+            <div class="requsers-modal" style="max-width:480px;">
+                <div class="requsers-modal-header">
+                    <h3 class="requsers-modal-title"><i class="fas fa-cog" style="color:#2dd4bf;margin-right:6px;"></i> Default Categories</h3>
+                    <button class="requsers-modal-close" onclick="RequestarrUsers.closeModal()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="requsers-modal-body">
+                    <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:16px;">
+                        Set the default Movie and TV categories assigned to <strong style="color:var(--text-primary);">new users</strong> when they are created or imported.
+                    </p>
+                    <div class="requsers-field">
+                        <label>Default Movie Category</label>
+                        <select id="requsers-default-movie-cat">
+                            <option value="">No Instance</option>
+                            ${movieOpts}
+                        </select>
+                    </div>
+                    <div class="requsers-field">
+                        <label>Default TV Category</label>
+                        <select id="requsers-default-tv-cat">
+                            <option value="">No Instance</option>
+                            ${tvOpts}
+                        </select>
+                    </div>
+                </div>
+                <div class="requsers-modal-footer">
+                    <button class="requsers-btn" style="background:var(--bg-tertiary);color:var(--text-secondary);" onclick="RequestarrUsers.closeModal()">Cancel</button>
+                    <button class="requsers-btn requsers-btn-primary" id="requsers-default-save-btn" onclick="RequestarrUsers.saveDefaultCategories()">Save Defaults</button>
+                </div>
+            </div>
+        </div>`;
+
+        this.closeModal();
+        document.body.insertAdjacentHTML('beforeend', html);
+    },
+
+    async saveDefaultCategories() {
+        const movieCat = document.getElementById('requsers-default-movie-cat');
+        const tvCat = document.getElementById('requsers-default-tv-cat');
+        if (!movieCat || !tvCat) return;
+
+        const saveBtn = document.getElementById('requsers-default-save-btn');
+        if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Saving...'; }
+
+        try {
+            const resp = await fetch('./api/requestarr/users/default-categories', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    default_movie_category: movieCat.value,
+                    default_tv_category: tvCat.value,
+                }),
+            });
+            const data = await resp.json();
+            if (data.success) {
+                this.closeModal();
+                if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('Default categories saved', 'success');
+            } else {
+                if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification(data.error || 'Failed to save', 'error');
+            }
+        } catch (e) {
+            console.error('[RequestarrUsers] Error saving default categories:', e);
+            if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('Failed to save', 'error');
+        } finally {
+            if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = 'Save Defaults'; }
+        }
     },
 };
 

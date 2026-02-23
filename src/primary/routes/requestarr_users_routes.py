@@ -77,6 +77,8 @@ def _sanitize_user(user_dict):
         'plex_user_data': user_dict.get('plex_user_data'),
         'avatar_url': user_dict.get('avatar_url') or None,
         'request_count': user_dict.get('request_count', 0),
+        'tv_category': user_dict.get('tv_category', ''),
+        'movie_category': user_dict.get('movie_category', ''),
     }
     # Extract avatar from plex data if not already set in avatar_url column
     if not safe['avatar_url'] and isinstance(safe['plex_user_data'], dict):
@@ -189,6 +191,24 @@ def create_user():
         if success:
             logger.info(f"User '{username}' created by '{current_user.get('username')}' with role '{role}'")
             new_user = db.get_requestarr_user_by_username(username)
+            # Apply default categories (or explicit ones from request)
+            if new_user:
+                cat_updates = {}
+                if 'movie_category' in data:
+                    cat_updates['movie_category'] = data['movie_category']
+                else:
+                    default_movie = db.get_general_setting('default_movie_category', '')
+                    if default_movie:
+                        cat_updates['movie_category'] = default_movie
+                if 'tv_category' in data:
+                    cat_updates['tv_category'] = data['tv_category']
+                else:
+                    default_tv = db.get_general_setting('default_tv_category', '')
+                    if default_tv:
+                        cat_updates['tv_category'] = default_tv
+                if cat_updates:
+                    db.update_requestarr_user(new_user['id'], cat_updates)
+                    new_user = db.get_requestarr_user_by_username(username)
             return jsonify({'success': True, 'user': _sanitize_user(new_user)}), 201
         return jsonify({'error': 'Failed to create user'}), 500
     except Exception as e:
@@ -228,6 +248,10 @@ def update_user(user_id):
         if 'permissions' in data and isinstance(data['permissions'], dict):
             import json
             updates['permissions'] = json.dumps(data['permissions'])
+        if 'tv_category' in data:
+            updates['tv_category'] = data.get('tv_category', '')
+        if 'movie_category' in data:
+            updates['movie_category'] = data.get('movie_category', '')
 
         if updates:
             success = db.update_requestarr_user(user_id, updates)
@@ -471,10 +495,20 @@ def import_plex_users():
                 plex_user_data=plex_data
             )
             if success:
-                # Store avatar URL directly in the avatar_url column
+                # Store avatar URL and apply default categories
                 new_user = db.get_requestarr_user_by_username(username)
-                if new_user and plex_user['thumb']:
-                    db.update_requestarr_user(new_user['id'], {'avatar_url': plex_user['thumb']})
+                if new_user:
+                    plex_updates = {}
+                    if plex_user['thumb']:
+                        plex_updates['avatar_url'] = plex_user['thumb']
+                    default_movie = db.get_general_setting('default_movie_category', '')
+                    if default_movie:
+                        plex_updates['movie_category'] = default_movie
+                    default_tv = db.get_general_setting('default_tv_category', '')
+                    if default_tv:
+                        plex_updates['tv_category'] = default_tv
+                    if plex_updates:
+                        db.update_requestarr_user(new_user['id'], plex_updates)
                 imported.append(username)
             else:
                 skipped.append({'id': fid, 'username': username, 'reason': 'Creation failed'})
@@ -484,3 +518,40 @@ def import_plex_users():
     except Exception as e:
         logger.error(f"Error importing Plex users: {e}")
         return jsonify({'error': 'Failed to import Plex users'}), 500
+
+# ── Default Categories ───────────────────────────────────────
+
+@requestarr_users_bp.route('/default-categories', methods=['GET'])
+def get_default_categories():
+    """Get default movie/tv categories for new users."""
+    _, err = _require_owner()
+    if err:
+        return err
+    try:
+        db = get_database()
+        return jsonify({
+            'default_movie_category': db.get_general_setting('default_movie_category', ''),
+            'default_tv_category': db.get_general_setting('default_tv_category', ''),
+        })
+    except Exception as e:
+        logger.error(f"Error getting default categories: {e}")
+        return jsonify({'error': 'Failed to get default categories'}), 500
+
+
+@requestarr_users_bp.route('/default-categories', methods=['PUT'])
+def set_default_categories():
+    """Set default movie/tv categories for new users."""
+    _, err = _require_owner()
+    if err:
+        return err
+    try:
+        data = request.json or {}
+        db = get_database()
+        if 'default_movie_category' in data:
+            db.set_general_setting('default_movie_category', data['default_movie_category'])
+        if 'default_tv_category' in data:
+            db.set_general_setting('default_tv_category', data['default_tv_category'])
+        return jsonify({'success': True})
+    except Exception as e:
+        logger.error(f"Error setting default categories: {e}")
+        return jsonify({'error': 'Failed to set default categories'}), 500
