@@ -1,207 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Requests - Huntarr Docs</title>
+    <title>Requestarr - Huntarr Documentation</title>
+    <meta name="description"
+        content="Requestarr is Huntarr's built-in media request system — user accounts, approval queues, auto-approve, bundles, and per-user permissions for movies and TV shows.">
     <link rel="icon" type="image/png" href="../images/huntarr-logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/main.css">
 </head>
+
 <body>
 
-<!-- Mobile Topbar -->
-<div class="docs-mobile-topbar">
-    <button class="mob-hamburger" aria-label="Open navigation"><span></span><span></span><span></span></button>
-    <img src="../images/huntarr-logo.png" alt="Huntarr" class="mob-logo">
-    <span class="mob-title">Documentation</span>
-</div>
+    <div class="docs-mobile-topbar">
+        <button class="mob-hamburger" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <img src="../images/huntarr-logo.png" alt="Huntarr" class="mob-logo">
+        <span class="mob-title">Documentation</span>
+    </div>
+    <div class="docs-sidebar-backdrop"></div>
 
-<!-- Sidebar Backdrop (mobile) -->
-<div class="docs-sidebar-backdrop"></div>
-
-<div class="docs-layout">
-
-    <!-- ===== SIDEBAR ===== -->
-    <nav class="docs-sidebar" aria-label="Documentation navigation">
-        <a href="../index.html" class="sidebar-brand">
-            <img src="../images/huntarr-logo.png" alt="Huntarr">
-            <span>Huntarr</span>
-        </a>
-
-        <div class="sidebar-scroll">
-
-            <!-- Getting Started -->
-            <div class="nav-group">
-                <div class="nav-group-title">Getting Started</div>
-                <div class="nav-group-items">
-                    <a href="../index.html"><i class="fas fa-home"></i> Welcome</a>
-                    <a href="../getting-started/installation.html"><i class="fas fa-download"></i> Installation</a>
-                    <a href="../getting-started/setup-wizard.html"><i class="fas fa-magic"></i> Setup Wizard</a>
-                    <a href="../getting-started/first-steps.html"><i class="fas fa-rocket"></i> First Steps</a>
+    <div class="docs-layout">
+        <nav class="docs-sidebar" aria-label="Documentation navigation">
+            <a href="../index.html" class="sidebar-brand">
+                <img src="../images/huntarr-logo.png" alt="Huntarr"><span>Huntarr</span>
+            </a>
+            <div class="sidebar-scroll">
+                <a href="https://plexguide.github.io/Huntarr.io/donate.html" target="_blank" rel="noopener"
+                    class="sidebar-donate-link"><i class="fas fa-heart"></i> Donate</a>
+                <div class="nav-group">
+                    <div class="nav-group-title">Getting Started</div>
+                    <div class="nav-group-items">
+                        <a href="../index.html"><i class="fas fa-home"></i> Welcome</a>
+                        <a href="../getting-started/installation.html"><i class="fas fa-download"></i> Installation</a>
+                        <a href="../getting-started/setup-wizard.html"><i class="fas fa-magic"></i> Setup Wizard</a>
+                        <a href="../getting-started/first-steps.html"><i class="fas fa-rocket"></i> First Steps</a>
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">Apps</div>
+                    <div class="nav-group-items">
+                        <a href="../apps/index.html"><i class="fas fa-plug"></i> 3rd Party Apps</a>
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">Movie Hunt</div>
+                    <div class="nav-group-items">
+                        <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span
+                                class="nav-badge nav-badge-beta">Beta</span></a>
+                        <a href="../movie-hunt/media-collection.html"><i class="fas fa-photo-film"></i> Media
+                            Collection</a>
+                        <a href="../movie-hunt/indexers-clients.html"><i class="fas fa-server"></i> Indexers &amp;
+                            Clients</a>
+                        <a href="../movie-hunt/profiles.html"><i class="fas fa-sliders"></i> Profiles</a>
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">NZB Hunt</div>
+                    <div class="nav-group-items">
+                        <a href="../nzb-hunt/index.html"><i class="fas fa-newspaper"></i> Overview <span
+                                class="nav-badge nav-badge-beta">Beta</span></a>
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">Requests</div>
+                    <div class="nav-group-items">
+                        <a href="index.html" class="active"><i class="fas fa-hand-paper"></i> Requests</a>
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">Settings</div>
+                    <div class="nav-group-items">
+                        <a href="../settings/index.html"><i class="fas fa-cog"></i> Main Settings</a>
+                        <a href="../settings/scheduling.html"><i class="fas fa-clock"></i> Scheduling</a>
+                        <a href="../settings/notifications.html"><i class="fas fa-bell"></i> Notifications</a>
+                        <a href="../settings/backup-restore.html"><i class="fas fa-database"></i> Backup &amp;
+                            Restore</a>
+                        <a href="../settings/log-settings.html"><i class="fas fa-file-alt"></i> Log Settings</a>
+                        <a href="../settings/user-account.html"><i class="fas fa-user-shield"></i> User Account</a>
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">System</div>
+                    <div class="nav-group-items">
+                        <a href="../system/hunt-manager.html"><i class="fas fa-tasks"></i> Hunt Manager</a>
+                        <a href="../system/logs.html"><i class="fas fa-scroll"></i> Logs</a>
+                        <a href="../system/api.html"><i class="fas fa-code"></i> API Reference</a>
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">Help</div>
+                    <div class="nav-group-items">
+                        <a href="../help/faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
+                        <a href="../help/community.html"><i class="fas fa-users"></i> Community</a>
+                        <a href="https://plexguide.github.io/Huntarr.io/donate.html"><i class="fas fa-heart"></i>
+                            Donate</a>
+                    </div>
                 </div>
             </div>
+            <div class="sidebar-footer">
+                <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank" class="sf-discord" title="Discord"><i
+                        class="fab fa-discord"></i></a>
+                <a href="https://www.reddit.com/r/huntarr/" target="_blank" class="sf-reddit" title="Reddit"><i
+                        class="fab fa-reddit-alien"></i></a>
+                <a href="https://github.com/plexguide/Huntarr.io" target="_blank" class="sf-github" title="GitHub"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://plexguide.github.io/Huntarr.io/donate.html" class="sf-heart" title="Donate"><i
+                        class="fas fa-heart"></i></a>
+            </div>
+        </nav>
 
-            <!-- Apps -->
-            <div class="nav-group">
-                <div class="nav-group-title">Apps</div>
-                <div class="nav-group-items">
-                    <a href="../apps/index.html"><i class="fas fa-plug"></i> 3rd Party Apps</a>
+        <main class="docs-main">
+            <div class="docs-content">
+
+                <h1>Requestarr</h1>
+                <p class="page-subtitle">A complete media request system — user accounts, approval queues, bundles, and
+                    per-user permissions. Works with all your instances, built-in and third-party.</p>
+
+                <h2>What is Requestarr?</h2>
+                <p>Requestarr is Huntarr's built-in media request platform. Users (including other people you invite)
+                    can discover and request movies and TV shows. Those requests flow through an approval queue that you
+                    control as the owner. Approved requests are automatically sent to whatever library instances you
+                    configure — Movie Hunt, TV Hunt, Sonarr, Radarr, or a Bundle that hits multiple instances at once.
+                </p>
+                <p>Think of it like Overseerr or Jellyseerr, but built directly into Huntarr with no extra container
+                    required.</p>
+
+                <h2>Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="fc-icon icon-blue"><i class="fas fa-users"></i></div>
+                        <h3>User Accounts</h3>
+                        <p>Invite family or friends as users. Each user can browse, search, and request — but cannot
+                            access instance settings, hunt controls, or other admin areas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="fc-icon icon-green"><i class="fas fa-tasks"></i></div>
+                        <h3>Approval Queue</h3>
+                        <p>All requests from non-auto-approved users land in a pending queue. You review and approve or
+                            deny each one. Approved requests are immediately sent to the target instance(s).</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="fc-icon icon-gold"><i class="fas fa-rocket"></i></div>
+                        <h3>Auto-Approve</h3>
+                        <p>Grant specific users auto-approve so their requests skip the queue entirely and go straight
+                            to the library. Perfect for trusted users who you don't want to manually approve every time.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="fc-icon icon-purple"><i class="fas fa-cubes"></i></div>
+                        <h3>Bundles</h3>
+                        <p>Group multiple instances together into a bundle. When a user requests something through a
+                            bundle, the request is sent to all members simultaneously — failure on one member is
+                            non-fatal and the rest continue.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="fc-icon icon-red"><i class="fas fa-film"></i></div>
+                        <h3>Movies &amp; TV Shows</h3>
+                        <p>Request both movies and TV series. Movie requests route to Movie Hunt or Radarr instances. TV
+                            requests route to TV Hunt or Sonarr instances. All in the same interface.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="fc-icon icon-cyan"><i class="fas fa-hdd"></i></div>
+                        <h3>Import to Library</h3>
+                        <p>If files are already on disk, Requestarr detects them and offers a direct disk import instead
+                            of re-downloading. The import runs on the primary instance; bundle members still receive a
+                            normal request.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="fc-icon icon-orange"><i class="fas fa-sign-in-alt"></i></div>
+                        <h3>Plex SSO</h3>
+                        <p>Optional Plex sign-in integration. Users can authenticate via their Plex accounts instead of
+                            a separate Huntarr password, making access convenient for households already using Plex.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="fc-icon icon-blue"><i class="fas fa-search"></i></div>
+                        <h3>Discover &amp; Search</h3>
+                        <p>Browse trending, popular, top-rated, and upcoming movies and shows powered by TMDB. Search by
+                            title, filter by genre, and see what's already in your library before requesting.</p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Movie Hunt -->
-            <div class="nav-group">
-                <div class="nav-group-title">Movie Hunt</div>
-                <div class="nav-group-items">
-                    <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span class="nav-badge nav-badge-beta">Beta</span></a>
-                    <a href="../movie-hunt/media-collection.html"><i class="fas fa-photo-film"></i> Media Collection</a>
-                    <a href="../movie-hunt/indexers-clients.html"><i class="fas fa-server"></i> Indexers &amp; Clients</a>
-                    <a href="../movie-hunt/profiles.html"><i class="fas fa-sliders"></i> Profiles</a>
-                </div>
-            </div>
+                <h2>How the Request Flow Works</h2>
+                <ol>
+                    <li>A user opens Requestarr, searches or browses for a title, and clicks <strong>Request</strong>.
+                    </li>
+                    <li>They select which instance or bundle to request from (e.g., "My Movies Bundle" or "Sonarr 4K").
+                    </li>
+                    <li>If the user is <strong>auto-approved</strong>, the request goes directly to that instance
+                        immediately.</li>
+                    <li>If the user requires approval, the request enters the <strong>pending queue</strong> and the
+                        owner is notified.</li>
+                    <li>The owner <strong>approves or denies</strong> the request in the Requestarr admin view.</li>
+                    <li>On approval:
+                        <ul>
+                            <li>For a single instance: the request is sent to that specific Movie Hunt, TV Hunt, Sonarr,
+                                or Radarr instance.</li>
+                            <li>For a bundle: the request is sent to the primary instance, then cascades to every other
+                                bundle member. Members that fail (misconfigured, offline, etc.) are skipped — the
+                                cascade continues.</li>
+                        </ul>
+                    </li>
+                    <li>The requesting user can see the status of their request update in real time.</li>
+                </ol>
 
-            <!-- NZB Hunt -->
-            <div class="nav-group">
-                <div class="nav-group-title">NZB Hunt</div>
-                <div class="nav-group-items">
-                    <a href="../nzb-hunt/index.html"><i class="fas fa-newspaper"></i> Overview <span class="nav-badge nav-badge-beta">Beta</span></a>
-                </div>
-            </div>
+                <h2>Bundles — Explained</h2>
+                <p>Bundles let a single request reach multiple instances at once. This is useful when you maintain
+                    separate libraries — for example, a 1080p Radarr and a 4K Radarr — and want a request to go to both
+                    simultaneously.</p>
+                <p>Bundles support <strong>mixed app types</strong>. A single movie bundle can include a Movie Hunt
+                    instance and a Radarr instance together. A TV bundle can include TV Hunt and Sonarr. Each member is
+                    requested independently using its own app type and API.</p>
 
-            <!-- Requestarr -->
-            <div class="nav-group">
-                <div class="nav-group-title">Requests</div>
-                <div class="nav-group-items">
-                    <a href="../requestarr/index.html" class="active"><i class="fas fa-hand-paper"></i> Requests</a>
-                </div>
-            </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Bundle Configuration</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Send to 1080p + 4K Radarr</td>
+                            <td>Primary: Radarr 1080p, Member: Radarr 4K</td>
+                            <td>Both Radarr instances receive the movie request</td>
+                        </tr>
+                        <tr>
+                            <td>Movie Hunt + Radarr fallback</td>
+                            <td>Primary: Movie Hunt, Member: Radarr</td>
+                            <td>Movie Hunt gets the request first, Radarr also receives it</td>
+                        </tr>
+                        <tr>
+                            <td>TV Hunt + Sonarr</td>
+                            <td>Primary: TV Hunt, Member: Sonarr</td>
+                            <td>Both instances receive the TV show request</td>
+                        </tr>
+                        <tr>
+                            <td>Member fails (offline)</td>
+                            <td>Any bundle</td>
+                            <td>Error is logged, remaining members continue — no cascade stop</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <!-- Settings -->
-            <div class="nav-group">
-                <div class="nav-group-title">Settings</div>
-                <div class="nav-group-items">
-                    <a href="../settings/index.html"><i class="fas fa-cog"></i> Main Settings</a>
-                    <a href="../settings/scheduling.html"><i class="fas fa-clock"></i> Scheduling</a>
-                    <a href="../settings/notifications.html"><i class="fas fa-bell"></i> Notifications</a>
-                    <a href="../settings/backup-restore.html"><i class="fas fa-database"></i> Backup &amp; Restore</a>
-                    <a href="../settings/log-settings.html"><i class="fas fa-file-alt"></i> Log Settings</a>
-                    <a href="../settings/user-account.html"><i class="fas fa-user-shield"></i> User Account</a>
-                </div>
-            </div>
+                <h2>User Roles</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Can Request</th>
+                            <th>Auto-Approved</th>
+                            <th>Can Manage Settings</th>
+                            <th>Can Approve Others</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Owner</strong></td>
+                            <td>Yes</td>
+                            <td>Yes (always)</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>User (auto-approve)</strong></td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td><strong>User (standard)</strong></td>
+                            <td>Yes</td>
+                            <td>No — goes to queue</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <!-- System -->
-            <div class="nav-group">
-                <div class="nav-group-title">System</div>
-                <div class="nav-group-items">
-                    <a href="../system/hunt-manager.html"><i class="fas fa-tasks"></i> Hunt Manager</a>
-                    <a href="../system/logs.html"><i class="fas fa-scroll"></i> Logs</a>
-                    <a href="../system/api.html"><i class="fas fa-code"></i> API Reference</a>
-                </div>
-            </div>
+                <h2>Setting Up Requestarr</h2>
+                <ol>
+                    <li>Navigate to <strong>Requests</strong> in the sidebar.</li>
+                    <li>Go to <strong>Requestarr Settings</strong> and ensure Requestarr is enabled.</li>
+                    <li>Configure which instances are available for requests — select Movie Hunt, TV Hunt, Sonarr, or
+                        Radarr instances you've already added under Apps.</li>
+                    <li>Optionally <strong>create bundles</strong>: navigate to <strong>Bundles</strong>, click
+                        <strong>Add Bundle</strong>, select a primary instance and add members.</li>
+                    <li>To invite other users, go to <strong>Settings → User Account → Users</strong> and create
+                        accounts. Decide whether each user gets auto-approve.</li>
+                    <li>Share the Huntarr URL with invited users — they log in with their own credentials or Plex SSO
+                        and see only the Requests section (not hunt controls or settings).</li>
+                </ol>
 
-            <!-- Help -->
-            <div class="nav-group">
-                <div class="nav-group-title">Help</div>
-                <div class="nav-group-items">
-                    <a href="../help/faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
-                    <a href="../help/community.html"><i class="fas fa-users"></i> Community</a>
-                    <a href="https://plexguide.github.io/Huntarr.io/donate.html"><i class="fas fa-heart"></i> Donate</a>
-                </div>
-            </div>
+                <h2>Configuration Reference</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Requestarr Enabled</strong></td>
+                            <td>Master switch. Turn off to disable all request functionality.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Default Instance</strong></td>
+                            <td>Which instance is pre-selected in the request modal by default.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TMDB Language</strong></td>
+                            <td>Language for metadata, titles, and overviews (e.g., <code>en</code>, <code>de</code>,
+                                <code>fr</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Auto-Approve (per user)</strong></td>
+                            <td>Grant auto-approve to specific users so their requests skip the pending queue.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plex SSO</strong></td>
+                            <td>Allow users to sign in with their Plex account rather than a Huntarr password.</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        </div><!-- /sidebar-scroll -->
+                <h2>Tips</h2>
+                <ul>
+                    <li><strong>Use bundles for multi-quality setups</strong> — if you maintain a 1080p and 4K library,
+                        create a bundle so one click delivers to both.</li>
+                    <li><strong>Auto-approve yourself and trusted users</strong> — reserving the pending queue only for
+                        new or untrusted users keeps approvals manageable.</li>
+                    <li><strong>Requestarr respects existing library status</strong> — if a movie is already in your
+                        library, the request modal shows its current status (downloading, imported, etc.) so users know
+                        without asking.</li>
+                    <li><strong>Disk import works with bundles</strong> — if files are already on disk and the user
+                        clicks "Import to Library," the primary instance imports them directly, and all other bundle
+                        members still receive a standard request.</li>
+                    <li><strong>No TMDB API key needed</strong> — Huntarr uses TMDB's public endpoints for discovery and
+                        metadata. No account or key required.</li>
+                </ul>
 
-        <div class="sidebar-footer">
-            <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank" class="sf-discord" title="Discord"><i class="fab fa-discord"></i></a>
-            <a href="https://www.reddit.com/r/huntarr/" target="_blank" class="sf-reddit" title="Reddit"><i class="fab fa-reddit-alien"></i></a>
-            <a href="https://github.com/plexguide/Huntarr.io" target="_blank" class="sf-github" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://plexguide.github.io/Huntarr.io/donate.html" class="sf-heart" title="Donate"><i class="fas fa-heart"></i></a>
-        </div>
-    </nav>
+            </div><!-- /docs-content -->
 
-    <!-- ===== MAIN ===== -->
-    <main class="docs-main">
-        <div class="docs-content">
+            <footer class="docs-footer">
+                <p>Huntarr is open source. <a href="https://github.com/plexguide/Huntarr.io" target="_blank">GitHub</a>
+                    · <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank">Discord</a> · <a
+                        href="https://www.reddit.com/r/huntarr/" target="_blank">Reddit</a></p>
+            </footer>
+        </main>
+    </div><!-- /docs-layout -->
 
-            <h1>Requests</h1>
-            <p class="page-subtitle">Discover and request media for your library — for the person running Huntarr, not for other users.</p>
-
-            <div class="alert alert-info">
-                <strong>Requests is for you, the person running Huntarr.</strong> It is not intended for friends, family, or other end users. Use it to browse and request movies and shows for your own library.
-            </div>
-
-            <h2>What is Requests?</h2>
-            <ul>
-                <li>Requests is Huntarr's built-in media request system</li>
-                <li>You can browse trending/popular media and submit requests for your library</li>
-                <li>Requests are processed by Movie Hunt or your connected *arr apps</li>
-                <li>No separate request service needed (like Overseerr or Petio)</li>
-            </ul>
-
-            <h2>Features</h2>
-            <ul>
-                <li><strong>Discover:</strong> Browse trending, popular, and new releases</li>
-                <li><strong>Search:</strong> Find specific movies or shows by title</li>
-                <li><strong>Request:</strong> One-click requests with automatic processing</li>
-                <li><strong>Status tracking:</strong> See if requested media has been downloaded</li>
-                <li><strong>Integration:</strong> Works with Movie Hunt, Sonarr, and Radarr</li>
-            </ul>
-
-            <h2>How It Works</h2>
-            <ol>
-                <li>Open the Requests section in Huntarr</li>
-                <li>Browse or search for desired media</li>
-                <li>Click "Request" to submit</li>
-                <li>Huntarr processes the request:
-                    <ul>
-                        <li>For movies: Sent to Movie Hunt or Radarr</li>
-                        <li>For TV shows: Sent to Sonarr</li>
-                    </ul>
-                </li>
-                <li>Media is automatically searched and downloaded</li>
-                <li>You can see the status update in your request history</li>
-            </ol>
-
-            <h2>Configuration</h2>
-            <p>Settings are managed in Settings &gt; Requests:</p>
-
-            <h3>Settings Table</h3>
-            <table>
-                <thead>
-                    <tr><th>Setting</th><th>Description</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>Enabled</strong></td><td>Turn Requests on/off</td></tr>
-                    <tr><td><strong>Default Root Folder</strong></td><td>Where requested media is stored</td></tr>
-                    <tr><td><strong>Default Quality Profile</strong></td><td>Quality profile for requested media</td></tr>
-                    <tr><td><strong>Auto-Approve</strong></td><td>Automatically approve all requests (vs. manual approval)</td></tr>
-                    <tr><td><strong>TMDb Language</strong></td><td>Language for movie/show metadata</td></tr>
-                </tbody>
-            </table>
-
-            <h2>Tips</h2>
-            <ul>
-                <li>Enable auto-approve if you want requests to be processed immediately</li>
-                <li>Set appropriate quality profiles to manage disk space</li>
-                <li>Requests uses TMDb for metadata — no API key needed</li>
-                <li>Requested items appear in Movie Hunt's library once processed</li>
-            </ul>
-
-            <div class="alert alert-info">
-                <strong>Requests currently focuses on movie requests.</strong> TV show requests route through your Sonarr instance if connected.
-            </div>
-
-        </div><!-- /docs-content -->
-
-        <footer class="docs-footer">
-            <p>Huntarr is open source. <a href="https://github.com/plexguide/Huntarr.io" target="_blank">GitHub</a> · <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank">Discord</a> · <a href="https://www.reddit.com/r/huntarr/" target="_blank">Reddit</a></p>
-        </footer>
-    </main>
-
-</div><!-- /docs-layout -->
-
-<button class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
-<script src="../js/main.js"></script>
+    <button class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+    <script src="../js/main.js"></script>
 </body>
+
 </html>

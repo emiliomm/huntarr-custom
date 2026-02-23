@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,264 +9,386 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/main.css">
 </head>
+
 <body>
 
-<!-- Mobile Topbar -->
-<div class="docs-mobile-topbar">
-    <button class="mob-hamburger" aria-label="Open navigation"><span></span><span></span><span></span></button>
-    <img src="../images/huntarr-logo.png" alt="Huntarr" class="mob-logo">
-    <span class="mob-title">Documentation</span>
-</div>
+    <!-- Mobile Topbar -->
+    <div class="docs-mobile-topbar">
+        <button class="mob-hamburger" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <img src="../images/huntarr-logo.png" alt="Huntarr" class="mob-logo">
+        <span class="mob-title">Documentation</span>
+    </div>
 
-<!-- Sidebar Backdrop (mobile) -->
-<div class="docs-sidebar-backdrop"></div>
+    <!-- Sidebar Backdrop (mobile) -->
+    <div class="docs-sidebar-backdrop"></div>
 
-<div class="docs-layout">
+    <div class="docs-layout">
 
-    <!-- ===== SIDEBAR ===== -->
-    <nav class="docs-sidebar" aria-label="Documentation navigation">
-        <a href="../index.html" class="sidebar-brand">
-            <img src="../images/huntarr-logo.png" alt="Huntarr">
-            <span>Huntarr</span>
-        </a>
+        <!-- ===== SIDEBAR ===== -->
+        <nav class="docs-sidebar" aria-label="Documentation navigation">
+            <a href="../index.html" class="sidebar-brand">
+                <img src="../images/huntarr-logo.png" alt="Huntarr">
+                <span>Huntarr</span>
+            </a>
 
-        <div class="sidebar-scroll">
+            <div class="sidebar-scroll">
 
-            <!-- Getting Started -->
-            <div class="nav-group">
-                <div class="nav-group-title">Getting Started</div>
-                <div class="nav-group-items">
-                    <a href="../index.html"><i class="fas fa-home"></i> Welcome</a>
-                    <a href="../getting-started/installation.html"><i class="fas fa-download"></i> Installation</a>
-                    <a href="../getting-started/setup-wizard.html"><i class="fas fa-magic"></i> Setup Wizard</a>
-                    <a href="../getting-started/first-steps.html"><i class="fas fa-rocket"></i> First Steps</a>
+                <!-- Getting Started -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Getting Started</div>
+                    <div class="nav-group-items">
+                        <a href="../index.html"><i class="fas fa-home"></i> Welcome</a>
+                        <a href="../getting-started/installation.html"><i class="fas fa-download"></i> Installation</a>
+                        <a href="../getting-started/setup-wizard.html"><i class="fas fa-magic"></i> Setup Wizard</a>
+                        <a href="../getting-started/first-steps.html"><i class="fas fa-rocket"></i> First Steps</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Apps -->
-            <div class="nav-group">
-                <div class="nav-group-title">Apps</div>
-                <div class="nav-group-items">
-                    <a href="../apps/index.html"><i class="fas fa-plug"></i> 3rd Party Apps</a>
+                <!-- Apps -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Apps</div>
+                    <div class="nav-group-items">
+                        <a href="../apps/index.html"><i class="fas fa-plug"></i> 3rd Party Apps</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Movie Hunt -->
-            <div class="nav-group">
-                <div class="nav-group-title">Movie Hunt</div>
-                <div class="nav-group-items">
-                    <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span class="nav-badge nav-badge-beta">Beta</span></a>
-                    <a href="../movie-hunt/media-collection.html"><i class="fas fa-photo-film"></i> Media Collection</a>
-                    <a href="../movie-hunt/indexers-clients.html"><i class="fas fa-server"></i> Indexers &amp; Clients</a>
-                    <a href="../movie-hunt/profiles.html"><i class="fas fa-sliders"></i> Profiles</a>
+                <!-- Movie Hunt -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Movie Hunt</div>
+                    <div class="nav-group-items">
+                        <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span
+                                class="nav-badge nav-badge-beta">Beta</span></a>
+                        <a href="../movie-hunt/media-collection.html"><i class="fas fa-photo-film"></i> Media
+                            Collection</a>
+                        <a href="../movie-hunt/indexers-clients.html"><i class="fas fa-server"></i> Indexers &amp;
+                            Clients</a>
+                        <a href="../movie-hunt/profiles.html"><i class="fas fa-sliders"></i> Profiles</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- NZB Hunt -->
-            <div class="nav-group">
-                <div class="nav-group-title">NZB Hunt</div>
-                <div class="nav-group-items">
-                    <a href="../nzb-hunt/index.html"><i class="fas fa-newspaper"></i> Overview <span class="nav-badge nav-badge-beta">Beta</span></a>
+                <!-- NZB Hunt -->
+                <div class="nav-group">
+                    <div class="nav-group-title">NZB Hunt</div>
+                    <div class="nav-group-items">
+                        <a href="../nzb-hunt/index.html"><i class="fas fa-newspaper"></i> Overview <span
+                                class="nav-badge nav-badge-beta">Beta</span></a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Requestarr -->
-            <div class="nav-group">
-                <div class="nav-group-title">Requests</div>
-                <div class="nav-group-items">
-                    <a href="../requestarr/index.html"><i class="fas fa-hand-paper"></i> Requests</a>
+                <!-- Requestarr -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Requests</div>
+                    <div class="nav-group-items">
+                        <a href="../requestarr/index.html"><i class="fas fa-hand-paper"></i> Requests</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Settings -->
-            <div class="nav-group">
-                <div class="nav-group-title">Settings</div>
-                <div class="nav-group-items">
-                    <a href="../settings/index.html"><i class="fas fa-cog"></i> Main Settings</a>
-                    <a href="../settings/scheduling.html"><i class="fas fa-clock"></i> Scheduling</a>
-                    <a href="../settings/notifications.html"><i class="fas fa-bell"></i> Notifications</a>
-                    <a href="../settings/backup-restore.html"><i class="fas fa-database"></i> Backup &amp; Restore</a>
-                    <a href="../settings/log-settings.html"><i class="fas fa-file-alt"></i> Log Settings</a>
-                    <a href="../settings/user-account.html"><i class="fas fa-user-shield"></i> User Account</a>
+                <!-- Settings -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Settings</div>
+                    <div class="nav-group-items">
+                        <a href="../settings/index.html"><i class="fas fa-cog"></i> Main Settings</a>
+                        <a href="../settings/scheduling.html"><i class="fas fa-clock"></i> Scheduling</a>
+                        <a href="../settings/notifications.html"><i class="fas fa-bell"></i> Notifications</a>
+                        <a href="../settings/backup-restore.html"><i class="fas fa-database"></i> Backup &amp;
+                            Restore</a>
+                        <a href="../settings/log-settings.html"><i class="fas fa-file-alt"></i> Log Settings</a>
+                        <a href="../settings/user-account.html"><i class="fas fa-user-shield"></i> User Account</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- System -->
-            <div class="nav-group">
-                <div class="nav-group-title">System</div>
-                <div class="nav-group-items">
-                    <a href="../system/hunt-manager.html"><i class="fas fa-tasks"></i> Hunt Manager</a>
-                    <a href="../system/logs.html"><i class="fas fa-scroll"></i> Logs</a>
-                    <a href="../system/api.html"><i class="fas fa-code"></i> API Reference</a>
+                <!-- System -->
+                <div class="nav-group">
+                    <div class="nav-group-title">System</div>
+                    <div class="nav-group-items">
+                        <a href="../system/hunt-manager.html"><i class="fas fa-tasks"></i> Hunt Manager</a>
+                        <a href="../system/logs.html"><i class="fas fa-scroll"></i> Logs</a>
+                        <a href="../system/api.html"><i class="fas fa-code"></i> API Reference</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Help -->
-            <div class="nav-group">
-                <div class="nav-group-title">Help</div>
-                <div class="nav-group-items">
-                    <a href="faq.html" class="active"><i class="fas fa-question-circle"></i> FAQ</a>
-                    <a href="community.html"><i class="fas fa-users"></i> Community</a>
-                    <a href="https://plexguide.github.io/Huntarr.io/donate.html"><i class="fas fa-heart"></i> Donate</a>
+                <!-- Help -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Help</div>
+                    <div class="nav-group-items">
+                        <a href="faq.html" class="active"><i class="fas fa-question-circle"></i> FAQ</a>
+                        <a href="community.html"><i class="fas fa-users"></i> Community</a>
+                        <a href="https://plexguide.github.io/Huntarr.io/donate.html"><i class="fas fa-heart"></i>
+                            Donate</a>
+                    </div>
                 </div>
+
+            </div><!-- /sidebar-scroll -->
+
+            <div class="sidebar-footer">
+                <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank" class="sf-discord" title="Discord"><i
+                        class="fab fa-discord"></i></a>
+                <a href="https://www.reddit.com/r/huntarr/" target="_blank" class="sf-reddit" title="Reddit"><i
+                        class="fab fa-reddit-alien"></i></a>
+                <a href="https://github.com/plexguide/Huntarr.io" target="_blank" class="sf-github" title="GitHub"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://plexguide.github.io/Huntarr.io/donate.html" class="sf-heart" title="Donate"><i
+                        class="fas fa-heart"></i></a>
             </div>
+        </nav>
 
-        </div><!-- /sidebar-scroll -->
+        <!-- ===== MAIN ===== -->
+        <main class="docs-main">
+            <div class="docs-content">
 
-        <div class="sidebar-footer">
-            <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank" class="sf-discord" title="Discord"><i class="fab fa-discord"></i></a>
-            <a href="https://www.reddit.com/r/huntarr/" target="_blank" class="sf-reddit" title="Reddit"><i class="fab fa-reddit-alien"></i></a>
-            <a href="https://github.com/plexguide/Huntarr.io" target="_blank" class="sf-github" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://plexguide.github.io/Huntarr.io/donate.html" class="sf-heart" title="Donate"><i class="fas fa-heart"></i></a>
-        </div>
-    </nav>
+                <h1>FAQ &amp; Troubleshooting</h1>
+                <p class="page-subtitle">Answers to common questions and solutions to frequent issues.</p>
 
-    <!-- ===== MAIN ===== -->
-    <main class="docs-main">
-        <div class="docs-content">
+                <h2>General</h2>
 
-            <h1>FAQ & Troubleshooting</h1>
-            <p class="page-subtitle">Answers to common questions and solutions to frequent issues.</p>
+                <h3>What is Huntarr?</h3>
+                <p>Huntarr is an automated media automation platform that works alongside your existing <strong>Sonarr,
+                        Radarr, Lidarr, Readarr, and Whisparr</strong> instances to hunt for missing content and quality
+                    upgrades — automatically and on a schedule you control. It also includes its own built-in modules:
+                    Movie Hunt (movie management), TV Hunt (TV management), Index Master (indexer manager), NZB Hunt
+                    (Usenet downloader), and Requestarr (media request system with multi-user support).</p>
 
-            <h2>General</h2>
+                <h3>How does Huntarr differ from the built-in search in Sonarr/Radarr?</h3>
+                <p>The *arr apps search when you manually trigger it or when new items are added. They don't
+                    continuously re-search for things that haven't been found yet, and they won't automatically look for
+                    quality upgrades on existing files. Huntarr fills that gap — it runs on your schedule,
+                    systematically works through your entire library, and keeps trying until everything is found or
+                    upgraded.</p>
 
-            <h3>What is Huntarr?</h3>
-            <p>Huntarr is an automated media hunting companion for the *arr stack (Sonarr, Radarr, Lidarr, Readarr, Whisparr). It continuously searches for missing media and upgrades existing files to better quality. It also includes Movie Hunt (standalone movie grabber), NZB Hunt (Usenet search), and Requests (media requests for the person running Huntarr, not for other users).</p>
+                <h3>Does Huntarr replace Sonarr/Radarr?</h3>
+                <p>Not necessarily — Huntarr works alongside them just as well as it can replace them. The third-party
+                    hunt engine uses their APIs to trigger searches. For users who want a fully self-contained setup,
+                    Movie Hunt and TV Hunt are built-in alternatives. But if you already have a working Sonarr/Radarr
+                    stack, Huntarr enhances it without requiring migration.</p>
 
-            <h3>How does Huntarr differ from the built-in search in Sonarr/Radarr?</h3>
-            <p>The *arr apps have their own search capabilities, but they only search when you manually trigger it or when new items are added. Huntarr runs on a schedule, continuously re-trying searches for items that haven't been found yet, and looking for quality upgrades.</p>
+                <h3>What ports does Huntarr use?</h3>
+                <p>Huntarr's web UI runs on port <strong>9705</strong> by default. Change the host-side mapping in
+                    Docker (e.g., <code>-p 9720:9705</code>) or set the <code>HUNTARR_PORT</code> environment variable
+                    for source installs.</p>
 
-            <h3>Does Huntarr replace Sonarr/Radarr?</h3>
-            <p>No. Huntarr works alongside your *arr apps. It uses their APIs to trigger searches. You still need Sonarr, Radarr, etc. for managing your library. The exception is Movie Hunt, which is a standalone movie grabber.</p>
+                <h3>Is Huntarr free?</h3>
+                <p>Yes. Huntarr is fully open source under the GPL-3.0 license. All features are free. If it's been
+                    valuable to you, a <a href="https://plexguide.github.io/Huntarr.io/donate.html">donation</a> toward
+                    the developer's daughter's college fund is always appreciated but never required.</p>
 
-            <h3>What ports does Huntarr use?</h3>
-            <p>By default, Huntarr runs on port 9705. You can change this in Settings &gt; Main or via the HUNTARR_PORT environment variable.</p>
+                <h3>How do I get the latest version?</h3>
+                <p>Pull the latest Docker image: <code>docker pull huntarr/huntarr:latest</code> then restart your
+                    container. On Unraid, click <strong>Update</strong> on the container in the Docker tab. See the <a
+                        href="../getting-started/installation.html#updating">Updating</a> section for full details.</p>
 
-            <h2>Installation</h2>
+                <h2>Installation</h2>
 
-            <h3>Docker container won't start</h3>
-            <ul>
-                <li>Check that port 9705 isn't already in use</li>
-                <li>Verify your volume mappings exist and are writable</li>
-                <li>Check container logs: <code>docker logs huntarr</code></li>
-                <li>Ensure the image is up-to-date: <code>docker pull huntarr/huntarr:latest</code></li>
-            </ul>
+                <h3>Docker container won't start</h3>
+                <ul>
+                    <li>Check that port 9705 isn't already in use on the host</li>
+                    <li>Verify your volume mount paths exist on the host and are writable</li>
+                    <li>Check container logs: <code>docker logs huntarr</code></li>
+                    <li>Ensure the image pulled cleanly: <code>docker pull huntarr/huntarr:latest</code></li>
+                    <li>Check for invalid timezone string in the <code>TZ</code> environment variable</li>
+                </ul>
 
-            <h3>"Permission denied" errors</h3>
-            <ul>
-                <li>Ensure the /config directory is writable by the container</li>
-                <li>Check file ownership: the container runs as root by default</li>
-                <li>On Unraid, ensure the template has correct path mappings</li>
-            </ul>
+                <h3>"Permission denied" errors on /config or /downloads</h3>
+                <ul>
+                    <li>Set <code>PUID</code> and <code>PGID</code> to match the user who owns those directories</li>
+                    <li>On Linux: <code>sudo chown -R 1000:1000 /path/to/config</code> then set
+                        <code>PUID=1000 PGID=1000</code></li>
+                    <li>On Unraid: set <code>PUID=99</code> and <code>PGID=100</code></li>
+                    <li>Ensure no other process has the directory locked</li>
+                </ul>
 
-            <h3>Huntarr is unreachable</h3>
-            <ul>
-                <li>Verify the container is running: <code>docker ps | grep huntarr</code></li>
-                <li>Check the port mapping in your Docker configuration</li>
-                <li>Try accessing directly: <code>http://your-server-ip:9705</code></li>
-                <li>Check firewall rules</li>
-            </ul>
+                <h3>Huntarr is unreachable in the browser</h3>
+                <ul>
+                    <li>Verify the container is running: <code>docker ps | grep huntarr</code></li>
+                    <li>Check that the host port mapping matches (e.g., <code>0.0.0.0:9705->9705</code> in
+                        <code>docker ps</code> output)</li>
+                    <li>Try accessing directly by IP: <code>http://your-server-ip:9705</code></li>
+                    <li>Check firewall rules — ensure port 9705 (or your custom port) is allowed inbound</li>
+                    <li>On Unraid, verify the Docker network isn't set to "none"</li>
+                </ul>
 
-            <h2>App Connections</h2>
+                <h2>App Connections</h2>
 
-            <h3>"API key invalid" error</h3>
-            <ul>
-                <li>Re-copy the API key from your *arr app (Settings &gt; General &gt; Security)</li>
-                <li>Ensure there are no extra spaces or characters</li>
-                <li>Verify the URL includes the correct port</li>
-                <li>Test the URL directly in your browser (should show the *arr web UI)</li>
-            </ul>
+                <h3>"API key invalid" error when adding an app</h3>
+                <ul>
+                    <li>Re-copy the API key from your *arr app: <strong>Settings → General → Security → API Key</strong>
+                    </li>
+                    <li>Ensure there are no leading/trailing spaces — paste into a plain text editor first to check</li>
+                    <li>Verify the URL is correct and includes the full port</li>
+                    <li>Test the URL directly in your browser — it should load the *arr web UI</li>
+                </ul>
 
-            <h3>Can't connect to *arr app</h3>
-            <ul>
-                <li>Verify the app is running and accessible</li>
-                <li>Use the internal Docker network name if both are in Docker (e.g., <code>http://sonarr:8989</code>)</li>
-                <li>Check that you're using the correct port</li>
-                <li>Try the IP address instead of hostname</li>
-            </ul>
+                <h3>Can't connect to a *arr app</h3>
+                <ul>
+                    <li>If both Huntarr and your *arr app are in Docker on the same network, use the container name as
+                        hostname: <code>http://sonarr:8989</code></li>
+                    <li>If they're on different networks or the host, use the server's LAN IP — never use
+                        <code>localhost</code> (that points inside Huntarr's own container)</li>
+                    <li>Make sure the *arr app has no Base URL set, or include it in the URL:
+                        <code>http://192.168.1.100:8989/sonarr</code></li>
+                    <li>Try the Test Connection button — the error message usually indicates exactly what's wrong</li>
+                </ul>
 
-            <h3>Multiple instances of the same app</h3>
-            <p>Yes, Huntarr fully supports multiple instances. Add each instance separately with its own URL and API key. You can configure different schedules and settings per instance.</p>
+                <h3>Can I connect multiple instances of the same app?</h3>
+                <p>Yes. Huntarr fully supports multiple instances of the same app type — for example, separate Sonarr
+                    instances for 1080p and 4K. Each instance gets its own independent schedule, caps, and settings. Add
+                    each one separately under Apps → 3rd Party Apps.</p>
 
-            <h2>Hunting</h2>
+                <h2>Hunting</h2>
 
-            <h3>Hunts run but nothing is found</h3>
-            <ul>
-                <li>Check that your *arr app has working indexers</li>
-                <li>Verify the media is monitored in the *arr app</li>
-                <li>For movies, check the Minimum Availability setting</li>
-                <li>Try searching manually in the *arr app — if it doesn't find anything there, Huntarr won't either</li>
-                <li>Increase caps gradually; some media takes multiple search attempts</li>
-            </ul>
+                <h3>Hunts run but nothing is found</h3>
+                <ul>
+                    <li>Verify your *arr app has at least one working indexer — test it directly in the *arr app first
+                    </li>
+                    <li>Check that the media is <strong>monitored</strong> in the *arr app (unmonitored items won't be
+                        searched)</li>
+                    <li>For movies, check the <strong>Minimum Availability</strong> setting — if set to "Released,"
+                        pre-release content won't be searched</li>
+                    <li>Try searching manually in the *arr app — if it doesn't find anything there, Huntarr won't either
+                        (they use the same API)</li>
+                    <li>Check the Huntarr logs (System → Logs) for specific error messages from that hunt cycle</li>
+                </ul>
 
-            <h3>Hunts are too aggressive / indexer bans</h3>
-            <ul>
-                <li>Reduce the cap per cycle (start with 1-3)</li>
-                <li>Increase the schedule interval (30-60 minutes minimum)</li>
-                <li>Use per-instance schedules to stagger load</li>
-                <li>Check your indexer's rate limits</li>
-            </ul>
+                <h3>Hunts are too aggressive / I got rate-limited by my indexer</h3>
+                <ul>
+                    <li>Reduce the cap per cycle — start at 1–3 items</li>
+                    <li>Increase the schedule interval to 30–60 minutes minimum</li>
+                    <li>Use per-instance schedules and stagger them by 15–30 minutes so multiple instances don't hit
+                        indexers simultaneously</li>
+                    <li>Check your indexer's rate limit policy — most allow 100–200 API calls/day per account</li>
+                </ul>
 
-            <h3>Hunt schedules aren't running</h3>
-            <ul>
-                <li>Verify the schedule is enabled in Settings &gt; Scheduling</li>
-                <li>Check that the app instance is connected and enabled</li>
-                <li>Review logs for any error messages</li>
-                <li>Restart Huntarr if schedules seem stuck</li>
-            </ul>
+                <h3>Hunt schedules aren't running</h3>
+                <ul>
+                    <li>Verify the schedule is <strong>enabled</strong> in Settings → Scheduling</li>
+                    <li>Check that the app instance is connected and enabled under Apps</li>
+                    <li>Review System → Logs for any error messages from the scheduler</li>
+                    <li>Restart Huntarr if schedules appear stuck: <code>docker restart huntarr</code></li>
+                </ul>
 
-            <h2>Movie Hunt</h2>
+                <h2>Movie Hunt &amp; TV Hunt</h2>
 
-            <h3>Movie Hunt isn't finding movies</h3>
-            <ul>
-                <li>Verify you have at least one indexer configured and working</li>
-                <li>Check that a download client is configured</li>
-                <li>Ensure the movie's minimum availability allows searching</li>
-                <li>Try searching directly in NZB Hunt to test indexer connectivity</li>
-            </ul>
+                <h3>Movie Hunt/TV Hunt is not finding releases</h3>
+                <ul>
+                    <li>Verify you have at least one indexer configured and passing its connection test</li>
+                    <li>Check that a download client is configured and reachable</li>
+                    <li>Ensure the movie/show's minimum availability allows searching (avoid "Announced" for Usenet —
+                        content may not exist yet)</li>
+                    <li>Check that a quality profile is assigned — without one, Movie Hunt won't know what to grab</li>
+                    <li>Review System → Logs for search activity and errors</li>
+                </ul>
 
-            <h3>Downloads aren't completing</h3>
-            <ul>
-                <li>Verify your download client is running and accessible</li>
-                <li>Check the download client's logs for errors</li>
-                <li>Ensure the download category exists in your client</li>
-                <li>Check available disk space</li>
-            </ul>
+                <h3>Downloads aren't completing / items stuck as "Requested"</h3>
+                <ul>
+                    <li>Verify your download client (SABnzbd, NZBGet, NZB Hunt, etc.) is running and accessible</li>
+                    <li>Check the download client's own queue/logs for error messages</li>
+                    <li>Ensure the download category configured in Movie Hunt exists in your download client</li>
+                    <li>Check available disk space on the download volume</li>
+                </ul>
 
-            <h2>Database & Backup</h2>
+                <h2>NZB Hunt</h2>
 
-            <h3>Huntarr lost my settings after restart</h3>
-            <ul>
-                <li>This was a known issue that has been fixed in recent versions</li>
-                <li>Update to the latest version</li>
-                <li>Enable automatic backups as insurance</li>
-                <li>Check that your /config volume is properly mounted and persistent</li>
-            </ul>
+                <h3>NZB Hunt downloads fail immediately</h3>
+                <ul>
+                    <li>Test your NNTP server connection: go to NZB Hunt → Settings → Servers and click
+                        <strong>Test</strong></li>
+                    <li>Verify credentials (username, password, host, port) are correct</li>
+                    <li>Try reducing the connection count to 5 to rule out a server connection limit</li>
+                    <li>Check that SSL is enabled and port 563 is used (or 119 for plain — not recommended)</li>
+                </ul>
 
-            <h3>How to migrate to a new server</h3>
-            <ol>
-                <li>Create a backup in Settings &gt; Backup &amp; Restore</li>
-                <li>Copy the backup file to the new server</li>
-                <li>Install Huntarr on the new server</li>
-                <li>Complete the setup wizard</li>
-                <li>Upload and restore the backup</li>
-            </ol>
+                <h3>Downloads fail with "too many missing articles"</h3>
+                <p>This means the NZB file references Usenet posts that no longer exist on your provider's servers — a
+                    <strong>retention</strong> issue. The content is older than your provider's retention window or your
+                    provider has incomplete coverage. Solutions:</p>
+                <ul>
+                    <li>Switch to a provider with longer retention (some offer 4,000+ days)</li>
+                    <li>Add a second provider as a backup server in NZB Hunt — gaps from the primary are filled from the
+                        backup</li>
+                    <li>Use a different indexer to find a fresher NZB for the same release</li>
+                </ul>
 
-            <div class="alert alert-info">
-                <strong>Need more help?</strong>
-                <p>If your question isn't answered here, join our <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank" style="color: inherit; text-decoration: underline;">Discord server</a> for community support.</p>
-            </div>
+                <h3>NZB Hunt aborted a download — "encrypted RAR"</h3>
+                <p>This is expected. By default (new installs), NZB Hunt aborts password-protected RAR archives.
+                    Password-protected releases are generally poor-quality or scam releases on Usenet. To change this:
+                </p>
+                <ul>
+                    <li>Go to NZB Hunt → Settings → Processing</li>
+                    <li>Change <strong>Encrypted RAR Action</strong> from "Abort" to "Pause"</li>
+                    <li>Pausing lets you inspect and decide manually; aborting removes it automatically</li>
+                </ul>
 
-        </div><!-- /docs-content -->
+                <h3>/downloads isn't created or NZB Hunt can't write files</h3>
+                <ul>
+                    <li>Ensure <code>/downloads</code> is mapped in your Docker configuration — it will not be
+                        auto-created otherwise</li>
+                    <li>Verify the host path is writable by the PUID/PGID set in the container</li>
+                    <li>NZB Hunt creates <code>/downloads/incomplete</code> and <code>/downloads/complete</code> itself
+                        on first use — you just need the parent path to exist and be writable</li>
+                </ul>
 
-        <footer class="docs-footer">
-            <p>Huntarr is open source. <a href="https://github.com/plexguide/Huntarr.io" target="_blank">GitHub</a> · <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank">Discord</a> · <a href="https://www.reddit.com/r/huntarr/" target="_blank">Reddit</a></p>
-        </footer>
-    </main>
+                <h2>Requestarr</h2>
 
-</div><!-- /docs-layout -->
+                <h3>Can other users (family, friends) use Requestarr?</h3>
+                <p>Yes — Requestarr supports multiple user accounts. Invite others by creating accounts under Settings →
+                    User Account → Users. Invited users log in at your Huntarr URL and see <em>only</em> the Requests
+                    section; they cannot access hunt controls, app settings, or any admin area.</p>
 
-<button class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
-<script src="../js/main.js"></script>
+                <h3>What is a Bundle and when should I use one?</h3>
+                <p>A Bundle groups multiple instances so a single request goes to all of them simultaneously. Example: a
+                    "Movies" bundle with 1080p Radarr and 4K Radarr — one request, both receive it. If a member fails
+                    (offline, misconfigured), the failure is logged and the cascade continues to remaining members.</p>
+
+                <h3>A request was approved but nothing appeared in the library</h3>
+                <ul>
+                    <li>Verify the target instance is connected and responding (test under Apps → 3rd Party Apps)</li>
+                    <li>Check System → Logs for errors that occurred during request processing</li>
+                    <li>For bundles, check whether the primary instance succeeded — bundle member results are logged
+                        separately</li>
+                    <li>Confirm the instance has a working indexer and download client configured</li>
+                </ul>
+
+                <h2>Database &amp; Backup</h2>
+
+                <h3>Huntarr lost my settings after restart</h3>
+                <ul>
+                    <li>Ensure the <code>/config</code> volume is mapped to a persistent host path — not an anonymous
+                        Docker volume</li>
+                    <li>Update to the latest version (this was fixed in earlier builds)</li>
+                    <li>Enable automatic backups in Settings → Backup &amp; Restore as insurance going forward</li>
+                </ul>
+
+                <h3>How do I migrate to a new server?</h3>
+                <ol>
+                    <li>Create a manual backup: Settings → Backup &amp; Restore → <strong>Create Backup Now</strong>
+                    </li>
+                    <li>Download the backup file to your local machine</li>
+                    <li>Install Huntarr on the new server</li>
+                    <li>Complete the Setup Wizard to create your admin account</li>
+                    <li>Go to Settings → Backup &amp; Restore → Upload and restore the backup</li>
+                    <li>All instances, schedules, notification settings, and app configurations are restored</li>
+                </ol>
+
+                <div class="alert alert-info">
+                    <strong>Need more help?</strong>
+                    <p>If your question isn't answered here, join the <a href="https://discord.com/invite/PGJJjR5Cww"
+                            target="_blank" style="color:inherit;text-decoration:underline;">Discord server</a> or the
+                        <a href="https://www.reddit.com/r/huntarr/" target="_blank"
+                            style="color:inherit;text-decoration:underline;">Reddit community</a> for support from
+                        active Huntarr users and developers.</p>
+                </div>
+            </div><!-- /docs-content -->
+
+            <footer class="docs-footer">
+                <p>Huntarr is open source. <a href="https://github.com/plexguide/Huntarr.io" target="_blank">GitHub</a>
+                    · <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank">Discord</a> · <a
+                        href="https://www.reddit.com/r/huntarr/" target="_blank">Reddit</a></p>
+            </footer>
+        </main>
+
+    </div><!-- /docs-layout -->
+
+    <button class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+    <script src="../js/main.js"></script>
 </body>
+
 </html>
