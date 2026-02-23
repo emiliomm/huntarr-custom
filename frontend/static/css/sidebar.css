@@ -430,17 +430,9 @@
     overflow: visible;
 }
 
-/* Clickable header row inside a sub-group */
+/* Clickable header row inside a sub-group — inherits sizing from .nav-item.nav-item-sub */
 .nav-sub-group-header {
-    display: flex;
-    align-items: center;
-    padding: 0 12px 0 24px;
-    height: 32px;
-    margin: 0 10px 0 20px;
-    border-radius: 8px;
-    color: rgba(203, 213, 225, 0.75);
     cursor: pointer;
-    transition: all 0.2s ease;
     user-select: none;
 }
 
@@ -449,21 +441,7 @@
     color: #e2e8f0;
 }
 
-.nav-sub-group-header .nav-icon-wrapper {
-    width: 22px;
-    height: 22px;
-    margin-right: 8px;
-    flex-shrink: 0;
-}
-
-.nav-sub-group-header .nav-icon-wrapper i {
-    font-size: 11px;
-    color: rgba(148, 163, 184, 0.7);
-}
-
 .nav-sub-group-header span {
-    font-size: 12px !important;
-    font-weight: 500;
     flex: 1;
 }
 

@@ -48,8 +48,8 @@
                     </a>
                     <!-- Blacklist sub-group -->
                     <div class="nav-sub-group" id="requestarr-blacklist-sub">
-                        <div class="nav-sub-group-header" data-sub-group="requestarr-blacklist-sub-body"
-                            id="requestarrBlacklistGroupHeader">
+                        <div class="nav-item nav-item-sub nav-sub-group-header"
+                            data-sub-group="requestarr-blacklist-sub-body" id="requestarrBlacklistGroupHeader">
                             <div class="nav-icon-wrapper"><i class="fas fa-eye-slash"></i></div>
                             <span>Blacklist</span>
                             <i class="fas fa-chevron-right nav-sub-chevron"></i>
@@ -173,16 +173,27 @@
                         <div class="nav-icon-wrapper"><i class="fas fa-folder-open"></i></div>
                         <span>Root Folders</span>
                     </a>
-                    <a href="./#settings-import-media" class="nav-item nav-item-sub nav-item-deep"
-                        id="movieHuntImportMediaNav">
-                        <div class="nav-icon-wrapper"><i class="fas fa-file-import"></i></div>
-                        <span>Import Media</span>
-                    </a>
-                    <a href="./#settings-import-lists" class="nav-item nav-item-sub nav-item-deep"
-                        id="movieHuntSettingsImportListsNav">
-                        <div class="nav-icon-wrapper"><i class="fas fa-stream"></i></div>
-                        <span>Import Lists</span>
-                    </a>
+                    <!-- Import Actions sub-group -->
+                    <div class="nav-sub-group" id="media-hunt-import-sub">
+                        <div class="nav-item nav-item-sub nav-item-deep nav-sub-group-header"
+                            data-sub-group="media-hunt-import-sub-body" id="mediaHuntImportGroupHeader">
+                            <div class="nav-icon-wrapper"><i class="fas fa-file-import"></i></div>
+                            <span>Import</span>
+                            <i class="fas fa-chevron-right nav-sub-chevron"></i>
+                        </div>
+                        <div class="nav-sub-group-body collapsed" id="media-hunt-import-sub-body">
+                            <a href="./#settings-import-media" class="nav-item nav-item-sub nav-item-deep"
+                                id="movieHuntImportMediaNav">
+                                <div class="nav-icon-wrapper"><i class="fas fa-photo-video"></i></div>
+                                <span>Media</span>
+                            </a>
+                            <a href="./#settings-import-lists" class="nav-item nav-item-sub nav-item-deep"
+                                id="movieHuntSettingsImportListsNav">
+                                <div class="nav-icon-wrapper"><i class="fas fa-stream"></i></div>
+                                <span>Lists</span>
+                            </a>
+                        </div>
+                    </div>
                     <div class="nav-user-support-label" id="mediaHuntAdvancedLabel">
                         <i class="fas fa-cog"></i>
                         <span>Advanced</span>
@@ -597,7 +608,7 @@
         }
         else if (h === '#media-hunt-instances') { selector = '#movieHuntInstancesNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; }
         else if (h === '#media-hunt-calendar' || h === '#movie-hunt-calendar' || h === '#tv-hunt-calendar') { selector = '#movieHuntCalendarNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; }
-        else if (h === '#settings-import-media') { selector = '#movieHuntImportMediaNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; }
+        else if (h === '#settings-import-media') { selector = '#movieHuntImportMediaNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; subGroupToExpand = 'media-hunt-import-sub-body'; }
         else if (h === '#activity-queue') { selector = '#movieHuntActivityQueueNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-activity-sub'; if (mhBody) mhBody.classList.add('activity-view'); }
         else if (h === '#activity-history') { selector = '#movieHuntActivityHistoryNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-activity-sub'; if (mhBody) mhBody.classList.add('activity-view'); }
         else if (h === '#activity-blocklist') { selector = '#movieHuntActivityBlocklistNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-activity-sub'; if (mhBody) mhBody.classList.add('activity-view'); }
@@ -614,7 +625,7 @@
         else if (h === '#settings-profiles') { selector = '#movieHuntSettingsProfilesNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; }
         else if (h === '#settings-sizes') { selector = '#movieHuntSettingsSizesNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; }
         else if (h === '#settings-custom-formats') { selector = '#movieHuntSettingsCustomFormatsNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; }
-        else if (h === '#settings-import-lists') { selector = '#movieHuntSettingsImportListsNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; }
+        else if (h === '#settings-import-lists') { selector = '#movieHuntSettingsImportListsNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; subGroupToExpand = 'media-hunt-import-sub-body'; }
         else if (h === '#settings-root-folders') { selector = '#movieHuntSettingsRootFoldersNav'; group = 'sidebar-group-media-hunt'; subToExpand = 'movie-hunt-collection-sub'; }
 
         // ── Requests ──────────────────────────────────
@@ -698,6 +709,17 @@
         } else {
             if (blacklistSubBody) blacklistSubBody.classList.add('collapsed');
             if (blacklistSubHeader) blacklistSubHeader.classList.remove('expanded');
+        }
+
+        // Media Hunt sub-groups (e.g. Import Actions)
+        var importSubBody = document.getElementById('media-hunt-import-sub-body');
+        var importSubHeader = document.getElementById('mediaHuntImportGroupHeader');
+        if (subGroupToExpand === 'media-hunt-import-sub-body') {
+            if (importSubBody) importSubBody.classList.remove('collapsed');
+            if (importSubHeader) importSubHeader.classList.add('expanded');
+        } else {
+            if (importSubBody) importSubBody.classList.add('collapsed');
+            if (importSubHeader) importSubHeader.classList.remove('expanded');
         }
 
         // Expand the correct group (accordion)
