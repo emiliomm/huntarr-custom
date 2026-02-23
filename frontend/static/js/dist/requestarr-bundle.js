@@ -5326,7 +5326,7 @@ class RequestarrModal {
             if (data.tmdb_id) {
                 this.core.currentModal = data;
                 this.core.currentModalData = data;
-                this.renderModal(data);
+                await this.renderModal(data);
             } else {
                 throw new Error('Failed to load details');
             }
@@ -5376,61 +5376,55 @@ class RequestarrModal {
         }
     }
 
-    renderModal(data) {
+    async renderModal(data) {
         const isTVShow = data.media_type === 'tv';
         const isOwner = window._huntarrUserRole === 'owner';
         const perms = window._huntarrUserPermissions || {};
 
-        // For movies, combine Movie Hunt + Radarr; for TV, combine TV Hunt + Sonarr
+        // ── Fetch bundle-aware instance list (bundles first, then unbundled) ──
         let uniqueInstances = [];
-        if (isTVShow) {
-            const thInstances = (this.core.instances.tv_hunt || []).map(inst => ({
-                ...inst, appType: 'tv_hunt', compoundValue: encodeInstanceValue('tv_hunt', inst.name),
-                label: `TV Hunt \u2013 ${inst.name}`
-            }));
-            const sonarrInstances = (this.core.instances.sonarr || []).map(inst => ({
-                ...inst, appType: 'sonarr', compoundValue: encodeInstanceValue('sonarr', inst.name),
-                label: `Sonarr \u2013 ${inst.name}`
-            }));
-            const seen = new Set();
-            thInstances.forEach(inst => {
-                if (!seen.has(inst.compoundValue)) {
-                    seen.add(inst.compoundValue);
-                    uniqueInstances.push(inst);
-                }
-            });
-            sonarrInstances.forEach(inst => {
-                if (!seen.has(inst.compoundValue)) {
-                    seen.add(inst.compoundValue);
-                    uniqueInstances.push(inst);
-                }
-            });
-        } else {
-            const mhInstances = this.core.instances.movie_hunt || [];
-            const radarrInstances = this.core.instances.radarr || [];
-            const seen = new Set();
-            mhInstances.forEach(inst => {
-                if (!seen.has(inst.name)) {
-                    seen.add(inst.name);
+        try {
+            const resp = await fetch(`./api/requestarr/bundles/dropdown?t=${Date.now()}`, { cache: 'no-store' });
+            if (resp.ok) {
+                const dd = await resp.json();
+                const rawOpts = isTVShow ? (dd.tv_options || []) : (dd.movie_options || []);
+                rawOpts.forEach(o => {
+                    // value = primaryAppType:primaryInstanceName  (same as encodeInstanceValue)
+                    const compoundValue = o.is_bundle
+                        ? encodeInstanceValue(o.primary_app_type, o.primary_instance_name)
+                        : o.value;
+                    // Label: bundle name as-is; individual instance keeps server label
+                    const label = o.is_bundle
+                        ? `\ud83d\udce6 ${o.label}`   // 📦 prefix marks bundles visually
+                        : o.label;
                     uniqueInstances.push({
-                        ...inst,
-                        appType: 'movie_hunt',
-                        compoundValue: encodeInstanceValue('movie_hunt', inst.name),
-                        label: `Movie Hunt \u2013 ${inst.name}`
+                        name: o.is_bundle ? o.primary_instance_name : (o.value.split(':')[1] || o.value),
+                        appType: o.is_bundle ? o.primary_app_type : (o.value.split(':')[0] || ''),
+                        compoundValue,
+                        label,
+                        isBundle: !!o.is_bundle,
                     });
-                }
-            });
-            radarrInstances.forEach(inst => {
-                if (!seen.has(`radarr-${inst.name}`)) {
-                    seen.add(`radarr-${inst.name}`);
-                    uniqueInstances.push({
-                        ...inst,
-                        appType: 'radarr',
-                        compoundValue: encodeInstanceValue('radarr', inst.name),
-                        label: `Radarr \u2013 ${inst.name}`
-                    });
-                }
-            });
+                });
+            }
+        } catch (_) { /* fall through to legacy path */ }
+
+        // ── Fallback: build from core.instances if API failed ──
+        if (uniqueInstances.length === 0) {
+            if (isTVShow) {
+                (this.core.instances.tv_hunt || []).forEach(inst => {
+                    uniqueInstances.push({ ...inst, appType: 'tv_hunt', compoundValue: encodeInstanceValue('tv_hunt', inst.name), label: `TV Hunt \u2013 ${inst.name}` });
+                });
+                (this.core.instances.sonarr || []).forEach(inst => {
+                    uniqueInstances.push({ ...inst, appType: 'sonarr', compoundValue: encodeInstanceValue('sonarr', inst.name), label: `Sonarr \u2013 ${inst.name}` });
+                });
+            } else {
+                (this.core.instances.movie_hunt || []).forEach(inst => {
+                    uniqueInstances.push({ ...inst, appType: 'movie_hunt', compoundValue: encodeInstanceValue('movie_hunt', inst.name), label: `Movie Hunt \u2013 ${inst.name}` });
+                });
+                (this.core.instances.radarr || []).forEach(inst => {
+                    uniqueInstances.push({ ...inst, appType: 'radarr', compoundValue: encodeInstanceValue('radarr', inst.name), label: `Radarr \u2013 ${inst.name}` });
+                });
+            }
         }
 
         // Populate poster
@@ -6158,7 +6152,36 @@ class RequestarrModal {
                     detail: { tmdbId: data.tmdb_id, mediaType: isTVHunt ? 'tv' : 'movie', appType: decoded.appType, instanceName: decoded.name }
                 }));
 
+                // ── Bundle cascade: request other members (not disk-import, just regular request) ──
+                // Fire-and-forget — primary is already imported, bundle members get a normal request
+                try {
+                    fetch('./api/requestarr/cascade', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            tmdb_id: data.tmdb_id,
+                            media_type: data.media_type,
+                            title: data.title || data.name || '',
+                            year: data.year || null,
+                            overview: data.overview || '',
+                            poster_path: data.poster_path || '',
+                            backdrop_path: data.backdrop_path || '',
+                            app_type: decoded.appType,
+                            instance_name: decoded.name,
+                            start_search: true,
+                            minimum_availability: 'released',
+                            monitor: isTVHunt ? 'all_episodes' : null,
+                            movie_monitor: isTVHunt ? null : 'movie_only',
+                        })
+                    }).then(r => r.json()).then(cr => {
+                        if (cr.bundle_results && cr.bundle_results.length > 0) {
+                            console.log('[RequestarrModal] Bundle cascade after import:', cr.bundle_results);
+                        }
+                    }).catch(err => console.warn('[RequestarrModal] Bundle cascade after import failed (non-fatal):', err));
+                } catch (_) { }
+
                 setTimeout(() => this.closeModal(), 2000);
+
             } else {
                 if (importBtn) {
                     importBtn.disabled = false;

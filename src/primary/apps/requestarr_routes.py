@@ -246,6 +246,49 @@ def get_unified_collection():
         return jsonify({'items': [], 'total': 0, 'page': 1, 'page_size': 20, 'error': str(e)}), 200
 
 
+@requestarr_bp.route('/cascade', methods=['POST'])
+def cascade_bundle():
+    """Trigger bundle cascade for a primary instance without re-requesting it.
+    Called after a disk import succeeds so bundle members still receive a request.
+    Requires owner or auto-approve permission (same as /request).
+    """
+    try:
+        data = request.get_json() or {}
+        required = ['tmdb_id', 'media_type', 'title', 'app_type', 'instance_name']
+        for field in required:
+            if not data.get(field):
+                return jsonify({'success': False, 'message': f'Missing field: {field}'}), 400
+
+        tmdb_id    = data['tmdb_id']
+        media_type = data['media_type']
+        title      = data['title']
+        year       = data.get('year')
+        overview   = data.get('overview', '')
+        poster_path   = data.get('poster_path', '')
+        backdrop_path = data.get('backdrop_path', '')
+        app_type      = data['app_type']
+        instance_name = data['instance_name']
+        start_search  = data.get('start_search', True)
+        minimum_availability = data.get('minimum_availability', 'released')
+        monitor       = data.get('monitor') or None
+        movie_monitor = data.get('movie_monitor') or None
+
+        bundle_results = requestarr_api.cascade_bundle_requests(
+            tmdb_id=tmdb_id, media_type=media_type,
+            title=title, year=year, overview=overview,
+            poster_path=poster_path, backdrop_path=backdrop_path,
+            app_type=app_type, instance_name=instance_name,
+            start_search=start_search,
+            minimum_availability=minimum_availability,
+            monitor=monitor, movie_monitor=movie_monitor,
+        )
+        logger.info(f"[Requestarr] /cascade for {app_type}/{instance_name} ({title}): {len(bundle_results)} member(s) processed")
+        return jsonify({'success': True, 'bundle_results': bundle_results})
+    except Exception as e:
+        logger.error(f"[Requestarr] /cascade error: {e}", exc_info=True)
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+
 @requestarr_bp.route('/request', methods=['POST'])
 def request_media():
     """Request media through app instance.
