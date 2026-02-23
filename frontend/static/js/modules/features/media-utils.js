@@ -8,7 +8,7 @@
  *   - animateCardRemoval() — Shared card removal animation
  *   - resolveMovieInstance() — Resolve instance info from various sources
  */
-(function() {
+(function () {
     'use strict';
 
     /* ── Card removal animation (used by hide, delete, etc.) ── */
@@ -20,7 +20,7 @@
         cardElement.style.transition = 'opacity 0.3s, transform 0.3s';
         cardElement.style.opacity = '0';
         cardElement.style.transform = 'scale(0.8)';
-        setTimeout(function() {
+        setTimeout(function () {
             cardElement.remove();
             if (typeof callback === 'function') callback();
         }, 300);
@@ -62,6 +62,11 @@
      */
     function getActionButton(inLibrary, partial, hasInstance) {
         if (!hasInstance) return '';
+        // Non-owners never see delete — only personal blacklist
+        var isNonOwner = window._huntarrUserRole && window._huntarrUserRole !== 'owner';
+        if (isNonOwner) {
+            return '<button class="media-card-hide-btn" title="Hide this media permanently"><i class="fas fa-eye-slash"></i></button>';
+        }
         if (inLibrary || partial) {
             return '<button class="media-card-delete-btn" title="Remove / Delete"><i class="fas fa-trash-alt"></i></button>';
         }
@@ -104,7 +109,7 @@
         var hiddenMediaSet = options.hiddenMediaSet || null;
         var onHidden = options.onHidden || null;
 
-        var doPersonalBlacklist = function() {
+        var doPersonalBlacklist = function () {
             fetch('./api/requestarr/hidden-media', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -115,30 +120,30 @@
                     poster_path: posterPath
                 })
             })
-            .then(function(r) {
-                if (!r.ok) throw new Error('Failed to blacklist media');
-                return r.json();
-            })
-            .then(function() {
-                if (hiddenMediaSet) {
-                    var key = tmdbId + ':' + mediaType;
-                    hiddenMediaSet.add(key);
-                }
-                animateCardRemoval(cardElement);
-                if (window.huntarrUI && window.huntarrUI.showNotification) {
-                    window.huntarrUI.showNotification('"' + title + '" added to Personal Blacklist.', 'success');
-                }
-                if (typeof onHidden === 'function') onHidden();
-            })
-            .catch(function(err) {
-                console.error('[MediaUtils] Error blacklisting media:', err);
-                if (window.huntarrUI && window.huntarrUI.showNotification) {
-                    window.huntarrUI.showNotification('Failed to blacklist media.', 'error');
-                }
-            });
+                .then(function (r) {
+                    if (!r.ok) throw new Error('Failed to blacklist media');
+                    return r.json();
+                })
+                .then(function () {
+                    if (hiddenMediaSet) {
+                        var key = tmdbId + ':' + mediaType;
+                        hiddenMediaSet.add(key);
+                    }
+                    animateCardRemoval(cardElement);
+                    if (window.huntarrUI && window.huntarrUI.showNotification) {
+                        window.huntarrUI.showNotification('"' + title + '" added to Personal Blacklist.', 'success');
+                    }
+                    if (typeof onHidden === 'function') onHidden();
+                })
+                .catch(function (err) {
+                    console.error('[MediaUtils] Error blacklisting media:', err);
+                    if (window.huntarrUI && window.huntarrUI.showNotification) {
+                        window.huntarrUI.showNotification('Failed to blacklist media.', 'error');
+                    }
+                });
         };
 
-        var doGlobalBlacklist = function() {
+        var doGlobalBlacklist = function () {
             fetch('./api/requestarr/requests/global-blacklist', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -150,23 +155,23 @@
                     year: options.year || ''
                 })
             })
-            .then(function(r) {
-                if (!r.ok) throw new Error('Failed to globally blacklist media');
-                return r.json();
-            })
-            .then(function() {
-                animateCardRemoval(cardElement);
-                if (window.huntarrUI && window.huntarrUI.showNotification) {
-                    window.huntarrUI.showNotification('"' + title + '" added to Global Blacklist.', 'success');
-                }
-                if (typeof onHidden === 'function') onHidden();
-            })
-            .catch(function(err) {
-                console.error('[MediaUtils] Error globally blacklisting media:', err);
-                if (window.huntarrUI && window.huntarrUI.showNotification) {
-                    window.huntarrUI.showNotification('Failed to globally blacklist media.', 'error');
-                }
-            });
+                .then(function (r) {
+                    if (!r.ok) throw new Error('Failed to globally blacklist media');
+                    return r.json();
+                })
+                .then(function () {
+                    animateCardRemoval(cardElement);
+                    if (window.huntarrUI && window.huntarrUI.showNotification) {
+                        window.huntarrUI.showNotification('"' + title + '" added to Global Blacklist.', 'success');
+                    }
+                    if (typeof onHidden === 'function') onHidden();
+                })
+                .catch(function (err) {
+                    console.error('[MediaUtils] Error globally blacklisting media:', err);
+                    if (window.huntarrUI && window.huntarrUI.showNotification) {
+                        window.huntarrUI.showNotification('Failed to globally blacklist media.', 'error');
+                    }
+                });
         };
 
         var isOwner = window._huntarrUserRole === 'owner';
@@ -205,7 +210,7 @@
 
             // Try to find numeric ID from pool
             var pool = options.instancePool || [];
-            var match = pool.find(function(i) { return i.name === decoded.name; });
+            var match = pool.find(function (i) { return i.name === decoded.name; });
             if (match) result.instanceId = match.id || '';
             return result;
         }
@@ -264,8 +269,8 @@
 
             console.log('[' + label + '] Request succeeded, refreshing status...');
             refreshCb();
-            setTimeout(function() { refreshCb(); }, 3000);
-            setTimeout(function() { refreshCb(); }, 8000);
+            setTimeout(function () { refreshCb(); }, 3000);
+            setTimeout(function () { refreshCb(); }, 8000);
         }
 
         function onStatusChanged(e) {

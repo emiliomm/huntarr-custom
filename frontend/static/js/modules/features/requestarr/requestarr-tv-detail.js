@@ -282,8 +282,14 @@
 
             const hasInstances = this.tvInstances.length > 0;
             const inLibrary = originalSeries.in_library || false;
+            const _isNonOwner = window._huntarrUserRole && window._huntarrUserRole !== 'owner';
+            const _userTVCat = window._huntarrUserTVCategory || '';
             let actionButton = '';
-            if (!hasInstances) {
+            if (_isNonOwner && inLibrary) {
+                actionButton = '<button class="mh-btn mh-btn-primary disabled" disabled style="opacity:0.6"><i class="fas fa-check-circle"></i> Already Requested</button>';
+            } else if (_isNonOwner && !_userTVCat) {
+                actionButton = '<button class="mh-btn mh-btn-primary disabled" disabled style="opacity:0.6"><i class="fas fa-exclamation-triangle"></i> Not Available</button>';
+            } else if (!hasInstances) {
                 actionButton = '<button class="mh-btn" disabled style="background: rgba(55, 65, 81, 0.8); color: #9ca3af; cursor: not-allowed;"><i class="fas fa-server" style="margin-right: 8px;"></i> No Instance Configured</button>';
             } else if (inLibrary) {
                 actionButton = '<button class="mh-btn mh-btn-success" disabled><i class="fas fa-check"></i> Already Available</button>';
@@ -292,7 +298,7 @@
             }
 
             let instanceSelectorHTML = '';
-            if (this.tvInstances.length > 0) {
+            if (this.tvInstances.length > 0 && !_isNonOwner) {
                 instanceSelectorHTML = `
                     <div class="mh-hero-instance">
                         <i class="fas fa-server"></i>
@@ -343,7 +349,7 @@
                                 </div>
                                 <div class="mh-hero-genres">${genres}</div>
                                 ${instanceSelectorHTML}
-                                <div class="mh-info-bar" id="requestarr-tv-detail-info-bar"${hasInstances ? '' : ' style="display:none"'}>
+                                <div class="mh-info-bar" id="requestarr-tv-detail-info-bar"${(hasInstances && !_isNonOwner) ? '' : ' style="display:none"'}>
                                     <div class="mh-ib mh-ib-path">
                                         <div class="mh-ib-label">PATH</div>
                                         <div class="mh-ib-val" id="requestarr-tv-ib-path"><i class="fas fa-spinner fa-spin"></i></div>
@@ -358,7 +364,7 @@
                                     </div>
                                 </div>
                                 <p class="mh-hero-overview">${this.escapeHtml(overview)}</p>
-                                <div class="mh-hero-actions" id="requestarr-tv-detail-actions" style="${isTVHunt ? 'display:none' : ''}">${actionButton}</div>
+                                <div class="mh-hero-actions" id="requestarr-tv-detail-actions" style="${(isTVHunt && !_isNonOwner) ? 'display:none' : ''}">${actionButton}</div>
                             </div>
                         </div>
                     </div>
@@ -467,6 +473,7 @@
             const decoded = _decodeInstanceValue(this.selectedInstanceName || '');
             const isTVHunt = decoded.appType === 'tv_hunt';
             const seasonIcon = 'fa-download';
+            const _isNonOwnerSeason = window._huntarrUserRole && window._huntarrUserRole !== 'owner';
             const seasons = details.seasons || [];
             // Sort newest first (by season number; specials last)
             const sorted = [...seasons].sort((a, b) => {
@@ -481,8 +488,8 @@
             sorted.forEach(season => {
                 const name = season.name || ('Season ' + season.season_number);
                 const total = season.episode_count != null ? season.episode_count : 0;
-                const monitorBtn = isTVHunt ? '<button type="button" class="mh-monitor-btn mh-monitor-season mh-tv-hunt-only" data-season="' + season.season_number + '" title="Toggle monitor season"><i class="fas fa-bookmark"></i></button>' : '';
-                const requestSeasonBtn = '<div class="season-actions"><button class="season-action-btn request-season-btn request-season-btn-unknown" title="Request entire season" data-season="' + season.season_number + '" data-total="' + total + '"><i class="fas ' + seasonIcon + '"></i></button></div>';
+                const monitorBtn = (!_isNonOwnerSeason && isTVHunt) ? '<button type="button" class="mh-monitor-btn mh-monitor-season mh-tv-hunt-only" data-season="' + season.season_number + '" title="Toggle monitor season"><i class="fas fa-bookmark"></i></button>' : '';
+                const requestSeasonBtn = _isNonOwnerSeason ? '' : '<div class="season-actions"><button class="season-action-btn request-season-btn request-season-btn-unknown" title="Request entire season" data-season="' + season.season_number + '" data-total="' + total + '"><i class="fas ' + seasonIcon + '"></i></button></div>';
                 const badgeSpan = '<span class="season-count-badge season-count-badge-unknown" data-season="' + season.season_number + '" data-total="' + total + '">– / ' + total + '</span>';
                 html += `
                     <div class="requestarr-tv-season-item" data-season="${season.season_number}" data-tmdb-id="${details.id}">
@@ -699,8 +706,10 @@
                             const epStatusMap = this.buildEpisodeStatusMap(seasonNum);
                             const epMonitoredMap = isTVHunt ? this.buildEpisodeMonitoredMap(seasonNum) : {};
                             const sorted = [...eps].sort((a, b) => (b.episode_number ?? b.episodeNumber ?? 0) - (a.episode_number ?? a.episodeNumber ?? 0));
-                            const monitorCol = isTVHunt ? '<th></th>' : '';
-                            let tbl = '<table class="episode-table"><thead><tr>' + monitorCol + '<th>#</th><th>Title</th><th>Air Date</th><th>Availability</th><th></th></tr></thead><tbody>';
+                            const _isNonOwnerEp = window._huntarrUserRole && window._huntarrUserRole !== 'owner';
+                            const monitorCol = (!_isNonOwnerEp && isTVHunt) ? '<th></th>' : '';
+                            const actionCol = _isNonOwnerEp ? '' : '<th></th>';
+                            let tbl = '<table class="episode-table"><thead><tr>' + monitorCol + '<th>#</th><th>Title</th><th>Air Date</th><th>Availability</th>' + actionCol + '</tr></thead><tbody>';
                             sorted.forEach(ep => {
                                 const epNum = ep.episode_number ?? ep.episodeNumber;
                                 const title = ep.title || ep.name || '';
@@ -719,9 +728,10 @@
                                     statusBadge = '<span class="mh-ep-status mh-ep-status-warn">Missing</span>';
                                 }
                                 const epReqClass = isFutureAirDate ? 'ep-request-btn ep-request-notreleased' : 'ep-request-btn ep-request-missing';
-                                const requestBtn = !available ? `<button class="${epReqClass}" data-season="${seasonNum}" data-episode="${epNum}" title="Request episode"><i class="fas fa-download"></i></button>` : `<button class="ep-upgrade-btn" data-season="${seasonNum}" data-episode="${epNum}" title="Upgrade episode"><i class="fas fa-arrow-up"></i></button>`;
-                                const monCell = isTVHunt ? '<td><button type="button" class="mh-monitor-btn mh-monitor-episode" data-season="' + seasonNum + '" data-episode="' + epNum + '" title="Toggle monitor"><i class="' + (epMonitoredMap[epNum] ? 'fas' : 'far') + ' fa-bookmark"></i></button></td>' : '';
-                                tbl += `<tr>${monCell}<td>${epNum || ''}</td><td>${this.escapeHtml(title)}</td><td>${ad}</td><td>${statusBadge}</td><td>${requestBtn}</td></tr>`;
+                                const requestBtn = _isNonOwnerEp ? '' : (!available ? `<button class="${epReqClass}" data-season="${seasonNum}" data-episode="${epNum}" title="Request episode"><i class="fas fa-download"></i></button>` : `<button class="ep-upgrade-btn" data-season="${seasonNum}" data-episode="${epNum}" title="Upgrade episode"><i class="fas fa-arrow-up"></i></button>`);
+                                const monCell = (!_isNonOwnerEp && isTVHunt) ? '<td><button type="button" class="mh-monitor-btn mh-monitor-episode" data-season="' + seasonNum + '" data-episode="' + epNum + '" title="Toggle monitor"><i class="' + (epMonitoredMap[epNum] ? 'fas' : 'far') + ' fa-bookmark"></i></button></td>' : '';
+                                const actionCell = _isNonOwnerEp ? '' : `<td>${requestBtn}</td>`;
+                                tbl += `<tr>${monCell}<td>${epNum || ''}</td><td>${this.escapeHtml(title)}</td><td>${ad}</td><td>${statusBadge}</td>${actionCell}</tr>`;
                             });
                             tbl += '</tbody></table>';
                             episodesEl.innerHTML = tbl;

@@ -199,7 +199,7 @@ const HomeRequestarr = {
             this.defaultMovieInstance = null;
             this.defaultTVInstance = null;
         }
-        // Non-owner: override with assigned categories
+        // Non-owner: override with assigned categories when set (browsing still works without)
         if (window._huntarrUserRole && window._huntarrUserRole !== 'owner') {
             const movieCat = window._huntarrUserMovieCategory || '';
             const tvCat = window._huntarrUserTVCategory || '';

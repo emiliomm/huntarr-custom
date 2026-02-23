@@ -118,13 +118,15 @@ export class RequestarrContent {
         } catch (e) {
             console.warn('[RequestarrContent] Could not load server defaults:', e);
         }
-        // Non-owner: override selected instances with their assigned categories
+        // Non-owner: override instances with their assigned categories when set.
+        // If no category assigned, keep server defaults for browsing (request blocking
+        // is handled at the card badge and modal level instead).
         if (this._isNonOwner()) {
             const movieCat = window._huntarrUserMovieCategory || '';
             const tvCat = window._huntarrUserTVCategory || '';
             if (movieCat) this.selectedMovieInstance = movieCat;
             if (tvCat) this.selectedTVInstance = tvCat;
-            console.log('[RequestarrContent] Non-owner override: movie=', movieCat, 'tv=', tvCat);
+            console.log('[RequestarrContent] Non-owner categories: movie=', movieCat || '(none)', 'tv=', tvCat || '(none)');
         }
         this._serverDefaultsLoaded = true;
     }
@@ -1552,9 +1554,20 @@ export class RequestarrContent {
         const partial = item.partial || false;
         const importable = item.importable || false;
         const pending = item.pending || false;
-        const hasInstance = item.media_type === 'movie'
+        let hasInstance = item.media_type === 'movie'
             ? ((this.core.instances.radarr || []).length > 0 || (this.core.instances.movie_hunt || []).length > 0)
             : ((this.core.instances.sonarr || []).length > 0 || (this.core.instances.tv_hunt || []).length > 0);
+
+        // Non-owner with no assigned category for this media type: treat as "no instance"
+        // They can browse but cannot request anything
+        const isNonOwner = this._isNonOwner();
+        if (isNonOwner) {
+            const userCat = item.media_type === 'movie'
+                ? (window._huntarrUserMovieCategory || '')
+                : (window._huntarrUserTVCategory || '');
+            if (!userCat) hasInstance = false;
+        }
+
         const metaClassName = hasInstance ? 'media-card-meta' : 'media-card-meta no-hide';
 
         // Determine status badge (shared utility)
@@ -1564,8 +1577,8 @@ export class RequestarrContent {
             card.classList.add('in-library');
         }
 
-        // Only show Request button when not in library or collection
-        const showRequestBtn = !inLibrary && !partial;
+        // Only show Request button when not in library/collection AND user has an assigned instance
+        const showRequestBtn = !inLibrary && !partial && (!isNonOwner || hasInstance);
         const overlayActionHTML = showRequestBtn
             ? '<button class="media-card-request-btn"><i class="fas fa-download"></i> Request</button>'
             : '';

@@ -691,16 +691,26 @@
             var deleteBtn = document.getElementById('requestarr-detail-delete');
             var refreshBtn = document.getElementById('requestarr-detail-refresh');
 
-            // Edit, Delete, Refresh only for items in collection (Movie Hunt only)
-            if (editBtn) editBtn.style.display = (isFound && isMovieHunt) ? '' : 'none';
-            if (deleteBtn) deleteBtn.style.display = (isFound && isMovieHunt) ? '' : 'none';
-            if (refreshBtn) refreshBtn.style.display = (isFound && isMovieHunt) ? '' : 'none';
+            // Non-owners: hide all management buttons (admin-only)
+            var _isNonOwnerForToolbar = window._huntarrUserRole && window._huntarrUserRole !== 'owner';
+            if (_isNonOwnerForToolbar) {
+                if (editBtn) editBtn.style.display = 'none';
+                if (deleteBtn) deleteBtn.style.display = 'none';
+                if (refreshBtn) refreshBtn.style.display = 'none';
+            } else {
+                // Edit, Delete, Refresh only for items in collection (Movie Hunt only)
+                if (editBtn) editBtn.style.display = (isFound && isMovieHunt) ? '' : 'none';
+                if (deleteBtn) deleteBtn.style.display = (isFound && isMovieHunt) ? '' : 'none';
+                if (refreshBtn) refreshBtn.style.display = (isFound && isMovieHunt) ? '' : 'none';
+            }
 
             // ── Monitor toggle — show only when movie is in collection (Movie Hunt) ──
             var monitorWrap = document.getElementById('requestarr-movie-monitor-wrap');
             var monitorBtn = document.getElementById('requestarr-movie-monitor-btn');
             if (monitorWrap && monitorBtn) {
-                if (isFound && isMovieHunt) {
+                if (_isNonOwnerForToolbar) {
+                    monitorWrap.style.display = 'none';
+                } else if (isFound && isMovieHunt) {
                     monitorWrap.style.display = '';
                     var monitored = statusData ? statusData.monitored !== false : true;
                     var icon = monitorBtn.querySelector('i');
@@ -712,16 +722,16 @@
 
             // ── Hide button (eye-slash) — only when NOT in collection ──
             var hideBtn = document.getElementById('requestarr-detail-hide');
-            if (hideBtn) hideBtn.style.display = (!isFound && isMovieHunt) ? '' : 'none';
+            if (hideBtn) hideBtn.style.display = (_isNonOwnerForToolbar || isFound || !isMovieHunt) ? 'none' : '';
 
             // ── Search Movie button — only when NOT in collection ──
             var searchMovieBtn = document.getElementById('requestarr-detail-search-movie');
-            if (searchMovieBtn) searchMovieBtn.style.display = (!isFound && isMovieHunt) ? '' : 'none';
+            if (searchMovieBtn) searchMovieBtn.style.display = (_isNonOwnerForToolbar || isFound || !isMovieHunt) ? 'none' : '';
 
             // ── Force Search / Force Upgrade — only for Movie Hunt in collection ──
             var forceContainer = document.getElementById('requestarr-detail-force-container');
             if (forceContainer) {
-                if (!isFound || !isMovieHunt) {
+                if (_isNonOwnerForToolbar || !isFound || !isMovieHunt) {
                     forceContainer.innerHTML = '';
                 } else if (isDownloaded) {
                     forceContainer.innerHTML = '<button class="mh-tb" id="requestarr-detail-force-upgrade" title="Search for a higher-scoring release"><i class="fas fa-arrow-circle-up"></i><span>Force Upgrade</span></button>';
@@ -736,10 +746,20 @@
 
             // ── Action button area ──
             var actionsContainer = document.querySelector('.mh-hero-actions');
+            var _isNonOwnerUser = window._huntarrUserRole && window._huntarrUserRole !== 'owner';
+            var _userMovieCat = window._huntarrUserMovieCategory || '';
             if (actionsContainer) {
                 if (isFound) {
-                    // Status bar already communicates the state
-                    actionsContainer.innerHTML = '';
+                    // Already in library — show "Already in Library" for non-owners
+                    if (_isNonOwnerUser) {
+                        actionsContainer.innerHTML = '<button class="mh-btn mh-btn-primary disabled" disabled style="opacity:0.6"><i class="fas fa-check-circle"></i> Already Requested</button>';
+                    } else {
+                        // Status bar already communicates the state for owners
+                        actionsContainer.innerHTML = '';
+                    }
+                } else if (_isNonOwnerUser && !_userMovieCat) {
+                    // Non-owner with no assigned instance — can't request
+                    actionsContainer.innerHTML = '<button class="mh-btn mh-btn-primary disabled" disabled style="opacity:0.6"><i class="fas fa-exclamation-triangle"></i> Not Available</button>';
                 } else {
                     actionsContainer.innerHTML = '<button class="mh-btn mh-btn-primary" id="requestarr-detail-request-btn"><i class="fas fa-download"></i> Request Movie</button>';
                     var requestBtn = document.getElementById('requestarr-detail-request-btn');
@@ -915,9 +935,15 @@
             // Status button
             const hasInstances = this.movieInstances.length > 0;
             const inLibrary = originalMovie.in_library || false;
+            const _isNonOwnerRender = window._huntarrUserRole && window._huntarrUserRole !== 'owner';
+            const _userMovieCatRender = window._huntarrUserMovieCategory || '';
             let actionButton = '';
 
-            if (!hasInstances) {
+            if (_isNonOwnerRender && inLibrary) {
+                actionButton = '<button class="mh-btn mh-btn-primary disabled" disabled style="opacity:0.6"><i class="fas fa-check-circle"></i> Already Requested</button>';
+            } else if (_isNonOwnerRender && !_userMovieCatRender) {
+                actionButton = '<button class="mh-btn mh-btn-primary disabled" disabled style="opacity:0.6"><i class="fas fa-exclamation-triangle"></i> Not Available</button>';
+            } else if (!hasInstances) {
                 actionButton = '<button class="mh-btn" disabled style="background: rgba(55, 65, 81, 0.8); color: #9ca3af; cursor: not-allowed; border: 1px solid rgba(107, 114, 128, 0.5); font-size: 0.95rem; padding: 10px 20px;"><i class="fas fa-server" style="margin-right: 8px; color: #9ca3af;"></i> No Instance Configured \u2014 Add to Get Started</button>';
             } else if (inLibrary) {
                 actionButton = '<button class="mh-btn mh-btn-success" disabled><i class="fas fa-check"></i> Already Available</button>';
@@ -947,7 +973,8 @@
 
             // Instance selector - combined Movie Hunt + Radarr
             let instanceSelectorHTML = '';
-            if (this.movieInstances.length > 0) {
+            const _isNonOwner = window._huntarrUserRole && window._huntarrUserRole !== 'owner';
+            if (this.movieInstances.length > 0 && !_isNonOwner) {
                 instanceSelectorHTML = `
                     <div class="mh-hero-instance">
                         <i class="fas fa-server"></i>
@@ -961,11 +988,13 @@
                 `;
             }
 
-            // Toolbar: full (Movie Hunt) vs minimal (Radarr)
+            // Toolbar: full (Movie Hunt) vs minimal (Radarr) — hidden for non-owners
             var decoded = _decodeInstanceValue(this.selectedInstanceName || '');
             var isMovieHunt = decoded.appType === 'movie_hunt';
             var toolbarHTML = '';
-            if (isMovieHunt) {
+            if (_isNonOwner) {
+                toolbarHTML = ''; // Non-owners don't see toolbar
+            } else if (isMovieHunt) {
                 toolbarHTML = `
                 <div class="mh-toolbar" id="requestarr-detail-toolbar">
                     <div class="mh-toolbar-left">
@@ -1019,7 +1048,7 @@
                                 </div>
                                 <div class="mh-hero-genres">${genres}</div>
                                 ${instanceSelectorHTML}
-                                <div class="mh-info-bar" id="requestarr-detail-info-bar"${hasInstances ? '' : ' style="display:none"'}>
+                                <div class="mh-info-bar" id="requestarr-detail-info-bar"${(hasInstances && !_isNonOwner) ? '' : ' style="display:none"'}>
                                     <div class="mh-ib mh-ib-path">
                                         <div class="mh-ib-label">PATH</div>
                                         <div class="mh-ib-val" id="requestarr-ib-path"><i class="fas fa-spinner fa-spin"></i></div>

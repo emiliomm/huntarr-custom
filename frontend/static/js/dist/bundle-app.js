@@ -421,6 +421,10 @@ let huntarrUI = {
         // 4. Hide the Requests header bar (breadcrumb) — redundant for non-owner users
         var headerBar = document.querySelector('.requestarr-header-bar');
         if (headerBar) headerBar.style.display = 'none';
+
+        // 5. Hide the global search bar for non-owner users
+        var searchBar = document.querySelector('.global-search-bar');
+        if (searchBar) searchBar.style.display = 'none';
     },
 
     isAdminOnlySection: function (section) {
