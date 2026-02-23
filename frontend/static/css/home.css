@@ -367,6 +367,11 @@
     padding: 0 !important;
 }
 
+#homeSection .requestarr-home-card:hover {
+    border: none !important;
+    box-shadow: none !important;
+}
+
 /* ── Search Toolbar — matches #media-hunt-collection style ──────── */
 .home-search-toolbar {
     display: flex;
@@ -381,64 +386,64 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 0;
+    padding: 4px 0 0 0;
 }
 
-/* ── Filter Chips — same as collection control-select ───────────── */
+/* ── Filter Chips — exact clone of #media-hunt-collection control-select ── */
 .home-search-filters {
     display: flex;
     gap: 12px;
     flex-shrink: 0;
 }
 
+/* Wrapper is invisible — the select IS the visual element */
 .home-filter-chip {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
-    padding: 0 12px 0 12px;
-    height: 44px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    cursor: pointer;
-}
-
-.home-filter-chip:hover,
-.home-filter-chip:focus-within {
-    border-color: rgba(99, 102, 241, 0.5);
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
-    background: rgba(30, 41, 59, 0.9);
-}
-
-.home-filter-chip i {
-    color: #475569;
-    font-size: 13px;
+    display: block;
     flex-shrink: 0;
 }
 
+.home-filter-chip i {
+    display: none;
+    /* Hide icon — collection style has no icon on dropdown */
+}
+
 .home-filter-chip .chip-select {
-    background: transparent;
-    border: none;
-    color: #e2e8f0;
+    min-width: 140px;
+    width: auto;
+    padding: 10px 36px 10px 14px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
+    border: 1px solid rgba(90, 109, 137, 0.4);
+    border-radius: 8px;
+    color: #f1f5f9;
     font-size: 14px;
     font-weight: 500;
-    outline: none;
     cursor: pointer;
-    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transition: border-color 0.2s, box-shadow 0.2s;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 0px center;
-    padding-right: 18px;
+    background-position: right 12px center;
+    outline: none;
+}
+
+.home-filter-chip .chip-select:hover {
+    border-color: rgba(90, 109, 137, 0.6);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.home-filter-chip .chip-select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
 }
 
 .home-filter-chip .chip-select option {
     background: #1e293b;
-    color: #e2e8f0;
+    color: #f1f5f9;
 }
+
 
 /* ── Search Bar — same as collection .global-search-bar ─────────── */
 .home-search-bar {
