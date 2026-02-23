@@ -1635,7 +1635,7 @@
                 `;
             }
 
-            const toolbarHTML = `
+            const toolbarHTML = _isNonOwner ? '' : `
                 <div class="mh-toolbar" id="requestarr-tv-detail-toolbar">
                     <div class="mh-toolbar-left">
                         ${isTVHunt ? '<button class="mh-tb" id="requestarr-tv-detail-refresh" title="Refresh" style="display:none"><i class="fas fa-redo-alt"></i><span>Refresh</span></button>' : ''}
@@ -1660,7 +1660,7 @@
                             <div class="mh-hero-info">
                                 <div class="mh-hero-title-row">
                                     <h1 class="mh-hero-title">${this.escapeHtml(title)}</h1>
-                                    ${hasTVHuntInstances ? '<div class="mh-hero-series-monitor" id="requestarr-tv-series-monitor-wrap" style="display:none;"><button type="button" class="mh-monitor-btn" id="requestarr-tv-series-monitor-btn" title="Toggle monitor series"><i class="fas fa-bookmark"></i></button></div>' : ''}
+                                    ${(hasTVHuntInstances && !_isNonOwner) ? '<div class="mh-hero-series-monitor" id="requestarr-tv-series-monitor-wrap" style="display:none;"><button type="button" class="mh-monitor-btn" id="requestarr-tv-series-monitor-btn" title="Toggle monitor series"><i class="fas fa-bookmark"></i></button></div>' : ''}
                                 </div>
                                 <div class="mh-hero-meta">
                                     <span><i class="fas fa-calendar-alt"></i> ${year}</span>

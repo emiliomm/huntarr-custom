@@ -6502,14 +6502,18 @@ class RequestarrModal {
                     card.classList.add('in-library');
                 }
             }
-            // If now in collection (either state), swap eye-slash → trash
-            if (inLibrary || requested) {
+            // If now in collection (either state), swap eye-slash → trash (owner only)
+            if ((inLibrary || requested) && window._huntarrUserRole === 'owner') {
                 const hideBtn = card.querySelector('.media-card-hide-btn');
                 if (hideBtn) {
                     hideBtn.className = 'media-card-delete-btn';
                     hideBtn.title = 'Remove / Delete';
                     hideBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
                 }
+                const requestBtn = card.querySelector('.media-card-request-btn');
+                if (requestBtn) requestBtn.remove();
+            } else if (inLibrary || requested) {
+                // Non-owners: just remove the request button, keep eye-slash
                 const requestBtn = card.querySelector('.media-card-request-btn');
                 if (requestBtn) requestBtn.remove();
             }
