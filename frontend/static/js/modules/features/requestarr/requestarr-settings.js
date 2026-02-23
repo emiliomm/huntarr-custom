@@ -113,6 +113,19 @@ export class RequestarrSettings {
         container.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading hidden media...</p></div>';
 
         try {
+            // Ensure user role is known before rendering cards (race condition fix)
+            if (!window._huntarrUserRole) {
+                try {
+                    const roleResp = await fetch('./api/user/info');
+                    if (roleResp.ok) {
+                        const roleData = await roleResp.json();
+                        window._huntarrUserRole = roleData.role || 'user';
+                    }
+                } catch (e) {
+                    console.warn('[RequestarrSettings] Could not fetch user role:', e);
+                }
+            }
+
             // Always fetch fresh from server — no caching
             const [personalItems, globalItems] = await Promise.all([
                 this.fetchHiddenMediaItems(mediaType),
