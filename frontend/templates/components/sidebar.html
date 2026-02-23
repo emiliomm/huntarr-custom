@@ -46,11 +46,27 @@
                         <div class="nav-icon-wrapper"><i class="fas fa-fire"></i></div>
                         <span>Smart Hunt</span>
                     </a>
-                    <a href="./#requestarr-personal-blacklist" class="nav-item nav-item-sub"
-                        id="requestarrPersonalBlacklistNav" title="Personal Blacklist">
-                        <div class="nav-icon-wrapper"><i class="fas fa-eye-slash"></i></div>
-                        <span>Blacklist</span>
-                    </a>
+                    <!-- Blacklist sub-group -->
+                    <div class="nav-sub-group" id="requestarr-blacklist-sub">
+                        <div class="nav-sub-group-header" data-sub-group="requestarr-blacklist-sub-body"
+                            id="requestarrBlacklistGroupHeader">
+                            <div class="nav-icon-wrapper"><i class="fas fa-eye-slash"></i></div>
+                            <span>Blacklist</span>
+                            <i class="fas fa-chevron-right nav-sub-chevron"></i>
+                        </div>
+                        <div class="nav-sub-group-body collapsed" id="requestarr-blacklist-sub-body">
+                            <a href="./#requestarr-personal-blacklist" class="nav-item nav-item-sub nav-item-deep"
+                                id="requestarrPersonalBlacklistNav">
+                                <div class="nav-icon-wrapper"><i class="fas fa-user-slash"></i></div>
+                                <span>Personal</span>
+                            </a>
+                            <a href="./#requestarr-global-blacklist" class="nav-item nav-item-sub nav-item-deep"
+                                id="requestarrGlobalBlacklistNav">
+                                <div class="nav-icon-wrapper"><i class="fas fa-ban"></i></div>
+                                <span>Global</span>
+                            </a>
+                        </div>
+                    </div>
                     <div class="nav-user-support-label" id="requestarrConfigLabel">
                         <i class="fas fa-sliders-h"></i>
                         <span>Configuration</span>
@@ -80,11 +96,7 @@
                         <span>Users</span>
                     </a>
 
-                    <a href="./#requestarr-global-blacklist" class="nav-item nav-item-sub nav-item-deep"
-                        id="requestarrGlobalBlacklistNav">
-                        <div class="nav-icon-wrapper"><i class="fas fa-ban"></i></div>
-                        <span>Global Blacklist</span>
-                    </a>
+
                     <a href="./#notifications" class="nav-item nav-item-sub nav-item-deep"
                         id="requestarrNotificationsNav" data-notifications-source="requests">
                         <div class="nav-icon-wrapper"><i class="fas fa-bell"></i></div>
@@ -540,6 +552,24 @@
         }
     });
 
+    // ── Sub-group toggle (e.g. Blacklist > Personal / Global) ──
+    document.addEventListener('click', function (e) {
+        var subHeader = e.target.closest('.nav-sub-group-header');
+        if (!subHeader) return;
+        e.preventDefault();
+        var subBodyId = subHeader.getAttribute('data-sub-group');
+        var subBody = document.getElementById(subBodyId);
+        if (!subBody) return;
+        var collapsed = subBody.classList.contains('collapsed');
+        if (collapsed) {
+            subBody.classList.remove('collapsed');
+            subHeader.classList.add('expanded');
+        } else {
+            subBody.classList.add('collapsed');
+            subHeader.classList.remove('expanded');
+        }
+    });
+
     // ── setActiveNavItem: highlight nav + expand correct group ───
     function setActiveNavItem() {
         // Clear all active states
@@ -556,6 +586,7 @@
         var selector = null;
         var group = null;
         var subToExpand = null; // which Media Hunt sub to expand (avoids collapse-then-expand flicker)
+        var subGroupToExpand = null; // which Requestarr sub-group to expand (e.g. blacklist)
 
         // Home
         if (h === '#home') { selector = '#homeNav'; group = null; }
@@ -592,7 +623,8 @@
         else if (h === '#requestarr-tv') { selector = '#requestarrTVNav'; group = 'sidebar-group-requests'; }
         else if (h === '#requestarr-movies') { selector = '#requestarrMoviesNav'; group = 'sidebar-group-requests'; }
         else if (h === '#requestarr-smarthunt') { selector = '#requestarrSmartHuntNav'; group = 'sidebar-group-requests'; }
-        else if (h === '#requestarr-hidden' || h === '#requestarr-personal-blacklist') { selector = '#requestarrPersonalBlacklistNav'; group = 'sidebar-group-requests'; }
+        else if (h === '#requestarr-hidden' || h === '#requestarr-personal-blacklist') { selector = '#requestarrPersonalBlacklistNav'; group = 'sidebar-group-requests'; subGroupToExpand = 'requestarr-blacklist-sub-body'; }
+        else if (h === '#requestarr-global-blacklist') { selector = '#requestarrGlobalBlacklistNav'; group = 'sidebar-group-requests'; subGroupToExpand = 'requestarr-blacklist-sub-body'; }
         else if (h === '#requestarr-options' || h === '#requestarr-smarthunt-settings' || h === '#requestarr-filters' || h === '#requestarr-settings') { selector = '#requestarrOptionsNav'; group = 'sidebar-group-requests'; }
         else if (h === '#requestarr-users') { selector = '#requestarrUsersNav'; group = 'sidebar-group-requests'; }
         else if (h === '#requestarr-requests') {
@@ -603,7 +635,6 @@
             }
         }
         else if (h === '#requestarr-bundles') { selector = '#requestarrBundlesNav'; group = 'sidebar-group-requests'; }
-        else if (h === '#requestarr-global-blacklist') { selector = '#requestarrGlobalBlacklistNav'; group = 'sidebar-group-requests'; }
 
         // ── Apps ──────────────────────────────────────
         else if (h === '#apps' || h === '#sonarr' || h === '#instance-editor') { selector = '#appsSonarrNav'; group = 'sidebar-group-apps'; }
@@ -656,6 +687,17 @@
             });
         } else {
             collapseAllSubs();
+        }
+
+        // Requestarr sub-groups (e.g. Blacklist)
+        var blacklistSubBody = document.getElementById('requestarr-blacklist-sub-body');
+        var blacklistSubHeader = document.getElementById('requestarrBlacklistGroupHeader');
+        if (subGroupToExpand === 'requestarr-blacklist-sub-body') {
+            if (blacklistSubBody) blacklistSubBody.classList.remove('collapsed');
+            if (blacklistSubHeader) blacklistSubHeader.classList.add('expanded');
+        } else {
+            if (blacklistSubBody) blacklistSubBody.classList.add('collapsed');
+            if (blacklistSubHeader) blacklistSubHeader.classList.remove('expanded');
         }
 
         // Expand the correct group (accordion)

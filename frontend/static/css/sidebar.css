@@ -427,7 +427,78 @@
 /* ===== SUB-GROUPS ===== */
 .nav-sub-group {
     margin-left: 0;
+    overflow: visible;
+}
+
+/* Clickable header row inside a sub-group */
+.nav-sub-group-header {
+    display: flex;
+    align-items: center;
+    padding: 0 12px 0 24px;
+    height: 32px;
+    margin: 0 10px 0 20px;
+    border-radius: 8px;
+    color: rgba(203, 213, 225, 0.75);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.nav-sub-group-header:hover {
+    background: rgba(99, 102, 241, 0.06);
+    color: #e2e8f0;
+}
+
+.nav-sub-group-header .nav-icon-wrapper {
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.nav-sub-group-header .nav-icon-wrapper i {
+    font-size: 11px;
+    color: rgba(148, 163, 184, 0.7);
+}
+
+.nav-sub-group-header span {
+    font-size: 12px !important;
+    font-weight: 500;
+    flex: 1;
+}
+
+/* Chevron that rotates when expanded */
+.nav-sub-chevron {
+    font-size: 9px;
+    opacity: 0.4;
+    margin-left: auto;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+}
+
+.nav-sub-group-header.expanded .nav-sub-chevron {
+    transform: rotate(90deg);
+    opacity: 0.8;
+}
+
+.nav-sub-group-header.expanded {
+    color: rgba(165, 180, 252, 0.85);
+}
+
+.nav-sub-group-header.expanded .nav-icon-wrapper i {
+    color: rgba(165, 180, 252, 0.85);
+}
+
+/* Body - collapsed by default */
+.nav-sub-group-body {
     overflow: hidden;
+    max-height: 200px;
+    transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+    opacity: 1;
+}
+
+.nav-sub-group-body.collapsed {
+    max-height: 0;
+    opacity: 0;
 }
 
 .nav-item-sub {
