@@ -899,10 +899,15 @@
                     if (avatarEl) {
                         var initial = (data.username || '?').charAt(0).toUpperCase();
                         if (data.avatar_url) {
-                            avatarEl.innerHTML = '<img src="' + data.avatar_url + '" alt="" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><span class="sidebar-avatar-fallback" style="display:none;">' + initial + '</span>';
+                            avatarEl.innerHTML = '<img src="' + data.avatar_url + '" alt="" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' + '<span class="sidebar-avatar-fallback" style="display:none;">' + initial + '</span>';
                         } else {
                             avatarEl.innerHTML = '<span class="sidebar-avatar-fallback">' + initial + '</span>';
                         }
+                    }
+                    // Hide sponsor section for owners — only show for non-owner users
+                    var sponsorGroup = document.getElementById('main-sidebar-partner-projects-group');
+                    if (sponsorGroup) {
+                        sponsorGroup.style.display = (data.role === 'owner') ? 'none' : '';
                     }
                 })
                 .catch(function () { });
