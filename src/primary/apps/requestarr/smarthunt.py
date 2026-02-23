@@ -125,7 +125,8 @@ class SmartHuntEngine:
     ) -> List[Dict[str, Any]]:
         """Return *page* (1-based) of Smart Hunt results (20 items per page).
 
-        Results are generated and cached on a per-page basis.
+        Results are generated and cached cumulatively to allow infinite scroll
+        without repeating items across pages.
         """
         if page < 1:
             page = 1
@@ -134,25 +135,39 @@ class SmartHuntEngine:
         ttl_minutes = _safe_int(settings.get("cache_ttl_minutes"), SMARTHUNT_DEFAULTS["cache_ttl_minutes"])
         ttl_seconds = CACHE_TTL_OPTIONS.get(ttl_minutes, ttl_minutes * 60)
 
-        ck = _cache_key(settings, movie_instance, tv_instance, movie_app_type, tv_app_type) + f"_pg{page}"
+        ck = _cache_key(settings, movie_instance, tv_instance, movie_app_type, tv_app_type)
         cached = _result_cache.get(ck)
-        if ttl_seconds > 0 and cached and time.time() - cached["ts"] < ttl_seconds:
-            items = cached["results"]
-        else:
-            items = self._generate_all(
+        
+        target_len = page * BATCH_SIZE
+        
+        # If cache disabled, expired, or missing (or user requesting page 1 which resets just in case)
+        if not cached or (ttl_seconds > 0 and time.time() - cached["ts"] > ttl_seconds) or page == 1:
+            cached = {"results": [], "seen": set(), "ts": time.time(), "tmdb_page": 1}
+        
+        # Keep generating batches until we have enough items for the requested page
+        max_generate_attempts = 5
+        attempts = 0
+        while len(cached["results"]) < target_len and attempts < max_generate_attempts:
+            new_items = self._generate_all(
                 settings, movie_instance, tv_instance, movie_app_type, tv_app_type,
-                discover_filters or {}, blacklisted_genres or {}, page=page
+                discover_filters or {}, blacklisted_genres or {},
+                page=cached["tmdb_page"],
+                seen=cached["seen"]
             )
-            # Ensure we only return exactly 1 page size
-            items = items[:BATCH_SIZE]
             
-            if ttl_seconds > 0:
-                _result_cache[ck] = {"results": items, "ts": time.time()}
-            else:
-                # Cache disabled — clear any stale entry
-                _result_cache.pop(ck, None)
+            cached["results"].extend(new_items)
+            cached["tmdb_page"] += 1
+            attempts += 1
+            
+        _result_cache[ck] = cached
+        
+        # Avoid holding onto state if cache is disabled entirely
+        if ttl_seconds <= 0:
+            _result_cache.pop(ck, None)
 
-        return items
+        start = (page - 1) * BATCH_SIZE
+        end = start + BATCH_SIZE
+        return cached["results"][start:end]
 
     # ------------------------------------------------------------------
     # Main generation pipeline
@@ -168,6 +183,7 @@ class SmartHuntEngine:
         discover_filters: dict,
         blacklisted_genres: dict,
         page: int,
+        seen: set = None,
     ) -> List[Dict[str, Any]]:
         """Build a mixed batch of items for a specific page."""
 
@@ -272,7 +288,7 @@ class SmartHuntEngine:
         # ------------------------------------------------------------------
         # Deduplicate across categories, keeping first occurrence
         # ------------------------------------------------------------------
-        seen = set()
+        local_seen = seen if seen is not None else set()
         deduped: List[dict] = []
 
         # Priority order for interleaving
@@ -289,9 +305,9 @@ class SmartHuntEngine:
             added = 0
             for item in items:
                 key = (item.get("tmdb_id"), item.get("media_type"))
-                if key in seen:
+                if key in local_seen:
                     continue
-                seen.add(key)
+                local_seen.add(key)
                 item["smart_hunt_category"] = cat
                 deduped.append(item)
                 added += 1
@@ -301,7 +317,7 @@ class SmartHuntEngine:
         # Sprinkle in critic's picks (these are bonus — don't double-count)
         for cp in critics_picks:
             key = (cp["tmdb_id"], cp["media_type"])
-            if key in seen:
+            if key in local_seen:
                 # Already in pool — just tag it
                 for d in deduped:
                     if d.get("tmdb_id") == cp["tmdb_id"] and d.get("media_type") == cp["media_type"]:

@@ -35,11 +35,11 @@ const RequestarrServices = {
     },
 
     _appLabel(at) {
-        return {'radarr':'Radarr','sonarr':'Sonarr','movie_hunt':'Movie Hunt','tv_hunt':'TV Hunt'}[at] || at;
+        return { 'radarr': 'Radarr', 'sonarr': 'Sonarr', 'movie_hunt': 'Movie Hunt', 'tv_hunt': 'TV Hunt' }[at] || at;
     },
 
     _appIcon(at) {
-        return {'radarr':'fa-film','sonarr':'fa-tv','movie_hunt':'fa-film','tv_hunt':'fa-tv'}[at] || 'fa-layer-group';
+        return { 'radarr': 'fa-film', 'sonarr': 'fa-tv', 'movie_hunt': 'fa-film', 'tv_hunt': 'fa-tv' }[at] || 'fa-layer-group';
     },
 
     render() {
@@ -49,7 +49,22 @@ const RequestarrServices = {
         const movieBundles = this.bundles.filter(b => b.service_type === 'movies');
         const tvBundles = this.bundles.filter(b => b.service_type === 'tv');
 
+        const infoCard = `
+            <div class="settings-group">
+                <div class="settings-group-header">
+                    <h2>What are Bundles?</h2>
+                    <p style="color: #94a3b8; font-size: 14px; margin-top: 8px; line-height: 1.5;">
+                        Bundles allow you to group multiple independent instances (e.g., standard 1080p and 4K) into a single unified library view. 
+                        When you browse the Primary Instance of a bundle, any missing media will automatically trigger requests to <strong>all</strong> other instances in that bundle simultaneously. 
+                        If an item is already present in an instance, the request for that specific instance is seamlessly skipped.
+                        <br><br>
+                        <em>Note: If you only have one instance for Movies and TV, Bundles are completely unnecessary and should not be used.</em>
+                    </p>
+                </div>
+            </div>`;
+
         container.innerHTML =
+            infoCard +
             this._renderBundleGroup('Movie Bundles', movieBundles, 'movies') +
             this._renderBundleGroup('TV Bundles', tvBundles, 'tv');
         this._wireBundles();
@@ -82,10 +97,6 @@ const RequestarrServices = {
             ...members
         ];
 
-        const instanceTags = allInstances.map(inst =>
-            `<span class="profile-quality-tag">${this._esc(this._appLabel(inst.app_type))} \u2013 ${this._esc(inst.instance_name)}</span>`
-        ).join('');
-
         return `
             <div class="instance-card" data-bundle-id="${bundle.id}">
                 <div class="instance-card-header">
@@ -97,10 +108,7 @@ const RequestarrServices = {
                 <div class="instance-card-body">
                     <div class="instance-detail">
                         <i class="fas fa-star" style="color:#f59e0b;"></i>
-                        <span>${this._esc(primaryLabel)}${memberCount > 0 ? ` + ${memberCount} more` : ''}</span>
-                    </div>
-                    <div class="profile-card-quality-tags" style="margin-top:8px;">
-                        ${instanceTags}
+                        <span>Primary: ${this._esc(primaryLabel)}${memberCount > 0 ? ` + ${memberCount} more` : ''}</span>
                     </div>
                 </div>
                 <div class="instance-card-footer">
