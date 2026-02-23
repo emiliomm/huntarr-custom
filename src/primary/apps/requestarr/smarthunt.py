@@ -37,6 +37,7 @@ SMARTHUNT_DEFAULTS = {
     "min_tmdb_rating": 6.0,
     "min_vote_count": 50,
     "max_certification": "",
+    "preferred_language": "",
     "year_start": 2000,
     "year_end": datetime.now().year + 1,
     "percentages": {
@@ -236,6 +237,7 @@ class SmartHuntEngine:
             "year_start": year_start,
             "year_end": year_end,
             "max_certification": settings.get("max_certification", ""),
+            "preferred_language": settings.get("preferred_language", ""),
         }
 
         # Map category name -> fetcher callable
@@ -516,7 +518,8 @@ class SmartHuntEngine:
             cached = get_recommendations(media_type, tmdb_id)
             if cached is not None:
                 bl = common.get("bl_movie") if media_type == "movie" else common.get("bl_tv")
-                return self._parse_results(cached.get("results", [])[:20], media_type, bl or set())
+                results = self._parse_results(cached.get("results", [])[:20], media_type, bl or set())
+                return self._apply_common_filters(results, common, media_type)
         except Exception:
             pass
         url = f"{self.TMDB_BASE}/{media_type}/{tmdb_id}/recommendations"
@@ -527,10 +530,52 @@ class SmartHuntEngine:
             data = resp.json()
             set_recommendations(media_type, tmdb_id, data)
             bl = common.get("bl_movie") if media_type == "movie" else common.get("bl_tv")
-            return self._parse_results(data.get("results", [])[:20], media_type, bl or set())
+            results = self._parse_results(data.get("results", [])[:20], media_type, bl or set())
+            return self._apply_common_filters(results, common, media_type)
         except Exception as e:
             logger.warning(f"[SmartHunt] Recommendations for {media_type}/{tmdb_id} failed: {e}")
             return []
+
+    def _apply_common_filters(self, items: List[dict], common: dict, media_type: str) -> List[dict]:
+        """Post-filter recommendation results by language, year, and rating.
+
+        TMDB /recommendations ignores with_original_language, so we must enforce
+        these constraints client-side to prevent library seeds in other languages
+        from leaking foreign-language results into the Smart Hunt feed.
+
+        Priority: preferred_language (Smart Hunt setting) > languages (discover filters).
+        """
+        # Determine effective language constraint
+        preferred_language = common.get("preferred_language", "")
+        discover_languages = common.get("languages", [])
+        # preferred_language takes precedence; fall back to discover filter list
+        effective_languages = [preferred_language] if preferred_language else discover_languages
+
+        year_start = common.get("year_start", 0)
+        year_end = common.get("year_end", 9999)
+        min_rating = common.get("min_rating", 0)
+        min_votes = common.get("min_votes", 0)
+
+        filtered = []
+        for item in items:
+            # Language filter
+            if effective_languages:
+                orig_lang = item.get("original_language", "")
+                if orig_lang and orig_lang not in effective_languages:
+                    continue
+            # Year range
+            year = item.get("year")
+            if year and year_start and year < year_start:
+                continue
+            if year and year_end < 9999 and year > year_end:
+                continue
+            # Min rating / votes
+            if min_rating > 0 and (item.get("vote_average") or 0) < min_rating:
+                continue
+            if min_votes > 0 and (item.get("vote_count") or 0) < min_votes:
+                continue
+            filtered.append(item)
+        return filtered
 
     def _get_library_seeds(self, api_key: str) -> List[dict]:
         """Pick seed items from the user's library for Similar to Library.
@@ -753,6 +798,7 @@ class SmartHuntEngine:
                 "vote_average": item.get("vote_average", 0),
                 "vote_count": item.get("vote_count", 0),
                 "popularity": item.get("popularity", 0),
+                "original_language": item.get("original_language", ""),
             })
         return parsed
 

@@ -635,6 +635,30 @@
                                 </select>
                                 <small>Restrict Smart Hunt results to this US certification or lower.</small>
                             </div>
+                            <div class="settings-field">
+                                <label for="smarthunt-preferred-language">Preferred Language</label>
+                                <select id="smarthunt-preferred-language" class="settings-input">
+                                    <option value="">Any Language</option>
+                                    <option value="en">English</option>
+                                    <option value="fr">French</option>
+                                    <option value="de">German</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="it">Italian</option>
+                                    <option value="pt">Portuguese</option>
+                                    <option value="ja">Japanese</option>
+                                    <option value="ko">Korean</option>
+                                    <option value="zh">Chinese</option>
+                                    <option value="ru">Russian</option>
+                                    <option value="hi">Hindi</option>
+                                    <option value="ar">Arabic</option>
+                                    <option value="nl">Dutch</option>
+                                    <option value="pl">Polish</option>
+                                    <option value="sv">Swedish</option>
+                                    <option value="tr">Turkish</option>
+                                </select>
+                                <small>Filter Smart Hunt results to this original language. Prevents library seeds in
+                                    other languages from polluting recommendations.</small>
+                            </div>
                         </div>
                     </div>
 
@@ -1075,103 +1099,103 @@
     </div>
 
 
-<!-- Requestarr Request Modal – Two-column poster + form layout (matches Movie Hunt design) -->
-<div id="media-modal" class="mh-req-modal" style="display: none;">
-    <div class="modal-backdrop" id="requestarr-modal-backdrop"></div>
-    <div class="mh-req-card">
-        <button type="button" class="mh-req-close" id="requestarr-modal-close" aria-label="Close">
-            <i class="fas fa-times"></i>
-        </button>
-        <div class="mh-req-layout">
-            <!-- Poster column -->
-            <div class="mh-req-poster">
-                <img id="requestarr-modal-poster-img" src="./static/images/blackout.jpg" alt=""
-                    onerror="this.src='./static/images/blackout.jpg'">
-            </div>
-            <!-- Form column -->
-            <div class="mh-req-form">
-                <div class="mh-req-header">
-                    <span class="mh-req-label" id="requestarr-modal-label">Request Movie</span>
-                    <h2 class="mh-req-title" id="requestarr-modal-title"></h2>
-                    <div class="mh-req-meta" id="requestarr-modal-meta"></div>
+    <!-- Requestarr Request Modal – Two-column poster + form layout (matches Movie Hunt design) -->
+    <div id="media-modal" class="mh-req-modal" style="display: none;">
+        <div class="modal-backdrop" id="requestarr-modal-backdrop"></div>
+        <div class="mh-req-card">
+            <button type="button" class="mh-req-close" id="requestarr-modal-close" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="mh-req-layout">
+                <!-- Poster column -->
+                <div class="mh-req-poster">
+                    <img id="requestarr-modal-poster-img" src="./static/images/blackout.jpg" alt=""
+                        onerror="this.src='./static/images/blackout.jpg'">
                 </div>
-                <div class="mh-req-status" id="requestarr-modal-status-container"></div>
-                <div class="mh-req-fields">
-                    <div class="mh-req-field">
-                        <label>Instance</label>
-                        <div class="mh-req-instance-wrap">
-                            <a href="#" id="modal-instance-info-icon" class="mh-req-root-info-icon"
-                                style="display: none;" title="Go to Instances to configure"
-                                aria-label="Configure instances"><i class="fas fa-info-circle"></i></a>
-                            <select id="modal-instance-select" aria-label="Instance">
+                <!-- Form column -->
+                <div class="mh-req-form">
+                    <div class="mh-req-header">
+                        <span class="mh-req-label" id="requestarr-modal-label">Request Movie</span>
+                        <h2 class="mh-req-title" id="requestarr-modal-title"></h2>
+                        <div class="mh-req-meta" id="requestarr-modal-meta"></div>
+                    </div>
+                    <div class="mh-req-status" id="requestarr-modal-status-container"></div>
+                    <div class="mh-req-fields">
+                        <div class="mh-req-field">
+                            <label>Instance</label>
+                            <div class="mh-req-instance-wrap">
+                                <a href="#" id="modal-instance-info-icon" class="mh-req-root-info-icon"
+                                    style="display: none;" title="Go to Instances to configure"
+                                    aria-label="Configure instances"><i class="fas fa-info-circle"></i></a>
+                                <select id="modal-instance-select" aria-label="Instance">
+                                    <option value="">Loading...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mh-req-field">
+                            <label>Root Folder</label>
+                            <div class="mh-req-root-folder-wrap">
+                                <a href="#" id="modal-root-folder-info-icon" class="mh-req-root-info-icon"
+                                    style="display: none;" title="Go to Root Folders to configure"
+                                    aria-label="Configure root folders"><i class="fas fa-info-circle"></i></a>
+                                <select id="modal-root-folder">
+                                    <option value="">Loading...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mh-req-field">
+                            <label>Quality Profile</label>
+                            <select id="modal-quality-profile">
                                 <option value="">Loading...</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="mh-req-field">
-                        <label>Root Folder</label>
-                        <div class="mh-req-root-folder-wrap">
-                            <a href="#" id="modal-root-folder-info-icon" class="mh-req-root-info-icon"
-                                style="display: none;" title="Go to Root Folders to configure"
-                                aria-label="Configure root folders"><i class="fas fa-info-circle"></i></a>
-                            <select id="modal-root-folder">
-                                <option value="">Loading...</option>
+                        <div class="mh-req-field mh-hidden" id="requestarr-modal-monitor-wrap">
+                            <label>Monitor</label>
+                            <select id="modal-monitor" aria-label="Monitor">
+                                <option value="all_episodes">All Episodes</option>
+                                <option value="future_episodes">Future Episodes</option>
+                                <option value="missing_episodes">Missing Episodes</option>
+                                <option value="existing_episodes">Existing Episodes</option>
+                                <option value="recent_episodes">Recent Episodes</option>
+                                <option value="pilot_episode">Pilot Episode</option>
+                                <option value="first_season">First Season</option>
+                                <option value="last_season">Last Season</option>
+                                <option value="monitor_specials">Monitor Specials</option>
+                                <option value="unmonitor_specials">Unmonitor Specials</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                        <div class="mh-req-field mh-hidden" id="requestarr-modal-movie-monitor-wrap">
+                            <label>Monitor</label>
+                            <select id="modal-movie-monitor" aria-label="Monitor">
+                                <option value="movie_only" selected>Movie Only</option>
+                                <option value="movie_and_collection">Movie and Collection</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                        <div class="mh-req-field mh-hidden" id="requestarr-modal-min-availability-wrap">
+                            <label>Minimum Availability</label>
+                            <select id="modal-minimum-availability" aria-label="Minimum Availability">
+                                <option value="released" selected>Released</option>
+                                <option value="inCinemas">In Cinemas</option>
+                                <option value="announced">Announced</option>
                             </select>
                         </div>
                     </div>
-                    <div class="mh-req-field">
-                        <label>Quality Profile</label>
-                        <select id="modal-quality-profile">
-                            <option value="">Loading...</option>
-                        </select>
-                    </div>
-                    <div class="mh-req-field mh-hidden" id="requestarr-modal-monitor-wrap">
-                        <label>Monitor</label>
-                        <select id="modal-monitor" aria-label="Monitor">
-                            <option value="all_episodes">All Episodes</option>
-                            <option value="future_episodes">Future Episodes</option>
-                            <option value="missing_episodes">Missing Episodes</option>
-                            <option value="existing_episodes">Existing Episodes</option>
-                            <option value="recent_episodes">Recent Episodes</option>
-                            <option value="pilot_episode">Pilot Episode</option>
-                            <option value="first_season">First Season</option>
-                            <option value="last_season">Last Season</option>
-                            <option value="monitor_specials">Monitor Specials</option>
-                            <option value="unmonitor_specials">Unmonitor Specials</option>
-                            <option value="none">None</option>
-                        </select>
-                    </div>
-                    <div class="mh-req-field mh-hidden" id="requestarr-modal-movie-monitor-wrap">
-                        <label>Monitor</label>
-                        <select id="modal-movie-monitor" aria-label="Monitor">
-                            <option value="movie_only" selected>Movie Only</option>
-                            <option value="movie_and_collection">Movie and Collection</option>
-                            <option value="none">None</option>
-                        </select>
-                    </div>
-                    <div class="mh-req-field mh-hidden" id="requestarr-modal-min-availability-wrap">
-                        <label>Minimum Availability</label>
-                        <select id="modal-minimum-availability" aria-label="Minimum Availability">
-                            <option value="released" selected>Released</option>
-                            <option value="inCinemas">In Cinemas</option>
-                            <option value="announced">Announced</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="mh-req-actions">
-                    <label class="mh-req-checkbox-wrap mh-hidden" id="requestarr-modal-start-search-wrap">
-                        <input type="checkbox" id="modal-start-search" checked>
-                        <span>Start search for missing movie</span>
-                    </label>
-                    <div class="mh-req-buttons">
-                        <button type="button" class="mh-req-btn mh-req-btn-cancel"
-                            id="requestarr-modal-cancel">Cancel</button>
-                        <button type="button" class="mh-req-btn mh-req-btn-submit"
-                            id="modal-request-btn">Request</button>
+                    <div class="mh-req-actions">
+                        <label class="mh-req-checkbox-wrap mh-hidden" id="requestarr-modal-start-search-wrap">
+                            <input type="checkbox" id="modal-start-search" checked>
+                            <span>Start search for missing movie</span>
+                        </label>
+                        <div class="mh-req-buttons">
+                            <button type="button" class="mh-req-btn mh-req-btn-cancel"
+                                id="requestarr-modal-cancel">Cancel</button>
+                            <button type="button" class="mh-req-btn mh-req-btn-submit"
+                                id="modal-request-btn">Request</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
