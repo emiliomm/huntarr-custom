@@ -125,35 +125,34 @@ class SmartHuntEngine:
     ) -> List[Dict[str, Any]]:
         """Return *page* (1-based) of Smart Hunt results (20 items per page).
 
-        All 100 items (5 pages) are generated in one shot, cached, and sliced.
+        Results are generated and cached on a per-page basis.
         """
         if page < 1:
             page = 1
-        if page > MAX_PAGES:
-            page = MAX_PAGES
 
         # Determine cache TTL from settings (0 = disabled)
         ttl_minutes = _safe_int(settings.get("cache_ttl_minutes"), SMARTHUNT_DEFAULTS["cache_ttl_minutes"])
         ttl_seconds = CACHE_TTL_OPTIONS.get(ttl_minutes, ttl_minutes * 60)
 
-        ck = _cache_key(settings, movie_instance, tv_instance, movie_app_type, tv_app_type)
+        ck = _cache_key(settings, movie_instance, tv_instance, movie_app_type, tv_app_type) + f"_pg{page}"
         cached = _result_cache.get(ck)
         if ttl_seconds > 0 and cached and time.time() - cached["ts"] < ttl_seconds:
             items = cached["results"]
         else:
             items = self._generate_all(
                 settings, movie_instance, tv_instance, movie_app_type, tv_app_type,
-                discover_filters or {}, blacklisted_genres or {},
+                discover_filters or {}, blacklisted_genres or {}, page=page
             )
+            # Ensure we only return exactly 1 page size
+            items = items[:BATCH_SIZE]
+            
             if ttl_seconds > 0:
                 _result_cache[ck] = {"results": items, "ts": time.time()}
             else:
                 # Cache disabled — clear any stale entry
                 _result_cache.pop(ck, None)
 
-        start = (page - 1) * BATCH_SIZE
-        end = start + BATCH_SIZE
-        return items[start:end]
+        return items
 
     # ------------------------------------------------------------------
     # Main generation pipeline
@@ -168,8 +167,9 @@ class SmartHuntEngine:
         tv_app_type: str,
         discover_filters: dict,
         blacklisted_genres: dict,
+        page: int,
     ) -> List[Dict[str, Any]]:
-        """Build the full 100-item pool across all categories."""
+        """Build a mixed batch of items for a specific page."""
 
         pcts = settings.get("percentages", SMARTHUNT_DEFAULTS["percentages"])
         min_rating = _safe_float(settings.get("min_tmdb_rating"), SMARTHUNT_DEFAULTS["min_tmdb_rating"])
@@ -192,7 +192,8 @@ class SmartHuntEngine:
         bl_movie = _safe_int_set(blacklisted_genres.get("blacklisted_movie_genres", []))
         bl_tv = _safe_int_set(blacklisted_genres.get("blacklisted_tv_genres", []))
 
-        total_target = BATCH_SIZE * MAX_PAGES  # 100
+        # Determine pool size to generate enough mix for 1 page
+        total_target = BATCH_SIZE * 2  # 40 items total before trimming to 20
 
         # Calculate how many items each category should contribute
         def _safe_pct(val):
@@ -208,6 +209,7 @@ class SmartHuntEngine:
         # Common params shared by most fetchers
         common = {
             "api_key": api_key,
+            "tmdb_page": str(page),
             "region": region,
             "languages": languages,
             "providers": providers,
@@ -502,7 +504,7 @@ class SmartHuntEngine:
         except Exception:
             pass
         url = f"{self.TMDB_BASE}/{media_type}/{tmdb_id}/recommendations"
-        params = {"api_key": api_key, "page": 1}
+        params = {"api_key": api_key, "page": common.get("tmdb_page", "1")}
         try:
             resp = requests.get(url, params=params, timeout=10)
             resp.raise_for_status()
@@ -644,7 +646,7 @@ class SmartHuntEngine:
 
     def _base_params(self, common: dict, media_type: str) -> dict:
         """Build the base TMDB discover params from common config."""
-        params = {"api_key": common["api_key"], "page": "1"}
+        params = {"api_key": common["api_key"], "page": common.get("tmdb_page", "1")}
         bl = common.get("bl_movie") if media_type == "movie" else common.get("bl_tv")
         if bl:
             params["without_genres"] = "|".join(str(g) for g in bl)
