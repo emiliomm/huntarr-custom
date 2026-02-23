@@ -199,123 +199,137 @@ const HomeRequestarr = {
             this.defaultMovieInstance = null;
             this.defaultTVInstance = null;
         }
+        // Non-owner: override with assigned categories
+        if (window._huntarrUserRole && window._huntarrUserRole !== 'owner') {
+            const movieCat = window._huntarrUserMovieCategory || '';
+            const tvCat = window._huntarrUserTVCategory || '';
+            if (movieCat) this.defaultMovieInstance = movieCat;
+            if (tvCat) this.defaultTVInstance = tvCat;
+        }
         await this._populateInstanceDropdowns();
     },
 
     async _populateInstanceDropdowns() {
-            // Fetch bundle dropdown options once, then populate both selects
-            try {
-                const resp = await fetch(`./api/requestarr/bundles/dropdown?t=${Date.now()}`, { cache: 'no-store' });
-                if (!resp.ok) throw new Error('Failed to fetch bundle dropdown');
-                const data = await resp.json();
-                this._bundleMovieOptions = data.movie_options || [];
-                this._bundleTVOptions = data.tv_options || [];
-            } catch (e) {
-                console.warn('[HomeRequestarr] Error fetching bundle dropdown:', e);
-                this._bundleMovieOptions = [];
-                this._bundleTVOptions = [];
-            }
-            this._populateMovieInstanceDropdown();
-            this._populateTVInstanceDropdown();
+        // Non-owner: hide instance controls entirely
+        if (window._huntarrUserRole && window._huntarrUserRole !== 'owner') {
             if (this.elements.instanceControls) {
-                this.elements.instanceControls.style.display = 'flex';
+                this.elements.instanceControls.style.display = 'none';
             }
+            return;
         }
-,
+        // Fetch bundle dropdown options once, then populate both selects
+        try {
+            const resp = await fetch(`./api/requestarr/bundles/dropdown?t=${Date.now()}`, { cache: 'no-store' });
+            if (!resp.ok) throw new Error('Failed to fetch bundle dropdown');
+            const data = await resp.json();
+            this._bundleMovieOptions = data.movie_options || [];
+            this._bundleTVOptions = data.tv_options || [];
+        } catch (e) {
+            console.warn('[HomeRequestarr] Error fetching bundle dropdown:', e);
+            this._bundleMovieOptions = [];
+            this._bundleTVOptions = [];
+        }
+        this._populateMovieInstanceDropdown();
+        this._populateTVInstanceDropdown();
+        if (this.elements.instanceControls) {
+            this.elements.instanceControls.style.display = 'flex';
+        }
+    }
+    ,
 
     async _populateMovieInstanceDropdown() {
-            const select = this.elements.movieInstanceSelect;
-            if (!select) return;
+        const select = this.elements.movieInstanceSelect;
+        if (!select) return;
 
-            const options = this._bundleMovieOptions || [];
-            const previousValue = this.defaultMovieInstance || select.value || '';
+        const options = this._bundleMovieOptions || [];
+        const previousValue = this.defaultMovieInstance || select.value || '';
 
-            select.innerHTML = '';
-            if (options.length === 0) {
-                select.innerHTML = '<option value="">No movie instances</option>';
-                return;
-            }
-
-            let matched = null;
-            options.forEach(opt => {
-                const el = document.createElement('option');
-                const val = opt.is_bundle
-                    ? this._encodeInstance(opt.primary_app_type, opt.primary_instance_name)
-                    : opt.value;
-                el.value = val;
-                el.textContent = opt.label;
-                if (previousValue && val === previousValue) {
-                    el.selected = true;
-                    matched = val;
-                }
-                select.appendChild(el);
-            });
-
-            if (!matched && options.length > 0) {
-                select.options[0].selected = true;
-                matched = select.options[0].value;
-            }
-
-            if (matched) this.defaultMovieInstance = matched;
-
-            if (!select._homeChangeWired) {
-                select._homeChangeWired = true;
-                select.addEventListener('change', async () => {
-                    this.defaultMovieInstance = select.value;
-                    await this._saveServerDefaults();
-                    this._syncRequestarrContent();
-                    if (this._smartHunt) this._smartHunt.reload();
-                });
-            }
+        select.innerHTML = '';
+        if (options.length === 0) {
+            select.innerHTML = '<option value="">No movie instances</option>';
+            return;
         }
-,
+
+        let matched = null;
+        options.forEach(opt => {
+            const el = document.createElement('option');
+            const val = opt.is_bundle
+                ? this._encodeInstance(opt.primary_app_type, opt.primary_instance_name)
+                : opt.value;
+            el.value = val;
+            el.textContent = opt.label;
+            if (previousValue && val === previousValue) {
+                el.selected = true;
+                matched = val;
+            }
+            select.appendChild(el);
+        });
+
+        if (!matched && options.length > 0) {
+            select.options[0].selected = true;
+            matched = select.options[0].value;
+        }
+
+        if (matched) this.defaultMovieInstance = matched;
+
+        if (!select._homeChangeWired) {
+            select._homeChangeWired = true;
+            select.addEventListener('change', async () => {
+                this.defaultMovieInstance = select.value;
+                await this._saveServerDefaults();
+                this._syncRequestarrContent();
+                if (this._smartHunt) this._smartHunt.reload();
+            });
+        }
+    }
+    ,
 
     async _populateTVInstanceDropdown() {
-            const select = this.elements.tvInstanceSelect;
-            if (!select) return;
+        const select = this.elements.tvInstanceSelect;
+        if (!select) return;
 
-            const options = this._bundleTVOptions || [];
-            const previousValue = this.defaultTVInstance || select.value || '';
+        const options = this._bundleTVOptions || [];
+        const previousValue = this.defaultTVInstance || select.value || '';
 
-            select.innerHTML = '';
-            if (options.length === 0) {
-                select.innerHTML = '<option value="">No TV instances</option>';
-                return;
-            }
-
-            let matched = null;
-            options.forEach(opt => {
-                const el = document.createElement('option');
-                const val = opt.is_bundle
-                    ? this._encodeInstance(opt.primary_app_type, opt.primary_instance_name)
-                    : opt.value;
-                el.value = val;
-                el.textContent = opt.label;
-                if (previousValue && val === previousValue) {
-                    el.selected = true;
-                    matched = val;
-                }
-                select.appendChild(el);
-            });
-
-            if (!matched && options.length > 0) {
-                select.options[0].selected = true;
-                matched = select.options[0].value;
-            }
-
-            if (matched) this.defaultTVInstance = matched;
-
-            if (!select._homeChangeWired) {
-                select._homeChangeWired = true;
-                select.addEventListener('change', async () => {
-                    this.defaultTVInstance = select.value;
-                    await this._saveServerDefaults();
-                    this._syncRequestarrContent();
-                    if (this._smartHunt) this._smartHunt.reload();
-                });
-            }
+        select.innerHTML = '';
+        if (options.length === 0) {
+            select.innerHTML = '<option value="">No TV instances</option>';
+            return;
         }
-,
+
+        let matched = null;
+        options.forEach(opt => {
+            const el = document.createElement('option');
+            const val = opt.is_bundle
+                ? this._encodeInstance(opt.primary_app_type, opt.primary_instance_name)
+                : opt.value;
+            el.value = val;
+            el.textContent = opt.label;
+            if (previousValue && val === previousValue) {
+                el.selected = true;
+                matched = val;
+            }
+            select.appendChild(el);
+        });
+
+        if (!matched && options.length > 0) {
+            select.options[0].selected = true;
+            matched = select.options[0].value;
+        }
+
+        if (matched) this.defaultTVInstance = matched;
+
+        if (!select._homeChangeWired) {
+            select._homeChangeWired = true;
+            select.addEventListener('change', async () => {
+                this.defaultTVInstance = select.value;
+                await this._saveServerDefaults();
+                this._syncRequestarrContent();
+                if (this._smartHunt) this._smartHunt.reload();
+            });
+        }
+    }
+    ,
 
     _saveServerDefaults() {
         return fetch('./api/requestarr/settings/default-instances', {
@@ -422,7 +436,7 @@ const HomeRequestarr = {
             if (allResults.length > 0) {
                 this.elements.searchResultsGrid.innerHTML = '';
                 allResults.forEach((item) => {
-                    const suggestedInstance = item.media_type === 'movie' 
+                    const suggestedInstance = item.media_type === 'movie'
                         ? this.defaultMovieInstance
                         : this.defaultTVInstance;
                     const card = this.createMediaCard(item, suggestedInstance);

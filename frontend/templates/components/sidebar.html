@@ -733,7 +733,7 @@
                     if (mediaHuntGroup) mediaHuntGroup.style.display = hideMedia ? 'none' : '';
                     if (nzbHuntGroup) nzbHuntGroup.style.display = hideMedia ? 'none' : '';
                     var torHuntGroup = document.getElementById('tor-hunt-sidebar-group');
-                    if (torHuntGroup) torHuntGroup.style.display = hideMedia ? 'none' : '';
+                    if (torHuntGroup) torHuntGroup.style.display = (hideMedia || flags.dev_mode !== true) ? 'none' : '';
                     if (appsGroup) appsGroup.style.display = hideApps ? 'none' : '';
                     if (appsLabel) appsLabel.style.display = (hideMedia && hideApps) ? 'none' : '';
                 })

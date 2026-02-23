@@ -63,6 +63,27 @@ def _require_owner():
     return user, None
 
 
+def _resolve_category(cat_value):
+    """Resolve a category value to its compound appType:instanceName form.
+    If the value is 'bundle:X', look up the bundle's primary instance.
+    Otherwise return the value as-is (already in appType:instanceName format).
+    """
+    if not cat_value:
+        return ''
+    if cat_value.startswith('bundle:'):
+        try:
+            bundle_id = int(cat_value.split(':', 1)[1])
+            db = get_database()
+            bundles = db.get_bundles()
+            for b in bundles:
+                if b['id'] == bundle_id:
+                    return f"{b['primary_app_type']}:{b['primary_instance_name']}"
+        except Exception:
+            pass
+        return ''  # Bundle not found — defunct
+    return cat_value
+
+
 def _sanitize_user(user_dict):
     """Strip sensitive fields before sending to frontend."""
     if not user_dict:
@@ -80,6 +101,9 @@ def _sanitize_user(user_dict):
         'tv_category': user_dict.get('tv_category', ''),
         'movie_category': user_dict.get('movie_category', ''),
     }
+    # Resolve categories to compound appType:instanceName for frontend use
+    safe['resolved_movie_category'] = _resolve_category(safe['movie_category'])
+    safe['resolved_tv_category'] = _resolve_category(safe['tv_category'])
     # Extract avatar from plex data if not already set in avatar_url column
     if not safe['avatar_url'] and isinstance(safe['plex_user_data'], dict):
         safe['avatar_url'] = safe['plex_user_data'].get('thumb')

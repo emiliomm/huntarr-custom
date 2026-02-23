@@ -711,6 +711,7 @@ def api_feature_flags():
         'enable_requestarr': general.get('enable_requestarr', True),
         'enable_media_hunt': general.get('enable_media_hunt', True),
         'enable_third_party_apps': general.get('enable_third_party_apps', True),
+        'dev_mode': settings_manager.is_dev_mode(),
     })
 
 @app.route('/api/settings/general', methods=['POST'])

@@ -53,6 +53,23 @@ export class RequestarrContent {
     // INSTANCE MANAGEMENT
     // ========================================
 
+    /**
+     * Check if current user is a non-owner with assigned categories.
+     * Non-owners should not see instance dropdowns — their categories are auto-applied.
+     */
+    _isNonOwner() {
+        return window._huntarrUserRole && window._huntarrUserRole !== 'owner';
+    }
+
+    /**
+     * Hide an instance selector container (the parent .instance-selector-container).
+     */
+    _hideSelector(selectElement) {
+        if (!selectElement) return;
+        const container = selectElement.closest('.instance-selector-container');
+        if (container) container.style.display = 'none';
+    }
+
     async setupInstanceSelectors() {
         // Load server defaults first, then populate selectors
         await this._loadServerDefaults();
@@ -100,6 +117,14 @@ export class RequestarrContent {
             }
         } catch (e) {
             console.warn('[RequestarrContent] Could not load server defaults:', e);
+        }
+        // Non-owner: override selected instances with their assigned categories
+        if (this._isNonOwner()) {
+            const movieCat = window._huntarrUserMovieCategory || '';
+            const tvCat = window._huntarrUserTVCategory || '';
+            if (movieCat) this.selectedMovieInstance = movieCat;
+            if (tvCat) this.selectedTVInstance = tvCat;
+            console.log('[RequestarrContent] Non-owner override: movie=', movieCat, 'tv=', tvCat);
         }
         this._serverDefaultsLoaded = true;
     }
@@ -252,6 +277,12 @@ export class RequestarrContent {
         const select = document.getElementById('discover-movie-instance-select');
         if (!select) return;
 
+        // Non-owner: hide dropdown, use assigned category
+        if (this._isNonOwner()) {
+            this._hideSelector(select);
+            return;
+        }
+
         try {
             const dd = await this._fetchBundleDropdownOptions();
             const previousValue = this.selectedMovieInstance || select.value || '';
@@ -273,6 +304,12 @@ export class RequestarrContent {
     async _populateDiscoverTVInstances() {
         const select = document.getElementById('discover-tv-instance-select');
         if (!select) return;
+
+        // Non-owner: hide dropdown, use assigned category
+        if (this._isNonOwner()) {
+            this._hideSelector(select);
+            return;
+        }
 
         try {
             const dd = await this._fetchBundleDropdownOptions();
@@ -344,6 +381,11 @@ export class RequestarrContent {
         const select = document.getElementById('movies-instance-select');
         if (!select) return;
 
+        // Non-owner: hide dropdown, use assigned category
+        if (this._isNonOwner()) {
+            this._hideSelector(select);
+        }
+
         if (this._movieInstancesPopulated) {
             this._syncAllMovieSelectors();
             return;
@@ -410,6 +452,11 @@ export class RequestarrContent {
     async loadTVInstances() {
         const select = document.getElementById('tv-instance-select');
         if (!select) return;
+
+        // Non-owner: hide dropdown, use assigned category
+        if (this._isNonOwner()) {
+            this._hideSelector(select);
+        }
 
         if (this._tvInstancesPopulated) {
             this._syncAllTVSelectors();
@@ -1403,6 +1450,12 @@ export class RequestarrContent {
         const movieSelect = document.getElementById('smarthunt-movie-instance-select');
         const tvSelect = document.getElementById('smarthunt-tv-instance-select');
         if (!movieSelect && !tvSelect) return;
+
+        // Non-owner: hide dropdowns, use assigned categories
+        if (this._isNonOwner()) {
+            this._hideSelector(movieSelect);
+            this._hideSelector(tvSelect);
+        }
 
         try {
             const dd = await this._fetchBundleDropdownOptions();
