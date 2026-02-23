@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,195 +9,408 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/main.css">
 </head>
+
 <body>
 
-<!-- Mobile Topbar -->
-<div class="docs-mobile-topbar">
-    <button class="mob-hamburger" aria-label="Open navigation"><span></span><span></span><span></span></button>
-    <img src="../images/huntarr-logo.png" alt="Huntarr" class="mob-logo">
-    <span class="mob-title">Documentation</span>
-</div>
+    <!-- Mobile Topbar -->
+    <div class="docs-mobile-topbar">
+        <button class="mob-hamburger" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <img src="../images/huntarr-logo.png" alt="Huntarr" class="mob-logo">
+        <span class="mob-title">Documentation</span>
+    </div>
 
-<!-- Sidebar Backdrop (mobile) -->
-<div class="docs-sidebar-backdrop"></div>
+    <!-- Sidebar Backdrop (mobile) -->
+    <div class="docs-sidebar-backdrop"></div>
 
-<div class="docs-layout">
+    <div class="docs-layout">
 
-    <!-- ===== SIDEBAR ===== -->
-    <nav class="docs-sidebar" aria-label="Documentation navigation">
-        <a href="../index.html" class="sidebar-brand">
-            <img src="../images/huntarr-logo.png" alt="Huntarr">
-            <span>Huntarr</span>
-        </a>
+        <!-- ===== SIDEBAR ===== -->
+        <nav class="docs-sidebar" aria-label="Documentation navigation">
+            <a href="../index.html" class="sidebar-brand">
+                <img src="../images/huntarr-logo.png" alt="Huntarr">
+                <span>Huntarr</span>
+            </a>
 
-        <div class="sidebar-scroll">
+            <div class="sidebar-scroll">
 
-            <!-- Getting Started -->
-            <div class="nav-group">
-                <div class="nav-group-title">Getting Started</div>
-                <div class="nav-group-items">
-                    <a href="../index.html"><i class="fas fa-home"></i> Welcome</a>
-                    <a href="../getting-started/installation.html"><i class="fas fa-download"></i> Installation</a>
-                    <a href="../getting-started/setup-wizard.html"><i class="fas fa-magic"></i> Setup Wizard</a>
-                    <a href="../getting-started/first-steps.html"><i class="fas fa-rocket"></i> First Steps</a>
+                <!-- Getting Started -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Getting Started</div>
+                    <div class="nav-group-items">
+                        <a href="../index.html"><i class="fas fa-home"></i> Welcome</a>
+                        <a href="../getting-started/installation.html"><i class="fas fa-download"></i> Installation</a>
+                        <a href="../getting-started/setup-wizard.html"><i class="fas fa-magic"></i> Setup Wizard</a>
+                        <a href="../getting-started/first-steps.html"><i class="fas fa-rocket"></i> First Steps</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Apps -->
-            <div class="nav-group">
-                <div class="nav-group-title">Apps</div>
-                <div class="nav-group-items">
-                    <a href="../apps/index.html"><i class="fas fa-plug"></i> 3rd Party Apps</a>
+                <!-- Apps -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Apps</div>
+                    <div class="nav-group-items">
+                        <a href="../apps/index.html"><i class="fas fa-plug"></i> 3rd Party Apps</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Movie Hunt -->
-            <div class="nav-group">
-                <div class="nav-group-title">Movie Hunt</div>
-                <div class="nav-group-items">
-                    <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span class="nav-badge nav-badge-beta">Beta</span></a>
-                    <a href="../movie-hunt/media-collection.html"><i class="fas fa-photo-film"></i> Media Collection</a>
-                    <a href="../movie-hunt/indexers-clients.html"><i class="fas fa-server"></i> Indexers &amp; Clients</a>
-                    <a href="../movie-hunt/profiles.html"><i class="fas fa-sliders"></i> Profiles</a>
+                <!-- Movie Hunt -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Movie Hunt</div>
+                    <div class="nav-group-items">
+                        <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span
+                                class="nav-badge nav-badge-beta">Beta</span></a>
+                        <a href="../movie-hunt/media-collection.html"><i class="fas fa-photo-film"></i> Media
+                            Collection</a>
+                        <a href="../movie-hunt/indexers-clients.html"><i class="fas fa-server"></i> Indexers &amp;
+                            Clients</a>
+                        <a href="../movie-hunt/profiles.html"><i class="fas fa-sliders"></i> Profiles</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- NZB Hunt -->
-            <div class="nav-group">
-                <div class="nav-group-title">NZB Hunt</div>
-                <div class="nav-group-items">
-                    <a href="../nzb-hunt/index.html"><i class="fas fa-newspaper"></i> Overview <span class="nav-badge nav-badge-beta">Beta</span></a>
+                <!-- NZB Hunt -->
+                <div class="nav-group">
+                    <div class="nav-group-title">NZB Hunt</div>
+                    <div class="nav-group-items">
+                        <a href="../nzb-hunt/index.html"><i class="fas fa-newspaper"></i> Overview <span
+                                class="nav-badge nav-badge-beta">Beta</span></a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Requestarr -->
-            <div class="nav-group">
-                <div class="nav-group-title">Requests</div>
-                <div class="nav-group-items">
-                    <a href="../requestarr/index.html"><i class="fas fa-hand-paper"></i> Requests</a>
+                <!-- Requestarr -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Requests</div>
+                    <div class="nav-group-items">
+                        <a href="../requestarr/index.html"><i class="fas fa-hand-paper"></i> Requests</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Settings -->
-            <div class="nav-group">
-                <div class="nav-group-title">Settings</div>
-                <div class="nav-group-items">
-                    <a href="index.html" class="active"><i class="fas fa-cog"></i> Main Settings</a>
-                    <a href="scheduling.html"><i class="fas fa-clock"></i> Scheduling</a>
-                    <a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a>
-                    <a href="backup-restore.html"><i class="fas fa-database"></i> Backup &amp; Restore</a>
-                    <a href="log-settings.html"><i class="fas fa-file-alt"></i> Log Settings</a>
-                    <a href="user-account.html"><i class="fas fa-user-shield"></i> User Account</a>
+                <!-- Settings -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Settings</div>
+                    <div class="nav-group-items">
+                        <a href="index.html" class="active"><i class="fas fa-cog"></i> Main Settings</a>
+                        <a href="scheduling.html"><i class="fas fa-clock"></i> Scheduling</a>
+                        <a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a>
+                        <a href="backup-restore.html"><i class="fas fa-database"></i> Backup &amp; Restore</a>
+                        <a href="log-settings.html"><i class="fas fa-file-alt"></i> Log Settings</a>
+                        <a href="user-account.html"><i class="fas fa-user-shield"></i> User Account</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- System -->
-            <div class="nav-group">
-                <div class="nav-group-title">System</div>
-                <div class="nav-group-items">
-                    <a href="../system/hunt-manager.html"><i class="fas fa-tasks"></i> Hunt Manager</a>
-                    <a href="../system/logs.html"><i class="fas fa-scroll"></i> Logs</a>
-                    <a href="../system/api.html"><i class="fas fa-code"></i> API Reference</a>
+                <!-- System -->
+                <div class="nav-group">
+                    <div class="nav-group-title">System</div>
+                    <div class="nav-group-items">
+                        <a href="../system/hunt-manager.html"><i class="fas fa-tasks"></i> Hunt Manager</a>
+                        <a href="../system/logs.html"><i class="fas fa-scroll"></i> Logs</a>
+                        <a href="../system/api.html"><i class="fas fa-code"></i> API Reference</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Help -->
-            <div class="nav-group">
-                <div class="nav-group-title">Help</div>
-                <div class="nav-group-items">
-                    <a href="../help/faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
-                    <a href="../help/community.html"><i class="fas fa-users"></i> Community</a>
-                    <a href="https://plexguide.github.io/Huntarr.io/donate.html"><i class="fas fa-heart"></i> Donate</a>
+                <!-- Help -->
+                <div class="nav-group">
+                    <div class="nav-group-title">Help</div>
+                    <div class="nav-group-items">
+                        <a href="../help/faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
+                        <a href="../help/community.html"><i class="fas fa-users"></i> Community</a>
+                        <a href="https://plexguide.github.io/Huntarr.io/donate.html"><i class="fas fa-heart"></i>
+                            Donate</a>
+                    </div>
                 </div>
+
+            </div><!-- /sidebar-scroll -->
+
+            <div class="sidebar-footer">
+                <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank" class="sf-discord" title="Discord"><i
+                        class="fab fa-discord"></i></a>
+                <a href="https://www.reddit.com/r/huntarr/" target="_blank" class="sf-reddit" title="Reddit"><i
+                        class="fab fa-reddit-alien"></i></a>
+                <a href="https://github.com/plexguide/Huntarr.io" target="_blank" class="sf-github" title="GitHub"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://plexguide.github.io/Huntarr.io/donate.html" class="sf-heart" title="Donate"><i
+                        class="fas fa-heart"></i></a>
             </div>
+        </nav>
 
-        </div><!-- /sidebar-scroll -->
+        <!-- ===== MAIN ===== -->
+        <main class="docs-main">
+            <div class="docs-content">
 
-        <div class="sidebar-footer">
-            <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank" class="sf-discord" title="Discord"><i class="fab fa-discord"></i></a>
-            <a href="https://www.reddit.com/r/huntarr/" target="_blank" class="sf-reddit" title="Reddit"><i class="fab fa-reddit-alien"></i></a>
-            <a href="https://github.com/plexguide/Huntarr.io" target="_blank" class="sf-github" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://plexguide.github.io/Huntarr.io/donate.html" class="sf-heart" title="Donate"><i class="fas fa-heart"></i></a>
-        </div>
-    </nav>
+                <h1>Main Settings</h1>
+                <p class="page-subtitle">Configure Huntarr's core settings including authentication, network, UI
+                    preferences, feature flags, and reverse proxy integration.</p>
 
-    <!-- ===== MAIN ===== -->
-    <main class="docs-main">
-        <div class="docs-content">
+                <h2>Accessing Settings</h2>
+                <p>Navigate to <strong>Settings</strong> from the sidebar. The main settings page is the first item. All
+                    changes require clicking <strong>Save</strong> at the top of the page before they take effect. Some
+                    changes (like port or base URL) require a container/service restart.</p>
 
-            <h1>Main Settings</h1>
-            <p class="page-subtitle">Configure Huntarr's core settings including authentication, UI preferences, and system options.</p>
+                <h2>General Settings</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Timezone</strong></td>
+                            <td>UTC</td>
+                            <td>Used for scheduling, log timestamps, and calendar views. Set this to your local timezone
+                                for accurate scheduling (e.g., <code>America/New_York</code>,
+                                <code>Europe/London</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Web Server Port</strong></td>
+                            <td>9705</td>
+                            <td>The internal port Huntarr listens on. If changed, you must also update your Docker port
+                                mapping or firewall rules. Most users should leave this at default.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Web Server Threads</strong></td>
+                            <td>8</td>
+                            <td>Number of concurrent worker threads (4–32). Increase if you have many simultaneous users
+                                or heavy API usage. Decrease on low-resource systems.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Base URL</strong></td>
+                            <td>/</td>
+                            <td>Path prefix for reverse proxy setups. Set this to match your proxy path (e.g.,
+                                <code>/huntarr</code>). Leave as <code>/</code> if accessing Huntarr directly by port.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <h2>Accessing Settings</h2>
-            <p>Navigate to Settings &gt; Main from the sidebar.</p>
+                <h2>Authentication Modes</h2>
+                <p>Huntarr supports three authentication modes. Choose the one that fits your network setup:</p>
 
-            <h2>General Settings</h2>
-            <table>
-                <thead>
-                    <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>Timezone</strong></td><td>UTC</td><td>Used for scheduling and log timestamps</td></tr>
-                    <tr><td><strong>Web Server Port</strong></td><td>9705</td><td>Port Huntarr listens on</td></tr>
-                    <tr><td><strong>Web Server Threads</strong></td><td>8</td><td>Number of worker threads (4-32)</td></tr>
-                    <tr><td><strong>Base URL</strong></td><td>/</td><td>For reverse proxy setups (e.g., /huntarr)</td></tr>
-                </tbody>
-            </table>
+                <h3>Login Mode (Default — Recommended)</h3>
+                <p>All connections require a username and password. This is the most secure option and is recommended
+                    for any deployment accessible from outside your local network. Supports optional 2FA and Plex SSO as
+                    additional login methods.</p>
 
-            <h2>Authentication</h2>
-            <table>
-                <thead>
-                    <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>Session Timeout</strong></td><td>24 hours</td><td>How long before requiring re-login</td></tr>
-                    <tr><td><strong>Two-Factor Auth</strong></td><td>Disabled</td><td>Enable 2FA for additional security</td></tr>
-                    <tr><td><strong>Plex SSO</strong></td><td>Disabled</td><td>Allow login via Plex account</td></tr>
-                </tbody>
-            </table>
+                <h3>Local Bypass Mode</h3>
+                <p>Connections from your local network (same subnet) skip the login screen automatically. Connections
+                    from outside your network still require authentication. This is useful if you trust everyone on your
+                    LAN but want to protect external access.</p>
+                <div class="alert alert-info">
+                    <strong><i class="fas fa-info-circle"></i> How local detection works</strong>
+                    <p>Huntarr checks the connecting IP against private address ranges (10.x.x.x, 172.16-31.x.x,
+                        192.168.x.x). If you're behind a reverse proxy, make sure the proxy forwards the real client IP
+                        via <code>X-Forwarded-For</code> headers, otherwise all requests will appear local.</p>
+                </div>
 
-            <h2>UI Preferences</h2>
-            <table>
-                <thead>
-                    <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>Theme</strong></td><td>Dark</td><td>UI color theme</td></tr>
-                    <tr><td><strong>Dashboard View</strong></td><td>List</td><td>Default home page view (List or Grid)</td></tr>
-                    <tr><td><strong>Logo URL</strong></td><td>Default</td><td>Custom logo URL</td></tr>
-                </tbody>
-            </table>
+                <h3>No Login Mode</h3>
+                <p>Authentication is completely disabled. Anyone who can reach the URL has full admin access.
+                    <strong>Only use this if Huntarr is behind a properly secured reverse proxy</strong> that handles
+                    authentication (e.g., Authelia, Authentik, or a VPN).</p>
+                <div class="alert alert-danger">
+                    <strong><i class="fas fa-exclamation-triangle"></i> Security risk</strong>
+                    <p>No Login mode exposes your entire media infrastructure (API keys, instance URLs, user data) to
+                        anyone who can reach Huntarr. Never use this on a publicly accessible server without proxy-level
+                        authentication.</p>
+                </div>
 
-            <h2>Reverse Proxy Setup</h2>
-            <p>If you're running Huntarr behind a reverse proxy (Nginx, Caddy, Traefik):</p>
-            <ol>
-                <li>Set the Base URL in Settings (e.g., /huntarr)</li>
-                <li>Configure your proxy to forward to port 9705</li>
-                <li>Example Nginx config:</li>
-            </ol>
-            <pre><code>location /huntarr/ {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Session Timeout</strong></td>
+                            <td>24 hours</td>
+                            <td>How long a login session lasts before requiring re-authentication. Shorter timeouts are
+                                more secure; longer timeouts are more convenient. Range: 1–720 hours.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Two-Factor Auth (2FA)</strong></td>
+                            <td>Disabled</td>
+                            <td>Adds TOTP-based 2FA using any authenticator app (Google Authenticator, Authy, 1Password,
+                                etc.). Requires entering a 6-digit code after password login.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plex SSO</strong></td>
+                            <td>Disabled</td>
+                            <td>Allows users to sign in with their Plex account. Especially useful for Requestarr —
+                                users can request media without creating separate Huntarr accounts. Requires linking the
+                                owner's Plex account first.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Feature Flags</h2>
+                <p>Feature flags let you enable or disable entire sections of Huntarr. This is useful if you only use
+                    some features and want a cleaner sidebar.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Flag</th>
+                            <th>Default</th>
+                            <th>What it controls</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Enable Requestarr</strong></td>
+                            <td>On</td>
+                            <td>Shows/hides the Requests section in the sidebar and all request-related functionality.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enable Movie Hunt</strong></td>
+                            <td>On</td>
+                            <td>Shows/hides Movie Hunt (the built-in Radarr/Sonarr alternative) and NZB Hunt in the
+                                sidebar.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enable 3rd Party Apps</strong></td>
+                            <td>On</td>
+                            <td>Shows/hides the Apps section (Sonarr, Radarr, Lidarr, etc. connections).</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>UI Preferences</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Theme</strong></td>
+                            <td>Dark</td>
+                            <td>UI color theme. Dark mode is the default and recommended for the best visual experience.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dashboard View</strong></td>
+                            <td>List</td>
+                            <td>Default home page layout. List view shows app status in rows; Grid view shows status
+                                cards.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Custom Logo URL</strong></td>
+                            <td>Default</td>
+                            <td>Replace the Huntarr logo with your own by entering an image URL. Appears in the sidebar
+                                and login page.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Reverse Proxy Setup</h2>
+                <p>If you're running Huntarr behind a reverse proxy, follow these steps:</p>
+                <ol>
+                    <li>Set the <strong>Base URL</strong> in Settings to match your proxy path (e.g.,
+                        <code>/huntarr</code>)</li>
+                    <li>Configure your proxy to forward traffic to Huntarr's port (default 9705)</li>
+                    <li>Ensure real client IPs are forwarded (important for Local Bypass mode)</li>
+                    <li>Restart the Huntarr container after changing the Base URL</li>
+                </ol>
+
+                <h3>Nginx Example</h3>
+                <pre><code>location /huntarr/ {
     proxy_pass http://localhost:9705/;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
 }</code></pre>
 
-            <div class="alert alert-info">
-                <strong>Base URL</strong>
-                <p>When using a Base URL, all Huntarr URLs will be prefixed. For example, http://your-server/huntarr/ instead of http://your-server:9705/</p>
-            </div>
+                <h3>Caddy Example</h3>
+                <pre><code>your-domain.com {
+    handle_path /huntarr/* {
+        reverse_proxy localhost:9705
+    }
+}</code></pre>
 
-        </div><!-- /docs-content -->
+                <h3>Traefik Example (Docker Labels)</h3>
+                <pre><code>labels:
+  - "traefik.enable=true"
+  - "traefik.http.routers.huntarr.rule=Host(`your-domain.com`) && PathPrefix(`/huntarr`)"
+  - "traefik.http.services.huntarr.loadbalancer.server.port=9705"
+  - "traefik.http.middlewares.huntarr-strip.stripprefix.prefixes=/huntarr"
+  - "traefik.http.routers.huntarr.middlewares=huntarr-strip"</code></pre>
 
-        <footer class="docs-footer">
-            <p>Huntarr is open source. <a href="https://github.com/plexguide/Huntarr.io" target="_blank">GitHub</a> · <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank">Discord</a> · <a href="https://www.reddit.com/r/huntarr/" target="_blank">Reddit</a></p>
-        </footer>
-    </main>
+                <div class="alert alert-info">
+                    <strong><i class="fas fa-info-circle"></i> WebSocket support</strong>
+                    <p>Some features (like live log streaming) use WebSockets. Make sure your reverse proxy forwards
+                        WebSocket connections — the Nginx example above includes the necessary <code>Upgrade</code>
+                        headers.</p>
+                </div>
 
-</div><!-- /docs-layout -->
+                <h2>Docker Environment Variables</h2>
+                <p>Some settings can also be configured via Docker environment variables, which take precedence over UI
+                    settings:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>TZ</code></td>
+                            <td>UTC</td>
+                            <td>Container timezone</td>
+                        </tr>
+                        <tr>
+                            <td><code>PUID</code></td>
+                            <td>1000</td>
+                            <td>User ID for file permissions</td>
+                        </tr>
+                        <tr>
+                            <td><code>PGID</code></td>
+                            <td>1000</td>
+                            <td>Group ID for file permissions</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-<button class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
-<script src="../js/main.js"></script>
+                <h2>Performance Tuning</h2>
+                <p>For most users, the defaults work well. If you experience slow responses with many concurrent users
+                    or heavy API traffic:</p>
+                <ul>
+                    <li><strong>Increase worker threads</strong> — Try 12–16 threads if serving multiple users</li>
+                    <li><strong>Monitor memory</strong> — Huntarr typically uses 150–300 MB RAM. If it exceeds 500 MB,
+                        check your log settings (verbose logging uses more memory)</li>
+                    <li><strong>Database size</strong> — Large libraries with thousands of items may slow the first
+                        load. The activity/history views are paginated to keep things fast</li>
+                </ul>
+
+                <div class="alert alert-success">
+                    <strong><i class="fas fa-check-circle"></i> Best practice</strong>
+                    <p>After changing any settings, verify they're working by checking the Logs page (System → Logs) for
+                        any errors or warnings.</p>
+                </div>
+
+            </div><!-- /docs-content -->
+
+            <footer class="docs-footer">
+                <p>Huntarr is open source. <a href="https://github.com/plexguide/Huntarr.io" target="_blank">GitHub</a>
+                    · <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank">Discord</a> · <a
+                        href="https://www.reddit.com/r/huntarr/" target="_blank">Reddit</a></p>
+            </footer>
+        </main>
+
+    </div><!-- /docs-layout -->
+
+    <button class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+    <script src="../js/main.js"></script>
 </body>
+
 </html>
