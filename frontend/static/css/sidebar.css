@@ -608,6 +608,11 @@
     margin-left: 28px !important;
 }
 
+/* Items inside a collapsible sub-group body indent one level deeper than their parent */
+.nav-sub-group-body .nav-item {
+    margin-left: 44px !important;
+}
+
 /* ===== APP ICONS ===== */
 .app-icon-img {
     width: 20px;
