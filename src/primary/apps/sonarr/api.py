@@ -614,7 +614,7 @@ def get_cutoff_unmet_episodes_random_page(api_url: str, api_key: str, api_timeou
         sonarr_logger.error(f"Unexpected error in random cutoff selection: {str(e)}", exc_info=True)
         return []
 
-def get_missing_episodes_random_page(api_url: str, api_key: str, api_timeout: int, monitored_only: bool, count: int, series_id: Optional[int] = None) -> List[Dict[str, Any]]:
+def get_missing_episodes_random_page(api_url: str, api_key: str, api_timeout: int, monitored_only: bool, count: int, series_id: Optional[int] = None, search_order: str = "random") -> List[Dict[str, Any]]:
     """
     Get a specified number of random missing episodes by selecting a random page.
     This is more efficient for very large libraries.
@@ -634,7 +634,36 @@ def get_missing_episodes_random_page(api_url: str, api_key: str, api_timeout: in
     page_size = 100  # Smaller page size for better performance
     retries = 2
     retry_delay = 3
-    
+
+    # --- Non-random ordered mode: use API sort, fetch first N items, return directly ---
+    if search_order in ("newest_first", "oldest_first") and series_id is None:
+        sort_dir = "descending" if search_order == "newest_first" else "ascending"
+        base_url = api_url.rstrip('/')
+        url = f"{base_url}/api/v3/{endpoint.lstrip('/')}"
+        verify_ssl = get_ssl_verify_setting()
+        ordered_params = {
+            "page": 1,
+            "pageSize": count,
+            "includeSeries": "true",
+            "monitored": str(monitored_only).lower(),
+            "sortKey": "airDateUtc",
+            "sortDirection": sort_dir,
+        }
+        try:
+            response = requests.get(url, headers={"X-Api-Key": api_key}, params=ordered_params,
+                                    timeout=api_timeout, verify=verify_ssl)
+            response.raise_for_status()
+            data = response.json()
+            records = data.get('records', [])
+            if monitored_only:
+                records = [e for e in records
+                           if e.get('series', {}).get('monitored', False) and e.get('monitored', False)]
+            sonarr_logger.info(f"📋 Fetched {len(records)} missing episodes ({search_order}) from Sonarr")
+            return records
+        except Exception as e:
+            sonarr_logger.error(f"Error fetching ordered missing episodes: {e}; falling back to random.")
+
+
     # First, make a request to get just the total record count (page 1 with size=1)
     params = {
         "page": 1,
@@ -870,6 +899,22 @@ def get_download_queue_size(api_url: str, api_key: str, api_timeout: int) -> int
     # If we get here, all retries failed
     sonarr_logger.error(f"All {retries+1} attempts to get download queue size failed")
     return -1
+
+
+def get_disk_space(api_url: str, api_key: str, api_timeout: int) -> Optional[List[Dict]]:
+    """
+    Get disk space info for all configured root folders from Sonarr.
+
+    Returns a list of dicts: [{'path': '/tv', 'freeSpace': 123456789, 'totalSpace': 987654321}, ...]
+    Returns None on error, empty list if no results.
+    """
+    result = arr_request(api_url, api_key, api_timeout, "diskspace", count_api=False)
+    if result is None:
+        return None
+    if isinstance(result, list):
+        return result
+    return []
+
 
 def get_series_by_id(api_url: str, api_key: str, api_timeout: int, series_id: int) -> Optional[Dict[str, Any]]:
     """Get series details by ID from Sonarr."""

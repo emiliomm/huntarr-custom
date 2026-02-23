@@ -656,7 +656,51 @@ def app_specific_loop(app_type: str) -> None:
                         app_logger.warning(f"Could not get torrent seeding count for {instance_name}. Proceeding anyway. Error: {e}", exc_info=False)
                 else:
                     app_logger.debug(f"Max seed queue size set ({max_seed_queue_size}) but no torrent client configured for {instance_name}; skipping seed check.")
-            
+
+            # --- Disk Space Threshold Check (skip for Movie Hunt / TV Hunt) --- #
+            if app_type not in ("movie_hunt", "tv_hunt"):
+                try:
+                    min_free_space_gb = float(instance_details.get("min_free_space_gb", 0) or 0)
+                    if min_free_space_gb > 0:
+                        # Dynamically import the correct API module
+                        try:
+                            import importlib
+                            app_api_module = importlib.import_module(f"src.primary.apps.{app_type}.api")
+                            get_disk_space_fn = getattr(app_api_module, "get_disk_space", None)
+                        except (ImportError, AttributeError):
+                            get_disk_space_fn = None
+
+                        if get_disk_space_fn:
+                            instance_api_timeout = instance_details.get("api_timeout", 120)
+                            disk_info = get_disk_space_fn(api_url, api_key, instance_api_timeout)
+                            if disk_info is None:
+                                app_logger.warning(f"Could not retrieve disk space info for {instance_name}. Proceeding anyway.")
+                            elif disk_info:
+                                # Check if any root folder is below the threshold
+                                threshold_bytes = min_free_space_gb * 1024 ** 3
+                                low_folders = [
+                                    f"{d.get('path', '?')} ({d.get('freeSpace', 0) / 1024**3:.1f} GB free)"
+                                    for d in disk_info
+                                    if d.get('freeSpace', 0) < threshold_bytes
+                                ]
+                                if low_folders:
+                                    app_logger.info(
+                                        f"💾 Disk space below threshold ({min_free_space_gb:.1f} GB) for "
+                                        f"{instance_name}: {', '.join(low_folders)}. Skipping cycle."
+                                    )
+                                    if end_cycle:
+                                        end_cycle(app_type, next_cycle_naive, instance_name=instance_key, log_name=instance_name)
+                                    if clear_instance_log_context:
+                                        clear_instance_log_context()
+                                    return (False, instance_name, False, False)
+                                else:
+                                    min_free = min(d.get('freeSpace', 0) for d in disk_info) / 1024**3
+                                    app_logger.info(f"💾 Disk space OK for {instance_name}: minimum free {min_free:.1f} GB (threshold {min_free_space_gb:.1f} GB). Proceeding.")
+                        else:
+                            app_logger.debug(f"get_disk_space not available for {app_type}; skipping disk space check.")
+                except Exception as e:
+                    app_logger.warning(f"Error during disk space check for {instance_name}. Proceeding anyway. Error: {e}", exc_info=False)
+
             # Prepare args dictionary for processing functions
             # Combine instance details with general app settings for the processing functions
             # Assuming app_settings already contains most general settings, add instance specifics
@@ -705,6 +749,7 @@ def app_specific_loop(app_type: str) -> None:
                             "shows_missing": "huntarr-shows-missing"
                         })
                         exempt_tags = instance_details.get("exempt_tags") or []
+                        search_order = instance_details.get("search_order", "random")
                         processed_missing = process_missing(
                             api_url=api_url,
                             api_key=api_key,
@@ -723,7 +768,8 @@ def app_specific_loop(app_type: str) -> None:
                             tag_enable_missing=tag_enable_missing,
                             tag_enable_shows_missing=tag_enable_shows_missing,
                             custom_tags=custom_tags,
-                            exempt_tags=exempt_tags
+                            exempt_tags=exempt_tags,
+                            search_order=search_order
                         )
                     else:
                         # For other apps that still use the old signature

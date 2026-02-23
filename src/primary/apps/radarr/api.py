@@ -128,6 +128,21 @@ def get_download_queue_size(api_url: str, api_key: str, api_timeout: int) -> int
         return -1
 
 
+def get_disk_space(api_url: str, api_key: str, api_timeout: int) -> Optional[List[Dict]]:
+    """
+    Get disk space info for all configured root folders from Radarr.
+
+    Returns a list of dicts: [{'path': '/movies', 'freeSpace': 123456789, 'totalSpace': 987654321}, ...]
+    Returns None on error, empty list if no results.
+    """
+    result = arr_request(api_url, api_key, api_timeout, "diskspace", count_api=False)
+    if result is None:
+        return None
+    if isinstance(result, list):
+        return result
+    return []
+
+
 def get_queue(api_url: str, api_key: str, api_timeout: int, page: int = 1, page_size: int = 100) -> Dict[str, Any]:
     """
     Get the download queue from Radarr (for Movie Hunt Activity).
@@ -662,7 +677,7 @@ def tag_processed_movie(api_url: str, api_key: str, api_timeout: int, movie_id: 
         radarr_logger.error(f"Error tagging Radarr movie {movie_id} with '{tag_label}': {e}")
         return False
 
-def get_movies_with_missing_random_page(api_url: str, api_key: str, api_timeout: int, monitored_only: bool, count: int) -> Optional[List[Dict]]:
+def get_movies_with_missing_random_page(api_url: str, api_key: str, api_timeout: int, monitored_only: bool, count: int, search_order: str = "random") -> Optional[List[Dict]]:
     """
     Get a random sample of missing movies by using the wanted/missing endpoint with random page selection.
     This is much more efficient than fetching all movies for very large libraries.
@@ -679,14 +694,38 @@ def get_movies_with_missing_random_page(api_url: str, api_key: str, api_timeout:
     """
     import random
     
-    radarr_logger.debug(f"Fetching random sample of missing movies (monitored_only={monitored_only}, count={count})...")
+    radarr_logger.debug(f"Fetching random sample of missing movies (monitored_only={monitored_only}, count={count}, search_order={search_order})...")
     
     # Use Radarr's wanted/missing endpoint with pagination
     endpoint = "wanted/missing"
     page_size = 100  # Smaller page size for better performance
     retries = 2
     retry_delay = 3
-    
+
+    # --- Non-random ordered mode: use API sort, fetch first N items, return directly ---
+    if search_order in ("newest_first", "oldest_first"):
+        sort_dir = "descending" if search_order == "newest_first" else "ascending"
+        params = {
+            'page': 1,
+            'pageSize': count,
+            'monitored': monitored_only,
+            'sortKey': 'releaseDate',
+            'sortDirection': sort_dir,
+        }
+        try:
+            response = arr_request(api_url, api_key, api_timeout, endpoint, params=params, count_api=False)
+            if not response or not isinstance(response, dict):
+                radarr_logger.warning("Invalid response when fetching ordered missing movies; falling back to random.")
+            else:
+                records = response.get('records', [])
+                if monitored_only:
+                    records = [m for m in records if m.get('monitored', False)]
+                radarr_logger.info(f"📋 Fetched {len(records)} missing movies ({search_order}) from Radarr")
+                return records
+        except Exception as e:
+            radarr_logger.error(f"Error fetching ordered missing movies: {e}; falling back to random.")
+
+    # --- Random mode: use random page selection (existing behavior) ---
     # First, make a request to get just the total record count (page 1 with size=1)
     params = {
         'page': 1,

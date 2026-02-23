@@ -110,6 +110,7 @@ def process_missing_movies(
     
     # App-specific settings
     skip_future_releases = app_settings.get("skip_future_releases", True)
+    search_order = app_settings.get("search_order", "random")
     
     radarr_logger.info(f"Missing: checking for {hunt_missing_movies} movies in instance '{instance_name}'")
     
@@ -125,7 +126,8 @@ def process_missing_movies(
     radarr_logger.info("Retrieving missing movies...")
     # Use efficient random page selection instead of fetching all movies
     missing_movies = radarr_api.get_movies_with_missing_random_page(
-        api_url, api_key, api_timeout, monitored_only, hunt_missing_movies * 2
+        api_url, api_key, api_timeout, monitored_only, hunt_missing_movies * 2,
+        search_order=search_order
     ) 
     
     if missing_movies is None: # API call failed

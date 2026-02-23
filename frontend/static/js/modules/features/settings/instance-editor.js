@@ -508,7 +508,11 @@
                 seed_check_torrent_client: instance.seed_check_torrent_client && typeof instance.seed_check_torrent_client === 'object' ? instance.seed_check_torrent_client : null,
                 // Cycle settings (per-instance; were global in 9.0.x)
                 sleep_duration: instance.sleep_duration !== undefined ? instance.sleep_duration : 900,
-                hourly_cap: instance.hourly_cap !== undefined ? instance.hourly_cap : 20
+                hourly_cap: instance.hourly_cap !== undefined ? instance.hourly_cap : 20,
+                // Search order
+                search_order: instance.search_order || 'random',
+                // Disk space threshold
+                min_free_space_gb: instance.min_free_space_gb !== undefined ? instance.min_free_space_gb : 0
             };
 
             // Handle specific fields for different apps
@@ -691,6 +695,17 @@
                         </div>
                         <p class="editor-help-text">Only search for items that aired at least this many days ago</p>
                     </div>
+                    <div class="editor-field-group">
+                        <div class="editor-setting-item">
+                            <label>Search Order</label>
+                            <select id="editor-search-order">
+                                <option value="random" ${(safeInstance.search_order || 'random') === 'random' ? 'selected' : ''}>Random (default)</option>
+                                <option value="newest_first" ${safeInstance.search_order === 'newest_first' ? 'selected' : ''}>Newest First</option>
+                                <option value="oldest_first" ${safeInstance.search_order === 'oldest_first' ? 'selected' : ''}>Oldest First</option>
+                            </select>
+                        </div>
+                        <p class="editor-help-text">Order in which missing items are searched. Random picks from any page; Newest/Oldest First sorts by release date.</p>
+                    </div>
                 </div>
             `;
             } else if (['radarr', 'lidarr', 'readarr', 'whisparr', 'eros'].includes(appType)) {
@@ -772,6 +787,17 @@
                             <input type="number" id="editor-release-date-delay" value="${safeInstance.release_date_delay_days}">
                         </div>
                         <p class="editor-help-text">Only search for items released at least this many days ago</p>
+                    </div>
+                    <div class="editor-field-group">
+                        <div class="editor-setting-item">
+                            <label>Search Order</label>
+                            <select id="editor-search-order">
+                                <option value="random" ${(safeInstance.search_order || 'random') === 'random' ? 'selected' : ''}>Random (default)</option>
+                                <option value="newest_first" ${safeInstance.search_order === 'newest_first' ? 'selected' : ''}>Newest First</option>
+                                <option value="oldest_first" ${safeInstance.search_order === 'oldest_first' ? 'selected' : ''}>Oldest First</option>
+                            </select>
+                        </div>
+                        <p class="editor-help-text">Order in which missing movies are searched. Random picks from any page; Newest/Oldest First sorts by release date.</p>
                     </div>
                  `;
                 }
@@ -899,6 +925,14 @@
                         <p class="editor-help-text">Skip searching for episodes with future air dates</p>
                     </div>
                     ` : ''}
+
+                    <div class="editor-field-group">
+                        <div class="editor-setting-item">
+                            <label>Min Free Disk Space (GB)</label>
+                            <input type="number" id="editor-min-free-space" value="${safeInstance.min_free_space_gb !== undefined ? safeInstance.min_free_space_gb : 0}" min="0" step="1">
+                        </div>
+                        <p class="editor-help-text">Skip processing cycle if any root folder has less than this amount of free disk space (GB). Set to 0 to disable.</p>
+                    </div>
                 </div>
                 
                 <div class="editor-section">
@@ -1131,6 +1165,18 @@
             const skipFutureInput = document.getElementById('editor-skip-future');
             if (skipFutureInput) {
                 newData.skip_future_episodes = skipFutureInput.checked;
+            }
+
+            // Add min_free_space_gb (disk space threshold)
+            const minFreeSpaceInput = document.getElementById('editor-min-free-space');
+            if (minFreeSpaceInput) {
+                newData.min_free_space_gb = parseFloat(minFreeSpaceInput.value) || 0;
+            }
+
+            // Add search_order
+            const searchOrderInput = document.getElementById('editor-search-order');
+            if (searchOrderInput) {
+                newData.search_order = searchOrderInput.value || 'random';
             }
 
             // Add shows_missing tag for Sonarr

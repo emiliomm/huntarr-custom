@@ -99,6 +99,7 @@ def process_missing_episodes(
     custom_tags: dict = None,
     exempt_tags: list = None,
     instance_display_name: Optional[str] = None,
+    search_order: str = "random",
 ) -> bool:
     """
     Process missing episodes for Sonarr.
@@ -132,7 +133,8 @@ def process_missing_episodes(
             skip_future_episodes, hunt_missing_items, air_date_delay_days,
             command_wait_delay, command_wait_attempts, stop_check,
             tag_processed_items, tag_enable_missing, tag_enable_shows_missing, custom_tags, exempt_tags=exempt_tags,
-            hunt_missing_mode=hunt_missing_mode, instance_display_name=display_name
+            hunt_missing_mode=hunt_missing_mode, instance_display_name=display_name,
+            search_order=search_order
         )
     elif hunt_missing_mode == "shows":
         # Handle show-based missing items (all episodes from a show)
@@ -152,7 +154,7 @@ def process_missing_episodes(
             skip_future_episodes, hunt_missing_items, air_date_delay_days,
             command_wait_delay, command_wait_attempts, stop_check,
             tag_processed_items, tag_enable_missing, tag_enable_shows_missing, custom_tags, exempt_tags=exempt_tags,
-            instance_display_name=display_name
+            instance_display_name=display_name, search_order=search_order
         )
     else:
         sonarr_logger.error(f"Invalid hunt_missing_mode: {hunt_missing_mode}. Valid options are 'seasons_packs', 'shows', or 'episodes'.")
@@ -177,6 +179,7 @@ def process_missing_seasons_packs_mode(
     exempt_tags: list = None,
     hunt_missing_mode: str = "seasons_packs",
     instance_display_name: Optional[str] = None,
+    search_order: str = "random",
 ) -> bool:
     """
     Process missing seasons using the SeasonSearch command
@@ -206,7 +209,8 @@ def process_missing_seasons_packs_mode(
     
     # Get all missing episodes using efficient random page selection instead of fetching all
     missing_episodes = sonarr_api.get_missing_episodes_random_page(
-        api_url, api_key, api_timeout, monitored_only, hunt_missing_items * 20  # Get more episodes to increase chance of finding full seasons
+        api_url, api_key, api_timeout, monitored_only, hunt_missing_items * 20,  # Get more episodes to increase chance of finding full seasons
+        search_order=search_order
     )
     if not missing_episodes:
         sonarr_logger.info("No missing episodes found")
@@ -418,6 +422,7 @@ def process_missing_shows_mode(
     custom_tags: dict = None,
     exempt_tags: list = None,
     instance_display_name: Optional[str] = None,
+    search_order: str = "random",
 ) -> bool:
     """Process missing episodes in show mode - gets all missing episodes for entire shows."""
     processed_any = False
@@ -643,6 +648,7 @@ def process_missing_episodes_mode(
     custom_tags: dict = None,
     exempt_tags: list = None,
     instance_display_name: Optional[str] = None,
+    search_order: str = "random",
 ) -> bool:
     """
     Process missing episodes in individual episode mode.
@@ -668,7 +674,8 @@ def process_missing_episodes_mode(
     
     # Get missing episodes using random page selection for efficiency
     missing_episodes = sonarr_api.get_missing_episodes_random_page(
-        api_url, api_key, api_timeout, monitored_only, hunt_missing_items * 2
+        api_url, api_key, api_timeout, monitored_only, hunt_missing_items * 2,
+        search_order=search_order
     )
     
     if not missing_episodes:

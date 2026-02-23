@@ -45,7 +45,11 @@ def get_default_instance_config(app_type: str) -> Dict[str, Any]:
         "seed_check_torrent_client": None,  # Optional: {"type": "qbittorrent"|"transmission", "host", "port", "username", "password"}
         # Cycle settings (per-instance; were global in 9.0.x)
         "sleep_duration": 900,
-        "hourly_cap": 20
+        "hourly_cap": 20,
+        # Search order: 'random' (default), 'newest_first', 'oldest_first'
+        "search_order": "random",
+        # Disk space threshold: skip hunt if any root folder has less than this many GB free (0 = disabled)
+        "min_free_space_gb": 0
     }
     
     # Add app-specific fields

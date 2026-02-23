@@ -1488,7 +1488,11 @@ document.head.appendChild(styleEl);
                 seed_check_torrent_client: instance.seed_check_torrent_client && typeof instance.seed_check_torrent_client === 'object' ? instance.seed_check_torrent_client : null,
                 // Cycle settings (per-instance; were global in 9.0.x)
                 sleep_duration: instance.sleep_duration !== undefined ? instance.sleep_duration : 900,
-                hourly_cap: instance.hourly_cap !== undefined ? instance.hourly_cap : 20
+                hourly_cap: instance.hourly_cap !== undefined ? instance.hourly_cap : 20,
+                // Search order
+                search_order: instance.search_order || 'random',
+                // Disk space threshold
+                min_free_space_gb: instance.min_free_space_gb !== undefined ? instance.min_free_space_gb : 0
             };
 
             // Handle specific fields for different apps
@@ -1671,6 +1675,17 @@ document.head.appendChild(styleEl);
                         </div>
                         <p class="editor-help-text">Only search for items that aired at least this many days ago</p>
                     </div>
+                    <div class="editor-field-group">
+                        <div class="editor-setting-item">
+                            <label>Search Order</label>
+                            <select id="editor-search-order">
+                                <option value="random" ${(safeInstance.search_order || 'random') === 'random' ? 'selected' : ''}>Random (default)</option>
+                                <option value="newest_first" ${safeInstance.search_order === 'newest_first' ? 'selected' : ''}>Newest First</option>
+                                <option value="oldest_first" ${safeInstance.search_order === 'oldest_first' ? 'selected' : ''}>Oldest First</option>
+                            </select>
+                        </div>
+                        <p class="editor-help-text">Order in which missing items are searched. Random picks from any page; Newest/Oldest First sorts by release date.</p>
+                    </div>
                 </div>
             `;
             } else if (['radarr', 'lidarr', 'readarr', 'whisparr', 'eros'].includes(appType)) {
@@ -1752,6 +1767,17 @@ document.head.appendChild(styleEl);
                             <input type="number" id="editor-release-date-delay" value="${safeInstance.release_date_delay_days}">
                         </div>
                         <p class="editor-help-text">Only search for items released at least this many days ago</p>
+                    </div>
+                    <div class="editor-field-group">
+                        <div class="editor-setting-item">
+                            <label>Search Order</label>
+                            <select id="editor-search-order">
+                                <option value="random" ${(safeInstance.search_order || 'random') === 'random' ? 'selected' : ''}>Random (default)</option>
+                                <option value="newest_first" ${safeInstance.search_order === 'newest_first' ? 'selected' : ''}>Newest First</option>
+                                <option value="oldest_first" ${safeInstance.search_order === 'oldest_first' ? 'selected' : ''}>Oldest First</option>
+                            </select>
+                        </div>
+                        <p class="editor-help-text">Order in which missing movies are searched. Random picks from any page; Newest/Oldest First sorts by release date.</p>
                     </div>
                  `;
                 }
@@ -1879,6 +1905,14 @@ document.head.appendChild(styleEl);
                         <p class="editor-help-text">Skip searching for episodes with future air dates</p>
                     </div>
                     ` : ''}
+
+                    <div class="editor-field-group">
+                        <div class="editor-setting-item">
+                            <label>Min Free Disk Space (GB)</label>
+                            <input type="number" id="editor-min-free-space" value="${safeInstance.min_free_space_gb !== undefined ? safeInstance.min_free_space_gb : 0}" min="0" step="1">
+                        </div>
+                        <p class="editor-help-text">Skip processing cycle if any root folder has less than this amount of free disk space (GB). Set to 0 to disable.</p>
+                    </div>
                 </div>
                 
                 <div class="editor-section">
@@ -2111,6 +2145,18 @@ document.head.appendChild(styleEl);
             const skipFutureInput = document.getElementById('editor-skip-future');
             if (skipFutureInput) {
                 newData.skip_future_episodes = skipFutureInput.checked;
+            }
+
+            // Add min_free_space_gb (disk space threshold)
+            const minFreeSpaceInput = document.getElementById('editor-min-free-space');
+            if (minFreeSpaceInput) {
+                newData.min_free_space_gb = parseFloat(minFreeSpaceInput.value) || 0;
+            }
+
+            // Add search_order
+            const searchOrderInput = document.getElementById('editor-search-order');
+            if (searchOrderInput) {
+                newData.search_order = searchOrderInput.value || 'random';
             }
 
             // Add shows_missing tag for Sonarr
@@ -12383,7 +12429,9 @@ document.head.appendChild(styleEl);
             command_wait_delay: s.command_wait_delay !== undefined ? s.command_wait_delay : 1,
             command_wait_attempts: s.command_wait_attempts !== undefined ? s.command_wait_attempts : 600,
             max_download_queue_size: s.max_download_queue_size !== undefined ? s.max_download_queue_size : -1,
-            max_seed_queue_size: s.max_seed_queue_size !== undefined ? s.max_seed_queue_size : -1
+            max_seed_queue_size: s.max_seed_queue_size !== undefined ? s.max_seed_queue_size : -1,
+            search_order: s.search_order || 'random',
+            min_free_space_gb: s.min_free_space_gb !== undefined ? s.min_free_space_gb : 0
         };
         var sleepMins = Math.round((safe.sleep_duration || 900) / 60);
         var upgradeTagGroupDisplay = (safe.upgrade_selection_method || 'cutoff') === 'tags' ? 'flex' : 'none';
@@ -12435,7 +12483,10 @@ document.head.appendChild(styleEl);
             '<input type="text" id="mh-editor-upgrade-tag" value="' + escapeAttr(safe.upgrade_tag) + '" placeholder="e.g. upgradinatorr"></div>' +
             '<p class="editor-help-text">Tag name. Huntarr finds movies that don’t have this tag, runs upgrade searches, then adds the tag when done (tracks what\'s been processed). <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: #2ecc71; text-decoration: underline;">TrashGuides</a> | <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: #e74c3c; text-decoration: underline;">Upgradinatorr</a></p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Release Date Delay (Days)</label><input type="number" id="mh-editor-release-date-delay" value="' + safe.release_date_delay_days + '"></div>' +
-            '<p class="editor-help-text">Only search for items released at least this many days ago</p></div></div>' +
+            '<p class="editor-help-text">Only search for items released at least this many days ago</p></div>' +
+            '<div class="editor-field-group"><div class="editor-setting-item"><label>Search Order</label>' +
+            '<select id="mh-editor-search-order"><option value="random"' + (safe.search_order === 'random' || !safe.search_order ? ' selected' : '') + '>Random (default)</option><option value="newest_first"' + (safe.search_order === 'newest_first' ? ' selected' : '') + '>Newest First</option><option value="oldest_first"' + (safe.search_order === 'oldest_first' ? ' selected' : '') + '>Oldest First</option></select></div>' +
+            '<p class="editor-help-text">Order in which missing movies are searched. Random picks from any page; Newest/Oldest First sorts by release date.</p></div></div>' +
 
             '<div class="editor-section"><div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-stateful"><i class="fas fa-sync"></i></span>STATEFUL MANAGEMENT</div></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>State Management</label>' +
@@ -12477,6 +12528,7 @@ document.head.appendChild(styleEl);
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Command Wait Attempts</label><input type="number" id="mh-editor-cmd-wait-attempts" value="' + safe.command_wait_attempts + '" min="0" max="1800"></div>' +
             '<p class="editor-help-text">Maximum attempts to wait for command completion (default: 600)</p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Max Download Queue Size</label><input type="number" id="mh-editor-max-queue-size" value="' + safe.max_download_queue_size + '" min="-1" max="1000"></div><p class="editor-help-text">Skip processing if queue size meets or exceeds this value (-1 = disabled)</p></div>' +
+            '<div class="editor-field-group"><div class="editor-setting-item"><label>Min Free Disk Space (GB)</label><input type="number" id="mh-editor-min-free-space" value="' + safe.min_free_space_gb + '" min="0" step="1"></div><p class="editor-help-text">Skip cycle if any root folder has less free space than this (GB). 0 = disabled.</p></div>' +
             '</div>' +
 
             /* ── Debug Manager ────────────────────────────────── */
@@ -12552,7 +12604,9 @@ document.head.appendChild(styleEl);
             command_wait_attempts: getNum('mh-editor-cmd-wait-attempts', 600),
             max_download_queue_size: getNum('mh-editor-max-queue-size', -1),
             max_seed_queue_size: -1,
-            seed_check_torrent_client: null
+            seed_check_torrent_client: null,
+            search_order: get('mh-editor-search-order') || 'random',
+            min_free_space_gb: parseFloat(get('mh-editor-min-free-space') || '0') || 0
         };
     }
 
@@ -13066,6 +13120,8 @@ document.head.appendChild(styleEl);
             exempt_tags: Array.isArray(s.exempt_tags) ? s.exempt_tags : [],
             api_timeout: s.api_timeout !== undefined ? s.api_timeout : 120,
             max_download_queue_size: s.max_download_queue_size !== undefined ? s.max_download_queue_size : -1,
+            search_order: s.search_order || 'random',
+            min_free_space_gb: s.min_free_space_gb !== undefined ? s.min_free_space_gb : 0
         };
         var sleepMins = Math.round((safe.sleep_duration || 900) / 60);
         var upgradeTagDisplay = (safe.upgrade_selection_method || 'cutoff') === 'tags' ? 'flex' : 'none';
@@ -13096,6 +13152,9 @@ document.head.appendChild(styleEl);
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Upgrade Selection Method</label><select id="th-editor-upgrade-method"><option value="cutoff"' + (safe.upgrade_selection_method === 'cutoff' ? ' selected' : '') + '>Cutoff unmet</option><option value="tags"' + (safe.upgrade_selection_method === 'tags' ? ' selected' : '') + '>Tags</option></select></div><p class="editor-help-text">Cutoff unmet: items below quality cutoff. Tags (Upgradinatorr): finds items without the tag, runs upgrades, adds tag.</p></div>' +
             '<div class="editor-field-group editor-upgrade-tag-group" style="display:' + upgradeTagDisplay + ';"><div class="editor-setting-item"><label>Upgrade Tag</label><input type="text" id="th-editor-upgrade-tag" value="' + escapeAttr(safe.upgrade_tag) + '" placeholder="e.g. upgradinatorr"></div><p class="editor-help-text">Tag name for upgrade tracking</p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item flex-row"><label>Skip Future Episodes</label><label class="toggle-switch"><input type="checkbox" id="th-editor-skip-future"' + (safe.skip_future_episodes ? ' checked' : '') + '><span class="toggle-slider"></span></label></div><p class="editor-help-text">Skip episodes with air dates in the future</p></div>' +
+            '<div class="editor-field-group"><div class="editor-setting-item"><label>Search Order</label>' +
+            '<select id="th-editor-search-order"><option value="random"' + (safe.search_order === 'random' || !safe.search_order ? ' selected' : '') + '>Random (default)</option><option value="newest_first"' + (safe.search_order === 'newest_first' ? ' selected' : '') + '>Newest First</option><option value="oldest_first"' + (safe.search_order === 'oldest_first' ? ' selected' : '') + '>Oldest First</option></select></div>' +
+            '<p class="editor-help-text">Order in which missing episodes are searched. Random picks from any page; Newest/Oldest First sorts by air date.</p></div>' +
             '</div>' +
             // STATEFUL MANAGEMENT
             '<div class="editor-section"><div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-stateful"><i class="fas fa-sync"></i></span>STATEFUL MANAGEMENT</div></div>' +
@@ -13111,6 +13170,7 @@ document.head.appendChild(styleEl);
             '<div class="editor-field-group"><div class="editor-setting-item"><label>API Cap - Hourly</label><input type="number" id="th-editor-hourly-cap" value="' + safe.hourly_cap + '" min="1" max="400"></div><p class="editor-help-text">Max API requests per hour (10-20 recommended)</p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item flex-row"><label>Monitored Only</label><label class="toggle-switch"><input type="checkbox" id="th-editor-monitored-only"' + (safe.monitored_only ? ' checked' : '') + '><span class="toggle-slider"></span></label></div><p class="editor-help-text">Only search for monitored episodes</p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Max Download Queue Size</label><input type="number" id="th-editor-max-queue-size" value="' + safe.max_download_queue_size + '" min="-1" max="1000"></div><p class="editor-help-text">Skip processing if queue meets or exceeds this value (-1 = disabled)</p></div>' +
+            '<div class="editor-field-group"><div class="editor-setting-item"><label>Min Free Disk Space (GB)</label><input type="number" id="th-editor-min-free-space" value="' + safe.min_free_space_gb + '" min="0" step="1"></div><p class="editor-help-text">Skip cycle if any root folder has less free space than this (GB). 0 = disabled.</p></div>' +
             '</div>' +
             // EXEMPT TAGS
             '<div class="editor-section" style="border:1px solid rgba(231,76,60,0.3);border-radius:10px;padding:14px;background:rgba(231,76,60,0.06);margin-top:16px;"><div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-exempt"><i class="fas fa-ban"></i></span>EXEMPT TAGS</div></div>' +
@@ -13155,6 +13215,8 @@ document.head.appendChild(styleEl);
             exempt_tags: tags,
             monitored_only: getCheck('th-editor-monitored-only'),
             max_download_queue_size: getNum('th-editor-max-queue-size', -1),
+            search_order: get('th-editor-search-order') || 'random',
+            min_free_space_gb: parseFloat(get('th-editor-min-free-space') || '0') || 0
         };
     }
 
