@@ -4197,6 +4197,33 @@ body.requestarr-modal-open {
     overflow: hidden;
 }
 
+/* ================================================================
+   Request Modal — Premium Design
+   ================================================================ */
+
+/* Entrance animation */
+@keyframes mhReqFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes mhReqSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 /* Modal overlay */
 .mh-req-modal {
     position: fixed;
@@ -4208,55 +4235,78 @@ body.requestarr-modal-open {
     isolation: isolate;
     transform: translateZ(0);
     filter: none;
+    animation: mhReqFadeIn 0.2s ease-out;
 }
 
 .mh-req-modal .modal-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 0;
 }
 
-/* Card */
+/* Card — glassmorphism */
 .mh-req-card {
     position: relative;
     z-index: 2;
-    background: #1e293b;
-    border: 1px solid rgba(148, 163, 184, 0.12);
-    border-radius: 12px;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+    background: linear-gradient(165deg, rgba(30, 41, 59, 0.97), rgba(15, 23, 42, 0.98));
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 16px;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+        0 32px 100px -12px rgba(0, 0, 0, 0.65),
+        0 8px 32px -4px rgba(0, 0, 0, 0.3);
     overflow: hidden;
-    max-width: 620px;
+    max-width: 640px;
     width: 92vw;
     max-height: 90vh;
     overflow-y: auto;
+    animation: mhReqSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hide scrollbar but keep scrollable */
+.mh-req-card::-webkit-scrollbar {
+    width: 4px;
+}
+
+.mh-req-card::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mh-req-card::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.15);
+    border-radius: 4px;
 }
 
 /* Close button */
 .mh-req-close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 12px;
+    right: 12px;
     z-index: 5;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.45);
-    border: none;
-    border-radius: 6px;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all 0.2s ease;
 }
 
 .mh-req-close:hover {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(239, 68, 68, 0.6);
+    border-color: rgba(239, 68, 68, 0.3);
     color: #fff;
+    transform: scale(1.05);
 }
 
 /* Two-column layout */
@@ -4264,10 +4314,23 @@ body.requestarr-modal-open {
     display: flex;
 }
 
+/* Poster column — with subtle bottom gradient overlay */
 .mh-req-poster {
     flex-shrink: 0;
-    width: 200px;
+    width: 210px;
     background: #0f172a;
+    position: relative;
+}
+
+.mh-req-poster::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.5), transparent);
+    pointer-events: none;
 }
 
 .mh-req-poster img {
@@ -4277,42 +4340,46 @@ body.requestarr-modal-open {
     display: block;
 }
 
+/* Form column */
 .mh-req-form {
     flex: 1;
     min-width: 0;
-    padding: 24px 24px 20px;
+    padding: 28px 28px 22px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
 }
 
 /* Header */
 .mh-req-header {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
 }
 
 .mh-req-label {
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 10.5px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
+    letter-spacing: 1.2px;
     color: #f59e0b;
+    opacity: 0.9;
 }
 
 .mh-req-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    color: #f8fafc;
     margin: 0;
-    line-height: 1.25;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
 }
 
 .mh-req-meta {
     font-size: 13px;
-    color: rgba(148, 163, 184, 0.7);
+    color: rgba(148, 163, 184, 0.6);
     margin-top: 2px;
+    font-weight: 400;
 }
 
 /* Status badge */
@@ -4323,11 +4390,13 @@ body.requestarr-modal-open {
 .mh-req-badge {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: 6px;
+    gap: 7px;
+    padding: 7px 14px;
+    border-radius: 8px;
     font-size: 12px;
     font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: all 0.2s ease;
 }
 
 .mh-req-badge i {
@@ -4335,53 +4404,56 @@ body.requestarr-modal-open {
 }
 
 .mh-req-badge-ok {
-    background: rgba(99, 102, 241, 0.12);
+    background: rgba(99, 102, 241, 0.1);
     color: #a5b4fc;
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    border: 1px solid rgba(99, 102, 241, 0.18);
 }
 
 .mh-req-badge-lib {
-    background: rgba(34, 197, 94, 0.12);
+    background: rgba(34, 197, 94, 0.1);
     color: #4ade80;
-    border: 1px solid rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(34, 197, 94, 0.18);
 }
 
 .mh-req-badge-loading {
-    background: rgba(148, 163, 184, 0.08);
-    color: rgba(148, 163, 184, 0.6);
-    border: 1px solid rgba(148, 163, 184, 0.1);
+    background: rgba(148, 163, 184, 0.06);
+    color: rgba(148, 163, 184, 0.55);
+    border: 1px solid rgba(148, 163, 184, 0.08);
 }
 
 .mh-req-badge-requested {
-    background: rgba(245, 158, 11, 0.12);
+    background: rgba(245, 158, 11, 0.1);
     color: #fbbf24;
-    border: 1px solid rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.18);
 }
 
 .mh-req-badge-error {
-    background: rgba(239, 68, 68, 0.12);
+    background: rgba(239, 68, 68, 0.1);
     color: #f87171;
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.18);
 }
 
 .mh-req-badge-import {
-    background: rgba(245, 158, 11, 0.15);
+    background: rgba(245, 158, 11, 0.12);
     color: #fbbf24;
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    border: 1px solid rgba(245, 158, 11, 0.25);
 }
 
-/* Form fields */
+/* Divider between status and fields */
 .mh-req-fields {
     display: flex !important;
     flex-direction: column !important;
-    gap: 12px !important;
+    gap: 14px !important;
     width: 100% !important;
+    padding-top: 4px !important;
+    border-top: 1px solid rgba(148, 163, 184, 0.07) !important;
 }
 
+/* Form field rows */
 .mh-req-field {
     display: grid !important;
-    grid-template-columns: 160px 1fr !important;
-    gap: 0 15px !important;
+    grid-template-columns: 140px 1fr !important;
+    gap: 0 16px !important;
     align-items: center !important;
     width: 100% !important;
     margin: 0 !important;
@@ -4395,14 +4467,16 @@ body.requestarr-modal-open {
 .mh-req-field label {
     grid-column: 1 !important;
     grid-row: 1 !important;
-    width: 160px !important;
-    min-width: 160px !important;
+    width: 140px !important;
+    min-width: 140px !important;
     display: flex !important;
     align-items: center !important;
     white-space: nowrap !important;
-    color: rgba(148, 163, 184, 0.7) !important;
-    font-size: 13px !important;
+    color: rgba(148, 163, 184, 0.55) !important;
+    font-size: 12.5px !important;
     font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.4px !important;
 }
 
 /* Instance and root folder fields: icon + select in a row */
@@ -4426,7 +4500,7 @@ body.requestarr-modal-open {
 
 .mh-req-instance-wrap .mh-req-root-info-icon:hover,
 .mh-req-root-folder-wrap .mh-req-root-info-icon:hover {
-    color: #6366f1;
+    color: #818cf8;
 }
 
 .mh-req-instance-wrap select,
@@ -4435,19 +4509,21 @@ body.requestarr-modal-open {
     min-width: 0 !important;
 }
 
+/* Select dropdowns — premium style */
 .mh-req-field select {
     grid-column: 2 !important;
     grid-row: 1 !important;
     width: 100% !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
-    height: 36px !important;
-    padding: 0 35px 0 12px !important;
-    background-color: rgba(15, 23, 42, 0.6) !important;
-    border: 1px solid rgba(148, 163, 184, 0.2) !important;
-    border-radius: 6px !important;
-    color: #f1f5f9 !important;
+    height: 38px !important;
+    padding: 0 36px 0 14px !important;
+    background-color: rgba(15, 23, 42, 0.5) !important;
+    border: 1px solid rgba(148, 163, 184, 0.12) !important;
+    border-radius: 8px !important;
+    color: #e2e8f0 !important;
     font-size: 13px !important;
+    font-weight: 500 !important;
     cursor: pointer !important;
     -webkit-appearance: none !important;
     -moz-appearance: none !important;
@@ -4455,17 +4531,25 @@ body.requestarr-modal-open {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E") !important;
     background-repeat: no-repeat !important;
     background-position: right 12px center !important;
+    transition: all 0.2s ease !important;
+}
+
+.mh-req-field select:hover {
+    border-color: rgba(148, 163, 184, 0.25) !important;
+    background-color: rgba(15, 23, 42, 0.7) !important;
 }
 
 .mh-req-field select:focus {
     outline: none !important;
-    border-color: #6366f1 !important;
-    background-color: rgba(15, 23, 42, 0.8) !important;
+    border-color: rgba(99, 102, 241, 0.5) !important;
+    background-color: rgba(15, 23, 42, 0.7) !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
 }
 
 /* Thin red border when no instance or no root configured */
 .mh-req-field select.field-warning {
-    border: 1px solid #ef4444 !important;
+    border: 1px solid rgba(239, 68, 68, 0.5) !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08) !important;
 }
 
 .mh-req-field select option {
@@ -4478,18 +4562,18 @@ body.requestarr-modal-open {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 8px 12px;
-    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 8px;
     grid-column: 2;
     grid-row: 1;
 }
 
 .mh-req-perm-approved {
     color: #4ade80;
-    background: rgba(34, 197, 94, 0.12);
-    border: 1px solid rgba(34, 197, 94, 0.25);
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.2);
 }
 
 .mh-req-perm-approved i {
@@ -4498,21 +4582,22 @@ body.requestarr-modal-open {
 
 .mh-req-perm-pending {
     color: #fbbf24;
-    background: rgba(251, 191, 36, 0.12);
-    border: 1px solid rgba(251, 191, 36, 0.25);
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.2);
 }
 
 .mh-req-perm-pending i {
     color: #fbbf24;
 }
 
-/* Actions */
+/* Actions area */
 .mh-req-actions {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 12px;
-    padding-top: 8px;
+    gap: 14px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(148, 163, 184, 0.07);
 }
 
 .mh-req-checkbox-wrap {
@@ -4520,56 +4605,75 @@ body.requestarr-modal-open {
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #94a3b8;
+    color: rgba(148, 163, 184, 0.7);
     cursor: pointer;
     width: 100%;
+    transition: color 0.15s;
+}
+
+.mh-req-checkbox-wrap:hover {
+    color: #cbd5e1;
 }
 
 .mh-req-checkbox-wrap input {
     cursor: pointer;
+    accent-color: #f59e0b;
+    width: 15px;
+    height: 15px;
 }
 
 .mh-req-buttons {
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
+    gap: 10px;
 }
 
+/* Buttons — premium style */
 .mh-req-btn {
-    padding: 8px 20px;
+    padding: 10px 24px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all 0.2s ease;
+    letter-spacing: 0.01em;
 }
 
 .mh-req-btn-cancel {
-    background: rgba(148, 163, 184, 0.1);
-    color: #94a3b8;
-    border: 1px solid rgba(148, 163, 184, 0.15);
+    background: rgba(148, 163, 184, 0.08);
+    color: rgba(148, 163, 184, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.12);
 }
 
 .mh-req-btn-cancel:hover {
-    background: rgba(148, 163, 184, 0.15);
+    background: rgba(148, 163, 184, 0.14);
     color: #e2e8f0;
+    border-color: rgba(148, 163, 184, 0.2);
 }
 
 .mh-req-btn-submit {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
     color: #000;
     font-weight: 700;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
 }
 
 .mh-req-btn-submit:hover:not(:disabled) {
     filter: brightness(1.1);
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+    transform: translateY(-1px);
+}
+
+.mh-req-btn-submit:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
 }
 
 .mh-req-btn-submit:disabled {
-    opacity: 0.5;
+    opacity: 0.4;
     cursor: not-allowed;
+    box-shadow: none;
 }
 
 .mh-req-more-info-icon {
@@ -4577,9 +4681,10 @@ body.requestarr-modal-open {
     align-items: center;
     justify-content: center;
     margin-left: 6px;
-    color: rgba(148, 163, 184, 0.5);
+    color: rgba(148, 163, 184, 0.45);
     font-size: 12px;
     text-decoration: none;
+    transition: color 0.2s;
 }
 
 .mh-req-more-info-icon:hover {
@@ -4590,6 +4695,7 @@ body.requestarr-modal-open {
 @media (max-width: 600px) {
     .mh-req-card {
         max-width: 95vw !important;
+        border-radius: 14px !important;
     }
 
     .mh-req-layout {
@@ -4598,15 +4704,19 @@ body.requestarr-modal-open {
 
     .mh-req-poster {
         width: 100% !important;
-        height: 180px !important;
+        height: 200px !important;
     }
 
     .mh-req-poster img {
         object-position: center 20% !important;
     }
 
+    .mh-req-poster::after {
+        height: 60% !important;
+    }
+
     .mh-req-form {
-        padding: 18px 16px 16px !important;
+        padding: 20px 18px 18px !important;
     }
 
     .mh-req-field {
@@ -4628,8 +4738,12 @@ body.requestarr-modal-open {
     }
 
     .mh-req-close {
-        top: 6px !important;
-        right: 6px !important;
+        top: 8px !important;
+        right: 8px !important;
+    }
+
+    .mh-req-title {
+        font-size: 20px !important;
     }
 }
 
