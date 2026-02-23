@@ -54,7 +54,7 @@
 
                 <!-- Movie Hunt -->
                 <div class="nav-group">
-                    <div class="nav-group-title">Movie Hunt</div>
+                    <div class="nav-group-title">Media Hunt</div>
                     <div class="nav-group-items">
                         <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span
                                 class="nav-badge nav-badge-beta">Beta</span></a>
@@ -159,7 +159,8 @@
                             <td>UTC</td>
                             <td>Used for scheduling, log timestamps, and calendar views. Set this to your local timezone
                                 for accurate scheduling (e.g., <code>America/New_York</code>,
-                                <code>Europe/London</code>).</td>
+                                <code>Europe/London</code>).
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Web Server Port</strong></td>
@@ -205,7 +206,8 @@
                 <h3>No Login Mode</h3>
                 <p>Authentication is completely disabled. Anyone who can reach the URL has full admin access.
                     <strong>Only use this if Huntarr is behind a properly secured reverse proxy</strong> that handles
-                    authentication (e.g., Authelia, Authentik, or a VPN).</p>
+                    authentication (e.g., Authelia, Authentik, or a VPN).
+                </p>
                 <div class="alert alert-danger">
                     <strong><i class="fas fa-exclamation-triangle"></i> Security risk</strong>
                     <p>No Login mode exposes your entire media infrastructure (API keys, instance URLs, user data) to
@@ -263,9 +265,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Enable Movie Hunt</strong></td>
+                            <td><strong>Enable Media Hunt</strong></td>
                             <td>On</td>
-                            <td>Shows/hides Movie Hunt (the built-in Radarr/Sonarr alternative) and NZB Hunt in the
+                            <td>Shows/hides Media Hunt (the built-in Radarr/Sonarr alternative) and NZB Hunt in the
                                 sidebar.</td>
                         </tr>
                         <tr>
@@ -311,7 +313,8 @@
                 <p>If you're running Huntarr behind a reverse proxy, follow these steps:</p>
                 <ol>
                     <li>Set the <strong>Base URL</strong> in Settings to match your proxy path (e.g.,
-                        <code>/huntarr</code>)</li>
+                        <code>/huntarr</code>)
+                    </li>
                     <li>Configure your proxy to forward traffic to Huntarr's port (default 9705)</li>
                     <li>Ensure real client IPs are forwarded (important for Local Bypass mode)</li>
                     <li>Restart the Huntarr container after changing the Base URL</li>
