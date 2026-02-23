@@ -58,6 +58,29 @@ def _require_auth():
     return True, None
 
 
+def _cleanup_defunct_category(db, defunct_value):
+    """Clear user category assignments and default settings referencing a deleted bundle/instance."""
+    try:
+        # Clear from all users
+        users = db.get_all_requestarr_users()
+        for user in (users or []):
+            updates = {}
+            if user.get('movie_category') == defunct_value:
+                updates['movie_category'] = ''
+            if user.get('tv_category') == defunct_value:
+                updates['tv_category'] = ''
+            if updates:
+                db.update_requestarr_user(user['id'], updates)
+        # Clear from default category settings
+        if db.get_general_setting('default_movie_category', '') == defunct_value:
+            db.set_general_setting('default_movie_category', '')
+        if db.get_general_setting('default_tv_category', '') == defunct_value:
+            db.set_general_setting('default_tv_category', '')
+        logger.info(f"Cleaned up defunct category references: {defunct_value}")
+    except Exception as e:
+        logger.error(f"Error cleaning up defunct category '{defunct_value}': {e}")
+
+
 def _get_all_available_instances():
     """Discover all known instances from settings/DB. Returns {movies: [...], tv: [...]}."""
     from src.primary.settings_manager import load_settings
@@ -184,6 +207,9 @@ def delete_bundle(bundle_id):
         db = get_database()
         success = db.delete_bundle(bundle_id)
         if success:
+            # Clean up user category references to the deleted bundle
+            defunct_value = f"bundle:{bundle_id}"
+            _cleanup_defunct_category(db, defunct_value)
             return jsonify({'success': True})
         return jsonify({'error': 'Failed to delete bundle'}), 500
     except Exception as e:

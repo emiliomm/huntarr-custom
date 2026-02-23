@@ -15,6 +15,30 @@ tv_hunt_logger = get_logger("tv_hunt")
 MOVIE_HUNT_HUNT_SETTINGS_KEY = "movie_hunt_hunt_settings"
 TV_HUNT_HUNT_SETTINGS_KEY = "tv_hunt_hunt_settings"
 
+import logging
+_cat_logger = logging.getLogger(__name__)
+
+
+def _cleanup_defunct_category(db, defunct_value):
+    """Clear user category assignments and default settings referencing a deleted instance/bundle."""
+    try:
+        users = db.get_all_requestarr_users()
+        for user in (users or []):
+            updates = {}
+            if user.get('movie_category') == defunct_value:
+                updates['movie_category'] = ''
+            if user.get('tv_category') == defunct_value:
+                updates['tv_category'] = ''
+            if updates:
+                db.update_requestarr_user(user['id'], updates)
+        if db.get_general_setting('default_movie_category', '') == defunct_value:
+            db.set_general_setting('default_movie_category', '')
+        if db.get_general_setting('default_tv_category', '') == defunct_value:
+            db.set_general_setting('default_tv_category', '')
+        _cat_logger.info(f"Cleaned up defunct category references: {defunct_value}")
+    except Exception as e:
+        _cat_logger.error(f"Error cleaning up defunct category '{defunct_value}': {e}")
+
 
 def _get_movie_hunt_instance_settings(instance_id: int) -> dict:
     """Get per-instance hunt settings for a Movie Hunt instance (merged with defaults)."""
@@ -130,8 +154,18 @@ def register_movie_instances_routes(bp):
     def delete_instance(instance_id):
         try:
             db = get_database()
+            # Look up instance name before deletion for category cleanup
+            instances_before = db.get_movie_hunt_instances()
+            deleted_name = None
+            for inst in (instances_before or []):
+                if inst.get('id') == instance_id:
+                    deleted_name = inst.get('name', '')
+                    break
             if not db.delete_movie_hunt_instance(instance_id):
                 return jsonify({'success': False, 'error': 'Instance not found'}), 404
+            # Clean up user category references to the deleted instance
+            if deleted_name:
+                _cleanup_defunct_category(db, f"movie_hunt:{deleted_name}")
             instances = db.get_movie_hunt_instances()
             current_id = db.get_current_movie_hunt_instance_id()
             return jsonify({'success': True, 'instances': instances, 'current_instance_id': current_id}), 200
@@ -343,8 +377,18 @@ def register_tv_instances_routes(bp):
     def delete_instance(instance_id):
         try:
             db = get_database()
+            # Look up instance name before deletion for category cleanup
+            instances_before = db.get_tv_hunt_instances()
+            deleted_name = None
+            for inst in (instances_before or []):
+                if inst.get('id') == instance_id:
+                    deleted_name = inst.get('name', '')
+                    break
             if not db.delete_tv_hunt_instance(instance_id):
                 return jsonify({'success': False, 'error': 'Instance not found'}), 404
+            # Clean up user category references to the deleted instance
+            if deleted_name:
+                _cleanup_defunct_category(db, f"tv_hunt:{deleted_name}")
             instances = db.get_tv_hunt_instances()
             current_id = db.get_current_tv_hunt_instance_id()
             return jsonify({'success': True, 'instances': instances, 'current_instance_id': current_id}), 200
