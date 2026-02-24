@@ -14,7 +14,7 @@ import threading
 from typing import Dict, Any, Optional, List
 
 # SHA-256 hash of the valid Huntarr dev key (constant only; plaintext never stored)
-_DEV_KEY_HASH = "81fc4fcfa6ec4a7a19c9aafe60eea0022ef2c5d05f78484b77cf6578d983f6d3"
+_DEV_KEY_HASH = os.environ.get("HUNTARR_DEV_KEY_HASH", "")
 
 # Create a simple logger for settings_manager
 logging.basicConfig(level=logging.INFO)
@@ -25,6 +25,29 @@ from src.primary.utils.database import get_database
 
 # Known app types
 KNOWN_APP_TYPES = ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "swaparr", "prowlarr", "movie_hunt", "tv_hunt", "general"]
+
+# Keys that should never be returned to the client in plaintext
+_SECRET_KEYS = {'api_key', 'api_keys', 'password', 'plex_token', 'dev_key', 'proxy_password'}
+
+def redact_settings(settings: Dict[str, Any]) -> Dict[str, Any]:
+    """Deep-copy settings and replace secret values with '***' for API responses."""
+    import copy
+    redacted = copy.deepcopy(settings)
+    for app_name, app_settings in redacted.items():
+        if isinstance(app_settings, dict):
+            _redact_dict(app_settings)
+    return redacted
+
+def _redact_dict(d: dict):
+    for key in list(d.keys()):
+        if key in _SECRET_KEYS:
+            d[key] = '***'
+        elif isinstance(d[key], dict):
+            _redact_dict(d[key])
+        elif isinstance(d[key], list):
+            for item in d[key]:
+                if isinstance(item, dict):
+                    _redact_dict(item)
 
 # Thread-safe settings cache with timestamps to avoid excessive database reads
 _settings_cache = {}  # Format: {app_name: {'timestamp': timestamp, 'data': settings_dict}}
@@ -185,11 +208,41 @@ def load_settings(app_type, use_cache=True):
 
     return current_settings
 
+def _restore_secrets(new_data: dict, old_data: dict):
+    """Restore original secrets if the new data contains '***'."""
+    if not isinstance(old_data, dict):
+        return
+    for key, val in list(new_data.items()):
+        if key in _SECRET_KEYS and val == '***':
+            if key in old_data:
+                new_data[key] = old_data[key]
+            else:
+                new_data[key] = ''
+        elif isinstance(val, dict) and isinstance(old_data.get(key), dict):
+            _restore_secrets(val, old_data[key])
+        elif isinstance(val, list) and isinstance(old_data.get(key), list):
+            for i, item in enumerate(val):
+                if isinstance(item, dict):
+                    old_item = None
+                    if 'instance_id' in item:
+                        for oi in old_data[key]:
+                            if isinstance(oi, dict) and oi.get('instance_id') == item['instance_id']:
+                                old_item = oi
+                                break
+                    if not old_item and i < len(old_data[key]):
+                        old_item = old_data[key][i]
+                    if isinstance(old_item, dict):
+                        _restore_secrets(item, old_item)
+
 def save_settings(app_name: str, settings_data: Dict[str, Any]) -> bool:
     """Save settings for a specific app to database."""
     if app_name not in KNOWN_APP_TYPES:
          settings_logger.error(f"Attempted to save settings for unknown app type: {app_name}")
          return False
+    
+    # Restore any redacted secrets from current settings before processing
+    old_settings = load_settings(app_name)
+    _restore_secrets(settings_data, old_settings)
     
     # Validate and enforce hourly_cap maximum limit of 400
     if 'hourly_cap' in settings_data:

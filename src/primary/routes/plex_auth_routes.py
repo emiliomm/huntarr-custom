@@ -12,6 +12,7 @@ from src.primary.auth import (
     verify_session, get_username_from_session, link_plex_account_session_auth,
     get_base_url_path,
 )
+from src.primary.routes.common import get_user_for_request
 from src.primary.utils.logger import logger
 import time
 import requests
@@ -119,7 +120,7 @@ def handle_oauth():
         }
         
         response = requests.post('https://plex.tv/api/v2/oauth/token', 
-                               data=token_data, headers=headers)
+                               data=token_data, headers=headers, timeout=10)
         
         if response.status_code == 200:
             token_response = response.json()
@@ -176,7 +177,7 @@ def handle_oauth_callback():
         }
         
         response = requests.post('https://plex.tv/api/v2/oauth/token', 
-                               data=token_data, headers=headers)
+                               data=token_data, headers=headers, timeout=10)
         
         if response.status_code == 200:
             token_response = response.json()
@@ -321,9 +322,9 @@ def link_account():
         plex_token = data.get('token')
         oauth_code = data.get('code')
         oauth_state = data.get('state')
-        setup_mode = data.get('setup_mode', False)
+        # SECURITY: Determine setup_mode server-side — never trust client flag.
+        setup_mode = not user_exists()
         
-        # Handle setup mode differently - user might not have valid session
         if setup_mode:
             # In setup mode, just get the user data without username validation
             # Since Huntarr is single-user, we don't need to validate specific usernames
@@ -363,7 +364,7 @@ def link_account():
             }
             
             response = requests.post('https://plex.tv/api/v2/oauth/token', 
-                                   data=token_data, headers=headers)
+                                   data=token_data, headers=headers, timeout=10)
             
             if response.status_code == 200:
                 token_response = response.json()
@@ -426,8 +427,12 @@ def link_account():
 
 @plex_auth_bp.route('/api/auth/plex/unlink', methods=['POST'])
 def unlink_plex_account():
-    """Unlink Plex account from local user — always proceeds regardless of session state"""
+    """Unlink Plex account from local user"""
     try:
+        # SECURITY: Require authentication — previously proceeded without session check
+        username = get_user_for_request()
+        if not username:
+            return jsonify({'success': False, 'error': 'Authentication required'}), 401
         if unlink_plex_from_user():
             return jsonify({'success': True, 'message': 'Plex account unlinked successfully'})
         else:

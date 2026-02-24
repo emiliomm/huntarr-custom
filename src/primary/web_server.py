@@ -693,6 +693,7 @@ def api_settings():
     if request.method == 'GET':
         # Return all settings using the new manager function
         all_settings = settings_manager.get_all_settings()
+        all_settings = settings_manager.redact_settings(all_settings)
         # Effective timezone (env TZ overrides settings) for logs, scheduling, Hunt Manager display
         try:
             from src.primary.utils.timezone_utils import get_timezone_name
@@ -842,7 +843,7 @@ def save_general_settings():
                 general_logger.error(f"Error applying proxy settings: {e}")
         
         # Return all settings
-        return jsonify(settings_manager.get_all_settings())
+        return jsonify(settings_manager.redact_settings(settings_manager.get_all_settings()))
     else:
         return jsonify({"success": False, "error": "Failed to save general settings"}), 500
 
@@ -973,7 +974,7 @@ def api_reset_settings():
     if success:
         # Return the full updated config after reset
         all_settings = settings_manager.get_all_settings() # Corrected function name
-        return jsonify(all_settings)
+        return jsonify(settings_manager.redact_settings(all_settings))
     else:
         return jsonify({"success": False, "error": f"Failed to save reset settings for {app_name}"}), 500
 

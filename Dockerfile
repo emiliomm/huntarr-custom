@@ -49,14 +49,18 @@ RUN mkdir -p /config /media /downloads && chmod -R 755 /config /media /downloads
 # Make entrypoint executable
 RUN chmod +x /app/scripts/entrypoint.sh
 
+# Create non-root user and group
+RUN groupadd -g 1000 huntarr && useradd -u 1000 -g huntarr -m huntarr && \
+    chown -R huntarr:huntarr /config /media /downloads
+
 # Set environment variables
 ENV PYTHONPATH=/app
 ENV TZ=UTC
 
-# PUID/PGID: Set to non-zero to run as non-root user (default: 0 = root for backward compatibility)
-# Unraid: PUID=99 PGID=100 | Linux: PUID=1000 PGID=1000
-ENV PUID=0
-ENV PGID=0
+# PUID/PGID: Set to 1000 to run as non-root user by default (Finding #21)
+# Unraid: PUID=99 PGID=100 | Linux: PUID=1000 PGID=1000 | Root mode: PUID=0 PGID=0
+ENV PUID=1000
+ENV PGID=1000
 
 # Expose port
 EXPOSE 9705

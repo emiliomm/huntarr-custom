@@ -145,21 +145,19 @@ def save_user_data(user_data: Dict[str, Any]) -> bool:
 
 
 def _password_is_hashed(stored: str) -> bool:
-    """True if stored value looks like a hash (not plaintext). Supports bcrypt and salt:hash."""
-    if not stored or len(stored) < 10:
+    """Returns True if password is using the CURRENT supported hash algorithm (bcrypt)."""
+    if not stored:
         return False
     if stored.startswith("$2") and stored.count("$") >= 3:
         return True  # bcrypt
-    if ":" in stored and len(stored) > 40:
-        return True  # salt:hash (e.g. our SHA-256 format)
+    # Salt:hash (SHA-256) is now considered legacy and will trigger a rehash
     return False
 
 
 def hash_password(password: str) -> str:
-    """Hash a password for storage (SHA-256 with salt). Use for all new and updated passwords."""
-    salt = secrets.token_hex(16)
-    pw_hash = hashlib.sha256((password + salt).encode()).hexdigest()
-    return f"{salt}:{pw_hash}"
+    """Hash a password for storage using bcrypt. Use for all new and updated passwords."""
+    import bcrypt
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
 
 def verify_password(stored_password: str, provided_password: str) -> bool:
@@ -355,6 +353,15 @@ def verify_user(username: str, password: str, otp_code: str = None) -> Tuple[boo
                 if not verify_password(stored_password, password):
                     logger.warning(f"Login attempt failed for requestarr user '{username}': Invalid password.")
                     return False, False
+
+                # Auto-upgrade legacy hashes to bcrypt
+                if not _password_is_hashed(stored_password):
+                    try:
+                        db.update_requestarr_user_password(username, hash_password(password))
+                        logger.info(f"Rehashed password for requestarr user '{username}' to bcrypt.")
+                    except Exception as e:
+                        logger.warning(f"Could not rehash password for requestarr user '{username}': {e}")
+
                 # Check if 2FA is enabled for this requestarr user
                 two_fa_enabled = req_user.get("two_fa_enabled", False)
                 if two_fa_enabled:
@@ -383,13 +390,13 @@ def verify_user(username: str, password: str, otp_code: str = None) -> Tuple[boo
             logger.warning(f"Login attempt failed for user '{username}': Invalid password.")
             return False, False
 
-        # If password was stored in plaintext, rehash and update so it is not stored plaintext (security)
+        # If password was stored in plaintext or legacy SHA-256, rehash and update to bcrypt
         if not _password_is_hashed(stored_password):
             try:
                 db.update_user_password(username, hash_password(password))
-                logger.info("Rehashed plaintext password for user '%s' (security fix).", username)
+                logger.info("Migrated password for user '%s' to bcrypt (security upgrade).", username)
             except Exception as e:
-                logger.warning("Could not rehash plaintext password for '%s': %s", username, e)
+                logger.warning("Could not migrate password for '%s' to bcrypt: %s", username, e)
 
         # Check if 2FA is enabled
         two_fa_enabled = user_data.get("two_fa_enabled", False)
@@ -521,8 +528,17 @@ def authenticate_request():
     if request.path.startswith('/static/') or request.path.startswith('/api/setup') or request.path.endswith('/favicon.ico') or request.path.startswith('/api/health') or request.path.endswith('/ping') or request.path.startswith('/api/github_sponsors') or request.path.startswith('/api/sponsors/init') or request.path.endswith('/api/version'):
         return None
 
-    # Skip authentication for login pages, Plex auth endpoints, recovery key endpoints, and setup-related user endpoints
-    if request.path.endswith('/login') or request.path.startswith('/api/login') or request.path.startswith('/api/auth/plex') or request.path.startswith('/auth/recovery-key') or '/api/user/2fa/' in request.path or request.path.endswith('/api/settings/general'):
+    # Skip authentication for login pages and specific pre-auth endpoints only.
+    # SECURITY: Use exact-match set + controlled prefixes — never substring matching.
+    _AUTH_BYPASS_EXACT = {
+        '/login', '/api/login',
+        '/api/auth/plex/pin', '/api/auth/plex/login',
+        '/auth/recovery-key',
+    }
+    _AUTH_BYPASS_PREFIXES = (
+        '/api/auth/plex/check/',   # /check/<pin_id>
+    )
+    if request.path in _AUTH_BYPASS_EXACT or any(request.path.startswith(p) for p in _AUTH_BYPASS_PREFIXES):
         return None
     
     # Cached auth checks — avoids hitting the database on every single request
@@ -599,9 +615,12 @@ def authenticate_request():
         ]
         is_local = False
         
-        # Check if request is coming through a proxy
+        # SECURITY: Only trust X-Forwarded-For when the direct connection is
+        # from a known reverse-proxy (loopback or Docker default gateway).
+        # This prevents arbitrary clients from spoofing local-network IPs.
+        _TRUSTED_PROXIES = {'127.0.0.1', '::1', '172.17.0.1'}
         forwarded_for = request.headers.get('X-Forwarded-For')
-        if forwarded_for:
+        if forwarded_for and (remote_addr in _TRUSTED_PROXIES):
             # Take the first IP in the chain which is typically the client's real IP
             possible_client_ip = forwarded_for.split(',')[0].strip()
             
@@ -958,7 +977,7 @@ def create_plex_pin(setup_mode: bool = False, user_mode: bool = False, popup_mod
     }
     
     try:
-        response = requests.post('https://plex.tv/api/v2/pins', headers=headers, data=data)
+        response = requests.post('https://plex.tv/api/v2/pins', headers=headers, data=data, timeout=10)
         response.raise_for_status()
         pin_data = response.json()
         
@@ -1036,7 +1055,7 @@ def check_plex_pin(pin_id: int) -> Optional[str]:
     }
     
     try:
-        response = requests.get(f'https://plex.tv/api/v2/pins/{pin_id}', headers=headers, params=data)
+        response = requests.get(f'https://plex.tv/api/v2/pins/{pin_id}', headers=headers, params=data, timeout=10)
         response.raise_for_status()
         
         result = response.json()
@@ -1075,7 +1094,7 @@ def verify_plex_token(token: str) -> Optional[Dict[str, Any]]:
     }
     
     try:
-        response = requests.get('https://plex.tv/api/v2/user', headers=headers)
+        response = requests.get('https://plex.tv/api/v2/user', headers=headers, timeout=10)
         
         if response.status_code == 200:
             user_data = response.json()

@@ -310,9 +310,18 @@ class BackupManager:
             logger.error(f"Error listing backups: {e}")
             return []
     
+    def _validate_backup_id(self, backup_id: str):
+        """Reject backup IDs containing path traversal sequences."""
+        if not backup_id or '..' in backup_id or '/' in backup_id or '\\' in backup_id:
+            raise ValueError(f"Invalid backup ID: {backup_id}")
+        resolved = (self.backup_dir / backup_id).resolve()
+        if not str(resolved).startswith(str(self.backup_dir.resolve())):
+            raise ValueError(f"Path traversal detected: {backup_id}")
+
     def restore_backup(self, backup_id):
         """Restore a backup"""
         try:
+            self._validate_backup_id(backup_id)
             backup_folder = self.backup_dir / backup_id
             
             if not backup_folder.exists():
@@ -414,6 +423,7 @@ class BackupManager:
     def delete_backup(self, backup_id):
         """Delete a backup"""
         try:
+            self._validate_backup_id(backup_id)
             # Ensure we're using the exact backup ID that was stored
             backup_folder = self.backup_dir / backup_id
             
@@ -803,6 +813,7 @@ def download_backup(backup_id):
         return jsonify({"success": False, "error": "Authentication required"}), 401
     
     try:
+        backup_manager._validate_backup_id(backup_id)
         # Validate backup exists
         backup_folder = backup_manager.backup_dir / backup_id
         if not backup_folder.exists():
@@ -863,9 +874,14 @@ def upload_backup():
         temp_zip_path = temp_dir / "backup.zip"
         file.save(str(temp_zip_path))
         
-        # Extract ZIP file
+        # Extract ZIP file securely (prevent Zip Slip)
         with zipfile.ZipFile(temp_zip_path, 'r') as zipf:
-            zipf.extractall(str(temp_dir))
+            dest = temp_dir.resolve()
+            for member in zipf.infolist():
+                target = (dest / member.filename).resolve()
+                if not str(target).startswith(str(dest)):
+                    raise ValueError(f"Zip Slip detected: {member.filename}")
+            zipf.extractall(str(dest))
         
         # Find the backup metadata file - more robust approach
         metadata_path = None

@@ -18,7 +18,7 @@ jobs:
     runs-on: windows-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3  # v3.5.0
       with:
         fetch-depth: 0
     
@@ -35,7 +35,7 @@ jobs:
         fi
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236  # v4.7.1
       with:
         python-version: '3.12'
         
@@ -140,14 +140,14 @@ jobs:
         Get-ChildItem -Path installer -Filter *.exe | ForEach-Object { Write-Host $_.FullName }
         
     - name: Upload installer
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3  # v4.3.1
       with:
         name: huntarr-installer
         path: installer/Huntarr-*-win.exe
         
     - name: Upload to release
       if: steps.meta.outputs.IS_TAG == 'true'
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@9d7c94cfd0a1f3ed45544c887983e9fa900f0564  # v1
       with:
         files: installer/Huntarr-*-win.exe
       env:

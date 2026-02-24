@@ -801,10 +801,6 @@ def setup_2fa():
             setup_progress = db.get_setup_progress()
             if setup_progress and setup_progress.get('username'):
                 username = setup_progress.get('username')
-            else:
-                first_user = db.get_first_user()
-                if first_user:
-                    username = first_user.get('username')
         except Exception as e:
             logger.error(f"Error getting username for 2FA setup: {e}")
     if not username:
@@ -857,10 +853,6 @@ def verify_2fa():
             setup_progress = db.get_setup_progress()
             if setup_progress and setup_progress.get('username'):
                 username = setup_progress.get('username')
-            else:
-                first_user = db.get_first_user()
-                if first_user:
-                    username = first_user.get('username')
         except Exception as e:
             logger.error(f"Error getting username for 2FA verify: {e}")
     if not username:
@@ -951,27 +943,20 @@ def generate_recovery_key():
     # Get username handling bypass modes and setup mode
     username = get_user_for_request()
     
-    # If not authenticated, check if we're in setup mode and get username from setup progress
+    # SECURITY: Determine setup_mode server-side — never trust the client flag.
+    from ..utils.database import get_database
+    db = get_database()
+    setup_progress = db.get_setup_progress()
+    setup_mode = bool(setup_progress and setup_progress.get('username'))
+    
+    # If not authenticated, only allow during genuine server-verified setup
     if not username:
-        try:
-            data = request.json or {}
-            setup_mode = data.get('setup_mode', False)
-            if setup_mode:
-                from ..utils.database import get_database
-                db = get_database()
-                setup_progress = db.get_setup_progress()
-                if setup_progress and setup_progress.get('username'):
-                    username = setup_progress['username']
-                    logger.debug(f"Using username from setup progress: {username}")
-                else:
-                    logger.warning("Recovery key generation in setup mode failed: No username in setup progress.")
-                    return jsonify({"error": "Setup not properly initialized"}), 400
-            else:
-                logger.warning("Recovery key generation attempt failed: Not authenticated and not in bypass mode.")
-                return jsonify({"error": "Not authenticated"}), 401
-        except Exception as e:
-            logger.error(f"Error checking setup mode for recovery key generation: {e}")
-            return jsonify({"error": "Authentication check failed"}), 500
+        if setup_mode:
+            username = setup_progress['username']
+            logger.debug(f"Using username from setup progress: {username}")
+        else:
+            logger.warning("Recovery key generation attempt failed: Not authenticated and not in setup mode.")
+            return jsonify({"error": "Not authenticated"}), 401
 
     if not username:
         logger.warning("Recovery key generation attempt failed: Could not determine username.")
@@ -981,9 +966,8 @@ def generate_recovery_key():
         data = request.json or {}
         current_password = data.get('password')
         two_factor_code = data.get('two_factor_code')
-        setup_mode = data.get('setup_mode', False)  # Check if this is during setup
 
-        # During setup mode, skip password verification
+        # During server-verified setup mode, skip password verification
         if not setup_mode:
             # Require current password for security (normal operation)
             if not current_password:
@@ -1007,8 +991,6 @@ def generate_recovery_key():
                     return jsonify({"success": False, "error": "Invalid two-factor authentication code"}), 400
 
         # Generate the recovery key
-        from ..utils.database import get_database
-        db = get_database()
         recovery_key = db.generate_recovery_key(username)
 
         if recovery_key:

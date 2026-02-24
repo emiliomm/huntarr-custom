@@ -388,13 +388,11 @@ class RequestarrMixin:
         ]
         
         try:
-            # Generate a human-readable recovery key like "ocean-light-tower-51"
+            # Generate a human-readable recovery key
             # Uses secrets module for cryptographically secure randomness
-            adj = secrets.choice(adjectives)
-            noun1 = secrets.choice(nouns)
-            noun2 = secrets.choice(nouns)
-            number = secrets.randbelow(90) + 10  # 10-99
-            recovery_key = f"{adj}-{noun1}-{noun2}-{number}"
+            words = [secrets.choice(adjectives + nouns) for _ in range(4)]
+            number = secrets.randbelow(9000) + 1000  # 1000-9999
+            recovery_key = "-".join(words) + f"-{number}"
             
             # Hash the recovery key for secure storage
             recovery_key_hash = hashlib.sha256(recovery_key.encode()).hexdigest()
