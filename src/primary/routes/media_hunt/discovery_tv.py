@@ -19,7 +19,7 @@ from .helpers import (
 )
 from .indexers import get_tv_indexers_config, resolve_tv_indexer_api_url
 from .profiles import get_profile_by_name_or_default, best_result_matching_profile
-from .clients import get_tv_clients_config
+
 from .storage import get_tv_root_folders_config, get_detected_episodes_from_all_roots
 from ...utils.logger import logger
 
@@ -587,11 +587,6 @@ def perform_tv_hunt_request(
     if not indexers:
         return False, "No indexers configured"
 
-    # Get clients
-    clients = get_tv_clients_config(instance_id)
-    if not clients:
-        return False, "No download clients configured"
-
     # Get profile
     profile = get_profile_by_name_or_default(quality_profile, instance_id, _tv_profiles_context()) if quality_profile else None
 
@@ -674,93 +669,7 @@ def perform_tv_hunt_request(
     inst_name = _get_tv_hunt_instance_display_name(instance_id)
     category = _instance_name_to_category(inst_name, "TV") if inst_name else (TV_HUNT_DEFAULT_CATEGORY or "tv")
 
-    # Try each enabled client
-    for client in clients:
-        if not client.get('enabled', True):
-            continue
-        client_type = (client.get('type') or 'nzb_hunt').strip().lower()
-
-        if client_type in ('nzbhunt', 'nzb_hunt'):
-            success, queue_id = _send_to_nzb_hunt(nzb_url, nzb_title, category, instance_id=instance_id, instance_name=inst_name)
-        elif client_type in ('torhunt', 'tor_hunt', 'qbittorrent'):
-            success, queue_id = _send_to_tor_hunt(nzb_url, nzb_title, category)
-        else:
-            continue
-
-        if success:
-            if queue_id:
-                _add_tv_requested_queue_id(
-                    instance_id, queue_id,
-                    series_title=title_clean,
-                    year='',
-                    season=int(season_number) if season_number is not None else None,
-                    episode=int(episode_number) if episode_number is not None else None,
-                    episode_title='',
-                    client_name=(client.get('name') or '').strip(),
-                )
-            # Record grab event for Indexer Hunt stats
-            _grab_ih_id = best.get('indexer_hunt_id', '')
-            if _grab_ih_id:
-                try:
-                    from src.primary.utils.database import get_database as _get_db
-                    _get_db().record_indexer_hunt_event(
-                        indexer_id=_grab_ih_id, indexer_name=best.get('indexer_name', ''),
-                        event_type='grab', query=title_clean,
-                        result_title=nzb_title,
-                        instance_id=instance_id, instance_name='',
-                    )
-                except Exception:
-                    pass
-            return True, f"Sent '{nzb_title}' to {client_type}"
-
-    return False, "All download clients failed"
-
-
-def _send_to_nzb_hunt(nzb_url, title, category, instance_id=None, instance_name=None):
-    """Send NZB to NZB Hunt internal client."""
-    try:
-        from src.primary.apps.nzb_hunt.download_manager import get_manager
-        from .helpers import _get_tv_hunt_instance_display_name
-        mgr = get_manager()
-        src_id = str(instance_id) if instance_id is not None else ""
-        src_name = (instance_name or "").strip() or (_get_tv_hunt_instance_display_name(instance_id) if instance_id is not None else "")
-        success, message, queue_id = mgr.add_nzb(
-            nzb_url=nzb_url,
-            name=title or '',
-            category=category or TV_HUNT_DEFAULT_CATEGORY,
-            priority='normal',
-            added_by='tv_hunt',
-            nzb_name=title or '',
-            indexer='',
-            source_instance_id=src_id,
-            source_instance_name=src_name,
-        )
-        return success, queue_id or ''
-    except Exception as e:
-        tv_hunt_logger.debug("NZB Hunt send error: %s", e)
-        return False, ''
-
-
-def _send_to_tor_hunt(url, title, category):
-    """Send torrent URL/magnet to the built-in Tor Hunt engine."""
-    try:
-        from src.primary.apps.tor_hunt.tor_hunt_manager import get_manager as get_tor_manager
-        tor_mgr = get_tor_manager()
-        if not tor_mgr.has_connection():
-            return False, 'Tor Hunt engine not available'
-        ok, msg, tid = tor_mgr.add_torrent(magnet_url=url, category=category, name=title or '')
-        if ok:
-            # Get the hash for tracking
-            queue = tor_mgr.get_queue(category=category)
-            queue_id = tid
-            if queue:
-                newest = max(queue, key=lambda t: t.get('added_on', 0))
-                queue_id = newest.get('hash', tid)
-            return True, queue_id
-        return False, msg or 'Failed to add torrent'
-    except Exception as e:
-        tv_hunt_logger.debug("Tor Hunt send error: %s", e)
-        return False, str(e) or 'Connection failed'
+    return False, "Not available: download clients disabled"
 
 
 # ── TMDB Discovery Endpoints ──

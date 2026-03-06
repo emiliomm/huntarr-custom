@@ -20,12 +20,7 @@ from .indexers import register_movie_indexers_routes
 register_movie_indexers_routes(movie_hunt_bp, _get_movie_hunt_instance_id_from_request)  # noqa: E402
 from .profiles import register_movie_profiles_routes
 register_movie_profiles_routes(movie_hunt_bp, _get_movie_hunt_instance_id_from_request)  # noqa: E402
-from .clients import register_movie_clients_routes
-register_movie_clients_routes(movie_hunt_bp, _get_movie_hunt_instance_id_from_request)  # noqa: E402
-from .custom_formats import register_movie_custom_formats_routes
-register_movie_custom_formats_routes(movie_hunt_bp, _get_movie_hunt_instance_id_from_request)  # noqa: E402
-from .activity_movie import register_movie_activity_routes
-register_movie_activity_routes(movie_hunt_bp)  # noqa: E402
+
 from .discovery_movie import register_movie_discovery_routes
 register_movie_discovery_routes(movie_hunt_bp)  # noqa: E402
 from .storage import register_movie_storage_routes
@@ -45,10 +40,7 @@ from .indexers import register_tv_indexers_routes  # noqa: E402
 register_tv_indexers_routes(tv_hunt_bp, _get_tv_hunt_instance_id_from_request)  # noqa: E402
 from .profiles import register_tv_profiles_routes  # noqa: E402
 register_tv_profiles_routes(tv_hunt_bp, _get_tv_hunt_instance_id_from_request)  # noqa: E402
-from .clients import register_tv_clients_routes  # noqa: E402
-register_tv_clients_routes(tv_hunt_bp, _get_tv_hunt_instance_id_from_request)  # noqa: E402
-from .activity import register_tv_activity_routes  # noqa: E402
-register_tv_activity_routes(tv_hunt_bp, _get_tv_hunt_instance_id_from_request)  # noqa: E402
+
 from .discovery_tv import register_tv_discovery_routes  # noqa: E402
 register_tv_discovery_routes(tv_hunt_bp)  # noqa: E402
 from .storage import register_tv_storage_routes  # noqa: E402

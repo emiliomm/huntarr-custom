@@ -266,7 +266,7 @@ class RequestsMixin:
             from src.primary.routes.media_hunt.indexers import _get_indexers_config, _resolve_indexer_api_url
             from src.primary.routes.media_hunt.helpers import _movie_profiles_context
             from src.primary.routes.media_hunt.profiles import get_profile_by_name_or_default, best_result_matching_profile
-            from src.primary.routes.media_hunt.clients import get_movie_clients_config
+
             from src.primary.routes.media_hunt.helpers import (
                 _get_blocklist_source_titles, _blocklist_normalize_source_title,
                 _add_requested_queue_id, MOVIE_HUNT_DEFAULT_CATEGORY
@@ -288,20 +288,12 @@ class RequestsMixin:
 
             # Now attempt the search — failures here are non-fatal
             indexers = _get_indexers_config(instance_id)
-            clients = get_movie_clients_config(instance_id)
             enabled_indexers = [i for i in indexers if i.get('enabled', True)]
-            enabled_clients = [c for c in clients if c.get('enabled', True)]
             
             if not enabled_indexers:
                 return {
                     'success': True,
-                    'message': f'"{title}" added to Movie Hunt – {instance_name}. No indexers configured — add indexers to start searching.',
-                    'status': 'added'
-                }
-            if not enabled_clients:
-                return {
-                    'success': True,
-                    'message': f'"{title}" added to Movie Hunt – {instance_name}. No download clients configured — add a client to start downloading.',
+                    'message': f'"{title}" added to Movie Hunt – {instance_name}. No indexers configured.',
                     'status': 'added'
                 }
 
@@ -387,24 +379,12 @@ class RequestsMixin:
                     'status': 'added'
                 }
             
-            # Send to download client
-            client = enabled_clients[0]
-            raw_cat = (client.get('category') or '').strip()
-            request_category = MOVIE_HUNT_DEFAULT_CATEGORY if raw_cat.lower() in ('default', '*', '') else (raw_cat or MOVIE_HUNT_DEFAULT_CATEGORY)
-            ok, msg, queue_id = _add_nzb_to_download_client(client, nzb_url, nzb_title or f'{title}.nzb', request_category, verify_ssl, indexer=indexer_used or '', instance_id=instance_id)
-            
-            if not ok:
-                return {
-                    'success': False,
-                    'message': f'Failed to send to download client: {msg}',
-                    'status': 'client_failed'
-                }
-            
-            # Track the request in Movie Hunt's queue
-            if queue_id:
-                client_name = (client.get('name') or 'Download client').strip() or 'Download client'
-                _add_requested_queue_id(client_name, queue_id, instance_id, title=title, year=year_str, score=request_score, score_breakdown=request_score_breakdown)
-            
+            # Send to download client is disabled
+            return {
+                'success': True,
+                'message': f'"{title}" added to Movie Hunt \u2013 {instance_name}.',
+                'status': 'requested'
+            }            
             return {
                 'success': True,
                 'message': f'"{title}" sent to {client.get("name") or "download client"} via Movie Hunt \u2013 {instance_name}.',

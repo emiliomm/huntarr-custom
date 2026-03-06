@@ -4,49 +4,6 @@
 
     <!-- Add initially hidden class to prevent flickering before JS initializes -->
     <div class="dashboard-grid stack-layout mobile-scrollable" style="opacity: 0; transition: opacity 0.15s ease;">
-        <!-- NZB Hunt Home Status Card (auto-shown when NZB Hunt has servers) -->
-        <div class="card nzb-home-card" id="nzb-hunt-home-card" style="display: none;">
-            <div class="home-section-bar">
-                <div class="home-section-bar-left">
-                    <i class="fas fa-download home-section-icon" style="color: #60a5fa;"></i>
-                    <span class="home-section-title">NZB Hunt</span>
-                </div>
-                <div class="home-section-bar-right">
-                    <button id="nzb-home-pause-btn" class="home-section-btn" title="Pause/Resume all downloads"
-                        style="min-width: auto; padding: 4px 10px;">
-                        <i class="fas fa-pause"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="nzb-home-status-bar">
-                <div class="nzb-home-stat">
-                    <i class="fas fa-plug"></i>
-                    <span id="nzb-home-connections">0</span>
-                    <span class="nzb-home-stat-label">Connections</span>
-                </div>
-                <div class="nzb-home-stat">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span id="nzb-home-speed">0 B/s</span>
-                    <span class="nzb-home-stat-label">Speed</span>
-                </div>
-                <div class="nzb-home-stat">
-                    <i class="fas fa-clock"></i>
-                    <span id="nzb-home-eta">--</span>
-                    <span class="nzb-home-stat-label">ETA</span>
-                </div>
-                <div class="nzb-home-stat">
-                    <i class="fas fa-arrow-down"></i>
-                    <span id="nzb-home-remaining">0 B</span>
-                    <span class="nzb-home-stat-label">Remaining</span>
-                </div>
-                <div class="nzb-home-stat">
-                    <i class="fas fa-hdd"></i>
-                    <span id="nzb-home-space">--</span>
-                    <span class="nzb-home-stat-label">Space</span>
-                </div>
-            </div>
-        </div>
-
         <div class="card requestarr-home-card" style="display: none;">
             <div class="requestarr-home-content">
                 <div class="home-search-toolbar">
@@ -137,14 +94,9 @@
                     <p style="font-size: 18px; margin-bottom: 10px; font-weight: 500; color: #e2e8f0;">No Instances
                         Configured</p>
                     <p style="font-size: 14px; line-height: 1.6; opacity: 0.8; max-width: 400px; margin-bottom: 20px;">
-                        Get started by heading to Media Hunt or configure your 3rd Party Apps.
+                        Get started by configuring your 3rd Party Apps.
                     </p>
                     <div style="display: flex; gap: 12px; align-items: center;">
-                        <button onclick="window.location.hash = '#media-hunt-collection'" class="action-button"
-                            style="background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); color: #818cf8; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease;">
-                            <i class="fas fa-rocket" style="margin-right: 8px;"></i> Media Hunt
-                        </button>
-                        <span style="color: #64748b; font-size: 14px;">or</span>
                         <button onclick="window.location.hash = '#sonarr'" class="action-button"
                             style="background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); color: #818cf8; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap;">
                             <i class="fas fa-th-large" style="margin-right: 8px;"></i> 3rd Party Apps
@@ -153,49 +105,7 @@
                 </div>
 
                 <div class="app-stats-grid" id="app-stats-grid">
-                    <!-- Movie Hunt Card (first: Huntarr icon, so users see Movie Hunt upfront) -->
-                    <div class="app-stats-card movie_hunt" style="display: none;">
-                        <div class="status-container" style="display: none;">
-                            <span id="movie_huntHomeStatus" class="status-badge"></span>
-                        </div>
-                        <div class="hourly-cap-container">
-                            <div class="hourly-cap-status" id="movie_hunt-hourly-cap">
-                                <span class="hourly-cap-icon" id="movie_hunt-cap-icon"></span>
-                                <span class="hourly-cap-text">API: <span id="movie_hunt-api-count">0</span> / <span
-                                        id="movie_hunt-api-limit">—</span></span>
-                            </div>
-                            <div class="api-progress-container">
-                                <div class="api-progress-bar">
-                                    <div class="api-progress-fill" id="movie_hunt-api-progress" style="width: 0%;">
-                                    </div>
-                                </div>
-                                <div class="api-progress-text">
-                                    API: <span id="movie_hunt-api-used">0</span> / <span
-                                        id="movie_hunt-api-total">—</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="app-content">
-                            <div class="app-icon-wrapper">
-                                <img src="./static/logo/256.png" alt="Movie" class="app-logo" title="Movie">
-                            </div>
-                            <h4>Movie</h4>
-                        </div>
-                        <div class="stats-numbers">
-                            <div class="stat-box">
-                                <span class="stat-number" id="movie_hunt-hunted">0</span>
-                                <span class="stat-label">Searches Triggered</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-number" id="movie_hunt-upgraded">0</span>
-                                <span class="stat-label">Upgrades Triggered</span>
-                            </div>
-                        </div>
-                        <div class="reset-button-container">
-                            <button class="cycle-reset-button" data-app="movie_hunt"><i class="fas fa-sync-alt"></i>
-                                Reset</button>
-                        </div>
-                    </div>
+
                     <!-- Sonarr Card -->
                     <div class="app-stats-card sonarr" style="display: none;">
                         <div class="status-container" style="display: none;">
@@ -1013,18 +923,6 @@
         box-shadow: 0 0 20px rgba(195, 0, 230, 0.3);
     }
 
-    /* Movie Hunt & TV Hunt amber/gold glowing rings (Huntarr branding) */
-    .app-stats-card.movie_hunt .app-icon-wrapper::before,
-    .app-stats-card.tv_hunt .app-icon-wrapper::before {
-        border-color: rgba(245, 158, 11, 0.8);
-        box-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
-    }
-
-    .app-stats-card.movie_hunt .app-icon-wrapper::after,
-    .app-stats-card.tv_hunt .app-icon-wrapper::after {
-        border-color: rgba(245, 158, 11, 0.4);
-        box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
-    }
 
     .app-logo {
         width: 40px;
@@ -1127,12 +1025,6 @@
         opacity: 0.8;
     }
 
-    /* App-specific accent colors for Movie Hunt & TV Hunt (Huntarr gold/amber) */
-    .app-stats-card.movie_hunt .app-icon-wrapper,
-    .app-stats-card.tv_hunt .app-icon-wrapper {
-        border-color: rgba(245, 158, 11, 0.5);
-        box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
-    }
 
     /* App-specific accent colors for sonarr */
     .app-stats-card.sonarr .app-icon-wrapper {
@@ -1801,7 +1693,6 @@
 
     .support-links-container {
         padding: 4px;
-        fixe
     }
 
     .support-links-grid {
@@ -2429,7 +2320,8 @@
             <p>A heartfelt thank you to everyone who has supported <strong>my daughter's education</strong> through
                 sponsorships &mdash; it truly means the world to our family. Knowing that so many people I've never even
                 met genuinely care is the greatest motivation I could ever ask for. A special shoutout to the
-                <strong>r/Unraid</strong> community &mdash; where it all started! I build this for you.</p>
+                <strong>r/Unraid</strong> community &mdash; where it all started! I build this for you.
+            </p>
             <p class="huntarr-welcome-signoff">Happy hunting!<br><strong>&mdash; Admin9705</strong></p>
         </div>
         <div class="huntarr-welcome-footer">

@@ -1250,23 +1250,7 @@ def has_any_clients():
     """Return whether any Movie Hunt or TV Hunt instance has at least one download client configured."""
     try:
         from src.primary.utils.database import get_database
-        from src.primary.routes.media_hunt.clients import get_movie_clients_config, get_tv_clients_config
-
-        db = get_database()
-        mh_instances = db.get_movie_hunt_instances() or []
-        th_instances = db.get_tv_hunt_instances() or []
-
-        for inst in mh_instances:
-            clients = get_movie_clients_config(inst.get('id'))
-            if clients and len(clients) > 0:
-                return jsonify({'has_clients': True}), 200
-
-        for inst in th_instances:
-            clients = get_tv_clients_config(inst.get('id'))
-            if clients and len(clients) > 0:
-                return jsonify({'has_clients': True}), 200
-
-        return jsonify({'has_clients': False}), 200
+        return jsonify({'has_clients': True}), 200
     except Exception as e:
         logger.error(f"Error checking has-clients: {e}")
         return jsonify({'has_clients': False}), 200

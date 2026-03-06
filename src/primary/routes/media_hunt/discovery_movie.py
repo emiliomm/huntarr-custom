@@ -24,7 +24,7 @@ from .profiles import (
     get_profiles_config,
     score_release,
 )
-from .clients import get_movie_clients_config
+
 from .storage import get_detected_movies_from_all_roots
 from ...utils.logger import logger
 
@@ -174,43 +174,7 @@ def _add_nzb_to_download_client(client, nzb_url, nzb_name, category, verify_ssl,
             cat = raw or MOVIE_HUNT_DEFAULT_CATEGORY
 
     try:
-        if client_type in ('nzbhunt', 'nzb_hunt'):
-            from src.primary.apps.nzb_hunt.download_manager import get_manager
-            mgr = get_manager()
-            src_id = str(instance_id) if instance_id is not None else ""
-            src_name = inst_name
-            success, message, queue_id = mgr.add_nzb(
-                nzb_url=nzb_url,
-                name=nzb_name or '',
-                category=cat,
-                priority=client.get('recent_priority', 'normal'),
-                added_by='movie_hunt',
-                nzb_name=nzb_name or '',
-                indexer=indexer,
-                source_instance_id=src_id,
-                source_instance_name=src_name,
-            )
-            return success, message, queue_id
-
-        if client_type in ('torhunt', 'tor_hunt', 'qbittorrent'):
-            from src.primary.apps.tor_hunt.tor_hunt_manager import get_manager as get_tor_manager
-            tor_mgr = get_tor_manager()
-            if not tor_mgr.has_connection():
-                return False, 'Tor Hunt engine not available', None
-            # nzb_url may actually be a magnet link or torrent URL from indexers
-            ok, msg, tid = tor_mgr.add_torrent(magnet_url=nzb_url, category=cat, name=nzb_name or '')
-            if ok:
-                # Use the torrent hash as queue_id for tracking
-                queue = tor_mgr.get_queue(category=cat)
-                queue_id = tid  # tid is the torrent_id from the engine
-                if queue:
-                    # Find the most recently added torrent to get its hash
-                    newest = max(queue, key=lambda t: t.get('added_on', 0))
-                    queue_id = newest.get('hash', tid)
-                return True, 'Added to Tor Hunt', queue_id
-            return False, msg or 'Failed to add torrent', None
-
-        return False, f'Unknown client type: {client_type}', None
+        return False, f'Not available: {client_type}', None
     except Exception as e:
         return False, str(e) or 'Connection failed', None
 
@@ -582,15 +546,10 @@ def perform_movie_hunt_request(instance_id, title, year='', root_folder=None, qu
     year = str(year).strip() if year is not None else ''
     quality_profile = (quality_profile or '').strip() or None
     indexers = _get_indexers_config(instance_id)
-    clients = get_movie_clients_config(instance_id)
     enabled_indexers = [i for i in indexers if i.get('enabled', True)]
-    enabled_clients = [c for c in clients if c.get('enabled', True)]
     if not enabled_indexers:
         movie_hunt_logger.warning("Request: no indexers configured or enabled for '%s'", title)
         return False, 'No indexers configured or enabled. Add indexers in Movie Hunt Settings.'
-    if not enabled_clients:
-        movie_hunt_logger.warning("Request: no download clients configured or enabled for '%s'", title)
-        return False, 'No download clients configured or enabled. Add a client in Movie Hunt Settings.'
     query = f'{title}'
     if year:
         query = f'{title} {year}'
@@ -679,27 +638,7 @@ def perform_movie_hunt_request(instance_id, title, year='', root_folder=None, qu
             min_score = 0
         movie_hunt_logger.warning("Request: no release found for '%s' (%s) matching profile '%s' (min score %s)", title, year or 'no year', profile_name, min_score)
         return False, f'No release found matching profile "{profile_name}" (min score {min_score}).'
-    client = enabled_clients[0]
-    raw_cat = (client.get('category') or '').strip()
-    request_category = MOVIE_HUNT_DEFAULT_CATEGORY if raw_cat.lower() in ('default', '*', '') else (raw_cat or MOVIE_HUNT_DEFAULT_CATEGORY)
-    ok, msg, queue_id = _add_nzb_to_download_client(client, nzb_url, nzb_title or f'{title}.nzb', request_category, verify_ssl, indexer=indexer_used or '', instance_id=instance_id)
-    if not ok:
-        movie_hunt_logger.error("Request: send to download client failed for '%s': %s", title, msg)
-        return False, f'Sent to download client but failed: {msg}'
-    movie_hunt_logger.info(
-        "Request: '%s' (%s) sent to %s. Indexer: %s. Score: %s — %s",
-        title, year or 'no year', client.get('name') or 'download client',
-        indexer_used or '-', request_score,
-        request_score_breakdown if request_score_breakdown else 'no breakdown'
-    )
-    if queue_id:
-        client_name = (client.get('name') or 'Download client').strip() or 'Download client'
-        _add_requested_queue_id(client_name, queue_id, instance_id, title=title, year=year or '', score=request_score, score_breakdown=request_score_breakdown)
-    _collection_append(
-        title=title, year=year, instance_id=instance_id, tmdb_id=tmdb_id, poster_path=poster_path,
-        root_folder=root_folder, quality_profile=quality_profile, minimum_availability=minimum_availability
-    )
-    return True, f'"{title}" sent to {client.get("name") or "download client"}.'
+    return True, f'"{title}" request finished (download client disabled).'
 
 
 def register_movie_discovery_routes(bp):
@@ -803,17 +742,12 @@ def register_movie_discovery_routes(bp):
 
             # Search indexers for candidates
             from .indexers import _get_indexers_config, _resolve_indexer_api_url
-            from .clients import get_movie_clients_config
 
             indexers = _get_indexers_config(instance_id)
-            clients = get_movie_clients_config(instance_id)
             enabled_indexers = [i for i in indexers if i.get('enabled', True)]
-            enabled_clients = [c for c in clients if c.get('enabled', True)]
 
             if not enabled_indexers:
                 return jsonify({'success': False, 'message': 'No indexers configured or enabled.'}), 400
-            if not enabled_clients:
-                return jsonify({'success': False, 'message': 'No download clients configured or enabled.'}), 400
 
             query = f'{title} {year}'.strip() if year else title
             profile = get_profile_by_name_or_default(quality_profile, instance_id, _movie_profiles_context())
@@ -879,19 +813,12 @@ def register_movie_discovery_routes(bp):
                     'message': f'No release found with a score higher than {current_score}.'
                 }), 200
 
-            # Send to download client
-            nzb_url = best_result.get('nzb_url')
+            # Download client dispatch removed (NZB/Tor Hunt removed)
             nzb_title = best_result.get('title', 'Unknown')
-            client = enabled_clients[0]
-            raw_cat = (client.get('category') or '').strip()
-            category = MOVIE_HUNT_DEFAULT_CATEGORY if raw_cat.lower() in ('default', '*', '') else (raw_cat or MOVIE_HUNT_DEFAULT_CATEGORY)
-
-            ok, msg, queue_id = _add_nzb_to_download_client(
-                client, nzb_url, nzb_title or f'{title}.nzb', category, verify_ssl,
-                indexer=best_indexer or '', instance_id=instance_id
+            movie_hunt_logger.info(
+                "Upgrade: '%s' (%s) upgrade found score %s → %s. Release: %s. Indexer: %s",
+                title, year or 'no year', current_score, best_score, nzb_title, best_indexer or '-'
             )
-            if not ok:
-                return jsonify({'success': False, 'message': f'Download client error: {msg}'}), 500
 
             # Record grab event for Indexer Hunt stats
             if _best_ih_id:
@@ -906,21 +833,9 @@ def register_movie_discovery_routes(bp):
                 except Exception:
                     pass
 
-            movie_hunt_logger.info(
-                "Upgrade: '%s' (%s) upgrading from score %s → %s. Release: %s. Indexer: %s",
-                title, year or 'no year', current_score, best_score, nzb_title, best_indexer or '-'
-            )
-
-            if queue_id:
-                client_name = (client.get('name') or 'Download client').strip() or 'Download client'
-                _add_requested_queue_id(
-                    client_name, queue_id, instance_id,
-                    title=title, year=year or '', score=best_score, score_breakdown=best_breakdown
-                )
-
             return jsonify({
                 'success': True,
-                'message': f'Upgrade found! Score {current_score} → {best_score}. Sent to download client.',
+                'message': f'Upgrade found! Score {current_score} → {best_score}.',
                 'new_score': best_score,
                 'new_breakdown': best_breakdown,
             }), 200

@@ -114,14 +114,7 @@
                             </label>
                         </div>
                         <p class="setting-help">Display the Smart Hunt carousel on the Home page. Configure mix settings in Requestarr &gt; Smart Hunt.</p>
-                        <div class="setting-item flex-row" style="margin-top: 15px;">
-                            <label for="show_nzb_hunt_on_home">Show NZB Hunt on Home:</label>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="show_nzb_hunt_on_home" ${settings.show_nzb_hunt_on_home === true ? "checked" : ""}>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <p class="setting-help">Display the NZB Hunt status bar on the Home page with live speed, connections, and ETA when servers are configured.</p>
+
                     </div>
                 </div>
 
@@ -140,14 +133,7 @@
                             </label>
                         </div>
                         <p class="setting-help">When enabled, the Requests section (Discover, TV Shows, Movies, etc.) is fully off—no UI, logging, or background work. Saves compute.</p>
-                        <div class="setting-item flex-row" style="margin-top: 15px;">
-                            <label for="disable_media_hunt">Disable Media Hunt, NZB Hunt &amp; Tor Hunt:</label>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="disable_media_hunt" ${settings.enable_media_hunt === false ? "checked" : ""}>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <p class="setting-help">When enabled, Media Hunt, NZB Hunt, Tor Hunt, and Index Master are fully off—no UI, logging, or background work. Saves compute.</p>
+
                         <div class="setting-item flex-row" style="margin-top: 15px;">
                             <label for="disable_third_party_apps">Disable 3rd Party Apps:</label>
                             <label class="toggle-switch">
@@ -257,13 +243,7 @@
                             </select>
                             <p class="setting-help">Number of web server worker threads for handling concurrent requests. Increase if using many apps/instances. Requires restart.</p>
                         </div>
-                        <div class="setting-item" style="margin-top: 15px; border-top: 1px solid rgba(148, 163, 184, 0.08); padding-top: 15px;">
-                            <label>Reset Media Hunt Wizard:</label>
-                            <button type="button" id="reset-media-hunt-wizard-btn" class="mset-btn-secondary" style="margin-top: 6px; padding: 7px 16px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 6px; color: #f87171; font-size: 0.85rem; cursor: pointer; transition: all 0.15s;">
-                                <i class="fas fa-redo"></i> Reset Wizard
-                            </button>
-                            <p class="setting-help">Re-show the Media Hunt setup wizard on next visit. Useful if you skipped the wizard and want to run it again.</p>
-                        </div>
+
                         <div class="setting-item" style="margin-top: 15px; border-top: 1px solid rgba(148, 163, 184, 0.08); padding-top: 15px;">
                             <label>Reset Welcome Message:</label>
                             <button type="button" id="reset-welcome-message-btn" class="mset-btn-secondary" style="margin-top: 6px; padding: 7px 16px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 6px; color: #f87171; font-size: 0.85rem; cursor: pointer; transition: all 0.15s;">
@@ -296,55 +276,6 @@
             });
         }
 
-        // Reset Media Hunt Wizard button
-        var resetWizardBtn = container.querySelector('#reset-media-hunt-wizard-btn');
-        if (resetWizardBtn) {
-            resetWizardBtn.addEventListener('click', function () {
-                if (window.HuntarrConfirm && window.HuntarrConfirm.show) {
-                    window.HuntarrConfirm.show({
-                        title: 'Reset Media Hunt Wizard',
-                        message: 'This will re-show the Media Hunt setup wizard on your next visit to Media Hunt. Continue?',
-                        confirmLabel: 'Reset',
-                        cancelLabel: 'Cancel',
-                        onConfirm: function () {
-                            // Update in-memory prefs
-                            if (window.huntarrUI && window.huntarrUI.originalSettings && window.huntarrUI.originalSettings.general) {
-                                var prefs = window.huntarrUI.originalSettings.general.ui_preferences || {};
-                                prefs['media-hunt-wizard-completed'] = false;
-                                window.huntarrUI.originalSettings.general.ui_preferences = prefs;
-                            }
-                            // Save directly to server (don't rely on setUIPreference chaining)
-                            HuntarrUtils.fetchWithTimeout('./api/settings/general', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ ui_preferences: { 'media-hunt-wizard-completed': false } })
-                            }).then(function () {
-                                if (window.HuntarrToast) window.HuntarrToast.success('Media Hunt wizard has been reset. It will show on your next visit to Media Hunt.');
-                            }).catch(function (err) {
-                                console.error('[ResetWizard] Failed to save:', err);
-                                if (window.HuntarrToast) window.HuntarrToast.error('Failed to save wizard reset.');
-                            });
-                            // Set a force-show flag so the wizard appears even if all steps are done
-                            try { sessionStorage.setItem('setup-wizard-force-show', '1'); } catch (e) { }
-                        }
-                    });
-                } else {
-                    if (confirm('Reset the Media Hunt wizard? It will show again on your next visit.')) {
-                        if (window.huntarrUI && window.huntarrUI.originalSettings && window.huntarrUI.originalSettings.general) {
-                            var prefs = window.huntarrUI.originalSettings.general.ui_preferences || {};
-                            prefs['media-hunt-wizard-completed'] = false;
-                            window.huntarrUI.originalSettings.general.ui_preferences = prefs;
-                        }
-                        HuntarrUtils.fetchWithTimeout('./api/settings/general', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ ui_preferences: { 'media-hunt-wizard-completed': false } })
-                        }).catch(function (err) { console.error('[ResetWizard] Failed to save:', err); });
-                        try { sessionStorage.setItem('setup-wizard-force-show', '1'); } catch (e) { }
-                    }
-                }
-            });
-        }
 
         // Reset Welcome Message button
         var resetWelcomeBtn = container.querySelector('#reset-welcome-message-btn');
@@ -444,17 +375,11 @@
                     }
                     // Update sidebar visibility immediately from saved settings (don't rely on async fetch)
                     var requestsGroup = document.getElementById('nav-group-requests');
-                    var mediaHuntGroup = document.getElementById('nav-group-media-hunt');
-                    var nzbHuntGroup = document.getElementById('nzb-hunt-sidebar-group');
                     var appsGroup = document.getElementById('nav-group-apps');
                     var appsLabel = document.getElementById('nav-group-apps-label');
                     if (requestsGroup) requestsGroup.style.display = (settings.enable_requestarr === false) ? 'none' : '';
-                    if (mediaHuntGroup) mediaHuntGroup.style.display = (settings.enable_media_hunt === false) ? 'none' : '';
-                    if (nzbHuntGroup) nzbHuntGroup.style.display = (settings.enable_media_hunt === false) ? 'none' : '';
-                    var torHuntGroup = document.getElementById('tor-hunt-sidebar-group');
-                    if (torHuntGroup) torHuntGroup.style.display = (settings.enable_media_hunt === false) ? 'none' : '';
                     if (appsGroup) appsGroup.style.display = (settings.enable_third_party_apps === false) ? 'none' : '';
-                    if (appsLabel) appsLabel.style.display = (settings.enable_media_hunt === false && settings.enable_third_party_apps === false) ? 'none' : '';
+                    if (appsLabel) appsLabel.style.display = (settings.enable_third_party_apps === false) ? 'none' : '';
                     if (typeof window.applyFeatureFlags === 'function') window.applyFeatureFlags();
                     if (window.HomeRequestarr && typeof window.HomeRequestarr.applyTrendingVisibility === 'function') {
                         window.HomeRequestarr.applyTrendingVisibility();

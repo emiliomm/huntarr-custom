@@ -120,12 +120,7 @@ def register_movie_instances_routes(bp):
             name = (data.get('name') or '').strip() or 'Unnamed'
             db = get_database()
             new_id = db.create_movie_hunt_instance(name)
-            # Auto-provision built-in download clients (NZB Hunt + Tor Hunt)
-            try:
-                from src.primary.utils.client_provisioner import ensure_clients_for_movie_instance
-                ensure_clients_for_movie_instance(new_id)
-            except Exception as prov_err:
-                movie_hunt_logger.warning(f'Client auto-provisioning failed for instance {new_id}: {prov_err}')
+
             instances = db.get_movie_hunt_instances()
             return jsonify({
                 'success': True,
@@ -173,26 +168,6 @@ def register_movie_instances_routes(bp):
             movie_hunt_logger.exception('Movie Hunt delete instance error')
             return jsonify({'success': False, 'error': str(e)}), 500
 
-    @bp.route('/api/movie-hunt/has-clients', methods=['GET'])
-    def has_any_clients():
-        """Return whether any Movie Hunt or TV Hunt instance has at least one download client configured."""
-        try:
-            from src.primary.routes.media_hunt.clients import get_movie_clients_config, get_tv_clients_config
-            db = get_database()
-            mh_instances = db.get_movie_hunt_instances() or []
-            th_instances = db.get_tv_hunt_instances() or []
-            for inst in mh_instances:
-                clients = get_movie_clients_config(inst.get('id'))
-                if clients and len(clients) > 0:
-                    return jsonify({'has_clients': True}), 200
-            for inst in th_instances:
-                clients = get_tv_clients_config(inst.get('id'))
-                if clients and len(clients) > 0:
-                    return jsonify({'has_clients': True}), 200
-            return jsonify({'has_clients': False}), 200
-        except Exception as e:
-            movie_hunt_logger.error(f"Error checking has-clients: {e}")
-            return jsonify({'has_clients': False}), 200
 
     @bp.route('/api/movie-hunt/instances/current', methods=['GET'])
     def get_current_instance():
@@ -343,12 +318,7 @@ def register_tv_instances_routes(bp):
             name = (data.get('name') or '').strip() or 'Unnamed'
             db = get_database()
             new_id = db.create_tv_hunt_instance(name)
-            # Auto-provision built-in download clients (NZB Hunt + Tor Hunt)
-            try:
-                from src.primary.utils.client_provisioner import ensure_clients_for_tv_instance
-                ensure_clients_for_tv_instance(new_id)
-            except Exception as prov_err:
-                tv_hunt_logger.warning(f'Client auto-provisioning failed for instance {new_id}: {prov_err}')
+
             instances = db.get_tv_hunt_instances()
             return jsonify({
                 'success': True,

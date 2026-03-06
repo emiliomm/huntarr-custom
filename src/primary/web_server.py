@@ -52,9 +52,7 @@ from src.primary.routes.notification_routes import notification_api
 # Import backup blueprint
 from src.routes.backup_routes import backup_bp
 
-# Import log routes blueprint
 from src.primary.routes.log_routes import log_routes_bp
-from src.primary.routes.nzb_hunt_routes import nzb_hunt_bp
 from src.primary.routes.indexer_hunt import indexer_hunt_bp
 from src.primary.routes.indexer_hunt.health import start_health_check_thread
 
@@ -334,14 +332,8 @@ app.register_blueprint(history_blueprint, url_prefix='/api/hunt-manager')
 app.register_blueprint(scheduler_api)
 app.register_blueprint(notification_api)
 app.register_blueprint(log_routes_bp)
-app.register_blueprint(nzb_hunt_bp)
 app.register_blueprint(indexer_hunt_bp)
 app.register_blueprint(backup_bp)
-
-# Tor Hunt (torrent download client)
-from src.primary.routes.tor_hunt_routes import tor_hunt_bp
-app.register_blueprint(tor_hunt_bp)
-
 # Start Indexer Hunt background health check (hourly + on startup)
 start_health_check_thread()
 
@@ -709,7 +701,6 @@ def api_feature_flags():
     general = settings_manager.load_settings('general') or {}
     return jsonify({
         'enable_requestarr': general.get('enable_requestarr', True),
-        'enable_media_hunt': general.get('enable_media_hunt', True),
         'enable_third_party_apps': general.get('enable_third_party_apps', True),
         'dev_mode': settings_manager.is_dev_mode(),
     })
