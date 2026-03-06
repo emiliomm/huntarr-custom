@@ -84,8 +84,6 @@ BUNDLES = [
             "modules/features/user.js",
             "modules/features/new-user.js",
             "modules/features/community-resources.js",
-            "modules/features/github-sponsors.js",
-            "modules/features/app-sponsor-rotation.js",
             "modules/features/swaparr-card.js",
             "modules/features/prowlarr.js",
             "modules/features/setup-wizard.js",
