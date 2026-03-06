@@ -63,7 +63,7 @@ jobs:
             git commit -m "Update manifest with latest version [skip ci]"
             
             git push https://x-access-token:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git
-            echo "✅Manifestt updated and pushed"
+            echo "✅ Manifest updated and pushed"
           else
-           versioniono "ℹ️ No changes to manifest.json"
+            echo "ℹ️ No changes to manifest.json"
           fi 
