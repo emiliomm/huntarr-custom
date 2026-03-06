@@ -61,9 +61,10 @@ jobs:
           
           if ! git diff --exit-code manifest.json; then
             git add manifest.json
-            git commit -m "Update manifest with latest version"
-            git push
-            echo "✅ Manifest updated and pushed"
+            git commit -m "Update manifest with latest version [skip ci]"
+            
+            git push https://x-access-token:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git
+            echo "✅Manifestt updated and pushed"
           else
-            echo "ℹ️ No changes to manifest.json"
+           versioniono "ℹ️ No changes to manifest.json"
           fi 
