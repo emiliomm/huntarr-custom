@@ -334,13 +334,6 @@ let huntarrUI = {
         // 2. Replace the entire nav-menu with a standalone non-owner sidebar
         var navMenu = document.querySelector('#sidebar .nav-menu');
         if (navMenu && !document.getElementById('non-owner-nav')) {
-            // Grab the Daughter's Sponsors data before we nuke the menu
-            var sponsorNav = document.getElementById('sidebar-partner-projects-nav');
-            var sponsorHref = sponsorNav ? sponsorNav.getAttribute('href') : '#';
-            var sponsorTarget = sponsorNav ? sponsorNav.getAttribute('target') : '_blank';
-            var sponsorNameEl = document.getElementById('sidebar-partner-projects-name');
-            var sponsorName = sponsorNameEl ? sponsorNameEl.textContent : 'Loading...';
-
             // Build the non-owner nav
             var nav = document.createElement('nav');
             nav.className = 'nav-menu';
@@ -368,17 +361,6 @@ let huntarrUI = {
                 nav.appendChild(a);
             });
 
-            // Daughter's Sponsors — always visible
-            var sponsorGroup = document.createElement('div');
-            sponsorGroup.className = 'nav-group';
-            sponsorGroup.id = 'main-sidebar-partner-projects-group';
-            sponsorGroup.innerHTML =
-                '<div class="nav-group-title">Daughter\'s Sponsors</div>' +
-                '<a href="' + sponsorHref + '" target="' + sponsorTarget + '" rel="noopener noreferrer" class="nav-item" id="sidebar-partner-projects-nav">' +
-                '<div class="nav-icon-wrapper"><i class="fas fa-heart" style="color: #ec4899;"></i></div>' +
-                '<span id="sidebar-partner-projects-name">' + sponsorName + '</span>' +
-                '</a>';
-            nav.appendChild(sponsorGroup);
 
             navMenu.parentNode.replaceChild(nav, navMenu);
 

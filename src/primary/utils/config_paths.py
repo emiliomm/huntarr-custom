@@ -14,20 +14,12 @@ import time
 # Determine operating system
 OS_TYPE = platform.system()  # 'Windows', 'Darwin' (macOS), or 'Linux'
 
-# Get configuration directory - prioritize Docker environment
+# Get configuration directory
 CONFIG_DIR = os.environ.get("HUNTARR_CONFIG_DIR")
 
 if not CONFIG_DIR:
-    # Docker default (primary option)
-    if os.path.exists("/config") and os.access("/config", os.W_OK):
-        CONFIG_DIR = "/config"
-    # Platform-specific fallbacks (secondary options)
-    elif OS_TYPE == "Windows":
-        CONFIG_DIR = os.path.join(os.environ.get("APPDATA", os.path.expanduser("~")), "Huntarr")
-    elif OS_TYPE == "Darwin":  # macOS
-        CONFIG_DIR = os.path.join(os.path.expanduser("~"), "Documents", "Huntarr")
-    else:  # Linux (non-Docker)
-        CONFIG_DIR = os.path.join(os.path.expanduser("~"), ".config", "huntarr")
+    # Windows default (primary option now that Docker is removed)
+    CONFIG_DIR = os.path.join(os.environ.get("APPDATA", os.path.expanduser("~")), "Huntarr")
 
 # Initialize the directory structure
 CONFIG_PATH = pathlib.Path(CONFIG_DIR)

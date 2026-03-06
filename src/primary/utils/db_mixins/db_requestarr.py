@@ -585,40 +585,6 @@ class RequestarrMixin:
         except Exception as e:
             logger.error(f"Error cleaning up expired rate limits: {e}")
 
-    def get_sponsors(self) -> List[Dict[str, Any]]:
-        """Get all sponsors from database"""
-        with self.get_connection() as conn:
-            conn.row_factory = sqlite3.Row
-            cursor = conn.execute('''
-                SELECT login, name, avatar_url, url, tier, monthly_amount, category, updated_at
-                FROM sponsors 
-                ORDER BY monthly_amount DESC, name ASC
-            ''')
-            return [dict(row) for row in cursor.fetchall()]
-    
-    def save_sponsors(self, sponsors_data: List[Dict[str, Any]]):
-        """Save sponsors data to database, replacing existing data"""
-        with self.get_connection() as conn:
-            # Clear existing sponsors
-            conn.execute('DELETE FROM sponsors')
-            
-            # Insert new sponsors
-            for sponsor in sponsors_data:
-                conn.execute('''
-                    INSERT INTO sponsors (login, name, avatar_url, url, tier, monthly_amount, category)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                ''', (
-                    sponsor.get('login', ''),
-                    sponsor.get('name', sponsor.get('login', 'Unknown')),
-                    sponsor.get('avatarUrl', ''),
-                    sponsor.get('url', '#'),
-                    sponsor.get('tier', 'Supporter'),
-                    sponsor.get('monthlyAmount', 0),
-                    sponsor.get('category', 'past')
-                ))
-            
-            logger.info(f"Saved {len(sponsors_data)} sponsors to database")
-    
     # Hunt History/Manager Database Methods
     def add_hunt_history_entry(self, app_type: str, instance_name: str, media_id: str, 
                          processed_info: str, operation_type: str = "missing", 
