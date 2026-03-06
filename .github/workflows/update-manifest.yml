@@ -19,7 +19,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get latest release
@@ -61,8 +60,9 @@ jobs:
           
           if ! git diff --exit-code manifest.json; then
             git add manifest.json
-            git commit -m "Update manifest with latest version"
-            git push
+            git commit -m "Update manifest with latest version [skip ci]"
+            
+            git push https://x-access-token:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git
             echo "✅ Manifest updated and pushed"
           else
             echo "ℹ️ No changes to manifest.json"
