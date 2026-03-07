@@ -61,7 +61,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.pull_request.title }}
-          name: Release ${{ github.event.pull_request.title }}
+          name: ${{ github.event.pull_request.title }}
           prerelease: ${{ steps.check_type.outputs.IS_PRERELEASE }}
           generate_release_notes: true
 

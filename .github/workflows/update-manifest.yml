@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Post-Release Step
         run: |
-          echo "Release v${{ inputs.version }} is released"
+          echo "Release ${{ inputs.version }} is released"
 
       - name: Create GitHub App token
         id: app-token
