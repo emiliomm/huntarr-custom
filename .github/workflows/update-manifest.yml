@@ -64,6 +64,12 @@ jobs:
           echo "✅ manifest.json is valid"
           echo "Version: $(jq -r '.version' manifest.json)"
 
+      - name: Create version.txt
+        run: |
+          cat > version.txt << EOF
+          ${{ steps.latest_release.outputs.version }}
+          EOF
+
       - name: Commit and push changes
         run: |
           git config user.name "huntarr-bot[bot]"
@@ -71,6 +77,7 @@ jobs:
 
           if ! git diff --exit-code manifest.json; then
             git add manifest.json
+            git add version.txt
             git commit -m "Update manifest with latest version [skip ci]"         
             git push
             echo "✅ Manifest updated and pushed"
