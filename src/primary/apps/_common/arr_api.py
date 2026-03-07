@@ -52,7 +52,7 @@ def check_connection(
     headers = {
         "X-Api-Key": api_key,
         "Content-Type": "application/json",
-        "User-Agent": "Huntarr/1.0 (https://github.com/plexguide/Huntarr.io)",
+        "User-Agent": "Huntarr/1.0 (https://github.com/emiliomm/huntarr-custom)",
     }
     verify_ssl = get_ssl_verify_setting()
 

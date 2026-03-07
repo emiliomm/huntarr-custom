@@ -9,21 +9,6 @@
     <div class="topbar-section center"></div>
 
     <div class="topbar-section right">
-        <a href="https://github.com/plexguide/huntarr" target="_blank" rel="noopener" class="topbar-chip star-chip"
-            title="Star on GitHub">
-            <span class="chip-icon"><i class="fas fa-star"></i></span>
-            <span id="github-stars-value" class="chip-value">--</span>
-        </a>
-        <a href="https://plexguide.github.io/Huntarr.io/donate.html" target="_blank" rel="noopener noreferrer"
-            class="topbar-sponsor-btn" title="Sponsor">
-            <i class="fas fa-heart"></i>
-            <span>Sponsor</span>
-        </a>
-        <a href="https://huntarros.com" target="_blank" rel="noopener" class="topbar-chip huntarros-chip"
-            title="HuntarrOS — The Ultimate Media Server OS">
-            <span class="chip-icon"><i class="fas fa-rocket"></i></span>
-            <span class="chip-value">Try HuntarrOS</span>
-        </a>
     </div>
 </div>
 
@@ -257,35 +242,3 @@
         }
     }
 </style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const starsElement = document.getElementById('github-stars-value');
-
-        function updateVersionInfo() {
-            try {
-                const starsInfo = localStorage.getItem('huntarr-github-stars');
-                if (starsInfo && starsElement) {
-                    try {
-                        const parsedStars = JSON.parse(starsInfo);
-                        if (parsedStars && parsedStars.stars !== undefined) {
-                            starsElement.textContent = Number(parsedStars.stars).toLocaleString();
-                        }
-                    } catch (e) {
-                        starsElement.textContent = starsInfo;
-                    }
-                }
-            } catch (e) {
-                console.error('Error updating version info:', e);
-            }
-        }
-
-        updateVersionInfo();
-
-        window.addEventListener('storage', function (e) {
-            if (e.key === 'huntarr-github-stars') {
-                updateVersionInfo();
-            }
-        });
-    });
-</script>

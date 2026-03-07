@@ -8,12 +8,12 @@
     margin: 20px; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(148, 163, 184, 0.08);
     border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
-#mediaHuntCalendarSection .mh-calendar-no-instances i.fa-cube { font-size: 3rem; color: #334155; margin-bottom: 16px; display: block; }
+#mediaHuntCalendarSection .mh-calendar-no-instances i.fa-cube { font-size: 3rem; color: #3c4043; margin-bottom: 16px; display: block; }
 #mediaHuntCalendarSection .mh-calendar-no-instances .no-instances-title { font-size: 1.2rem; font-weight: 600; color: #f1f5f9; margin: 0 0 8px 0; }
 #mediaHuntCalendarSection .mh-calendar-no-instances .no-instances-desc { font-size: 0.95rem; color: #94a3b8; line-height: 1.6; margin: 0 auto 24px auto; max-width: 400px; }
 #mediaHuntCalendarSection .mh-calendar-no-instances .no-instances-action-btn {
     display: inline-flex; align-items: center; gap: 8px; background: rgba(99, 102, 241, 0.2);
-    border: 1px solid rgba(99, 102, 241, 0.4); color: #818cf8; padding: 10px 20px; border-radius: 8px;
+    border: 1px solid rgba(99, 102, 241, 0.4); color: #8ab4f8; padding: 10px 20px; border-radius: 8px;
     text-decoration: none; font-weight: 500; transition: background 0.2s, border-color 0.2s;
 }
 #mediaHuntCalendarSection .mh-calendar-no-instances .no-instances-action-btn:hover {
@@ -44,7 +44,7 @@
     gap: 10px;
 }
 .mh-calendar-title i {
-    color: #f59e0b;
+    color: #FBBC04;
     font-size: 1.1em;
 }
 .mh-calendar-controls {
@@ -80,7 +80,7 @@
 }
 .mh-calendar-tab.active {
     background: rgba(245, 158, 11, 0.15);
-    color: #f59e0b;
+    color: #FBBC04;
 }
 
 /* Legend */
@@ -108,9 +108,9 @@
     border-radius: 50%;
     flex-shrink: 0;
 }
-.mh-cal-dot-cinemas { background: #6366f1; }
-.mh-cal-dot-digital { background: #8b5cf6; }
-.mh-cal-dot-physical { background: #22c55e; }
+.mh-cal-dot-cinemas { background: #4285F4; }
+.mh-cal-dot-digital { background: #4285F4; }
+.mh-cal-dot-physical { background: #34A853; }
 .mh-cal-dot-tba { background: #64748b; }
 
 /* Timeline container */
@@ -132,7 +132,7 @@
     align-items: center;
     gap: 12px;
     padding: 12px 0 8px;
-    background: var(--bg-primary, #0f172a);
+    background: var(--bg-primary, #202124);
 }
 .mh-cal-date-badge {
     display: flex;
@@ -156,7 +156,7 @@
     color: #94a3b8;
 }
 .mh-cal-date-badge.today .mh-cal-date-day {
-    color: #f59e0b;
+    color: #FBBC04;
 }
 .mh-cal-date-num {
     font-size: 20px;
@@ -165,7 +165,7 @@
     line-height: 1.1;
 }
 .mh-cal-date-badge.today .mh-cal-date-num {
-    color: #fbbf24;
+    color: #fcd230;
 }
 .mh-cal-date-month-year {
     font-size: 12px;
@@ -209,7 +209,7 @@
     border-radius: 6px;
     overflow: hidden;
     flex-shrink: 0;
-    background: #0f172a;
+    background: #202124;
 }
 .mh-cal-event-poster img {
     width: 100%;
@@ -251,7 +251,7 @@
 }
 .mh-cal-event-type.inCinemas {
     background: rgba(99, 102, 241, 0.12);
-    color: #a5b4fc;
+    color: #8ab4f8;
     border: 1px solid rgba(99, 102, 241, 0.2);
 }
 .mh-cal-event-type.digitalRelease {
@@ -261,7 +261,7 @@
 }
 .mh-cal-event-type.physicalRelease {
     background: rgba(34, 197, 94, 0.12);
-    color: #4ade80;
+    color: #81c995;
     border: 1px solid rgba(34, 197, 94, 0.2);
 }
 .mh-cal-event-type.unknown {
@@ -282,11 +282,11 @@
 }
 .mh-cal-event-status.available {
     background: rgba(34, 197, 94, 0.12);
-    color: #4ade80;
+    color: #81c995;
 }
 .mh-cal-event-status.requested {
     background: rgba(99, 102, 241, 0.12);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 .mh-cal-event-avail {
     font-size: 11px;

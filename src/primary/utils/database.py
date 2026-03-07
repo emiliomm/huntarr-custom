@@ -926,22 +926,6 @@ class HuntarrDatabase(ConfigMixin, StateMixin, UsersMixin, RequestarrMixin, Extr
                 )
             ''')
             
-            # Create sponsors table for GitHub sponsors data
-            conn.execute('''
-                CREATE TABLE IF NOT EXISTS sponsors (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    login TEXT NOT NULL UNIQUE,
-                    name TEXT NOT NULL,
-                    avatar_url TEXT NOT NULL,
-                    url TEXT NOT NULL,
-                    tier TEXT DEFAULT 'Supporter',
-                    monthly_amount INTEGER DEFAULT 0,
-                    category TEXT DEFAULT 'past',
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            ''')
-            
             # Logs table moved to separate logs.db - remove if it exists
             conn.execute('DROP TABLE IF EXISTS logs')
             
@@ -1197,7 +1181,7 @@ class HuntarrDatabase(ConfigMixin, StateMixin, UsersMixin, RequestarrMixin, Extr
             
             # Create indexes for better performance
             # Note: indexes on UNIQUE columns (app_configs.app_type, general_settings.setting_key,
-            # swaparr_stats.stat_key, users.username, sponsors.login) and PRIMARY KEY columns
+            # swaparr_stats.stat_key, users.username) and PRIMARY KEY columns
             # (movie_hunt_instances.id) are redundant — SQLite auto-creates implicit indexes for these.
             conn.execute('CREATE INDEX IF NOT EXISTS idx_stateful_processed_app_instance ON stateful_processed_ids(app_type, instance_name)')
             conn.execute('CREATE INDEX IF NOT EXISTS idx_stateful_processed_media_id ON stateful_processed_ids(media_id)')

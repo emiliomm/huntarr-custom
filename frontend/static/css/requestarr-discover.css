@@ -224,7 +224,7 @@
 .carousel-arrow:hover {
     background: rgba(99, 102, 241, 0.12);
     border-color: rgba(99, 102, 241, 0.3);
-    color: #a5b4fc;
+    color: #8ab4f8;
     opacity: 1 !important;
     transform: translateY(-50%) scale(1.08);
     box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
@@ -382,7 +382,7 @@
 /* Request Button at Bottom — premium amber */
 .media-card-request-btn {
     width: 100%;
-    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 35%, #d97706 100%);
+    background: linear-gradient(135deg, #fcd230 0%, #FBBC04 35%, #f29900 100%);
     color: rgba(0, 0, 0, 0.85);
     border: none;
     padding: 9px 14px;
@@ -468,8 +468,8 @@
 
 /* Complete — Green */
 .media-card-status-badge.complete {
-    background: #22c55e;
-    border: 2px solid #16a34a;
+    background: #34A853;
+    border: 2px solid #1e8e3e;
     box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
 }
 
@@ -482,22 +482,22 @@
 
 /* Available — Indigo */
 .media-card-status-badge.available {
-    background: #6366f1;
+    background: #4285F4;
     border: 2px solid #4f46e5;
     box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
 }
 
 /* Importable — Amber */
 .media-card-status-badge.importable {
-    background: #d97706;
+    background: #f29900;
     border: 2px solid #b45309;
     box-shadow: 0 2px 8px rgba(217, 119, 6, 0.4);
 }
 
 /* Pending — Gold */
 .media-card-status-badge.pending {
-    background: #f59e0b;
-    border: 2px solid #d97706;
+    background: #FBBC04;
+    border: 2px solid #f29900;
     box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
 }
 
@@ -561,7 +561,7 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    color: #fbbf24;
+    color: #fcd230;
     flex: 1;
     justify-content: center;
     font-weight: 600;
@@ -569,7 +569,7 @@
 
 .media-card-rating i {
     font-size: 10px;
-    color: #f59e0b;
+    color: #FBBC04;
 }
 
 .media-card-hide-btn {
@@ -585,7 +585,7 @@
 }
 
 .media-card-hide-btn:hover {
-    color: #f87171;
+    color: #f28b82;
     background: rgba(239, 68, 68, 0.08);
 }
 
@@ -607,7 +607,7 @@
 }
 
 .media-card-delete-btn:hover {
-    color: #ef4444;
+    color: #EA4335;
     background: rgba(239, 68, 68, 0.1);
 }
 
@@ -693,7 +693,7 @@
 }
 
 .modal-body {
-    border: 2px solid #f59e0b;
+    border: 2px solid #FBBC04;
     border-radius: 12px;
     overflow: hidden;
     background: rgba(15, 23, 42, 0.95);
@@ -768,7 +768,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .modal-genres {
@@ -892,8 +892,8 @@
 
 .modal-status.error {
     background: rgba(239, 68, 68, 0.1);
-    border: 1px solid #ef4444;
-    color: #ef4444;
+    border: 1px solid #EA4335;
+    color: #EA4335;
 }
 
 /* Cast Section */
@@ -1017,7 +1017,7 @@
 }
 
 .season-selection-list {
-    border: 2px solid #f59e0b;
+    border: 2px solid #FBBC04;
     border-radius: 0 0 8px 8px;
     overflow: hidden;
 }
@@ -1064,7 +1064,7 @@
    Only the season-toggle checked colour override is kept here. */
 
 .season-toggle input:checked+.toggle-slider {
-    background-color: #f59e0b;
+    background-color: #FBBC04;
     border-color: rgba(245, 158, 11, 0.5);
 }
 
@@ -1077,11 +1077,11 @@
 /* Requestarr TV Detail - Huntarr blue (replace gold) */
 #requestarr-tv-detail-view .mh-section-title,
 #requestarr-tv-detail-view .mh-section-title i {
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 #requestarr-tv-detail-view .mh-btn-primary {
-    background: linear-gradient(135deg, #6366f1 0%, #2563eb 100%);
+    background: linear-gradient(135deg, #4285F4 0%, #2563eb 100%);
     border: 1px solid rgba(99, 102, 241, 0.5);
     color: #fff;
 }
@@ -1093,7 +1093,7 @@
 
 #requestarr-tv-detail-view .mh-badge-warn {
     background: rgba(99, 102, 241, 0.15);
-    color: #a5b4fc;
+    color: #8ab4f8;
     border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
@@ -1127,7 +1127,7 @@
     border-radius: 8px;
     cursor: pointer;
     flex-shrink: 0;
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .mh-hero-title-row .mh-monitor-btn:hover {
@@ -1180,7 +1180,7 @@
 
 .requestarr-tv-season-item.expanded .season-chevron {
     transform: rotate(90deg);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .requestarr-tv-season-item .season-name {
@@ -1193,7 +1193,7 @@
     border: none;
     cursor: pointer;
     padding: 4px 6px;
-    color: #a5b4fc;
+    color: #8ab4f8;
     opacity: 0.9;
 }
 
@@ -1236,7 +1236,7 @@
 }
 
 .season-count-badge-empty {
-    color: #f87171;
+    color: #f28b82;
     background: rgba(239, 68, 68, 0.2);
     box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.25);
 }
@@ -1248,7 +1248,7 @@
 }
 
 .season-count-badge-complete {
-    color: #4ade80;
+    color: #81c995;
     background: rgba(34, 197, 94, 0.2);
     box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.25);
 }
@@ -1278,7 +1278,7 @@
 }
 
 .requestarr-tv-season-item .season-action-btn.request-season-btn-empty {
-    color: #f87171;
+    color: #f28b82;
     background: rgba(239, 68, 68, 0.2);
     border-color: rgba(239, 68, 68, 0.3);
 }
@@ -1358,7 +1358,7 @@
 }
 
 .requestarr-tv-season-episodes .episode-table .ep-request-btn.ep-request-missing {
-    color: #f87171;
+    color: #f28b82;
     background: rgba(239, 68, 68, 0.2);
     border: 1px solid rgba(239, 68, 68, 0.3);
 }
@@ -1390,12 +1390,12 @@
 }
 
 .mh-ep-status-ok {
-    color: #4ade80;
+    color: #81c995;
     background: rgba(34, 197, 94, 0.15);
 }
 
 .mh-ep-status-warn {
-    color: #a5b4fc;
+    color: #8ab4f8;
     background: rgba(99, 102, 241, 0.15);
 }
 
@@ -1452,7 +1452,7 @@
 
 .status-badge.requested {
     background: rgba(34, 197, 94, 0.2);
-    color: #22c55e;
+    color: #34A853;
     border: 1px solid rgba(34, 197, 94, 0.3);
 }
 
@@ -1509,14 +1509,14 @@
 .advanced-select:focus,
 .advanced-input:focus {
     outline: none;
-    border-color: #f59e0b;
+    border-color: #FBBC04;
     background: rgba(255, 255, 255, 0.12);
 }
 
 /* Request modal dropdown options: ensure visible text on dark background */
 .advanced-select option,
 .modal-select option {
-    background: #1e293b;
+    background: #303134;
     color: #fff;
     padding: 8px;
 }
@@ -1548,12 +1548,12 @@
 }
 
 .modal-btn.request-btn {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(135deg, #FBBC04 0%, #f29900 100%);
     color: #fff;
 }
 
 .modal-btn.request-btn:hover:not(.disabled) {
-    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    background: linear-gradient(135deg, #f29900 0%, #b45309 100%);
     transform: scale(1.02);
     box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
 }
@@ -1690,7 +1690,7 @@
 }
 
 .reqset-breadcrumb i:first-child {
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 .reqset-breadcrumb-sep {
@@ -1705,7 +1705,7 @@
     padding: 6px 15px;
     border-radius: 6px;
     border: none;
-    background: linear-gradient(135deg, #6366f1, #818cf8);
+    background: linear-gradient(135deg, #4285F4, #8ab4f8);
     color: #fff;
     font-size: 12px;
     font-weight: 500;
@@ -1770,11 +1770,11 @@
 }
 
 .reqset-icon-blue {
-    background: linear-gradient(135deg, #6366f1, #818cf8);
+    background: linear-gradient(135deg, #4285F4, #8ab4f8);
 }
 
 .reqset-icon-red {
-    background: linear-gradient(135deg, #dc2626, #f87171);
+    background: linear-gradient(135deg, #d93025, #f28b82);
 }
 
 .reqset-card-body {
@@ -1991,7 +1991,7 @@
 }
 
 .custom-select-option.selected {
-    background: #6366f1;
+    background: #4285F4;
     color: #fff;
 }
 
@@ -2001,7 +2001,7 @@
 }
 
 .custom-select-list::-webkit-scrollbar-track {
-    background: #1e293b;
+    background: #303134;
 }
 
 .custom-select-list::-webkit-scrollbar-thumb {
@@ -2053,7 +2053,7 @@
 
 .btn-primary {
     padding: 12px 24px;
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(135deg, #FBBC04 0%, #f29900 100%);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -2064,7 +2064,7 @@
 }
 
 .btn-primary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    background: linear-gradient(135deg, #f29900 0%, #b45309 100%);
     transform: scale(1.02);
     box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
 }
@@ -2136,7 +2136,7 @@
 }
 
 .language-tag-remove:hover {
-    color: #ef4444;
+    color: #EA4335;
 }
 
 .settings-input {
@@ -2210,7 +2210,7 @@
 }
 
 .language-item.selected {
-    background: #6366f1;
+    background: #4285F4;
     color: #fff;
 }
 
@@ -2301,11 +2301,11 @@
 }
 
 .status-available i {
-    color: #22c55e;
+    color: #34A853;
 }
 
 .status-available .status-title {
-    color: #22c55e;
+    color: #34A853;
     font-weight: 600;
 }
 
@@ -2315,11 +2315,11 @@
 }
 
 .status-requestable i {
-    color: #6366f1;
+    color: #4285F4;
 }
 
 .status-requestable .status-title {
-    color: #6366f1;
+    color: #4285F4;
     font-weight: 600;
 }
 
@@ -2343,11 +2343,11 @@
 }
 
 .status-requested i {
-    color: #ef4444;
+    color: #EA4335;
 }
 
 .status-requested .status-title {
-    color: #ef4444;
+    color: #EA4335;
     font-weight: 600;
 }
 
@@ -2411,21 +2411,21 @@
 }
 
 .requestarr-notification.error {
-    border-left-color: #ef4444;
+    border-left-color: #EA4335;
     background: #2e1a1a;
 }
 
 .requestarr-notification.error i {
-    color: #ef4444;
+    color: #EA4335;
 }
 
 .requestarr-notification.info {
-    border-left-color: #6366f1;
+    border-left-color: #4285F4;
     background: #1a2333;
 }
 
 .requestarr-notification.info i {
-    color: #6366f1;
+    color: #4285F4;
 }
 
 /* Success state for request button */
@@ -2595,7 +2595,7 @@
 
 .btn-load-more {
     padding: 12px 32px;
-    background: linear-gradient(135deg, #f59e0b, #d97706);
+    background: linear-gradient(135deg, #FBBC04, #f29900);
     border: none;
     border-radius: 8px;
     color: white;
@@ -2606,7 +2606,7 @@
 }
 
 .btn-load-more:hover {
-    background: linear-gradient(135deg, #d97706, #b45309);
+    background: linear-gradient(135deg, #f29900, #b45309);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
 }
@@ -2925,7 +2925,7 @@
 }
 
 .filter-close:hover {
-    color: #f59e0b;
+    color: #FBBC04;
     background: rgba(245, 158, 11, 0.1);
     transform: scale(1.05);
 }
@@ -2950,7 +2950,7 @@
 }
 
 .filter-active-badge span {
-    color: #fbbf24;
+    color: #fcd230;
     font-size: 0.875rem;
     font-weight: 600;
 }
@@ -3000,7 +3000,7 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
-    accent-color: #f59e0b;
+    accent-color: #FBBC04;
     border-radius: 4px;
 }
 
@@ -3037,7 +3037,7 @@
     right: 10px;
     background: rgba(15, 23, 42, 0.8);
     border: 1px solid rgba(34, 197, 94, 0.7);
-    color: #22c55e;
+    color: #34A853;
     border-radius: 999px;
     padding: 6px 8px;
     display: inline-flex;
@@ -3070,7 +3070,7 @@
 .filter-select-compact:focus,
 .filter-number-input:focus {
     outline: none;
-    border-color: #f59e0b;
+    border-color: #FBBC04;
     background: rgba(31, 41, 55, 0.7);
 }
 
@@ -3113,8 +3113,8 @@
 
 .filter-genre-item.selected {
     background: rgba(245, 158, 11, 0.2);
-    border-color: #f59e0b;
-    color: #fbbf24;
+    border-color: #FBBC04;
+    color: #fcd230;
     font-weight: 600;
 }
 
@@ -3184,12 +3184,12 @@
 }
 
 .filter-btn-apply {
-    background: #f59e0b;
+    background: #FBBC04;
     color: white;
 }
 
 .filter-btn-apply:hover {
-    background: #d97706;
+    background: #f29900;
 }
 
 /* Mobile Responsive */
@@ -3254,16 +3254,16 @@
     gap: 6px;
     padding: 6px 10px;
     background: rgba(245, 158, 11, 0.2);
-    border: 1px solid #f59e0b;
+    border: 1px solid #FBBC04;
     border-radius: 6px;
-    color: #fbbf24;
+    color: #fcd230;
     font-size: 0.8125rem;
     font-weight: 600;
 }
 
 .selected-genre-pill .remove-genre {
     cursor: pointer;
-    color: #fbbf24;
+    color: #fcd230;
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -3293,7 +3293,7 @@
 
 .genre-search-input:focus {
     outline: none;
-    border-color: #f59e0b;
+    border-color: #FBBC04;
     background: rgba(31, 41, 55, 0.7);
 }
 
@@ -3333,14 +3333,14 @@
 
 .genre-item.selected {
     background: rgba(245, 158, 11, 0.2);
-    color: #fbbf24;
+    color: #fcd230;
     font-weight: 600;
 }
 
 .genre-item.selected::after {
     content: '✓';
     float: right;
-    color: #f59e0b;
+    color: #FBBC04;
     font-weight: bold;
 }
 
@@ -3374,7 +3374,7 @@
 }
 
 .filter-active-badge span {
-    color: #fbbf24;
+    color: #fcd230;
     font-size: 0.875rem;
     font-weight: 600;
 }
@@ -3383,7 +3383,7 @@
 .filter-select-compact:focus,
 .filter-number-input:focus {
     outline: none;
-    border-color: #f59e0b;
+    border-color: #FBBC04;
     background: rgba(31, 41, 55, 0.7);
 }
 
@@ -3394,16 +3394,16 @@
     gap: 6px;
     padding: 6px 10px;
     background: rgba(245, 158, 11, 0.2);
-    border: 1px solid #f59e0b;
+    border: 1px solid #FBBC04;
     border-radius: 6px;
-    color: #fbbf24;
+    color: #fcd230;
     font-size: 0.8125rem;
     font-weight: 600;
 }
 
 .selected-genre-pill .remove-genre {
     cursor: pointer;
-    color: #fbbf24;
+    color: #fcd230;
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -3413,7 +3413,7 @@
 
 .genre-search-input:focus {
     outline: none;
-    border-color: #f59e0b;
+    border-color: #FBBC04;
     background: rgba(31, 41, 55, 0.7);
 }
 
@@ -3424,14 +3424,14 @@
 
 .genre-item.selected {
     background: rgba(245, 158, 11, 0.2);
-    color: #fbbf24;
+    color: #fcd230;
     font-weight: 600;
 }
 
 .genre-item.selected::after {
     content: '✓';
     float: right;
-    color: #f59e0b;
+    color: #FBBC04;
     font-weight: bold;
 }
 
@@ -3459,12 +3459,12 @@
 
 /* Apply Button - Gold Gradient */
 .filter-btn-apply {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(135deg, #FBBC04 0%, #f29900 100%);
     color: white;
 }
 
 .filter-btn-apply:hover {
-    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    background: linear-gradient(135deg, #f29900 0%, #b45309 100%);
 }
 
 /* Range Slider Styling - Huntarr Gold Theme */
@@ -3497,7 +3497,7 @@
     appearance: none;
     width: 20px;
     height: 20px;
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(135deg, #FBBC04 0%, #f29900 100%);
     border-radius: 50%;
     cursor: pointer;
     border: 2px solid #1a1d2e;
@@ -3518,7 +3518,7 @@
 .filter-slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(135deg, #FBBC04 0%, #f29900 100%);
     border-radius: 50%;
     cursor: pointer;
     border: 2px solid #1a1d2e;
@@ -3589,7 +3589,7 @@
     appearance: none;
     width: 20px;
     height: 20px;
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(135deg, #FBBC04 0%, #f29900 100%);
     border-radius: 50%;
     cursor: pointer;
     pointer-events: all;
@@ -3603,7 +3603,7 @@
 .dual-range-slider input[type="range"]::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(135deg, #FBBC04 0%, #f29900 100%);
     border-radius: 50%;
     cursor: pointer;
     pointer-events: all;
@@ -3698,7 +3698,7 @@
 .slider-range {
     position: absolute;
     height: 6px;
-    background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(90deg, #FBBC04 0%, #f29900 100%);
     border-radius: 3px;
     z-index: 2;
 }
@@ -3740,7 +3740,7 @@
     appearance: none;
     width: 20px;
     height: 20px;
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(135deg, #FBBC04 0%, #f29900 100%);
     border-radius: 50%;
     cursor: pointer;
     pointer-events: all;
@@ -3754,7 +3754,7 @@
 .dual-range-slider input[type="range"]::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(135deg, #FBBC04 0%, #f29900 100%);
     border-radius: 50%;
     cursor: pointer;
     pointer-events: all;
@@ -4193,7 +4193,7 @@
 .pagination-btn:hover:not(:disabled) {
     background: rgba(245, 158, 11, 0.08);
     border-color: rgba(245, 158, 11, 0.2);
-    color: #fbbf24;
+    color: #fcd230;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) inset,
         0 0 12px rgba(245, 158, 11, 0.06);
 }
@@ -4230,8 +4230,8 @@
     justify-content: center;
     z-index: 10;
     box-shadow: 0 2px 8px rgba(34, 197, 94, 0.35);
-    background: #22c55e;
-    border: 2px solid #16a34a;
+    background: #34A853;
+    border: 2px solid #1e8e3e;
     padding: 0;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -4494,7 +4494,7 @@ body.requestarr-modal-open {
 .mh-req-poster {
     flex-shrink: 0;
     width: 215px;
-    background: #0f172a;
+    background: #202124;
     position: relative;
     overflow: hidden;
 }
@@ -4572,7 +4572,7 @@ body.requestarr-modal-open {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.6px;
-    color: #f59e0b;
+    color: #FBBC04;
     opacity: 0.85;
 }
 
@@ -4620,14 +4620,14 @@ body.requestarr-modal-open {
 
 .mh-req-badge-ok {
     background: rgba(99, 102, 241, 0.1);
-    color: #a5b4fc;
+    color: #8ab4f8;
     border: 1px solid rgba(99, 102, 241, 0.15);
     box-shadow: 0 0 12px rgba(99, 102, 241, 0.06) inset;
 }
 
 .mh-req-badge-lib {
     background: rgba(34, 197, 94, 0.1);
-    color: #4ade80;
+    color: #81c995;
     border: 1px solid rgba(34, 197, 94, 0.15);
     box-shadow: 0 0 12px rgba(34, 197, 94, 0.06) inset;
 }
@@ -4640,21 +4640,21 @@ body.requestarr-modal-open {
 
 .mh-req-badge-requested {
     background: rgba(245, 158, 11, 0.1);
-    color: #fbbf24;
+    color: #fcd230;
     border: 1px solid rgba(245, 158, 11, 0.15);
     box-shadow: 0 0 12px rgba(245, 158, 11, 0.06) inset;
 }
 
 .mh-req-badge-error {
     background: rgba(239, 68, 68, 0.1);
-    color: #f87171;
+    color: #f28b82;
     border: 1px solid rgba(239, 68, 68, 0.15);
     box-shadow: 0 0 12px rgba(239, 68, 68, 0.06) inset;
 }
 
 .mh-req-badge-import {
     background: rgba(245, 158, 11, 0.12);
-    color: #fbbf24;
+    color: #fcd230;
     border: 1px solid rgba(245, 158, 11, 0.2);
     box-shadow: 0 0 12px rgba(245, 158, 11, 0.08) inset;
 }
@@ -4729,7 +4729,7 @@ body.requestarr-modal-open {
 
 .mh-req-instance-wrap .mh-req-root-info-icon:hover,
 .mh-req-root-folder-wrap .mh-req-root-info-icon:hover {
-    color: #818cf8;
+    color: #8ab4f8;
     transform: scale(1.1);
 }
 
@@ -4810,25 +4810,25 @@ body.requestarr-modal-open {
 }
 
 .mh-req-perm-approved {
-    color: #4ade80;
+    color: #81c995;
     background: rgba(34, 197, 94, 0.07);
     border: 1px solid rgba(34, 197, 94, 0.18);
     box-shadow: 0 0 8px rgba(34, 197, 94, 0.05) inset;
 }
 
 .mh-req-perm-approved i {
-    color: #4ade80;
+    color: #81c995;
 }
 
 .mh-req-perm-pending {
-    color: #fbbf24;
+    color: #fcd230;
     background: rgba(251, 191, 36, 0.07);
     border: 1px solid rgba(251, 191, 36, 0.18);
     box-shadow: 0 0 8px rgba(251, 191, 36, 0.05) inset;
 }
 
 .mh-req-perm-pending i {
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 /* Actions area */
@@ -4861,7 +4861,7 @@ body.requestarr-modal-open {
 
 .mh-req-checkbox-wrap input {
     cursor: pointer;
-    accent-color: #f59e0b;
+    accent-color: #FBBC04;
     width: 16px;
     height: 16px;
 }
@@ -4905,7 +4905,7 @@ body.requestarr-modal-open {
 
 /* Submit button — rich gradient with ambient glow */
 .mh-req-btn-submit {
-    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 30%, #d97706 65%, #b45309 100%);
+    background: linear-gradient(135deg, #fcd230 0%, #FBBC04 30%, #f29900 65%, #b45309 100%);
     color: rgba(0, 0, 0, 0.85);
     font-weight: 700;
     box-shadow:
@@ -4964,7 +4964,7 @@ body.requestarr-modal-open {
 }
 
 .mh-req-more-info-icon:hover {
-    color: #a5b4fc;
+    color: #8ab4f8;
     transform: scale(1.1);
 }
 
@@ -5043,7 +5043,7 @@ body.requestarr-modal-open {
     font-size: 14px;
     background: linear-gradient(145deg, rgba(20, 25, 35, 0.6), rgba(15, 19, 26, 0.4));
     border: 1px solid rgba(99, 102, 241, 0.3);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .smarthunt-total-bar.is-valid {
@@ -5193,12 +5193,12 @@ body.requestarr-modal-open {
     gap: 8px;
     font-size: 13px;
     font-weight: 600;
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .import-banner-header>i {
     font-size: 14px;
-    color: #f59e0b;
+    color: #FBBC04;
 }
 
 .import-confidence {
@@ -5212,19 +5212,19 @@ body.requestarr-modal-open {
 
 .import-confidence-high {
     background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
+    color: #81c995;
     border: 1px solid rgba(34, 197, 94, 0.3);
 }
 
 .import-confidence-medium {
     background: rgba(245, 158, 11, 0.15);
-    color: #fbbf24;
+    color: #fcd230;
     border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .import-confidence-low {
     background: rgba(239, 68, 68, 0.15);
-    color: #f87171;
+    color: #f28b82;
     border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
@@ -5276,7 +5276,7 @@ body.requestarr-modal-open {
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    background: linear-gradient(135deg, #f59e0b, #d97706);
+    background: linear-gradient(135deg, #FBBC04, #f29900);
     color: #fff;
     transition: filter 0.15s ease, box-shadow 0.15s ease;
 }
@@ -5292,7 +5292,7 @@ body.requestarr-modal-open {
 }
 
 .import-banner-btn.success {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
+    background: linear-gradient(135deg, #34A853, #1e8e3e);
 }
 
 .import-banner-settings {
@@ -5315,7 +5315,7 @@ body.requestarr-modal-open {
 .mh-req-actions.import-available .mh-req-btn-submit {
     background: rgba(99, 102, 241, 0.15);
     border: 1px solid rgba(99, 102, 241, 0.3);
-    color: #a5b4fc;
+    color: #8ab4f8;
     font-size: 12px;
 }
 
@@ -5325,7 +5325,7 @@ body.requestarr-modal-open {
 }
 
 .import-banner-btn.success {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
+    background: linear-gradient(135deg, #34A853, #1e8e3e);
 }
 
 /* ── Global Blacklist Badge & Overlay on Media Cards ─────────── */
@@ -5362,7 +5362,7 @@ body.requestarr-modal-open {
     border-radius: 6px;
     background: rgba(239, 68, 68, 0.2);
     border: 1px solid rgba(239, 68, 68, 0.4);
-    color: #f87171;
+    color: #f28b82;
     font-size: 12px;
     font-weight: 600;
     text-align: center;

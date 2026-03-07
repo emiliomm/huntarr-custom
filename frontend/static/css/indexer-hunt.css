@@ -13,7 +13,7 @@
 }
 #indexer-hunt-section .ih-no-instances i.fa-cube,
 #indexer-hunt-history-section .ih-no-instances i.fa-cube,
-#indexer-hunt-stats-section .ih-no-instances i.fa-cube { font-size: 3rem; color: #334155; margin-bottom: 16px; display: block; }
+#indexer-hunt-stats-section .ih-no-instances i.fa-cube { font-size: 3rem; color: #3c4043; margin-bottom: 16px; display: block; }
 #indexer-hunt-section .ih-no-instances .no-instances-title,
 #indexer-hunt-history-section .ih-no-instances .no-instances-title,
 #indexer-hunt-stats-section .ih-no-instances .no-instances-title { font-size: 1.2rem; font-weight: 600; color: #f1f5f9; margin: 0 0 8px 0; }
@@ -24,7 +24,7 @@
 #indexer-hunt-history-section .ih-no-instances .no-instances-action-btn,
 #indexer-hunt-stats-section .ih-no-instances .no-instances-action-btn {
     display: inline-flex; align-items: center; gap: 8px; background: rgba(99, 102, 241, 0.2);
-    border: 1px solid rgba(99, 102, 241, 0.4); color: #818cf8; padding: 10px 20px; border-radius: 8px;
+    border: 1px solid rgba(99, 102, 241, 0.4); color: #8ab4f8; padding: 10px 20px; border-radius: 8px;
     text-decoration: none; font-weight: 500; transition: background 0.2s, border-color 0.2s;
 }
 #indexer-hunt-section .ih-no-instances .no-instances-action-btn:hover,
@@ -44,7 +44,7 @@
     background: rgba(99, 102, 241, 0.08);
     border: 1px solid rgba(99, 102, 241, 0.2);
     border-radius: 10px;
-    color: #a5b4fc;
+    color: #8ab4f8;
     font-size: 0.9rem;
     line-height: 1.5;
 }
@@ -72,17 +72,17 @@
 .ih-import-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
 .ih-import-item {
     display: flex; align-items: center; gap: 14px; padding: 14px 16px;
-    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    background: linear-gradient(145deg, #303134 0%, #202124 100%);
     border: 1px solid rgba(148, 163, 184, 0.1); border-radius: 10px;
     cursor: pointer; transition: all 0.2s;
 }
 .ih-import-item:hover { border-color: rgba(99, 102, 241, 0.3); background: rgba(30, 41, 59, 0.8); }
-.ih-import-item.selected { border-color: #6366f1; background: rgba(99, 102, 241, 0.08); }
+.ih-import-item.selected { border-color: #4285F4; background: rgba(99, 102, 241, 0.08); }
 .ih-import-checkbox {
     width: 20px; height: 20px; border: 2px solid rgba(148, 163, 184, 0.3); border-radius: 4px;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s;
 }
-.ih-import-item.selected .ih-import-checkbox { background: #6366f1; border-color: #6366f1; }
+.ih-import-item.selected .ih-import-checkbox { background: #4285F4; border-color: #4285F4; }
 .ih-import-checkbox i { color: #fff; font-size: 0.7rem; display: none; }
 .ih-import-item.selected .ih-import-checkbox i { display: block; }
 .ih-import-info { flex: 1; min-width: 0; }
@@ -96,7 +96,7 @@
 }
 .ih-import-cancel-btn:hover { background: rgba(148, 163, 184, 0.2); color: #fff; }
 .ih-import-confirm-btn {
-    background: #6366f1; color: #fff; border: none; border-radius: 8px; padding: 9px 20px;
+    background: #4285F4; color: #fff; border: none; border-radius: 8px; padding: 9px 20px;
     cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; transition: background 0.2s;
 }
 .ih-import-confirm-btn:hover { background: #4f46e5; }
@@ -126,7 +126,7 @@
 
 .ih-page-title i {
     font-size: 1.4rem;
-    color: #6366f1;
+    color: #4285F4;
 }
 
 .ih-page-title h2 {
@@ -182,7 +182,7 @@
 /* ── Buttons ────────────────────────────────────────────────────── */
 
 .ih-btn-primary {
-    background: #6366f1;
+    background: #4285F4;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -271,7 +271,7 @@
 /* ── Indexer card ────────────────────────────────────────────────── */
 
 .ih-card {
-    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    background: linear-gradient(145deg, #303134 0%, #202124 100%);
     border: 1px solid rgba(148, 163, 184, 0.1);
     border-radius: 12px;
     padding: 20px;
@@ -334,7 +334,7 @@
 
 .ih-card-status.disabled {
     background: rgba(239, 68, 68, 0.15);
-    color: #ef4444;
+    color: #EA4335;
 }
 
 .ih-card-connection-row {
@@ -358,7 +358,7 @@
 }
 .ih-card-connection-status.ih-card-connection-fail {
     background: rgba(239, 68, 68, 0.15);
-    color: #ef4444;
+    color: #EA4335;
     border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
@@ -394,7 +394,7 @@
     gap: 4px;
     font-size: 0.8rem;
     background: rgba(99, 102, 241, 0.15);
-    color: #818cf8;
+    color: #8ab4f8;
     padding: 2px 10px;
     border-radius: 12px;
     font-weight: 700;
@@ -406,7 +406,7 @@
     align-items: center;
     font-size: 0.7rem;
     background: rgba(99, 102, 241, 0.12);
-    color: #a5b4fc;
+    color: #8ab4f8;
     padding: 2px 8px;
     border-radius: 12px;
     font-weight: 600;
@@ -447,13 +447,13 @@
 }
 
 .ih-card-btn.edit:hover {
-    border-color: #6366f1;
-    color: #818cf8;
+    border-color: #4285F4;
+    color: #8ab4f8;
 }
 
 .ih-card-btn.delete:hover {
-    border-color: #ef4444;
-    color: #f87171;
+    border-color: #EA4335;
+    color: #f28b82;
 }
 
 /* ── Add card ───────────────────────────────────────────────────── */
@@ -472,13 +472,13 @@
 }
 
 .ih-add-card:hover {
-    border-color: #6366f1;
+    border-color: #4285F4;
     background: rgba(30, 41, 59, 0.5);
 }
 
 .ih-add-card .ih-add-icon {
     font-size: 2rem;
-    color: #6366f1;
+    color: #4285F4;
     margin-bottom: 10px;
 }
 
@@ -501,7 +501,7 @@
 
 .ih-empty-icon {
     font-size: 3rem;
-    color: #334155;
+    color: #3c4043;
     margin-bottom: 16px;
 }
 
@@ -566,7 +566,7 @@
 }
 
 .ih-editor-breadcrumb i.fa-search-plus {
-    color: #6366f1;
+    color: #4285F4;
 }
 
 .ih-editor-breadcrumb .fa-chevron-right {
@@ -605,7 +605,7 @@
 }
 #indexer-hunt-section #ih-connection-status-container .connection-status.checking {
     background: rgba(99, 102, 241, 0.1);
-    color: #a5b4fc;
+    color: #8ab4f8;
     border: 1px solid rgba(99, 102, 241, 0.2);
 }
 #indexer-hunt-section #ih-connection-status-container .connection-status.success {
@@ -615,7 +615,7 @@
 }
 #indexer-hunt-section #ih-connection-status-container .connection-status.error {
     background: rgba(239, 68, 68, 0.1);
-    color: #f87171;
+    color: #f28b82;
     border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
@@ -713,7 +713,7 @@ select.ih-input {
     position: relative;
     width: 44px;
     height: 24px;
-    background: #334155;
+    background: #3c4043;
     border-radius: 12px;
     cursor: pointer;
     transition: background 0.2s;
@@ -721,7 +721,7 @@ select.ih-input {
 }
 
 .ih-toggle.active {
-    background: #6366f1;
+    background: #4285F4;
 }
 
 .ih-toggle::after {
@@ -767,7 +767,7 @@ select.ih-input {
 }
 
 .ih-test-result .ih-test-fail {
-    color: #ef4444;
+    color: #EA4335;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -800,7 +800,7 @@ select.ih-input {
 
 .ih-stats-page-header i {
     font-size: 1.4rem;
-    color: #6366f1;
+    color: #4285F4;
 }
 
 .ih-stats-page-header h2 {
@@ -819,7 +819,7 @@ select.ih-input {
 }
 
 .ih-stat-card {
-    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    background: linear-gradient(145deg, #303134 0%, #202124 100%);
     border: 1px solid rgba(148, 163, 184, 0.1);
     border-radius: 12px;
     padding: 20px;
@@ -835,7 +835,7 @@ select.ih-input {
 .ih-stat-value {
     font-size: 2rem;
     font-weight: 700;
-    color: #6366f1;
+    color: #4285F4;
     line-height: 1;
     margin-bottom: 6px;
 }
@@ -843,7 +843,7 @@ select.ih-input {
 .ih-stat-value .ih-stat-unit {
     font-size: 0.85rem;
     font-weight: 400;
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 .ih-stat-label {
@@ -939,7 +939,7 @@ select.ih-input {
 
 .ih-history-title i {
     font-size: 1.4rem;
-    color: #6366f1;
+    color: #4285F4;
 }
 
 .ih-history-title h2 {
@@ -973,7 +973,7 @@ select.ih-input {
 
 .ih-btn-danger {
     background: transparent;
-    color: #ef4444;
+    color: #EA4335;
     border: 1px solid rgba(239, 68, 68, 0.3);
     border-radius: 8px;
     padding: 9px 16px;
@@ -1044,7 +1044,7 @@ select.ih-input {
 
 .ih-event-search {
     background: rgba(99, 102, 241, 0.15);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .ih-event-grab {
@@ -1054,12 +1054,12 @@ select.ih-input {
 
 .ih-event-failure {
     background: rgba(239, 68, 68, 0.15);
-    color: #f87171;
+    color: #f28b82;
 }
 
 .ih-event-test {
     background: rgba(251, 191, 36, 0.15);
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .ih-event-health_check {
@@ -1089,7 +1089,7 @@ select.ih-input {
 
 .ih-pagination button:hover:not(:disabled) {
     border-color: rgba(99, 102, 241, 0.5);
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 .ih-pagination button:disabled {
@@ -1112,7 +1112,7 @@ select.ih-input {
 .ih-empty-state i {
     font-size: 2.5rem;
     margin-bottom: 12px;
-    color: #334155;
+    color: #3c4043;
     display: block;
 }
 

@@ -113,22 +113,18 @@
                     <div class="nav-group-items">
                         <a href="faq.html" class="active"><i class="fas fa-question-circle"></i> FAQ</a>
                         <a href="community.html"><i class="fas fa-users"></i> Community</a>
-                        <a href="https://plexguide.github.io/Huntarr.io/donate.html"><i class="fas fa-heart"></i>
-                            Donate</a>
+
                     </div>
                 </div>
 
             </div><!-- /sidebar-scroll -->
 
             <div class="sidebar-footer">
-                <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank" class="sf-discord" title="Discord"><i
-                        class="fab fa-discord"></i></a>
-                <a href="https://www.reddit.com/r/huntarr/" target="_blank" class="sf-reddit" title="Reddit"><i
-                        class="fab fa-reddit-alien"></i></a>
-                <a href="https://github.com/plexguide/Huntarr.io" target="_blank" class="sf-github" title="GitHub"><i
+
+
+                <a href="https://github.com/emiliomm/huntarr-custom" target="_blank" class="sf-github" title="GitHub"><i
                         class="fab fa-github"></i></a>
-                <a href="https://plexguide.github.io/Huntarr.io/donate.html" class="sf-heart" title="Donate"><i
-                        class="fas fa-heart"></i></a>
+
             </div>
         </nav>
 
@@ -168,7 +164,7 @@
 
                 <h3>Is Huntarr free?</h3>
                 <p>Yes. Huntarr is fully open source under the GPL-3.0 license. All features are free. If it's been
-                    valuable to you, a <a href="https://plexguide.github.io/Huntarr.io/donate.html">donation</a> toward
+                    valuable to you, a toward
                     the developer's daughter's college fund is always appreciated but never required.</p>
 
                 <h3>How do I get the latest version?</h3>
@@ -191,7 +187,8 @@
                 <ul>
                     <li>Set <code>PUID</code> and <code>PGID</code> to match the user who owns those directories</li>
                     <li>On Linux: <code>sudo chown -R 1000:1000 /path/to/config</code> then set
-                        <code>PUID=1000 PGID=1000</code></li>
+                        <code>PUID=1000 PGID=1000</code>
+                    </li>
                     <li>On Unraid: set <code>PUID=99</code> and <code>PGID=100</code></li>
                     <li>Ensure no other process has the directory locked</li>
                 </ul>
@@ -200,7 +197,8 @@
                 <ul>
                     <li>Verify the container is running: <code>docker ps | grep huntarr</code></li>
                     <li>Check that the host port mapping matches (e.g., <code>0.0.0.0:9705->9705</code> in
-                        <code>docker ps</code> output)</li>
+                        <code>docker ps</code> output)
+                    </li>
                     <li>Try accessing directly by IP: <code>http://your-server-ip:9705</code></li>
                     <li>Check firewall rules — ensure port 9705 (or your custom port) is allowed inbound</li>
                     <li>On Unraid, verify the Docker network isn't set to "none"</li>
@@ -222,9 +220,11 @@
                     <li>If both Huntarr and your *arr app are in Docker on the same network, use the container name as
                         hostname: <code>http://sonarr:8989</code></li>
                     <li>If they're on different networks or the host, use the server's LAN IP — never use
-                        <code>localhost</code> (that points inside Huntarr's own container)</li>
+                        <code>localhost</code> (that points inside Huntarr's own container)
+                    </li>
                     <li>Make sure the *arr app has no Base URL set, or include it in the URL:
-                        <code>http://192.168.1.100:8989/sonarr</code></li>
+                        <code>http://192.168.1.100:8989/sonarr</code>
+                    </li>
                     <li>Try the Test Connection button — the error message usually indicates exactly what's wrong</li>
                 </ul>
 
@@ -290,7 +290,8 @@
                 <h3>NZB Hunt downloads fail immediately</h3>
                 <ul>
                     <li>Test your NNTP server connection: go to NZB Hunt → Settings → Servers and click
-                        <strong>Test</strong></li>
+                        <strong>Test</strong>
+                    </li>
                     <li>Verify credentials (username, password, host, port) are correct</li>
                     <li>Try reducing the connection count to 5 to rule out a server connection limit</li>
                     <li>Check that SSL is enabled and port 563 is used (or 119 for plain — not recommended)</li>
@@ -299,7 +300,8 @@
                 <h3>Downloads fail with "too many missing articles"</h3>
                 <p>This means the NZB file references Usenet posts that no longer exist on your provider's servers — a
                     <strong>retention</strong> issue. The content is older than your provider's retention window or your
-                    provider has incomplete coverage. Solutions:</p>
+                    provider has incomplete coverage. Solutions:
+                </p>
                 <ul>
                     <li>Switch to a provider with longer retention (some offer 4,000+ days)</li>
                     <li>Add a second provider as a backup server in NZB Hunt — gaps from the primary are filled from the
@@ -370,18 +372,15 @@
 
                 <div class="alert alert-info">
                     <strong>Need more help?</strong>
-                    <p>If your question isn't answered here, join the <a href="https://discord.com/invite/PGJJjR5Cww"
-                            target="_blank" style="color:inherit;text-decoration:underline;">Discord server</a> or the
-                        <a href="https://www.reddit.com/r/huntarr/" target="_blank"
-                            style="color:inherit;text-decoration:underline;">Reddit community</a> for support from
-                        active Huntarr users and developers.</p>
+                    <p>If your question isn't answered here, please open a <a
+                            href="https://github.com/emiliomm/huntarr-custom/issues" target="_blank"
+                            style="color:inherit;text-decoration:underline;">GitHub Issue</a> for support.</p>
                 </div>
             </div><!-- /docs-content -->
 
             <footer class="docs-footer">
-                <p>Huntarr is open source. <a href="https://github.com/plexguide/Huntarr.io" target="_blank">GitHub</a>
-                    · <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank">Discord</a> · <a
-                        href="https://www.reddit.com/r/huntarr/" target="_blank">Reddit</a></p>
+                <p>Huntarr is open source. <a href="https://github.com/emiliomm/huntarr-custom"
+                        target="_blank">GitHub</a></p>
             </footer>
         </main>
 

@@ -769,7 +769,6 @@ diff <(grep -r "href.*#" frontend/static/js/ | grep -o "#[^\"]*" | sort | uniq) 
 ### User Experience Validation
 **Before major UI changes:**
 1. **Test user journey**: Help → Explanation → Setup → Community
-2. **Verify community links work**: Discord, GitHub Issues, Reddit
 3. **Check mobile responsiveness**: Test all breakpoints
 4. **Validate against real user problems**: Base features on actual use cases
 

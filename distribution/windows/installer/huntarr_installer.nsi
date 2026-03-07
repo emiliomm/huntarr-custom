@@ -37,7 +37,7 @@
 !define APPNAME "Huntarr"
 !define EXENAME "Huntarr.exe"
 !define PUBLISHER "Huntarr"
-!define URL "https://github.com/plexguide/Huntarr.io"
+!define URL "https://github.com/emiliomm/huntarr-custom"
 
 ; General settings
 Name "${APPNAME}"
