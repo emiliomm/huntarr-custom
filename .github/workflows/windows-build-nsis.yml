@@ -20,17 +20,11 @@ jobs:
       with:
         fetch-depth: 0
     
-    - name: Extract metadata
+    - name: Set Version
       id: meta
       shell: bash
       run: |
-        if [[ "${{ github.ref }}" == refs/tags/* ]]; then
-          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-          echo "IS_TAG=true" >> $GITHUB_OUTPUT
-        else
-          echo "VERSION=$(cat version.txt)" >> $GITHUB_OUTPUT
-          echo "IS_TAG=false" >> $GITHUB_OUTPUT
-        fi
+        echo "VERSION=${{ inputs.version }}" >> $GITHUB_OUTPUT
     
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -106,15 +100,14 @@ jobs:
         mkdir -Force distribution\windows\installer\installer
         mkdir -Force installer
         
-        # Prepare version file path
-        $versionContent = Get-Content version.txt -Raw
-        Write-Host "Version from file: $versionContent"
-        $AbsVersionFile = Join-Path -Path $PWD.Path -ChildPath "version.txt"
-        Write-Host "Absolute path for VERSIONFILE: $AbsVersionFile"
-
-        # Prepare arguments for makensis.exe
+        $version = "${{ inputs.version }}"
+        Write-Host "Building version: $version"
+        
+        # Manually sync version.txt just in case NSIS script requires the physical file
+        Set-Content -Path version.txt -Value $version
+        
         $MakensisArgs = @(
-            "/DVERSIONFILE=$AbsVersionFile",
+            "/DVERSION=$version", # Pass version directly as a define
             "/DPROJECT_ROOT=$($PWD.Path)",
             "distribution\windows\installer\huntarr_installer.nsi"
         )
@@ -142,13 +135,13 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: huntarr-installer
-        path: installer/Huntarr-*-win.exe
+        path: installer/Huntarr-${{ inputs.version }}-win.exe
         
     - name: Upload to release
       if: ${{ inputs.version != '' }}
       uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ inputs.version }}
-        files: installer/Huntarr-*-win.exe
+        files: installer/Huntarr-${{ inputs.version }}-win.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
