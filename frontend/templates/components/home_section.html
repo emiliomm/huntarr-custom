@@ -2263,50 +2263,7 @@
             }
         }
 
-        // Create a placeholder sponsor while loading
-        function displayPlaceholderSponsor() {
-            const placeholderSponsor = {
-                name: "Daughter's College Fund",
-                url: "https://plexguide.github.io/Huntarr.io/donate.html"
-            };
 
-            // Style the container directly and apply the styling immediately
-            document.getElementById('sponsor-widget-container').style.visibility = 'visible';
-
-            // Create a solid orange-red circle with gold border exactly like image #2 (no href to prevent prefetching)
-            const placeholderDiv = document.createElement('div');
-            placeholderDiv.style.cssText = 'width: 100%; height: 100%; border-radius: 50%; background-color: #FF6347; border: 3px solid #ffb700; box-sizing: border-box; cursor: pointer;';
-            placeholderDiv.title = `Support ${placeholderSponsor.name}`;
-            placeholderDiv.onclick = function (e) {
-                e.preventDefault();
-                window.open(placeholderSponsor.url, '_blank', 'noopener,noreferrer');
-            };
-
-            avatarContainer.innerHTML = '';
-            avatarContainer.appendChild(placeholderDiv);
-
-            const placeholderNameDiv = document.createElement('div');
-            placeholderNameDiv.textContent = placeholderSponsor.name;
-            placeholderNameDiv.style.cssText = 'cursor: pointer; color: inherit;';
-            placeholderNameDiv.title = 'Support us';
-            placeholderNameDiv.onclick = function (e) {
-                e.preventDefault();
-                window.open(placeholderSponsor.url, '_blank', 'noopener,noreferrer');
-            };
-
-            descContainer.innerHTML = '';
-            descContainer.appendChild(placeholderNameDiv);
-
-            // Add sponsor-icon class and show immediately
-            avatarContainer.classList.add('sponsor-icon');
-            avatarContainer.style.visibility = 'visible';
-            descContainer.style.visibility = 'visible';
-            avatarContainer.style.opacity = '1';
-            descContainer.style.opacity = '1';
-        }
-
-        // Show placeholder immediately
-        displayPlaceholderSponsor();
 
         // Fetch sponsors from the API
         async function fetchSponsors() {

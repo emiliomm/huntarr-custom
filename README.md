@@ -16,16 +16,6 @@
   A media automation platform that goes beyond the *arr ecosystem. Huntarr hunts for missing content and quality upgrades across your existing Sonarr, Radarr, Lidarr, Readarr, and Whisparr instances — while also providing its own built-in Movie Hunt, TV Hunt, Index Master, NZB Hunt, and Requestarr modules that can replace or complement your existing stack.
 </p>
 
-<p align="center">
-  <a href="https://hub.docker.com/r/huntarr/huntarr"><img src="https://img.shields.io/docker/pulls/huntarr/huntarr?style=flat-square&label=Docker%20Pulls" alt="Docker Pulls"></a>
-  <a href="https://github.com/plexguide/Huntarr.io/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0-blue?style=flat-square" alt="License"></a>
-  <a href="https://discord.com/invite/PGJJjR5Cww"><img src="https://img.shields.io/discord/1370922258247454821?color=7289DA&label=Discord&style=flat-square&logo=discord" alt="Discord"></a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/plexguide/Huntarr.io/stargazers"><img src="https://img.shields.io/github/stars/plexguide/Huntarr.io?style=social&label=Star%20Huntarr" alt="GitHub Stars"></a>
-</p>
-
 ---
 
 ## Table of Contents
@@ -231,14 +221,14 @@ services:
 
 ### More Installation Methods
 
-- [Unraid Installation](https://plexguide.github.io/Huntarr.io/getting-started/installation.html#unraid-installation)
-- [Windows Installation](https://plexguide.github.io/Huntarr.io/getting-started/installation.html#windows-installation)
-- [macOS Installation](https://plexguide.github.io/Huntarr.io/getting-started/installation.html#macos-installation)
-- [Linux Installation](https://plexguide.github.io/Huntarr.io/getting-started/installation.html#linux-installation)
+- [Unraid Installation](https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#unraid-installation)
+- [Windows Installation](https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#windows-installation)
+- [macOS Installation](https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#macos-installation)
+- [Linux Installation](https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#linux-installation)
 
 Once running, open your browser to `http://<your-server-ip>:9705`.
 
-For full documentation, visit the [Huntarr Docs](https://plexguide.github.io/Huntarr.io/).
+For full documentation, visit the [Huntarr Docs](https://emiliomm.github.io/huntarr-custom/).
 
 ---
 
@@ -272,8 +262,8 @@ Together they form a self-sustaining media automation loop: Huntarr searches, Cl
 
 ## Change Log
 
-Visit the [Releases](https://github.com/plexguide/Huntarr.io/releases/) page.
+Visit the [Releases](https://github.com/emiliomm/huntarr-custom/releases/) page.
 
 ## License
 
-Licensed under the [GNU General Public License v3.0](https://github.com/plexguide/Huntarr.io/blob/main/LICENSE).
+Licensed under the [GNU General Public License v3.0](https://github.com/emiliomm/huntarr-custom/blob/main/LICENSE).

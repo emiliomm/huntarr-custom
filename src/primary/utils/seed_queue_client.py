@@ -1,7 +1,7 @@
 """
 Get active seeding count from torrent clients (qBittorrent, Transmission).
 Used only for Max Seed Queue gating: skip hunts when seeding count >= limit.
-Read-only; no torrent control. See https://github.com/plexguide/Huntarr.io/issues/713
+Read-only; no torrent control.
 """
 
 import logging
