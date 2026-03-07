@@ -1,9 +1,9 @@
 name: Update Manifest
 
 on:
-  release:
-    types: [published]
-  workflow_dispatch: # Allow manual triggers
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   update-manifest:
@@ -17,15 +17,6 @@ jobs:
       issues: read
 
     steps:
-      - name: Verify Secret Length
-        run: |
-          if [ -z "${{ secrets.SEMANTIC_RELEASE_BOT_PRIVATE_KEY }}" ]; then
-            echo "Secret is EMPTY"
-            exit 1
-          else
-            echo "Secret length: $(echo -n "${{ secrets.SEMANTIC_RELEASE_BOT_PRIVATE_KEY }}" | wc -c) characters"
-          fi
-
       - name: Create GitHub App token
         id: app-token
         uses: actions/create-github-app-token@v2
@@ -41,10 +32,13 @@ jobs:
 
       - name: Get latest release
         id: latest_release
-        run: |
-          LATEST=$(curl -s "https://api.github.com/repos/${{ github.repository }}/releases/latest" | jq -r '.tag_name // "v0.0.0"')
-          echo "version=$LATEST" >> $GITHUB_OUTPUT
-          echo "Latest version: $LATEST"
+        uses: joutvhu/get-release@v1
+        with:
+          latest: true
+          # Including pre-release
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create manifest.json
         run: |
@@ -55,8 +49,7 @@ jobs:
             "project": {
               "name": "Huntarr",
               "description": "Automated media management for the masses",
-              "repository": "${{ github.repository }}",
-              "website": "https://plexguide.github.io/Huntarr.io"
+              "repository": "${{ github.repository }}"
             }
           }
           EOF

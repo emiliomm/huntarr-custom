@@ -4,7 +4,6 @@
   "project": {
     "name": "Huntarr",
     "description": "Automated media management for the masses",
-    "repository": "emiliomm/huntarr-custom",
-    "website": "https://plexguide.github.io/Huntarr.io"
+    "repository": "emiliomm/huntarr-custom"
   }
 }
