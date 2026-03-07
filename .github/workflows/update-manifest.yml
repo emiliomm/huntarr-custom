@@ -83,6 +83,13 @@ jobs:
           git config user.name "huntarr-bot[bot]"
           git config user.email "huntarr-bot[bot]@users.noreply.github.com"
 
+          CURRENT_VERSION=$(jq -r '.version' manifest.json)
+          NEW_VERSION="${{ inputs.version }}"
+          if [ "$CURRENT_VERSION" == "$NEW_VERSION" ]; then
+            echo "Version $NEW_VERSION is already set in manifest.json. Skipping commit."
+            exit 0
+          fi
+
           if ! git diff --exit-code manifest.json; then
             git add manifest.json
             git add version.txt
