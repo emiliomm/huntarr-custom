@@ -9,11 +9,7 @@ on:
 
 jobs:
   update-manifest:
-    # Check the specific commit message.
-    # This allows the first run to work, but skips the recursive run after the bot pushes.
-    if: |
-      github.event.action != 'closed' && 
-      !contains(github.event.head_commit.message, 'Update manifest to')
+    if: github.actor != 'huntarr-bot[bot]'
     runs-on: ubuntu-latest
     permissions:
       contents: write
