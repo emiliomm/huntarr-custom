@@ -1,10 +1,9 @@
 {
-  "version": "v0.0.0",
-  "updated": "2026-03-07T13:36:33Z",
+  "version": "v10.0.0-beta.1",
+  "updated": "2026-03-07T15:56:34Z",
   "project": {
     "name": "Huntarr",
     "description": "Automated media management for the masses",
-    "repository": "emiliomm/huntarr-custom",
-    "website": "https://plexguide.github.io/Huntarr.io"
+    "repository": "emiliomm/huntarr-custom"
   }
 }
