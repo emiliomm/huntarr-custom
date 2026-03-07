@@ -44,7 +44,7 @@ jobs:
         run: |
           cat > manifest.json << EOF
           {
-            "version": "${{ steps.latest_release.outputs.version }}",
+            "version": "${{ steps.latest_release.outputs.tag_name }}",
             "updated": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
             "project": {
               "name": "Huntarr",
@@ -67,7 +67,7 @@ jobs:
       - name: Create version.txt
         run: |
           cat > version.txt << EOF
-          ${{ steps.latest_release.outputs.version }}
+          ${{ steps.latest_release.outputs.tag_name }}-${{ steps.latest_release.outputs.id }}${{ steps.latest_release.outputs.prerelease == 'true' && '-prerelease' || '' }}
           EOF
 
       - name: Commit and push changes
