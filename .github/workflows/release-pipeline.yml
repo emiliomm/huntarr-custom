@@ -12,6 +12,9 @@ jobs:
     if: github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
+      - name: Name of the Actor
+        run: echo "The actor is ${{ github.actor }}"
+        
       - name: Check PR Title Format
         run: |
           TITLE="${{ github.event.pull_request.title }}"
@@ -67,5 +70,5 @@ jobs:
     needs: publish_release
     uses: ./.github/workflows/windows-build-nsis.yml
     with:
-      version: ${{ needs.publish_release.outputs.tag_name }}
+      version: ${{ needs.publish_release.outputs.release_version }}
     secrets: inherit
