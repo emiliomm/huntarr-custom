@@ -50,9 +50,6 @@ jobs:
 
       - name: Create manifest.json
         run: |
-          CURRENT_VERSION=$(jq -r '.version' manifest.json)
-          NEW_VERSION="${{ inputs.version }}"
-          
           cat > manifest.json << EOF
           {
             "version": "${{ inputs.version }}",
@@ -86,18 +83,22 @@ jobs:
           git config user.name "huntarr-bot[bot]"
           git config user.email "huntarr-bot[bot]@users.noreply.github.com"
 
-          if [ "$CURRENT_VERSION" == "$NEW_VERSION" ]; then
-            echo "Version $NEW_VERSION is already set in manifest.json. Skipping commit."
+          # Get the version from the version in the REPOSITORY (HEAD)
+          # We use git show to see the file as it exists BEFORE our local changes
+          REPO_VERSION=$(git show HEAD:manifest.json | jq -r '.version')
+          NEW_VERSION="${{ inputs.version }}"
+
+          echo "Repo version: $REPO_VERSION"
+          echo "New version:  $NEW_VERSION"
+
+          if [ "$REPO_VERSION" == "$NEW_VERSION" ]; then
+            echo "Version $NEW_VERSION is already pushed to the repo. Skipping commit to prevent loop."
             exit 0
           fi
 
-          if ! git diff --exit-code manifest.json; then
-            git add manifest.json
-            git add version.txt
-            git commit -m "Update manifest to ${{ inputs.version }}"
-            # Be explicit about where you are pushing
-            git push origin HEAD:${{ github.head_ref }}
-            echo "Manifest updated and pushed"
-          else
-            echo "No changes to manifest.json"
-          fi 
+          git add manifest.json
+          git add version.txt
+          git commit -m "Update manifest to ${{ inputs.version }}"
+          # Be explicit about where you are pushing
+          git push origin HEAD:${{ github.head_ref }}
+          echo "Manifest updated and pushed"
