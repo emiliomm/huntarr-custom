@@ -73,7 +73,7 @@
 
 .sched-icon-blue {
     background: rgba(99, 102, 241, 0.15);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .sched-icon-slate {
@@ -181,13 +181,13 @@
 }
 
 .sched-form-group select optgroup {
-    background: #1e293b;
+    background: #303134;
     color: #94a3b8;
     font-weight: 600;
 }
 
 .sched-form-group select option {
-    background: #1e293b;
+    background: #303134;
     color: #f1f5f9;
     padding: 6px;
 }
@@ -236,7 +236,7 @@
 .sched-day-pill input:checked + span {
     background: rgba(99, 102, 241, 0.15);
     border-color: rgba(99, 102, 241, 0.45);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .sched-day-daily span {
@@ -280,7 +280,7 @@
 }
 
 .sched-btn-primary {
-    background: linear-gradient(135deg, #6366f1 0%, #2563eb 100%);
+    background: linear-gradient(135deg, #4285F4 0%, #2563eb 100%);
     color: #fff;
     box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
     width: 100%;
@@ -288,7 +288,7 @@
 }
 
 .sched-btn-primary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%);
+    background: linear-gradient(135deg, #8ab4f8 0%, #4285F4 100%);
     box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
     transform: translateY(-1px);
 }
@@ -355,12 +355,12 @@
 
 .schedule-item-action[data-action="enable"],
 .schedule-item-action.action-enable {
-    color: #4ade80;
+    color: #81c995;
 }
 
 .schedule-item-action[data-action="disable"],
 .schedule-item-action.action-disable {
-    color: #f87171;
+    color: #f28b82;
 }
 
 .schedule-item-app {
@@ -384,7 +384,7 @@
     border: 1px solid rgba(239, 68, 68, 0.25);
     border-radius: 6px;
     background: rgba(239, 68, 68, 0.08);
-    color: #f87171;
+    color: #f28b82;
     cursor: pointer;
     font-size: 0.75rem;
     transition: all 0.2s ease;

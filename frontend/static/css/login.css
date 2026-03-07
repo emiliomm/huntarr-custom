@@ -326,7 +326,7 @@
 }
 
 .form-check input[type="checkbox"] {
-    accent-color: #6366f1;
+    accent-color: #4285F4;
     width: 16px;
     height: 16px;
     cursor: pointer;
@@ -357,7 +357,7 @@
     padding: 13px 24px;
     border-radius: 12px;
     border: none;
-    background: linear-gradient(135deg, #818cf8 0%, #6366f1 40%, #4f46e5 100%);
+    background: linear-gradient(135deg, #8ab4f8 0%, #4285F4 40%, #4f46e5 100%);
     color: #fff;
     font-size: 0.95rem;
     font-weight: 700;
@@ -427,7 +427,7 @@
 }
 
 .forgot-password-link:hover {
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .forgot-password-link i {
@@ -481,7 +481,7 @@
     border-radius: 12px;
     border: 1px solid rgba(245, 158, 11, 0.2);
     background: rgba(245, 158, 11, 0.06);
-    color: #fbbf24;
+    color: #fcd230;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
@@ -528,7 +528,7 @@
     font-size: 0.82rem;
     font-weight: 500;
     background: rgba(239, 68, 68, 0.08);
-    color: #f87171;
+    color: #f28b82;
     border: 1px solid rgba(239, 68, 68, 0.15);
     border-left: 3px solid rgba(239, 68, 68, 0.6);
     margin-bottom: 18px;
@@ -632,13 +632,13 @@
 
 .plex-status.success {
     background: rgba(34, 197, 94, 0.06);
-    color: #4ade80;
+    color: #81c995;
     border: 1px solid rgba(34, 197, 94, 0.12);
 }
 
 .plex-status.error {
     background: rgba(239, 68, 68, 0.06);
-    color: #f87171;
+    color: #f28b82;
     border: 1px solid rgba(239, 68, 68, 0.12);
 }
 
@@ -716,8 +716,8 @@
     margin-bottom: 8px;
 }
 
-.recovery-form .login-button[style*="background: linear-gradient(135deg, #22c55e"] {
-    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+.recovery-form .login-button[style*="background: linear-gradient(135deg, #34A853"] {
+    background: linear-gradient(135deg, #34A853, #1e8e3e) !important;
 }
 
 /* ═══════════════════════════════════════════════════

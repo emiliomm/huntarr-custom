@@ -196,8 +196,8 @@
 }
 .setup-stepper-item.active .setup-step-circle {
     background: rgba(99, 102, 241, 0.15);
-    border-color: #6366f1;
-    color: #a5b4fc;
+    border-color: #4285F4;
+    color: #8ab4f8;
     box-shadow: 0 0 16px rgba(99, 102, 241, 0.15);
 }
 .setup-stepper-item.active .setup-step-label {
@@ -209,7 +209,7 @@
 
 /* Completed step */
 .setup-stepper-item.completed .setup-step-circle {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
+    background: linear-gradient(135deg, #34A853, #1e8e3e);
     border-color: transparent;
     color: #fff;
 }
@@ -226,7 +226,7 @@
     border-top: 1px solid rgba(148, 163, 184, 0.08);
     text-align: center;
     font-size: 0.7rem;
-    color: #334155;
+    color: #3c4043;
     letter-spacing: 0.5px;
 }
 
@@ -310,7 +310,7 @@
     padding: 11px 24px;
     border-radius: 10px;
     border: none;
-    background: linear-gradient(135deg, #6366f1, #818cf8);
+    background: linear-gradient(135deg, #4285F4, #8ab4f8);
     color: #fff;
     font-size: 0.9rem;
     font-weight: 600;
@@ -377,7 +377,7 @@
     margin-bottom: 8px;
 }
 .form-group label i {
-    color: #6366f1;
+    color: #4285F4;
     font-size: 0.8rem;
     width: 16px;
     text-align: center;
@@ -396,7 +396,7 @@
 }
 .form-group input:focus {
     outline: none;
-    border-color: #6366f1;
+    border-color: #4285F4;
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 .form-group input::placeholder {
@@ -412,14 +412,14 @@
     font-size: 0.85rem;
     font-weight: 500;
     background: rgba(239, 68, 68, 0.1);
-    color: #f87171;
-    border-left: 3px solid #ef4444;
+    color: #f28b82;
+    border-left: 3px solid #EA4335;
     margin: 12px 0;
 }
 .error-message.success {
     background: rgba(34, 197, 94, 0.1);
-    color: #4ade80;
-    border-left-color: #22c55e;
+    color: #81c995;
+    border-left-color: #34A853;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -508,7 +508,7 @@
 }
 .copy-button:hover {
     background: rgba(99, 102, 241, 0.1);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .setup-2fa-verify {
@@ -527,7 +527,7 @@
     margin-bottom: 8px;
 }
 .verify-input-group label i {
-    color: #6366f1;
+    color: #4285F4;
     font-size: 0.8rem;
 }
 .verify-input-group input {
@@ -544,7 +544,7 @@
 }
 .verify-input-group input:focus {
     outline: none;
-    border-color: #6366f1;
+    border-color: #4285F4;
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 .verify-input-group input::placeholder {
@@ -587,7 +587,7 @@
     flex-shrink: 0;
     font-size: 1.1rem;
     background: rgba(99, 102, 241, 0.1);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 .setup-plex-card-skip .setup-plex-card-icon {
     background: rgba(71, 85, 105, 0.2);
@@ -607,13 +607,13 @@
 }
 .setup-plex-card-recommended .setup-plex-card-icon {
     background: rgba(99, 102, 241, 0.2);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 .setup-plex-badge {
     position: absolute;
     top: -9px;
     right: 16px;
-    background: linear-gradient(135deg, #6366f1, #818cf8);
+    background: linear-gradient(135deg, #4285F4, #8ab4f8);
     color: #fff;
     font-size: 0.68rem;
     font-weight: 600;
@@ -685,8 +685,8 @@
     transition: all 0.25s ease;
 }
 .radio-card.selected .radio-card-indicator {
-    border-color: #6366f1;
-    background: #6366f1;
+    border-color: #4285F4;
+    background: #4285F4;
 }
 .radio-card.selected .radio-card-indicator::after {
     content: '';
@@ -709,7 +709,7 @@
     transition: color 0.25s ease;
 }
 .radio-card.selected .radio-card-icon {
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .radio-card-body {
@@ -736,7 +736,7 @@
     font-size: 0.82rem;
     background: rgba(245, 158, 11, 0.08);
     border: 1px solid rgba(245, 158, 11, 0.25);
-    color: #fbbf24;
+    color: #fcd230;
     line-height: 1.5;
 }
 .auth-warning.visible {
@@ -801,7 +801,7 @@
 }
 .setup-key-warning-inline {
     font-size: 0.75rem;
-    color: #ef4444;
+    color: #EA4335;
     font-weight: 600;
     white-space: nowrap;
 }
@@ -852,7 +852,7 @@
     margin-bottom: 12px;
 }
 .setup-confirm-prompt > span i {
-    color: #818cf8;
+    color: #8ab4f8;
     margin-right: 6px;
 }
 .setup-confirm-buttons {
@@ -881,7 +881,7 @@
 }
 .setup-finish-icon i {
     font-size: 2rem;
-    color: #22c55e;
+    color: #34A853;
 }
 .setup-finish-card {
     background: rgba(15, 23, 42, 0.5);
@@ -952,7 +952,7 @@
 .special-thanks-item:hover {
     background: rgba(99, 102, 241, 0.08);
     border-color: rgba(99, 102, 241, 0.2);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 .special-thanks-item i {
     font-size: 0.9rem;
@@ -997,7 +997,7 @@
     height: 32px;
     border-radius: 50%;
     border: none;
-    background: #334155;
+    background: #3c4043;
     color: #fff;
     font-size: 18px;
     cursor: pointer;
@@ -1081,12 +1081,12 @@
 }
 .plex-status.success {
     background: rgba(34, 197, 94, 0.08);
-    color: #4ade80;
+    color: #81c995;
     border: 1px solid rgba(34, 197, 94, 0.15);
 }
 .plex-status.error {
     background: rgba(239, 68, 68, 0.08);
-    color: #f87171;
+    color: #f28b82;
     border: 1px solid rgba(239, 68, 68, 0.15);
 }
 

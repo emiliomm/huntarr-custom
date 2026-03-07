@@ -223,12 +223,7 @@ let huntarrUI = {
 
         // Load current version
         this.loadCurrentVersion();
-        // Load latest version from GitHub
-        this.loadLatestVersion();
-        // Load latest beta version from GitHub
-        this.loadBetaVersion();
-        // Load GitHub star count
-        this.loadGitHubStarCount();
+        // Removed GitHub API version and star loads
 
         // Initialize instance event handlers
         this.setupInstanceEventHandlers();
@@ -1213,26 +1208,7 @@ let huntarrUI = {
         }
     },
 
-    // Load latest version from GitHub releases
-    loadLatestVersion: function () {
-        if (window.HuntarrVersion) {
-            window.HuntarrVersion.loadLatestVersion();
-        }
-    },
-
-    // Load latest beta version from GitHub tags
-    loadBetaVersion: function () {
-        if (window.HuntarrVersion) {
-            window.HuntarrVersion.loadBetaVersion();
-        }
-    },
-
-    // Load GitHub star count
-    loadGitHubStarCount: function () {
-        if (window.HuntarrVersion) {
-            window.HuntarrVersion.loadGitHubStarCount();
-        }
-    },
+    // Removed GitHub calls
 
     // Update home connection status
     updateHomeConnectionStatus: function () {

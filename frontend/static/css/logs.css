@@ -13,12 +13,12 @@
     margin: 20px; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(148, 163, 184, 0.08);
     border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
-#logsSection .logs-no-instances i.fa-cube { font-size: 3rem; color: #334155; margin-bottom: 16px; display: block; }
+#logsSection .logs-no-instances i.fa-cube { font-size: 3rem; color: #3c4043; margin-bottom: 16px; display: block; }
 #logsSection .logs-no-instances .no-instances-title { font-size: 1.2rem; font-weight: 600; color: #f1f5f9; margin: 0 0 8px 0; }
 #logsSection .logs-no-instances .no-instances-desc { font-size: 0.95rem; color: #94a3b8; line-height: 1.6; margin: 0 auto 24px auto; max-width: 400px; }
 #logsSection .logs-no-instances .no-instances-action-btn {
     display: inline-flex; align-items: center; gap: 8px; background: rgba(99, 102, 241, 0.2);
-    border: 1px solid rgba(99, 102, 241, 0.4); color: #818cf8; padding: 10px 20px; border-radius: 8px;
+    border: 1px solid rgba(99, 102, 241, 0.4); color: #8ab4f8; padding: 10px 20px; border-radius: 8px;
     text-decoration: none; font-weight: 500; transition: background 0.2s, border-color 0.2s;
 }
 #logsSection .logs-no-instances .no-instances-action-btn:hover {
@@ -103,7 +103,7 @@
 }
 
 .chip-select option {
-    background: #1e293b;
+    background: #303134;
     color: #e2e8f0;
 }
 
@@ -182,12 +182,12 @@
 
 .logs-btn-search:hover {
     border-color: rgba(99, 102, 241, 0.5);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .logs-btn-danger:hover {
     border-color: rgba(239, 68, 68, 0.5);
-    color: #f87171;
+    color: #f28b82;
     background: rgba(239, 68, 68, 0.08);
 }
 
@@ -220,11 +220,11 @@
 }
 
 .logs-connection-dot .status-error {
-    color: #f87171;
+    color: #f28b82;
 }
 
 .logs-connection-dot:has(.status-error) .logs-status-icon {
-    color: #f87171;
+    color: #f28b82;
 }
 
 .logs-pagination {
@@ -264,7 +264,7 @@
 
 .logs-page-btn:hover:not(:disabled) {
     border-color: rgba(99, 102, 241, 0.4);
-    color: #a5b4fc;
+    color: #8ab4f8;
     background: rgba(99, 102, 241, 0.08);
 }
 
@@ -350,7 +350,7 @@
 
 .col-app {
     width: 100px;
-    color: #a5b4fc !important;
+    color: #8ab4f8 !important;
     font-weight: 600;
     font-size: 0.82rem !important;
     white-space: nowrap;
@@ -383,19 +383,19 @@
 
 .log-level-error {
     background: rgba(239, 68, 68, 0.12);
-    color: #f87171;
+    color: #f28b82;
     border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 .log-level-warning {
     background: rgba(245, 158, 11, 0.12);
-    color: #fbbf24;
+    color: #fcd230;
     border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .log-level-info {
     background: rgba(99, 102, 241, 0.12);
-    color: #a5b4fc;
+    color: #8ab4f8;
     border: 1px solid rgba(99, 102, 241, 0.2);
 }
 
@@ -417,7 +417,7 @@
 
 .search-highlight {
     background-color: rgba(251, 191, 36, 0.25);
-    color: #fbbf24;
+    color: #fcd230;
     padding: 1px 3px;
     border-radius: 3px;
     font-weight: 600;
@@ -477,7 +477,7 @@
 
 .log-source {
     font-weight: 600;
-    color: #a5b4fc;
+    color: #8ab4f8;
     min-width: 70px;
     text-align: left;
     font-size: 11px;

@@ -269,7 +269,7 @@
     border-radius: 50%;
     font-size: 0.65rem;
     font-weight: 700;
-    background: #ef4444;
+    background: #EA4335;
     color: #fff;
     margin-left: 0;
     margin-right: 8px;
@@ -389,7 +389,7 @@
 /* ===== ACTIVE STATE — indigo ===== */
 .nav-item.active {
     background: rgba(99, 102, 241, 0.1);
-    color: #a5b4fc;
+    color: #8ab4f8;
     box-shadow: inset 0 0 12px rgba(99, 102, 241, 0.04);
     transform: none;
 }
@@ -402,7 +402,7 @@
     bottom: 7px;
     width: 3px;
     border-radius: 0 4px 4px 0;
-    background: linear-gradient(180deg, #818cf8, #6366f1);
+    background: linear-gradient(180deg, #8ab4f8, #4285F4);
     box-shadow: 0 0 6px rgba(99, 102, 241, 0.35),
         0 0 12px rgba(99, 102, 241, 0.15);
 }
@@ -415,13 +415,13 @@
 
 .nav-item.active .nav-icon-wrapper i,
 .nav-item.active i {
-    color: #a5b4fc;
+    color: #8ab4f8;
     filter: drop-shadow(0 0 4px rgba(99, 102, 241, 0.3));
 }
 
 .nav-item.active span {
     font-weight: 600;
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 /* ===== SUB-GROUPS ===== */
@@ -594,7 +594,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #ef4444;
+    background: #EA4335;
     color: #fff;
     margin-left: auto;
     line-height: 1;
@@ -749,12 +749,12 @@
 }
 
 .sidebar-social-btn.docs-btn:hover {
-    color: #818cf8;
+    color: #8ab4f8;
     background: rgba(99, 102, 241, 0.12);
 }
 
 .sidebar-social-btn.issues-btn:hover {
-    color: #fbbf24;
+    color: #fcd230;
     background: rgba(245, 158, 11, 0.12);
 }
 
@@ -845,7 +845,7 @@
 }
 
 .sidebar-user-role-user {
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 /* Action buttons (settings + logout) */
@@ -881,7 +881,7 @@
 
 .sidebar-logout-btn:hover {
     background: rgba(239, 68, 68, 0.1);
-    color: #ef4444;
+    color: #EA4335;
 }
 
 /* ===== SIDEBAR FOOTER ===== */
@@ -987,7 +987,7 @@
 }
 
 .sidebar-footer-sep {
-    color: #334155;
+    color: #3c4043;
     font-size: 10px;
 }
 
