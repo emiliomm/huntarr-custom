@@ -19,11 +19,11 @@ jobs:
     steps:
       - name: Verify Secret Length
         run: |
-          if [ -z "${{ secrets.APP_PRIVATE_KEY }}" ]; then
+          if [ -z "${{ secrets.SEMANTIC_RELEASE_BOT_PRIVATE_KEY }}" ]; then
             echo "Secret is EMPTY"
             exit 1
           else
-            echo "Secret length: $(echo -n "${{ secrets.APP_PRIVATE_KEY }}" | wc -c) characters"
+            echo "Secret length: $(echo -n "${{ secrets.SEMANTIC_RELEASE_BOT_PRIVATE_KEY }}" | wc -c) characters"
           fi
 
       - name: Create GitHub App token
