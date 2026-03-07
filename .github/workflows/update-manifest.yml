@@ -7,6 +7,7 @@ on:
 
 jobs:
   update-manifest:
+    if: github.actor != 'huntarr-bot[bot]'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,10 +17,27 @@ jobs:
       issues: read
 
     steps:
+      - name: Verify Secret Length
+        run: |
+          if [ -z "${{ secrets.SEMANTIC_RELEASE_BOT_PRIVATE_KEY }}" ]; then
+            echo "Secret is EMPTY"
+            exit 1
+          else
+            echo "Secret length: $(echo -n "${{ secrets.SEMANTIC_RELEASE_BOT_PRIVATE_KEY }}" | wc -c) characters"
+          fi
+
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.SEMANTIC_RELEASE_BOT_APP_ID }}
+          private-key: ${{ secrets.SEMANTIC_RELEASE_BOT_PRIVATE_KEY }}
+        
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Get latest release
         id: latest_release
@@ -55,14 +73,13 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
+          git config user.name "huntarr-bot[bot]"
+          git config user.email "huntarr-bot[bot]@users.noreply.github.com"
+
           if ! git diff --exit-code manifest.json; then
             git add manifest.json
-            git commit -m "Update manifest with latest version [skip ci]"
-            
-            git push https://x-access-token:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git
+            git commit -m "Update manifest with latest version [skip ci]"         
+            git push
             echo "✅ Manifest updated and pushed"
           else
             echo "ℹ️ No changes to manifest.json"
