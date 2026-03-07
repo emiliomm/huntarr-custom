@@ -23,7 +23,7 @@
 }
 
 .tor-hunt-beta-notice i.fa-flask {
-    color: #818cf8;
+    color: #8ab4f8;
     margin-top: 2px;
     flex-shrink: 0;
 }
@@ -33,7 +33,7 @@
 }
 
 .tor-hunt-beta-notice a {
-    color: #818cf8;
+    color: #8ab4f8;
     text-decoration: none;
     font-weight: 500;
 }
@@ -72,7 +72,7 @@
 }
 
 .tor-status-item i:first-child {
-    color: var(--accent-color, #6366f1);
+    color: var(--accent-color, #4285F4);
     font-size: 0.8rem;
 }
 
@@ -112,17 +112,17 @@
 }
 
 .tor-btn-primary {
-    background: var(--accent-color, #6366f1);
+    background: var(--accent-color, #4285F4);
     color: #fff;
     border-color: transparent;
 }
 
 .tor-btn-primary:hover {
-    background: var(--accent-hover, #818cf8);
+    background: var(--accent-hover, #8ab4f8);
 }
 
 .tor-btn-danger {
-    color: #f87171;
+    color: #f28b82;
 }
 
 .tor-btn-danger:hover {
@@ -154,8 +154,8 @@
 }
 
 .tor-tab.active {
-    color: var(--accent-color, #6366f1);
-    border-bottom-color: var(--accent-color, #6366f1);
+    color: var(--accent-color, #4285F4);
+    border-bottom-color: var(--accent-color, #4285F4);
 }
 
 /* Panels */
@@ -234,7 +234,7 @@
 
 .tor-progress-fill {
     height: 100%;
-    background: var(--accent-color, #6366f1);
+    background: var(--accent-color, #4285F4);
     border-radius: 3px;
     transition: width 0.3s ease;
 }
@@ -271,7 +271,7 @@
 
 .tor-state-downloading {
     background: rgba(99, 102, 241, 0.15);
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 .tor-state-seeding {
@@ -281,7 +281,7 @@
 
 .tor-state-paused {
     background: rgba(251, 191, 36, 0.15);
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .tor-state-queued {
@@ -291,7 +291,7 @@
 
 .tor-state-error {
     background: rgba(248, 113, 113, 0.15);
-    color: #f87171;
+    color: #f28b82;
 }
 
 .tor-state-checking {
@@ -350,7 +350,7 @@
 .tor-speed-limit-badge {
     font-size: 0.65rem;
     background: rgba(251, 191, 36, 0.15);
-    color: #fbbf24;
+    color: #fcd230;
     padding: 1px 6px;
     border-radius: 4px;
     margin-left: 4px;
@@ -361,7 +361,7 @@
     top: 100%;
     left: 0;
     margin-top: 8px;
-    background: var(--bg-secondary, #1e293b);
+    background: var(--bg-secondary, #303134);
     border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
     border-radius: 10px;
     padding: 12px;
@@ -426,7 +426,7 @@
 }
 
 .tor-modal {
-    background: var(--bg-secondary, #1e293b);
+    background: var(--bg-secondary, #303134);
     border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
     border-radius: 14px;
     width: 90%;
@@ -560,7 +560,7 @@
 .tor-settings-row input:focus,
 .tor-settings-row select:focus {
     outline: none;
-    border-color: var(--accent-color, #6366f1);
+    border-color: var(--accent-color, #4285F4);
     box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
 }
 
@@ -632,7 +632,7 @@
 }
 
 .tor-toggle input:checked+.tor-toggle-slider {
-    background: var(--accent-color, #6366f1);
+    background: var(--accent-color, #4285F4);
 }
 
 .tor-toggle input:checked+.tor-toggle-slider::before {

@@ -43,14 +43,14 @@
 .requsers-checkbox-cell input[type="checkbox"] {
     width: 16px;
     height: 16px;
-    accent-color: var(--accent-color, #6366f1);
+    accent-color: var(--accent-color, #4285F4);
     cursor: pointer;
 }
 
 .requsers-row-cb {
     width: 16px;
     height: 16px;
-    accent-color: var(--accent-color, #6366f1);
+    accent-color: var(--accent-color, #4285F4);
     cursor: pointer;
 }
 
@@ -58,7 +58,7 @@
 
 .requsers-btn-bulk {
     background: rgba(99, 102, 241, 0.12);
-    color: #818cf8;
+    color: #8ab4f8;
     border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
@@ -97,7 +97,7 @@
 
 .requsers-cat-movie {
     background: rgba(239, 68, 68, 0.12);
-    color: #f87171;
+    color: #f28b82;
     border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
@@ -109,7 +109,7 @@
 
 .requsers-cat-all {
     background: rgba(34, 197, 94, 0.1);
-    color: #4ade80;
+    color: #81c995;
     border: 1px solid rgba(34, 197, 94, 0.2);
 }
 
@@ -151,7 +151,7 @@
 }
 
 .requsers-bulk-perm-select option {
-    background: #0f172a;
+    background: #202124;
     color: #e2e8f0;
 }
 
@@ -316,7 +316,7 @@
 
 .requsers-role-user {
     background: rgba(99, 102, 241, 0.15);
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 /* ── Actions ──────────────────────────────────────────────── */
@@ -611,7 +611,7 @@
     padding: 2px 8px;
     border-radius: 6px;
     background: rgba(34, 197, 94, 0.12);
-    color: #22c55e;
+    color: #34A853;
     border: 1px solid rgba(34, 197, 94, 0.25);
     flex-shrink: 0;
 }
@@ -837,19 +837,19 @@
 
 .reqrequests-status-approved {
     background: rgba(34, 197, 94, 0.12);
-    color: #22c55e;
+    color: #34A853;
     border: 1px solid rgba(34, 197, 94, 0.25);
 }
 
 .reqrequests-status-denied {
     background: rgba(239, 68, 68, 0.12);
-    color: #ef4444;
+    color: #EA4335;
     border: 1px solid rgba(239, 68, 68, 0.25);
 }
 
 .reqrequests-status-blacklisted {
     background: rgba(239, 68, 68, 0.12);
-    color: #f87171;
+    color: #f28b82;
     border: 1px solid rgba(239, 68, 68, 0.25);
 }
 
@@ -873,7 +873,7 @@
 .reqrequests-demand {
     display: inline-block;
     background: rgba(245, 158, 11, 0.15);
-    color: #f59e0b;
+    color: #FBBC04;
     font-size: 0.65rem;
     font-weight: 600;
     padding: 1px 6px;
@@ -911,7 +911,7 @@
 
 .reqrequests-action-approve {
     background: rgba(34, 197, 94, 0.15);
-    color: #22c55e;
+    color: #34A853;
     border-color: rgba(34, 197, 94, 0.3);
 }
 
@@ -921,7 +921,7 @@
 
 .reqrequests-action-deny {
     background: rgba(239, 68, 68, 0.15);
-    color: #ef4444;
+    color: #EA4335;
     border-color: rgba(239, 68, 68, 0.3);
 }
 
@@ -979,7 +979,7 @@
     border-radius: 9px;
     font-size: 0.65rem;
     font-weight: 700;
-    background: #ef4444;
+    background: #EA4335;
     color: #fff;
     margin-left: auto;
     line-height: 1;
@@ -996,7 +996,7 @@
 
 .mh-btn-denied {
     background: rgba(239, 68, 68, 0.15) !important;
-    color: #f87171 !important;
+    color: #f28b82 !important;
     border: 1px solid rgba(239, 68, 68, 0.3) !important;
     cursor: pointer !important;
 }
@@ -1070,7 +1070,7 @@
 
 .non-owner-nav-item.active {
     background: rgba(99, 102, 241, 0.1);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .non-owner-nav-item.active::before {
@@ -1081,18 +1081,18 @@
     bottom: 6px;
     width: 3px;
     border-radius: 0 3px 3px 0;
-    background: #6366f1;
+    background: #4285F4;
     box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
 }
 
 .non-owner-nav-item.active .nav-icon-wrapper i {
-    color: #a5b4fc;
+    color: #8ab4f8;
     filter: drop-shadow(0 0 3px rgba(99, 102, 241, 0.4));
 }
 
 .non-owner-nav-item.active span {
     font-weight: 600;
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 /* ── Hidden Media Scope Badges ─────────────────────────────── */

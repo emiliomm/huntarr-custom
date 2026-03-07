@@ -58,7 +58,7 @@
             if (view) view.style.display = '';
             if (collectionView) collectionView.style.display = 'none';
             _setSidebarVisible(false);
-            _setSponsorsVisible(false);
+            document.body.classList.add('setup-wizard-active');
             // Mark wizard as active on the server so it persists across navigation/refresh
             HuntarrUtils.setUIPreference('setup-wizard-active', true);
             // Restore any page-header-bars that were hidden during wizard navigation
@@ -80,7 +80,7 @@
             if (view) view.style.display = 'none';
             if (collectionView) collectionView.style.display = 'block';
             _setSidebarVisible(true);
-            _setSponsorsVisible(true);
+            document.body.classList.remove('setup-wizard-active');
             // Clear active flag on the server so wizard doesn't reappear
             HuntarrUtils.setUIPreference('setup-wizard-active', false);
         },
@@ -163,13 +163,7 @@
         if (wrapper) wrapper.style.display = visible ? '' : 'none';
     }
 
-    function _setSponsorsVisible(visible) {
-        if (visible) {
-            document.body.classList.remove('setup-wizard-active');
-        } else {
-            document.body.classList.add('setup-wizard-active');
-        }
-    }
+
 
     function _maybeShowReturnBanner() {
         try {

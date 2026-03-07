@@ -1,16 +1,9 @@
 > [!IMPORTANT]
-> This is an archive of the repo formerly at plexguide/huntarr.io. It is preserved for posterity after the original author went scorched earth when significant security vulnerabilities were pointed out to them.
+> This is a fork of the repo formerly at plexguide/huntarr.io, ater the original author disappeared when significant security vulnerabilities were found.
 >
-> **THIS REPO IS NOT UNDER ACTIVE DEVELOPMENT. USE THIS CODE AT YOUR OWN RISK!**
-> 
-> Discussion: [Reddit: The Huntarr Github page has been taken down](https://www.reddit.com/r/selfhosted/comments/1rcmgnn/) ([Archive link](https://archive.is/rKnQb))
 > 
 > Git mirror imported from https://git.aronwk.com/mirror/Huntarr
 
-> [!CAUTION]
-> Significant security vulnerabilites have been reported with this code.
-> 
-> See: [Reddit: Huntarr - Your passwords and your entire arr stack's API keys are exposed to anyone on your network, or worse, the internet.](https://www.reddit.com/r/selfhosted/comments/1rckopd/huntarr_your_passwords_and_your_entire_arr_stacks/) ([Archive link](https://archive.is/Tn5pu))
 
 
 <h1 align="center">Huntarr</h1>
@@ -21,38 +14,6 @@
 
 <p align="center">
   A media automation platform that goes beyond the *arr ecosystem. Huntarr hunts for missing content and quality upgrades across your existing Sonarr, Radarr, Lidarr, Readarr, and Whisparr instances — while also providing its own built-in Movie Hunt, TV Hunt, Index Master, NZB Hunt, and Requestarr modules that can replace or complement your existing stack.
-</p>
-
-<p align="center">
-  <a href="https://hub.docker.com/r/huntarr/huntarr"><img src="https://img.shields.io/docker/pulls/huntarr/huntarr?style=flat-square&label=Docker%20Pulls" alt="Docker Pulls"></a>
-  <a href="https://github.com/plexguide/Huntarr.io/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0-blue?style=flat-square" alt="License"></a>
-  <a href="https://discord.com/invite/PGJJjR5Cww"><img src="https://img.shields.io/discord/1370922258247454821?color=7289DA&label=Discord&style=flat-square&logo=discord" alt="Discord"></a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/plexguide/Huntarr.io/stargazers"><img src="https://img.shields.io/github/stars/plexguide/Huntarr.io?style=social&label=Star%20Huntarr" alt="GitHub Stars"></a>
-</p>
-
-<h2 align="center">Stars help others discover Huntarr — if you find it useful, click the ⭐ in the upper-right corner!</h2>
-
----
-
-## Support — Building My Daughter's Future
-
-My 12-year-old daughter loves singing, dancing, and exploring STEM. She's an A-B honor roll student with big dreams. Any donation you make goes directly toward her college fund, helping her turn those dreams into reality. Thank you sincerely for your support!
-
-[![Donate with PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://github.com/MGHazz/huntarr.io-archive/)
-
----
-
-> **🚀 HuntarrOS is here.** Rebuilt from the ground up for 2026 — a self-hosted server management platform running as a single Docker container. App store, Cloudflare Tunnels, Traefik, MergerFS drive pooling, backups, and more. One-line install on Ubuntu & Debian.
->
-> [![HuntarrOS on GitHub](https://img.shields.io/github/stars/plexguide/PlexGuide.com?style=social&label=HuntarrOS)](https://github.com/plexguide/PlexGuide.com) — https://HuntarrOS.com
-
----
-
-<p align="center">
-  <img src="docs/readme/Main.jpg" alt="Huntarr Dashboard" width="800">
 </p>
 
 ---
@@ -260,32 +221,24 @@ services:
 
 ### More Installation Methods
 
-- [Unraid Installation](https://plexguide.github.io/Huntarr.io/getting-started/installation.html#unraid-installation)
-- [Windows Installation](https://plexguide.github.io/Huntarr.io/getting-started/installation.html#windows-installation)
-- [macOS Installation](https://plexguide.github.io/Huntarr.io/getting-started/installation.html#macos-installation)
-- [Linux Installation](https://plexguide.github.io/Huntarr.io/getting-started/installation.html#linux-installation)
+- [Unraid Installation](https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#unraid-installation)
+- [Windows Installation](https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#windows-installation)
+- [macOS Installation](https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#macos-installation)
+- [Linux Installation](https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#linux-installation)
 
 Once running, open your browser to `http://<your-server-ip>:9705`.
 
-For full documentation, visit the [Huntarr Docs](https://plexguide.github.io/Huntarr.io/).
+For full documentation, visit the [Huntarr Docs](https://emiliomm.github.io/huntarr-custom/).
 
 ---
 
-## The Classic
+## The original
 
-For those who remember where it all started — a bash script that simply asked Sonarr and Radarr to go looking.
+Special thanks to the original author for creating this project.
 
 <p align="center">
   <img src="docs/readme/OldSchool.png" alt="The Original" width="800">
 </p>
-
----
-
-## Other Projects
-
-- [HuntarrOS](https://github.com/plexguide/PlexGuide.com) — Self-hosted server management platform with Docker app store, reverse proxies, and MergerFS — https://HuntarrOS.com
-- [Seekandwatch](https://github.com/softerfish/seekandwatch) — A streamlined media discovery and watchlist tool for finding and tracking content across your media stack
-- [Unraid Intel ARC Deployment](https://github.com/plexguide/Unraid_Intel-ARC_Deployment) — Convert videos to AV1 format using Intel ARC GPUs on Unraid
 
 ---
 
@@ -307,16 +260,10 @@ Together they form a self-sustaining media automation loop: Huntarr searches, Cl
 
 ---
 
-## Contributors
-
-<a href="https://github.com/plexguide/Huntarr.io/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=plexguide/Huntarr.io" alt="Contributors" />
-</a>
-
 ## Change Log
 
-Visit the [Releases](https://github.com/plexguide/Huntarr.io/releases/) page.
+Visit the [Releases](https://github.com/emiliomm/huntarr-custom/releases/) page.
 
 ## License
 
-Licensed under the [GNU General Public License v3.0](https://github.com/plexguide/Huntarr.io/blob/main/LICENSE).
+Licensed under the [GNU General Public License v3.0](https://github.com/emiliomm/huntarr-custom/blob/main/LICENSE).

@@ -505,51 +505,7 @@
 
         </div>
 
-        <!-- Enhanced Support Links with Modern Design -->
-        <div class="card support-links-card" id="huntarr-support-section" style="display: none;">
-            <div class="card-header">
-                <h3>Support</h3>
-            </div>
-            <div class="support-links-container">
-                <div class="support-links-grid">
-                    <a href="https://github.com/plexguide/huntarr" target="_blank" class="support-link github">
-                        <div class="icon-container github-icon">
-                            <i class="fab fa-github"></i>
-                            <i class="fas fa-star star-inner-icon"></i>
-                        </div>
-                        <div class="link-details">
-                            <span class="link-title">Star on GitHub</span>
-                            <span class="link-description">Support development &amp; features</span>
-                        </div>
-                    </a>
-                    <!-- Hide the sponsor widget until it's configured -->
-                    <div id="sponsor-widget-container" class="support-link sponsor-widget" style="visibility: hidden;">
-                        <div id="sponsor-avatar-container" class="icon-container" style="visibility: hidden;">
-                            <!-- JavaScript will inject sponsor avatar here -->
-                            <!-- Initially hidden until content is loaded -->
-                        </div>
-                        <div class="link-details">
-                            <a href="https://plexguide.github.io/Huntarr.io/donate.html" target="_blank"
-                                class="sponsor-title-link full-title">Daughter's Sponsor</a>
-                            <span id="rotating-sponsor-content" class="link-description" style="visibility: hidden;">
-                                <!-- JavaScript will inject sponsor name here -->
-                                <!-- Initially hidden until content is loaded -->
-                            </span>
-                        </div>
-                    </div>
-                    <a href="https://plexguide.github.io/Huntarr.io/donate.html" target="_blank"
-                        class="support-link donate">
-                        <div class="icon-container donate-icon">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <div class="link-details">
-                            <span class="link-title">Donate</span>
-                            <span class="link-description">Daughter's College Fund!</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
+        <!-- Enhanced Support Links removed -->
 
     </div>
 </section>
@@ -2198,50 +2154,7 @@
             }
         }
 
-        // Create a placeholder sponsor while loading
-        function displayPlaceholderSponsor() {
-            const placeholderSponsor = {
-                name: "Daughter's College Fund",
-                url: "https://plexguide.github.io/Huntarr.io/donate.html"
-            };
 
-            // Style the container directly and apply the styling immediately
-            document.getElementById('sponsor-widget-container').style.visibility = 'visible';
-
-            // Create a solid orange-red circle with gold border exactly like image #2 (no href to prevent prefetching)
-            const placeholderDiv = document.createElement('div');
-            placeholderDiv.style.cssText = 'width: 100%; height: 100%; border-radius: 50%; background-color: #FF6347; border: 3px solid #ffb700; box-sizing: border-box; cursor: pointer;';
-            placeholderDiv.title = `Support ${placeholderSponsor.name}`;
-            placeholderDiv.onclick = function (e) {
-                e.preventDefault();
-                window.open(placeholderSponsor.url, '_blank', 'noopener,noreferrer');
-            };
-
-            avatarContainer.innerHTML = '';
-            avatarContainer.appendChild(placeholderDiv);
-
-            const placeholderNameDiv = document.createElement('div');
-            placeholderNameDiv.textContent = placeholderSponsor.name;
-            placeholderNameDiv.style.cssText = 'cursor: pointer; color: inherit;';
-            placeholderNameDiv.title = 'Support us';
-            placeholderNameDiv.onclick = function (e) {
-                e.preventDefault();
-                window.open(placeholderSponsor.url, '_blank', 'noopener,noreferrer');
-            };
-
-            descContainer.innerHTML = '';
-            descContainer.appendChild(placeholderNameDiv);
-
-            // Add sponsor-icon class and show immediately
-            avatarContainer.classList.add('sponsor-icon');
-            avatarContainer.style.visibility = 'visible';
-            descContainer.style.visibility = 'visible';
-            avatarContainer.style.opacity = '1';
-            descContainer.style.opacity = '1';
-        }
-
-        // Show placeholder immediately
-        displayPlaceholderSponsor();
 
         // Fetch sponsors from the API
         async function fetchSponsors() {
@@ -2322,7 +2235,7 @@
                 met genuinely care is the greatest motivation I could ever ask for. A special shoutout to the
                 <strong>r/Unraid</strong> community &mdash; where it all started! I build this for you.
             </p>
-            <p class="huntarr-welcome-signoff">Happy hunting!<br><strong>&mdash; Admin9705</strong></p>
+            <p class="huntarr-welcome-signoff">Happy hunting!</p>
         </div>
         <div class="huntarr-welcome-footer">
             <button type="button" class="huntarr-welcome-dismiss" id="huntarr-welcome-dismiss">

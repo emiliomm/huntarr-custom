@@ -14,29 +14,7 @@
             <span class="mtb-title" id="mobilePageTitle">Home</span>
         </div>
 
-        <!-- Right: Stars + Discord + Reddit + Docs + Heart -->
         <div class="mtb-right">
-            <a href="https://github.com/plexguide/huntarr" target="_blank" rel="noopener"
-                class="mtb-chip mtb-chip-stars" title="GitHub Stars">
-                <i class="fas fa-star"></i>
-                <span id="mtb-stars">--</span>
-            </a>
-            <a href="https://discord.com/invite/PGJJjR5Cww" target="_blank" rel="noopener"
-                class="mtb-icon-btn mtb-discord" title="Join Discord" aria-label="Discord">
-                <i class="fab fa-discord"></i>
-            </a>
-            <a href="https://www.reddit.com/r/huntarr/" target="_blank" rel="noopener" class="mtb-icon-btn mtb-reddit"
-                title="Visit Reddit" aria-label="Reddit">
-                <i class="fab fa-reddit-alien"></i>
-            </a>
-            <a href="https://plexguide.github.io/Huntarr.io/index.html" target="_blank" rel="noopener"
-                class="mtb-icon-btn mtb-docs" title="Documentation" aria-label="Documentation">
-                <i class="fas fa-book-open"></i>
-            </a>
-            <a href="https://plexguide.github.io/Huntarr.io/donate.html" target="_blank" rel="noopener noreferrer"
-                class="mtb-icon-btn mtb-heart" title="Become a Sponsor" aria-label="Donate">
-                <i class="fas fa-heart"></i>
-            </a>
         </div>
     </div>
     <div class="mtb-accent"></div>
@@ -67,10 +45,10 @@
             if (next && next.classList.contains('nav-sub-group')) {
                 return;
             }
-            /* Major category: link switches to sidebar with more nav (Requests, Apps): keep open */
+            /* Major category: link switches to sidebar with more nav (Requests, Media Hunt, Apps, NZB Hunt): keep open */
             var href = link.getAttribute('href') || '';
             var hash = href.indexOf('#') >= 0 ? href.substring(href.indexOf('#')) : '';
-            var categoryHashes = ['#requestarr', '#apps'];
+            var categoryHashes = ['#requestarr', '#media-hunt-collection', '#apps', '#nzb-hunt-home'];
             if (hash && categoryHashes.indexOf(hash) >= 0) return;
             /* Leaf item: close */
             shut();
@@ -86,14 +64,6 @@
         function updateVersionUI() {
             try {
                 var info = JSON.parse(localStorage.getItem('huntarr-version-info') || '{}');
-                var stars = localStorage.getItem('huntarr-github-stars');
-                var mtbStars = document.getElementById('mtb-stars');
-                if (mtbStars && stars) {
-                    try {
-                        var p = JSON.parse(stars);
-                        mtbStars.textContent = (p && p.stars !== undefined) ? Number(p.stars).toLocaleString() : stars;
-                    } catch (e) { mtbStars.textContent = stars; }
-                }
             } catch (e) { }
         }
 
@@ -111,7 +81,7 @@
             });
             updateVersionUI();
             window.addEventListener('storage', function (e) {
-                if (e.key === 'huntarr-version-info' || e.key === 'huntarr-github-stars') updateVersionUI();
+                if (e.key === 'huntarr-version-info') updateVersionUI();
             });
             setTimeout(updateVersionUI, 3000);
         }

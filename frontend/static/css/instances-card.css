@@ -10,7 +10,7 @@
 .instance-card {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    background: linear-gradient(145deg, #303134 0%, #202124 100%);
     border: 1px solid rgba(148, 163, 184, 0.1);
     border-radius: 12px;
     padding: 20px;
@@ -26,7 +26,7 @@
 }
 
 .instance-card.default-instance {
-    border-left: 4px solid #6366f1;
+    border-left: 4px solid #4285F4;
 }
 
 /* Card Header */
@@ -85,9 +85,9 @@
 }
 
 .status-connected { color: #10b981; }
-.status-error { color: #ef4444; }
+.status-error { color: #EA4335; }
 .status-unknown { color: #64748b; }
-.status-disconnected { color: #ef4444; }
+.status-disconnected { color: #EA4335; }
 .status-disabled { color: #64748b; opacity: 0.8; }
 
 /* Card Body */
@@ -171,18 +171,18 @@
 }
 
 .btn-card.edit:hover {
-    border-color: #6366f1;
-    color: #818cf8;
+    border-color: #4285F4;
+    color: #8ab4f8;
 }
 
 .btn-card.delete:hover {
-    border-color: #ef4444;
-    color: #f87171;
+    border-color: #EA4335;
+    color: #f28b82;
 }
 
 .btn-card.set-default:hover {
-    border-color: #6366f1;
-    color: #818cf8;
+    border-color: #4285F4;
+    color: #8ab4f8;
 }
 
 /* Add New Card */
@@ -199,13 +199,13 @@
 }
 
 .add-instance-card:hover {
-    border-color: #6366f1;
+    border-color: #4285F4;
     background: rgba(30, 41, 59, 0.5);
 }
 
 .add-icon {
     font-size: 2rem;
-    color: #6366f1;
+    color: #4285F4;
     margin-bottom: 10px;
 }
 
@@ -239,7 +239,7 @@
 }
 
 .huntarr-modal {
-    background: #1e293b;
+    background: #303134;
     width: 90%;
     max-width: 800px;
     max-height: 90vh;
@@ -263,7 +263,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #0f172a;
+    background: #202124;
 }
 
 .huntarr-modal-title {
@@ -297,7 +297,7 @@
 .huntarr-modal-footer {
     padding: 20px 24px;
     border-top: 1px solid rgba(148, 163, 184, 0.1);
-    background: #0f172a;
+    background: #202124;
     display: flex;
     justify-content: flex-end;
     gap: 12px;
@@ -323,7 +323,7 @@
 }
 
 .btn-modal-primary {
-    background: #6366f1;
+    background: #4285F4;
     color: white;
 }
 

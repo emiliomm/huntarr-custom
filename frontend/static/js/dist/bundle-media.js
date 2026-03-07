@@ -736,7 +736,7 @@
 
             if (betaEl) {
                 betaEl.innerHTML = mode === 'movie'
-                    ? '<strong>Beta feature:</strong> Movie Hunt is in active development. Things may be broken and will change quickly. There is little to no support until it is officially released. <a href="https://plexguide.github.io/Huntarr.io/apps/movie-hunt.html#docker" target="_blank" rel="noopener">Wiki &amp; Docker setup <i class="fas fa-external-link-alt" style="font-size: 0.85em;"></i></a>'
+                    ? '<strong>Beta feature:</strong> Movie Hunt is in active development. Things may be broken and will change quickly. There is little to no support until it is officially released. <a href="https://emiliomm.github.io/huntarr-custom/apps/movie-hunt.html#docker" target="_blank" rel="noopener">Wiki &amp; Docker setup <i class="fas fa-external-link-alt" style="font-size: 0.85em;"></i></a>'
                     : '<strong>Beta feature:</strong> TV Hunt is in active development. Things may be broken and will change quickly.';
             }
             if (searchInput) searchInput.placeholder = mode === 'movie' ? 'Search Movies' : 'Search TV Shows';
