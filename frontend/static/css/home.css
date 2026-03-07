@@ -71,7 +71,7 @@
 .nzb-hunt-home-warning i {
     flex-shrink: 0;
     font-size: 1.25rem;
-    color: #f59e0b;
+    color: #FBBC04;
     margin-top: 2px;
 }
 
@@ -85,7 +85,7 @@
 }
 
 .nzb-hunt-home-warning-link {
-    color: #fbbf24;
+    color: #fcd230;
     font-weight: 500;
     text-decoration: none;
     border-bottom: 1px solid rgba(251, 191, 36, 0.5);
@@ -94,7 +94,7 @@
 
 .nzb-hunt-home-warning-link:hover {
     color: #fcd34d;
-    border-bottom-color: #fbbf24;
+    border-bottom-color: #fcd230;
 }
 
 /* ── Section Bar (replaces old card-header) ─────────────────────── */
@@ -116,7 +116,7 @@
 }
 
 .home-section-icon {
-    color: #818cf8;
+    color: #8ab4f8;
     font-size: 0.82rem;
     opacity: 0.7;
 }
@@ -353,7 +353,7 @@
 
 #homeSection .app-stats-card .cycle-reset-button:hover {
     border-color: rgba(239, 68, 68, 0.3) !important;
-    color: #f87171 !important;
+    color: #f28b82 !important;
     background: rgba(239, 68, 68, 0.08) !important;
     transform: none !important;
 }
@@ -422,7 +422,7 @@
     min-width: 140px;
     width: auto;
     padding: 10px 36px 10px 14px;
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
+    background: linear-gradient(135deg, #303134 0%, #202124 50%, #303134 100%);
     border: 1px solid rgba(90, 109, 137, 0.4);
     border-radius: 8px;
     color: #f1f5f9;
@@ -446,12 +446,12 @@
 }
 
 .home-filter-chip .chip-select:focus {
-    border-color: #6366f1;
+    border-color: #4285F4;
     box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
 }
 
 .home-filter-chip .chip-select option {
-    background: #1e293b;
+    background: #303134;
     color: #f1f5f9;
 }
 
@@ -609,7 +609,7 @@
 
 .view-toggle-btn.active {
     background: rgba(99, 102, 241, 0.12);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .view-toggle-btn:hover:not(.active) {
@@ -658,7 +658,7 @@
     top: 10px;
     left: 10px;
     cursor: grab;
-    color: #334155;
+    color: #3c4043;
     font-size: 0.78rem;
     padding: 4px 5px;
     z-index: 5;
@@ -674,7 +674,7 @@
 
 .card-drag-handle:active {
     cursor: grabbing;
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 /* Push card content down so the drag handle doesn't overlap the API bar */
@@ -831,19 +831,19 @@
 
 /* Per-app stat colors in list mode */
 .list-stat.movie_hunt {
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .list-stat.sonarr {
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .list-stat.radarr {
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .list-stat.lidarr {
-    color: #4ade80;
+    color: #81c995;
 }
 
 .list-stat.readarr {
@@ -897,22 +897,22 @@
 
 /* Per-app progress fill colors in list */
 .list-api-fill.movie_hunt {
-    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    background: linear-gradient(90deg, #FBBC04, #fcd230);
     box-shadow: 0 0 4px rgba(245, 158, 11, 0.3);
 }
 
 .list-api-fill.sonarr {
-    background: linear-gradient(90deg, #6366f1, #a5b4fc);
+    background: linear-gradient(90deg, #4285F4, #8ab4f8);
     box-shadow: 0 0 4px rgba(99, 102, 241, 0.3);
 }
 
 .list-api-fill.radarr {
-    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    background: linear-gradient(90deg, #FBBC04, #fcd230);
     box-shadow: 0 0 4px rgba(245, 158, 11, 0.3);
 }
 
 .list-api-fill.lidarr {
-    background: linear-gradient(90deg, #22c55e, #4ade80);
+    background: linear-gradient(90deg, #34A853, #81c995);
     box-shadow: 0 0 4px rgba(34, 197, 94, 0.3);
 }
 
@@ -976,7 +976,7 @@
 
 .list-actions .cycle-reset-button:hover {
     border-color: rgba(239, 68, 68, 0.3) !important;
-    color: #f87171 !important;
+    color: #f28b82 !important;
     background: rgba(239, 68, 68, 0.08) !important;
 }
 
@@ -1373,7 +1373,7 @@
 }
 
 .stats-card .card-header h3 i {
-    color: #f59e0b;
+    color: #FBBC04;
 }
 
 .stats-card .card-header .action-button {
@@ -1385,7 +1385,7 @@
 #reset-stats,
 .stats-card>.card-header>.cycle-reset-button {
     background: rgba(99, 102, 241, 0.15);
-    color: #a5b4fc;
+    color: #8ab4f8;
     border: 1px solid rgba(99, 102, 241, 0.3);
     padding: 6px 14px;
     border-radius: 8px;
@@ -1501,7 +1501,7 @@
 .carousel-arrow:hover {
     background: rgba(245, 158, 11, 0.15);
     border-color: rgba(245, 158, 11, 0.4);
-    color: #f59e0b;
+    color: #FBBC04;
     transform: translateY(-50%) scale(1.1);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
@@ -1580,7 +1580,7 @@
 }
 
 .global-search-bar:focus-within i {
-    color: #f59e0b;
+    color: #FBBC04;
 }
 
 /* ── Home search results grid ────────────────────────────────────── */
@@ -1743,7 +1743,7 @@
 
 /* ── App Stats Cards (Sonarr, Radarr, etc.) ──────────────────────── */
 .app-stats-card {
-    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    background: linear-gradient(145deg, #303134 0%, #202124 100%);
     border: 1px solid rgba(148, 163, 184, 0.1);
     border-radius: 12px;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -1805,7 +1805,7 @@
 }
 
 .app-stats-card a:hover h4 {
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 /* ── Stat Numbers ────────────────────────────────────────────────── */
@@ -1821,21 +1821,21 @@
 
 /* Per-app stat number colors */
 .app-stats-card.sonarr .stat-number {
-    background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%);
+    background: linear-gradient(135deg, #8ab4f8 0%, #4285F4 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .app-stats-card.radarr .stat-number {
-    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    background: linear-gradient(135deg, #fcd230 0%, #FBBC04 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .app-stats-card.lidarr .stat-number {
-    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    background: linear-gradient(135deg, #81c995 0%, #34A853 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1859,7 +1859,7 @@
 /* Movie Hunt: "found / searched" stat layout */
 .app-stats-card.movie_hunt .stat-number,
 .app-stats-card.tv_hunt .stat-number {
-    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    background: linear-gradient(135deg, #fcd230 0%, #FBBC04 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1867,7 +1867,7 @@
 
 .app-stats-card.movie_hunt .stat-found,
 .app-stats-card.tv_hunt .stat-found {
-    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    background: linear-gradient(135deg, #81c995 0%, #34A853 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1895,7 +1895,7 @@
 }
 
 .found-ratio .found-num {
-    color: #4ade80;
+    color: #81c995;
     font-weight: 700;
     text-shadow: 0 0 8px rgba(34, 197, 94, 0.35);
 }
@@ -1923,17 +1923,17 @@
 }
 
 .app-stats-card.sonarr .api-progress-fill {
-    background: linear-gradient(90deg, #6366f1, #a5b4fc);
+    background: linear-gradient(90deg, #4285F4, #8ab4f8);
     box-shadow: 0 0 6px rgba(99, 102, 241, 0.4);
 }
 
 .app-stats-card.radarr .api-progress-fill {
-    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    background: linear-gradient(90deg, #FBBC04, #fcd230);
     box-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
 }
 
 .app-stats-card.lidarr .api-progress-fill {
-    background: linear-gradient(90deg, #22c55e, #4ade80);
+    background: linear-gradient(90deg, #34A853, #81c995);
     box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
 }
 
@@ -1977,7 +1977,7 @@
 .app-stats-card .cycle-reset-button:hover {
     background: rgba(239, 68, 68, 0.12);
     border-color: rgba(239, 68, 68, 0.3);
-    color: #f87171;
+    color: #f28b82;
     transform: translateY(-1px);
 }
 
@@ -2000,7 +2000,7 @@
 #live-hunts-empty-state .action-button {
     background: rgba(245, 158, 11, 0.12);
     border: 1px solid rgba(245, 158, 11, 0.3);
-    color: #fbbf24;
+    color: #fcd230;
     border-radius: 8px;
     font-weight: 600;
     transition: all 0.2s ease;
@@ -2129,7 +2129,7 @@
 
 .subcard-header i {
     font-size: 0.75em;
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 .indexers-list {
@@ -2197,12 +2197,12 @@
 
 .indexer-status.throttled {
     background: rgba(245, 158, 11, 0.12);
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .indexer-status.failed {
     background: rgba(239, 68, 68, 0.12);
-    color: #f87171;
+    color: #f28b82;
 }
 
 .loading-text {
@@ -2295,12 +2295,12 @@
 }
 
 .stat-value.warning {
-    color: #f59e0b;
+    color: #FBBC04;
     text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
 }
 
 .stat-value.error {
-    color: #ef4444;
+    color: #EA4335;
     text-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
 }
 
@@ -2384,7 +2384,7 @@ body.setup-wizard-active .app-banners-row {
     padding: 16px 20px;
     background: rgba(99, 102, 241, 0.12);
     border: 1px solid rgba(99, 102, 241, 0.35);
-    border-left: 4px solid #6366f1;
+    border-left: 4px solid #4285F4;
     border-radius: 10px;
     color: #e2e8f0;
     font-size: 0.95rem;
@@ -2393,7 +2393,7 @@ body.setup-wizard-active .app-banners-row {
 
 .instance-setup-callout i {
     font-size: 1.25rem;
-    color: #818cf8;
+    color: #8ab4f8;
     flex-shrink: 0;
     margin-top: 2px;
 }
@@ -2561,7 +2561,7 @@ body.setup-wizard-active .app-banners-row {
 
 .setup-wizard-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #6366f1, #818cf8);
+    background: linear-gradient(90deg, #4285F4, #8ab4f8);
     border-radius: 2px;
     transition: width 0.4s ease;
 }
@@ -2619,11 +2619,11 @@ body.setup-wizard-active .app-banners-row {
 /* Current step */
 .setup-wizard-step.current .setup-wizard-step-indicator {
     background: rgba(99, 102, 241, 0.2);
-    border-color: #6366f1;
+    border-color: #4285F4;
 }
 
 .setup-wizard-step.current .setup-wizard-step-indicator .step-number {
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 .setup-wizard-step.current .setup-wizard-step-title {
@@ -2708,7 +2708,7 @@ body.setup-wizard-active .app-banners-row {
     padding: 8px 18px;
     background: rgba(99, 102, 241, 0.15);
     border: 1px solid rgba(99, 102, 241, 0.35);
-    color: #818cf8;
+    color: #8ab4f8;
     border-radius: 8px;
     font-size: 0.88rem;
     font-weight: 500;
@@ -2736,7 +2736,7 @@ body.setup-wizard-active .app-banners-row {
     background: rgba(99, 102, 241, 0.1);
     border: 1px solid rgba(99, 102, 241, 0.25);
     border-radius: 8px;
-    color: #a5b4fc;
+    color: #8ab4f8;
     font-size: 0.9rem;
 }
 
@@ -2796,7 +2796,7 @@ body.setup-wizard-active .app-banners-row {
 .setup-wizard-done-btn {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0.08) 100%);
     border: 1px solid rgba(99, 102, 241, 0.3);
-    color: #a5b4fc;
+    color: #8ab4f8;
     padding: 12px 32px;
     border-radius: 10px;
     font-size: 0.95rem;

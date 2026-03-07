@@ -85,7 +85,7 @@
 }
 
 .mset-save-btn.mset-save-active {
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    background: linear-gradient(135deg, #4285F4 0%, #4285F4 100%) !important;
     color: #fff !important;
     cursor: pointer !important;
     opacity: 1 !important;
@@ -169,12 +169,12 @@
 
 .mset-icon-blue {
     background: rgba(99, 102, 241, 0.12);
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 .mset-icon-amber {
     background: rgba(245, 158, 11, 0.12);
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .mset-icon-purple {
@@ -223,7 +223,7 @@
 
 /* Indigo toggles in settings */
 #settingsSection input:checked+.toggle-slider {
-    background: #6366f1 !important;
+    background: #4285F4 !important;
     border-color: rgba(99, 102, 241, 0.5) !important;
 }
 
@@ -352,7 +352,7 @@
 }
 
 .logset-btn-amber {
-    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    background: linear-gradient(135deg, #FBBC04, #fcd230);
     color: #1a1a2e;
 }
 
@@ -361,7 +361,7 @@
 }
 
 .logset-btn-red {
-    background: linear-gradient(135deg, #dc2626, #ef4444);
+    background: linear-gradient(135deg, #d93025, #EA4335);
 }
 
 .logset-btn-red:hover:not(:disabled) {
@@ -648,12 +648,12 @@
 
 .connection-status-badge.status-success {
     background-color: rgba(39, 174, 96, 0.2) !important;
-    color: #22c55e !important;
+    color: #34A853 !important;
 }
 
 .connection-status-badge.status-error {
     background-color: rgba(231, 76, 60, 0.2) !important;
-    color: #ef4444 !important;
+    color: #EA4335 !important;
 }
 
 .connection-status-badge.status-unknown {
@@ -663,7 +663,7 @@
 
 .connection-status-badge.status-testing {
     background-color: rgba(99, 102, 241, 0.2) !important;
-    color: #6366f1 !important;
+    color: #4285F4 !important;
 }
 
 .connection-status-badge i {

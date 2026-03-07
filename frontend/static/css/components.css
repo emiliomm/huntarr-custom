@@ -562,7 +562,7 @@ select:not(.styled-select):not(.chip-select):not(.hm-chip-select),
 }
 
 select option {
-    background: var(--bg-secondary, #111827);
+    background: var(--bg-secondary, #292a2d);
     color: var(--text-primary, #f8fafc);
     padding: 8px 12px;
 }
@@ -605,7 +605,7 @@ textarea::placeholder {
 }
 
 .form-group:focus-within label {
-    color: var(--accent-secondary, #a5b4fc);
+    color: var(--accent-secondary, #8ab4f8);
 }
 
 /* Setting item pattern (used across settings pages) */
@@ -645,7 +645,7 @@ textarea::placeholder {
     font-weight: 600;
     cursor: pointer;
     border: none;
-    background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+    background: linear-gradient(135deg, #4285F4 0%, #8ab4f8 100%);
     color: #fff;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;

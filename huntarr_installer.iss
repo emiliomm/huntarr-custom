@@ -7,7 +7,7 @@
 
 #define MyAppVersion ReadVersionFile("version.txt")
 #define MyAppPublisher "Huntarr"
-#define MyAppURL "https://github.com/plexguide/Huntarr.io"
+#define MyAppURL "https://github.com/emiliomm/huntarr-custom"
 #define MyAppExeName "Huntarr.exe"
 
 [Setup]

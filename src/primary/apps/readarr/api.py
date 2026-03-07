@@ -274,7 +274,7 @@ def get_wanted_missing_books(api_url: str, api_key: str, api_timeout: int, monit
     # Add User-Agent header to identify Huntarr
     headers = {
         "X-Api-Key": api_key,
-        "User-Agent": "Huntarr/1.0 (https://github.com/plexguide/Huntarr.io)",
+        "User-Agent": "Huntarr/1.0 (https://github.com/emiliomm/huntarr-custom)",
         "Content-Type": "application/json"
     }
 
@@ -351,7 +351,7 @@ def get_wanted_missing_books_random_page(api_url: str, api_key: str, api_timeout
     # Add User-Agent header to identify Huntarr
     headers = {
         "X-Api-Key": api_key,
-        "User-Agent": "Huntarr/1.0 (https://github.com/plexguide/Huntarr.io)",
+        "User-Agent": "Huntarr/1.0 (https://github.com/emiliomm/huntarr-custom)",
         "Content-Type": "application/json"
     }
     

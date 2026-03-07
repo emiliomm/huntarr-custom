@@ -1,13 +1,12 @@
 # Huntarr Documentation
 
-This is the documentation site for [Huntarr](https://github.com/plexguide/Huntarr.io), served via GitHub Pages at [plexguide.github.io/Huntarr.io](https://plexguide.github.io/Huntarr.io/).
+This is the documentation site for [Huntarr](https://github.com/emiliomm/huntarr-custom), served via GitHub Pages at [emiliomm.github.io/huntarr-custom](https://emiliomm.github.io/huntarr-custom/).
 
 ## Site Structure
 
 ```
 docs/
 ├── index.html                    # Welcome / landing page
-├── donate.html                   # Donation page (PayPal)
 ├── css/main.css                  # Shared stylesheet for all pages
 ├── js/main.js                    # Shared JavaScript (sidebar, back-to-top, mobile nav)
 ├── images/                       # Logo and app icons
@@ -69,12 +68,11 @@ The following URLs must not change — they are referenced in external documenta
 
 | Purpose | URL |
 |---------|-----|
-| Donate page | `https://plexguide.github.io/Huntarr.io/donate.html` |
-| Installation | `https://plexguide.github.io/Huntarr.io/getting-started/installation.html` |
-| Unraid install | `https://plexguide.github.io/Huntarr.io/getting-started/installation.html#unraid-installation` |
-| Windows install | `https://plexguide.github.io/Huntarr.io/getting-started/installation.html#windows-installation` |
-| macOS install | `https://plexguide.github.io/Huntarr.io/getting-started/installation.html#macos-installation` |
-| Linux install | `https://plexguide.github.io/Huntarr.io/getting-started/installation.html#linux-installation` |
+| Installation | `https://emiliomm.github.io/huntarr-custom/getting-started/installation.html` |
+| Unraid install | `https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#unraid-installation` |
+| Windows install | `https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#windows-installation` |
+| macOS install | `https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#macos-installation` |
+| Linux install | `https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#linux-installation` |
 
 ## GitHub Pages
 

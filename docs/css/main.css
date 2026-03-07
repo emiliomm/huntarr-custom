@@ -389,20 +389,9 @@ nav.docs-sidebar .sidebar-donate-link:hover i,
     color: var(--text-primary);
 }
 
-.sidebar-footer .sf-discord:hover {
-    color: #5865f2;
-}
-
-.sidebar-footer .sf-reddit:hover {
-    color: #ff4500;
-}
 
 .sidebar-footer .sf-github:hover {
     color: var(--text-primary);
-}
-
-.sidebar-footer .sf-heart:hover {
-    color: #e74c3c;
 }
 
 /* ================================================================
@@ -749,39 +738,14 @@ a.card {
 }
 
 /* Icon colour helpers */
-.icon-blue {
-    background: rgba(59, 130, 246, .12);
-    color: var(--accent);
-}
-
-.icon-gold {
-    background: rgba(245, 158, 11, .12);
-    color: var(--gold);
-}
-
 .icon-green {
     background: rgba(34, 197, 94, .12);
     color: var(--green);
 }
 
-.icon-red {
-    background: rgba(239, 68, 68, .12);
-    color: var(--red);
-}
-
 .icon-purple {
     background: rgba(168, 85, 247, .12);
     color: var(--purple);
-}
-
-.icon-cyan {
-    background: rgba(6, 182, 212, .12);
-    color: var(--cyan);
-}
-
-.icon-orange {
-    background: rgba(249, 115, 22, .12);
-    color: var(--prowlarr);
 }
 
 /* ================================================================

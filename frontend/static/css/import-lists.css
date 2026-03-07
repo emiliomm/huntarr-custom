@@ -18,7 +18,7 @@
 }
 .btn-sync-all {
     background: rgba(99,102,241,.25);
-    color: #a5b4fc;
+    color: #8ab4f8;
     border: 1px solid rgba(99,102,241,.35);
     border-radius: 8px;
     padding: 8px 16px;
@@ -61,7 +61,7 @@
 }
 .import-list-card-icon {
     font-size: 22px;
-    color: #818cf8;
+    color: #8ab4f8;
     width: 32px;
     text-align: center;
     flex-shrink: 0;
@@ -104,9 +104,9 @@
     align-items: center;
     gap: 4px;
 }
-.badge-enabled  { background: rgba(34,197,94,.18); color: #4ade80; }
-.badge-disabled { background: rgba(239,68,68,.18); color: #f87171; }
-.badge-interval { background: rgba(99,102,241,.15); color: #a5b4fc; }
+.badge-enabled  { background: rgba(34,197,94,.18); color: #81c995; }
+.badge-disabled { background: rgba(239,68,68,.18); color: #f28b82; }
+.badge-interval { background: rgba(99,102,241,.15); color: #8ab4f8; }
 
 /* Stats row */
 .import-list-stats {
@@ -121,7 +121,7 @@
     align-items: center;
     gap: 4px;
 }
-.import-list-stat.stat-error { color: #f87171; }
+.import-list-stat.stat-error { color: #f28b82; }
 
 /* Footer buttons */
 .import-list-card-footer {
@@ -146,7 +146,7 @@
 }
 .import-list-card-footer .btn-card:hover {
     background: rgba(99,102,241,.15);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 .import-list-card-footer .btn-card + .btn-card {
     border-left: 1px solid rgba(255,255,255,.06);
@@ -232,7 +232,7 @@ body.modal-open .app-container {
 }
 .import-list-type-icon {
     font-size: 28px;
-    color: #818cf8;
+    color: #8ab4f8;
     margin-bottom: 10px;
 }
 .import-list-type-name {
@@ -248,7 +248,7 @@ body.modal-open .app-container {
 /* ---- Config form ---- */
 .import-list-config-form { }
 .import-list-config-back {
-    color: #818cf8;
+    color: #8ab4f8;
     font-size: 13px;
     cursor: pointer;
     margin-bottom: 16px;
@@ -256,7 +256,7 @@ body.modal-open .app-container {
     align-items: center;
     gap: 6px;
 }
-.import-list-config-back:hover { color: #a5b4fc; }
+.import-list-config-back:hover { color: #8ab4f8; }
 
 .import-list-form-group {
     margin-bottom: 14px;
@@ -272,7 +272,7 @@ body.modal-open .app-container {
 /* OAuth buttons */
 .btn-trakt-auth, .btn-plex-auth {
     background: rgba(99,102,241,.2);
-    color: #a5b4fc;
+    color: #8ab4f8;
     border: 1px solid rgba(99,102,241,.35);
     border-radius: 8px;
     padding: 8px 16px;
@@ -292,7 +292,7 @@ body.modal-open .app-container {
 }
 .btn-trakt-auth.trakt-auth-success {
     background: rgba(34,197,94,.2);
-    color: #4ade80;
+    color: #81c995;
     border-color: rgba(34,197,94,.35);
 }
 .trakt-auth-row {
@@ -328,11 +328,11 @@ body.modal-open .app-container {
 .trakt-device-link {
     display: block;
     font-size: 13px;
-    color: #818cf8;
+    color: #8ab4f8;
     text-decoration: none;
     margin-bottom: 10px;
 }
-.trakt-device-link:hover { color: #a5b4fc; text-decoration: underline; }
+.trakt-device-link:hover { color: #8ab4f8; text-decoration: underline; }
 .trakt-device-code {
     font-size: 28px;
     font-weight: 700;
@@ -362,7 +362,7 @@ body.modal-open .app-container {
 .trakt-code-copied {
     background: rgba(34,197,94,.2) !important;
     border-color: rgba(34,197,94,.5) !important;
-    color: #22c55e !important;
+    color: #34A853 !important;
 }
 .trakt-device-open-link {
     display: inline-block;
@@ -370,7 +370,7 @@ body.modal-open .app-container {
     font-size: 13px;
     font-weight: 600;
     color: #fff;
-    background: #6366f1;
+    background: #4285F4;
     border-radius: 6px;
     text-decoration: none;
     margin-bottom: 12px;
@@ -455,7 +455,7 @@ body.modal-open .app-container {
 .btn-plex-auth:disabled { opacity: .6; cursor: not-allowed; }
 .plex-auth-success {
     background: rgba(34,197,94,.15) !important;
-    color: #22c55e !important;
+    color: #34A853 !important;
     border: 1px solid rgba(34,197,94,.3);
 }
 
@@ -478,7 +478,7 @@ body.modal-open .app-container {
     cursor: pointer;
 }
 .import-list-form-actions .btn-save {
-    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    background: linear-gradient(135deg, #4285F4 0%, #4f46e5 100%);
     color: #fff;
     border: 1px solid rgba(99,102,241,.5);
     border-radius: 8px;
@@ -493,7 +493,7 @@ body.modal-open .app-container {
 .import-list-form-actions .btn-save:hover { background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%); }
 .import-list-form-actions .btn-delete {
     background: rgba(239,68,68,.2);
-    color: #f87171;
+    color: #f28b82;
     border: 1px solid rgba(239,68,68,.3);
     border-radius: 8px;
     padding: 8px 16px;
@@ -515,15 +515,15 @@ body.modal-open .app-container {
     border-color: rgba(148,163,184,0.2);
 }
 #settingsImportListsSection .media-hunt-settings-instance-bar .control-select:focus {
-    border-color: #6366f1;
+    border-color: #4285F4;
     box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
 }
 
 .import-lists-settings-group .add-import-list-card .add-icon {
-    color: #6366f1;
+    color: #4285F4;
 }
 .import-lists-settings-group .add-import-list-card:hover .add-icon {
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 /* Form controls in modals — slim, theme-aligned inputs/selects */
@@ -550,11 +550,11 @@ body.modal-open .app-container {
 .import-list-modal .control-input:focus,
 .import-list-modal .control-select:focus {
     outline: none;
-    border-color: #6366f1;
+    border-color: #4285F4;
     box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
 }
 .import-list-modal .control-select option {
-    background: #0f172a;
+    background: #202124;
     color: #e2e8f0;
 }
 
