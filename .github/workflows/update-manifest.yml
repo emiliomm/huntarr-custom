@@ -35,6 +35,8 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
+          # Explicitly check out the PR branch instead of the merge commit
+          ref: ${{ github.head_ref }}
 
       - name: Get latest release
         id: latest_release
@@ -67,7 +69,7 @@ jobs:
             cat manifest.json
             exit 1
           fi
-          echo "✅ manifest.json is valid"
+          echo "Manifest.json is valid"
           echo "Version: $(jq -r '.version' manifest.json)"
 
       - name: Create version.txt
@@ -84,9 +86,10 @@ jobs:
           if ! git diff --exit-code manifest.json; then
             git add manifest.json
             git add version.txt
-            git commit -m "Update manifest to ${{ inputs.version }}"         
-            git push
-            echo "✅ Manifest updated and pushed"
+            git commit -m "Update manifest to ${{ inputs.version }}"
+            # Be explicit about where you are pushing
+            git push origin HEAD:${{ github.head_ref }}
+            echo "Manifest updated and pushed"
           else
-            echo "ℹ️ No changes to manifest.json"
+            echo "No changes to manifest.json"
           fi 
