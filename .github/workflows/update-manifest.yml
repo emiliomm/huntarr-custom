@@ -17,6 +17,15 @@ jobs:
       issues: read
 
     steps:
+      - name: Verify Secret Length
+        run: |
+          if [ -z "${{ secrets.APP_PRIVATE_KEY }}" ]; then
+            echo "Secret is EMPTY"
+            exit 1
+          else
+            echo "Secret length: $(echo -n "${{ secrets.APP_PRIVATE_KEY }}" | wc -c) characters"
+          fi
+
       - name: Create GitHub App token
         id: app-token
         uses: actions/create-github-app-token@v2
