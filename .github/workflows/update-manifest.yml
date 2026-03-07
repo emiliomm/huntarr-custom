@@ -1,9 +1,11 @@
 name: Update Manifest
 
 on:
-  push:
-    branches: [ "main" ]
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
 
 jobs:
   update-manifest:
@@ -17,6 +19,10 @@ jobs:
       issues: read
 
     steps:
+      - name: Post-Release Step
+        run: |
+          echo "Release v${{ inputs.version }} is released"
+
       - name: Create GitHub App token
         id: app-token
         uses: actions/create-github-app-token@v2
@@ -29,6 +35,8 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
+          # Explicitly check out the PR branch instead of the merge commit
+          ref: ${{ github.head_ref }}
 
       - name: Get latest release
         id: latest_release
@@ -44,7 +52,7 @@ jobs:
         run: |
           cat > manifest.json << EOF
           {
-            "version": "${{ steps.latest_release.outputs.tag_name }}",
+            "version": "${{ inputs.version }}",
             "updated": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
             "project": {
               "name": "Huntarr",
@@ -61,13 +69,13 @@ jobs:
             cat manifest.json
             exit 1
           fi
-          echo "✅ manifest.json is valid"
+          echo "Manifest.json is valid"
           echo "Version: $(jq -r '.version' manifest.json)"
 
       - name: Create version.txt
         run: |
           cat > version.txt << EOF
-          ${{ steps.latest_release.outputs.tag_name }}-${{ steps.latest_release.outputs.id }}${{ steps.latest_release.outputs.prerelease == 'true' && '-prerelease' || '' }}
+          ${{ inputs.version }}
           EOF
 
       - name: Commit and push changes
@@ -78,9 +86,10 @@ jobs:
           if ! git diff --exit-code manifest.json; then
             git add manifest.json
             git add version.txt
-            git commit -m "Update manifest with latest version [skip ci]"         
-            git push
-            echo "✅ Manifest updated and pushed"
+            git commit -m "Update manifest to ${{ inputs.version }}"
+            # Be explicit about where you are pushing
+            git push origin HEAD:${{ github.head_ref }}
+            echo "Manifest updated and pushed"
           else
-            echo "ℹ️ No changes to manifest.json"
+            echo "No changes to manifest.json"
           fi 
