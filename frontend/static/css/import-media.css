@@ -60,7 +60,7 @@
 
 .btn-scan {
     background: rgba(99, 102, 241, 0.15);
-    color: #a5b4fc;
+    color: #8ab4f8;
     border: 1px solid rgba(99, 102, 241, 0.2) !important;
 }
 
@@ -75,7 +75,7 @@
 
 .btn-import-all {
     background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
+    color: #81c995;
     border: 1px solid rgba(34, 197, 94, 0.2) !important;
 }
 
@@ -96,7 +96,7 @@
 }
 
 .import-media-status-icon i {
-    color: #a5b4fc;
+    color: #8ab4f8;
     font-size: 16px;
 }
 
@@ -135,9 +135,9 @@
     color: rgba(148, 163, 184, 0.7);
 }
 
-.import-media-stat.matched .stat-value { color: #4ade80; }
-.import-media-stat.pending .stat-value { color: #fbbf24; }
-.import-media-stat.no-match .stat-value { color: #f87171; }
+.import-media-stat.matched .stat-value { color: #81c995; }
+.import-media-stat.pending .stat-value { color: #fcd230; }
+.import-media-stat.no-match .stat-value { color: #f28b82; }
 
 .import-media-stat-last-scan {
     margin-left: auto;
@@ -158,7 +158,7 @@
     position: sticky;
     top: -24px; /* Pull up to the top of the .settings-group padding */
     z-index: 50;
-    background: #111827; /* Solid background to prevent overlap clash */
+    background: #292a2d; /* Solid background to prevent overlap clash */
     border-radius: 10px 10px 0 0;
 }
 
@@ -217,15 +217,15 @@
 }
 
 .import-media-item.status-matched {
-    border-left-color: #4ade80;
+    border-left-color: #81c995;
 }
 
 .import-media-item.status-pending {
-    border-left-color: #fbbf24;
+    border-left-color: #fcd230;
 }
 
 .import-media-item.status-no_match {
-    border-left-color: #f87171;
+    border-left-color: #f28b82;
 }
 
 /* Poster thumbnail */
@@ -290,7 +290,7 @@
 .import-media-match-title {
     font-size: 0.9rem;
     font-weight: 500;
-    color: #4ade80;
+    color: #81c995;
     margin-bottom: 2px;
     white-space: nowrap;
     overflow: hidden;
@@ -320,19 +320,19 @@
     font-weight: 600;
 }
 
-.import-media-match-confidence .conf-value.high { color: #4ade80; }
-.import-media-match-confidence .conf-value.medium { color: #fbbf24; }
-.import-media-match-confidence .conf-value.low { color: #f87171; }
+.import-media-match-confidence .conf-value.high { color: #81c995; }
+.import-media-match-confidence .conf-value.medium { color: #fcd230; }
+.import-media-match-confidence .conf-value.low { color: #f28b82; }
 
 .import-media-no-match-text {
     font-size: 0.88rem;
-    color: #f87171;
+    color: #f28b82;
     font-style: italic;
 }
 
 .import-media-pending-text {
     font-size: 0.88rem;
-    color: #fbbf24;
+    color: #fcd230;
     font-style: italic;
 }
 
@@ -360,7 +360,7 @@
 
 .import-media-btn-confirm {
     background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
+    color: #81c995;
 }
 
 .import-media-btn-confirm:hover {
@@ -375,7 +375,7 @@
 
 .import-media-btn-search {
     background: rgba(99, 102, 241, 0.15);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .import-media-btn-search:hover {
@@ -489,7 +489,7 @@
     border-radius: 8px;
     border: none;
     background: rgba(99, 102, 241, 0.2);
-    color: #a5b4fc;
+    color: #8ab4f8;
     cursor: pointer;
     font-size: 14px;
 }
@@ -574,7 +574,7 @@
     border-radius: 6px;
     border: none;
     background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
+    color: #81c995;
     font-size: 0.82rem;
     cursor: pointer;
     flex-shrink: 0;

@@ -92,15 +92,12 @@
                 var labels = { folders: 'Folders', servers: 'Servers', advanced: 'Advanced' };
                 bc.textContent = labels[tab] || tab;
             }
-            // Toggle header save button vs sponsor based on tab
+            // Toggle header save button based on tab
             var headerSave = document.getElementById('nzb-save-advanced-header');
-            var sponsorSlot = document.getElementById('nzb-hunt-settings-sponsor-slot');
             if (tab === 'advanced') {
                 if (headerSave) headerSave.style.display = '';
-                if (sponsorSlot) sponsorSlot.style.display = 'none';
             } else {
                 if (headerSave) headerSave.style.display = 'none';
-                if (sponsorSlot) sponsorSlot.style.display = '';
             }
             // Show/hide setup wizard continue banner on servers tab
             if (tab === 'servers') {

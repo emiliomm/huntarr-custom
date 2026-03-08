@@ -86,15 +86,15 @@
 
 .br-icon-blue {
     background: rgba(99, 102, 241, 0.15);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 .br-icon-green {
     background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
+    color: #81c995;
 }
 .br-icon-amber {
     background: rgba(245, 158, 11, 0.15);
-    color: #fbbf24;
+    color: #fcd230;
 }
 .br-icon-purple {
     background: rgba(139, 92, 246, 0.15);
@@ -106,7 +106,7 @@
 }
 .br-icon-red {
     background: rgba(239, 68, 68, 0.18);
-    color: #f87171;
+    color: #f28b82;
 }
 .br-icon-slate {
     background: rgba(148, 163, 184, 0.12);
@@ -171,7 +171,7 @@
 
 /* ---- Info link (replaces old blue circle-i) ---- */
 .br-info-link {
-    color: #a5b4fc;
+    color: #8ab4f8;
     text-decoration: none;
     font-size: 14px;
     opacity: 0.7;
@@ -219,45 +219,45 @@
 }
 
 .br-btn-primary {
-    background: linear-gradient(135deg, #6366f1 0%, #2563eb 100%);
+    background: linear-gradient(135deg, #4285F4 0%, #2563eb 100%);
     color: #fff;
     box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
 }
 .br-btn-primary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%);
+    background: linear-gradient(135deg, #8ab4f8 0%, #4285F4 100%);
     box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
     transform: translateY(-1px);
 }
 
 .br-btn-secondary {
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #4285F4 0%, #7c3aed 100%);
     color: #fff;
     box-shadow: 0 2px 8px rgba(139, 92, 246, 0.25);
 }
 .br-btn-secondary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+    background: linear-gradient(135deg, #a78bfa 0%, #4285F4 100%);
     box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
     transform: translateY(-1px);
 }
 
 .br-btn-danger {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    background: linear-gradient(135deg, #EA4335 0%, #d93025 100%);
     color: #fff;
     box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
 }
 .br-btn-danger:hover:not(:disabled) {
-    background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+    background: linear-gradient(135deg, #f28b82 0%, #EA4335 100%);
     box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
     transform: translateY(-1px);
 }
 
 .br-btn-danger-solid {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    background: linear-gradient(135deg, #d93025 0%, #b91c1c 100%);
     color: #fff;
     box-shadow: 0 2px 10px rgba(220, 38, 38, 0.35);
 }
 .br-btn-danger-solid:hover:not(:disabled) {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    background: linear-gradient(135deg, #EA4335 0%, #d93025 100%);
     box-shadow: 0 4px 16px rgba(220, 38, 38, 0.45);
     transform: translateY(-1px);
 }
@@ -279,7 +279,7 @@
 
 .br-warning-box > i {
     margin-top: 2px;
-    color: #f87171;
+    color: #f28b82;
     flex-shrink: 0;
 }
 
@@ -299,7 +299,7 @@
 }
 
 .br-danger-description i {
-    color: #f87171;
+    color: #f28b82;
 }
 
 /* ---- File upload ---- */
@@ -357,7 +357,7 @@
 .br-progress-track .progress-fill,
 .br-progress-wrap .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #6366f1, #a5b4fc);
+    background: linear-gradient(90deg, #4285F4, #8ab4f8);
     width: 0%;
     border-radius: 3px;
     transition: width 0.3s ease;
