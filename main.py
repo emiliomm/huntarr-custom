@@ -151,36 +151,6 @@ def is_shutting_down():
     global _global_shutdown_flag
     return _global_shutdown_flag or shutdown_requested.is_set() or stop_event.is_set()
 
-def refresh_sponsors_on_startup():
-    """Refresh sponsors database from manifest.json on startup"""
-    import os
-    import json
-    
-    try:
-        # Get database instance
-        from src.primary.utils.database import get_database
-        db = get_database()
-        
-        # Path to manifest.json
-        manifest_path = os.path.join(os.path.dirname(__file__), 'manifest.json')
-        
-        if os.path.exists(manifest_path):
-            with open(manifest_path, 'r') as f:
-                manifest_data = json.load(f)
-            
-            sponsors_list = manifest_data.get('sponsors', [])
-            if sponsors_list:
-                # Clear existing sponsors and save new ones
-                db.save_sponsors(sponsors_list)
-                huntarr_logger.debug(f"Refreshed {len(sponsors_list)} sponsors from manifest.json")
-            else:
-                huntarr_logger.warning("No sponsors found in manifest.json")
-        else:
-            huntarr_logger.warning(f"manifest.json not found at {manifest_path}")
-            
-    except Exception as e:
-        huntarr_logger.error(f"Error refreshing sponsors on startup: {e}")
-        raise
 
 def load_version_to_database():
     """Load current version from version.txt into database on startup"""
@@ -596,12 +566,6 @@ def main():
         except Exception as version_error:
             huntarr_logger.warning(f"Failed to load version to database: {version_error}")
         
-        # Refresh sponsors from manifest.json on startup
-        try:
-            refresh_sponsors_on_startup()
-            huntarr_logger.info("Sponsors database refreshed from manifest.json")
-        except Exception as sponsor_error:
-            huntarr_logger.warning(f"Failed to refresh sponsors on startup: {sponsor_error}")
 
         # Apply proxy settings from database to environment variables
         try:

@@ -9,16 +9,16 @@
 // Wraps the native fetch so that ANY 401 from an internal API call
 // triggers a single redirect to the login page, silencing the flood
 // of "JSON.parse" / "HTTP 401" console errors on logout.
-(function() {
+(function () {
     if (window._huntarrFetchPatched) return;
     window._huntarrFetchPatched = true;
     var _origFetch = window.fetch;
-    window.fetch = function(url, opts) {
+    window.fetch = function (url, opts) {
         // If we're already redirecting, swallow all subsequent requests
         if (window._huntarrRedirectingToLogin) {
-            return new Promise(function() {}); // never resolves
+            return new Promise(function () { }); // never resolves
         }
-        return _origFetch.apply(this, arguments).then(function(response) {
+        return _origFetch.apply(this, arguments).then(function (response) {
             if (response.status === 401) {
                 var urlStr = (typeof url === 'string') ? url : (url && url.url) || '';
                 var isApi = urlStr.indexOf('/api/') !== -1;
@@ -27,7 +27,7 @@
                 if (isApi && !onLogin && !onSetup && !window._huntarrRedirectingToLogin) {
                     window._huntarrRedirectingToLogin = true;
                     window.location.href = (window.HUNTARR_BASE_URL || '') + '/login';
-                    return new Promise(function() {}); // never resolves
+                    return new Promise(function () { }); // never resolves
                 }
             }
             return response;
@@ -42,30 +42,30 @@ const HuntarrUtils = {
      * @param {Object} options - Fetch options
      * @returns {Promise} - Fetch promise with timeout handling
      */
-    fetchWithTimeout: function(url, options = {}) {
+    fetchWithTimeout: function (url, options = {}) {
         // API timeout for fetch. Per-instance timeouts are in app instances.
         const apiTimeout = 120000; // 120 seconds in milliseconds
-        
+
         // Create abort controller for timeout
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), apiTimeout);
-        
+
         // Merge options with signal from AbortController
         // Only include credentials for internal API calls (not external URLs)
         const fetchOptions = {
             ...options,
             signal: controller.signal
         };
-        
+
         // Add credentials only for internal API calls
         if (url && typeof url === 'string' && !url.startsWith('http') && !url.startsWith('//')) {
             fetchOptions.credentials = 'include';
         }
-        
+
         // Process URL to handle base URL for reverse proxy subpaths
         // Always use absolute same-origin URL to avoid "Failed to fetch" on localhost/venv
         let processedUrl = url;
-        
+
         // Only process internal API requests (not external URLs)
         if (url && typeof url === 'string' && !url.startsWith('http') && !url.startsWith('//')) {
             const baseUrl = window.HUNTARR_BASE_URL || '';
@@ -82,7 +82,7 @@ const HuntarrUtils = {
                 ? (window.location.origin + (pathPart.startsWith('/') ? pathPart : '/' + pathPart))
                 : pathPart;
         }
-        
+
         return fetch(processedUrl, fetchOptions)
             .then(response => {
                 clearTimeout(timeoutId);
@@ -97,12 +97,12 @@ const HuntarrUtils = {
                 throw error;
             });
     },
-    
+
     /**
      * API timeout in seconds for internal fetches. Per-instance timeouts are in app instances.
      * @returns {number} - API timeout in seconds
      */
-    getApiTimeout: function() {
+    getApiTimeout: function () {
         return 120;
     },
 
@@ -113,7 +113,7 @@ const HuntarrUtils = {
      */
     formatDate: function (date) {
         if (!date) return "Never";
-        
+
         const dateObj = typeof date === 'string' ? new Date(date) : date;
         if (isNaN(dateObj.getTime())) return "Invalid Date";
 
@@ -156,7 +156,7 @@ const HuntarrUtils = {
      * Get a UI preference from the server-side general settings.
      * Uses huntarrUI.originalSettings.general as the source.
      */
-    getUIPreference: function(key, defaultValue) {
+    getUIPreference: function (key, defaultValue) {
         if (!window.huntarrUI || !window.huntarrUI.originalSettings || !window.huntarrUI.originalSettings.general) {
             return defaultValue;
         }
@@ -169,16 +169,16 @@ const HuntarrUtils = {
      * Set a UI preference in the server-side general settings.
      * Merges with existing preferences and auto-saves.
      */
-    setUIPreference: function(key, value) {
+    setUIPreference: function (key, value) {
         if (!window.huntarrUI || !window.huntarrUI.originalSettings || !window.huntarrUI.originalSettings.general) {
             console.warn('[HuntarrUtils] Cannot set UI preference: huntarrUI.originalSettings not ready');
             return;
         }
-        
+
         const prefs = window.huntarrUI.originalSettings.general.ui_preferences || {};
         prefs[key] = value;
         window.huntarrUI.originalSettings.general.ui_preferences = prefs;
-        
+
         // Use FetchWithTimeout to save just the preferences (server merges them)
         this.fetchWithTimeout('./api/settings/general', {
             method: 'POST',
@@ -201,19 +201,19 @@ if (typeof module !== 'undefined' && module.exports) {
  */
 
 window.HuntarrHelpers = {
-    capitalizeFirst: function(string) {
+    capitalizeFirst: function (string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     },
 
-    cleanUrlString: function(url) {
+    cleanUrlString: function (url) {
         if (!url) return '';
         // Remove trailing slashes
         return url.replace(/\/+$/, '');
     },
 
-    formatDateNicely: function(date) {
+    formatDateNicely: function (date) {
         if (!date) return 'N/A';
-        
+
         const options = {
             year: 'numeric',
             month: 'short',
@@ -222,11 +222,11 @@ window.HuntarrHelpers = {
             minute: '2-digit',
             hour12: true
         };
-        
+
         return new Date(date).toLocaleString('en-US', options);
     },
 
-    getUserTimezone: function() {
+    getUserTimezone: function () {
         try {
             return Intl.DateTimeFormat().resolvedOptions().timeZone;
         } catch (e) {
@@ -235,16 +235,16 @@ window.HuntarrHelpers = {
         }
     },
 
-    parseLogTimestamp: function(logEntry) {
+    parseLogTimestamp: function (logEntry) {
         if (!logEntry) return null;
-        
+
         // Try to extract timestamp from various log formats
         const timestampPatterns = [
             /^\[([\d\-T:.]+)\]/,  // [2024-01-01T12:00:00.000]
             /^([\d\-T:.]+)\s/,     // 2024-01-01T12:00:00.000
             /^\[(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2})\]/  // [2024-01-01 12:00:00]
         ];
-        
+
         for (const pattern of timestampPatterns) {
             const match = logEntry.match(pattern);
             if (match) {
@@ -254,15 +254,15 @@ window.HuntarrHelpers = {
                 }
             }
         }
-        
+
         return null;
     },
 
-    isJsonFragment: function(logString) {
+    isJsonFragment: function (logString) {
         if (!logString || typeof logString !== 'string') return false;
-        
+
         const trimmed = logString.trim();
-        
+
         // Check for JSON object/array patterns
         if ((trimmed.startsWith('{') && trimmed.endsWith('}')) ||
             (trimmed.startsWith('[') && trimmed.endsWith(']'))) {
@@ -273,7 +273,7 @@ window.HuntarrHelpers = {
                 return false;
             }
         }
-        
+
         // Check for partial JSON patterns
         const jsonPatterns = [
             /^\s*[{[]/,           // Starts with { or [
@@ -281,21 +281,21 @@ window.HuntarrHelpers = {
             /:\s*[{[]/,           // Contains ": {" or ": ["
             /":\s*"[^"]*"\s*,/    // Contains key-value pairs
         ];
-        
+
         return jsonPatterns.some(pattern => pattern.test(trimmed));
     },
 
-    isInvalidLogLine: function(logString) {
+    isInvalidLogLine: function (logString) {
         if (!logString || typeof logString !== 'string') return true;
-        
+
         const trimmed = logString.trim();
-        
+
         // Check for empty or whitespace-only
         if (trimmed.length === 0) return true;
-        
+
         // Check for JSON fragments
         if (this.isJsonFragment(trimmed)) return true;
-        
+
         // Check for common invalid patterns
         const invalidPatterns = [
             /^[\s\{\}\[\],:"]+$/,  // Only JSON syntax characters
@@ -303,11 +303,11 @@ window.HuntarrHelpers = {
             /^undefined$/i,         // Just "undefined"
             /^[\d.]+$/             // Just numbers
         ];
-        
+
         return invalidPatterns.some(pattern => pattern.test(trimmed));
     },
 
-    getConnectionErrorMessage: function(status) {
+    getConnectionErrorMessage: function (status) {
         const errorMessages = {
             0: 'Network error - Unable to reach server',
             400: 'Bad Request - Invalid API request',
@@ -319,11 +319,11 @@ window.HuntarrHelpers = {
             503: 'Service Unavailable - Server is temporarily down',
             504: 'Gateway Timeout - Server took too long to respond'
         };
-        
+
         return errorMessages[status] || `HTTP Error ${status}`;
     },
 
-    disconnectAllEventSources: function() {
+    disconnectAllEventSources: function () {
         if (window.huntarrUI && window.huntarrUI.eventSources) {
             Object.keys(window.huntarrUI.eventSources).forEach(key => {
                 const source = window.huntarrUI.eventSources[key];
@@ -344,11 +344,11 @@ window.HuntarrHelpers = {
  */
 
 window.HuntarrDOM = {
-    cacheElements: function(ui) {
+    cacheElements: function (ui) {
         if (!ui || !ui.elements) return;
-        
+
         const elements = ui.elements;
-        
+
         // Navigation
         elements.navItems = document.querySelectorAll('.nav-item');
         elements.homeNav = document.getElementById('homeNav');
@@ -356,7 +356,7 @@ window.HuntarrDOM = {
         elements.huntManagerNav = document.getElementById('huntManagerNav');
         elements.settingsNav = document.getElementById('settingsNav');
         elements.userNav = document.getElementById('userNav');
-        
+
         // Sections
         elements.sections = document.querySelectorAll('.content-section');
         elements.homeSection = document.getElementById('homeSection');
@@ -365,22 +365,22 @@ window.HuntarrDOM = {
         elements.settingsSection = document.getElementById('settingsSection');
         elements.settingsLogsSection = document.getElementById('settingsLogsSection');
         elements.schedulingSection = document.getElementById('schedulingSection');
-        
+
         // History dropdown elements
         elements.historyOptions = document.querySelectorAll('.history-option');
         elements.currentHistoryApp = document.getElementById('current-history-app');
         elements.historyDropdownBtn = document.querySelector('.history-dropdown-btn');
         elements.historyDropdownContent = document.querySelector('.history-dropdown-content');
         elements.historyPlaceholderText = document.getElementById('history-placeholder-text');
-        
+
         // Settings dropdown elements
         elements.settingsOptions = document.querySelectorAll('.settings-option');
         elements.currentSettingsApp = document.getElementById('current-settings-app');
         elements.settingsDropdownBtn = document.querySelector('.settings-dropdown-btn');
         elements.settingsDropdownContent = document.querySelector('.settings-dropdown-content');
-        
+
         elements.appSettingsPanels = document.querySelectorAll('.app-settings-panel');
-        
+
         // Status elements
         elements.sonarrHomeStatus = document.getElementById('sonarrHomeStatus');
         elements.radarrHomeStatus = document.getElementById('radarrHomeStatus');
@@ -389,16 +389,16 @@ window.HuntarrDOM = {
         elements.whisparrHomeStatus = document.getElementById('whisparrHomeStatus');
         elements.erosHomeStatus = document.getElementById('erosHomeStatus');
         elements.movie_huntHomeStatus = document.getElementById('movie_huntHomeStatus');
-        
+
         // Actions
         elements.startHuntButton = document.getElementById('startHuntButton');
         elements.stopHuntButton = document.getElementById('stopHuntButton');
-        
+
         // Logout
         elements.logoutLink = document.getElementById('logoutLink');
     },
 
-    showDashboard: function() {
+    showDashboard: function () {
         // Make the dashboard grid visible after initialization to prevent FOUC
         const dashboardGrid = document.querySelector('.dashboard-grid');
         if (dashboardGrid) {
@@ -418,15 +418,15 @@ window.HuntarrDOM = {
  */
 
 window.HuntarrNotifications = {
-    showNotification: function(message, type = 'info') {
+    showNotification: function (message, type = 'info') {
         // Create a notification element
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
         notification.textContent = message;
-        
+
         // Add to the document
         document.body.appendChild(notification);
-        
+
         // Ensure any existing notification is removed first to prevent stacking
         const existingNotifications = document.querySelectorAll('.notification');
         existingNotifications.forEach(n => {
@@ -435,12 +435,12 @@ window.HuntarrNotifications = {
                 setTimeout(() => n.remove(), 300);
             }
         });
-        
+
         // Fade in
         setTimeout(() => {
             notification.classList.add('show');
         }, 10);
-        
+
         // Remove after a delay
         setTimeout(() => {
             notification.classList.remove('show');
@@ -952,7 +952,7 @@ window.HuntarrNavigation = {
 window.HuntarrTheme = {
     logoSrc: null,
 
-    setupLogoHandling: function() {
+    setupLogoHandling: function () {
         const logoImg = document.querySelector('.sidebar .logo');
         if (logoImg) {
             this.logoSrc = logoImg.src;
@@ -962,7 +962,7 @@ window.HuntarrTheme = {
                 };
             }
         }
-        
+
         window.addEventListener('beforeunload', () => {
             if (this.logoSrc) {
                 sessionStorage.setItem('huntarr-logo-src', this.logoSrc);
@@ -970,7 +970,7 @@ window.HuntarrTheme = {
         });
     },
 
-    initDarkMode: function() {
+    initDarkMode: function () {
         // Huntarr is always dark — ensure the class is applied
         document.body.classList.add('dark-theme');
     }
@@ -984,7 +984,7 @@ window.HuntarrTheme = {
  */
 
 window.HuntarrVersion = {
-    loadCurrentVersion: function() {
+    loadCurrentVersion: function () {
         HuntarrUtils.fetchWithTimeout('./version.txt')
             .then(response => {
                 if (!response.ok) {
@@ -1008,138 +1008,9 @@ window.HuntarrVersion = {
             });
     },
 
-    loadLatestVersion: function() {
-        HuntarrUtils.fetchWithTimeout('https://api.github.com/repos/plexguide/Huntarr.io/releases/latest')
-            .then(response => {
-                if (!response.ok) {
-                    if (response.status === 403) {
-                        console.warn('GitHub API rate limit likely exceeded.');
-                        throw new Error('Rate limited');
-                    }
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data && data.tag_name) {
-                    // Store in localStorage for sidebar footer display
-                    try {
-                        const versionInfo = localStorage.getItem('huntarr-version-info') || '{}';
-                        const parsedInfo = JSON.parse(versionInfo);
-                        parsedInfo.latestVersion = data.tag_name;
-                        localStorage.setItem('huntarr-version-info', JSON.stringify(parsedInfo));
-                    } catch (e) {
-                        console.error('Error saving latest version to localStorage:', e);
-                    }
-                }
-            })
-            .catch(error => {
-                console.error('Error loading latest version from GitHub:', error);
-            });
-    },
-    
-    loadBetaVersion: function() {
-        HuntarrUtils.fetchWithTimeout('https://api.github.com/repos/plexguide/Huntarr.io/tags?per_page=100')
-            .then(response => {
-                if (!response.ok) {
-                    if (response.status === 403) {
-                        console.warn('GitHub API rate limit likely exceeded.');
-                        throw new Error('Rate limited');
-                    }
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                const betaVersionElement = document.getElementById('beta-version-value');
-                
-                if (betaVersionElement && data && Array.isArray(data) && data.length > 0) {
-                    // Find the first tag that starts with B (case insensitive)
-                    const betaTag = data.find(tag => tag.name.toUpperCase().startsWith('B'));
-                    
-                    if (betaTag) {
-                        betaVersionElement.textContent = betaTag.name;
-                        try {
-                            const versionInfo = localStorage.getItem('huntarr-version-info') || '{}';
-                            const parsedInfo = JSON.parse(versionInfo);
-                            parsedInfo.betaVersion = betaTag.name;
-                            localStorage.setItem('huntarr-version-info', JSON.stringify(parsedInfo));
-                        } catch (e) {
-                            console.error('Error saving beta version to localStorage:', e);
-                        }
-                    } else {
-                        betaVersionElement.textContent = 'None';
-                    }
-                } else if (betaVersionElement) {
-                    betaVersionElement.textContent = 'N/A';
-                }
-            })
-            .catch(error => {
-                console.error('Error loading beta version from GitHub:', error);
-                const betaVersionElement = document.getElementById('beta-version-value');
-                if (betaVersionElement) {
-                    betaVersionElement.textContent = error.message === 'Rate limited' ? 'Rate Limited' : 'Error';
-                }
-            });
-    },
+    // Removed loadLatestVersion, loadBetaVersion, and loadGitHubStarCount
 
-    loadGitHubStarCount: function() {
-        const starsElement = document.getElementById('github-stars-value');
-        if (!starsElement) return;
-        
-        // Try to load from cache first
-        const cachedData = localStorage.getItem('huntarr-github-stars');
-        if (cachedData) {
-            try {
-                const parsed = JSON.parse(cachedData);
-                if (parsed.stars !== undefined) {
-                    starsElement.textContent = parsed.stars.toLocaleString();
-                    // If cache is recent (less than 1 hour), skip API call
-                    const cacheAge = Date.now() - (parsed.timestamp || 0);
-                    if (cacheAge < 3600000) {
-                        return;
-                    }
-                }
-            } catch (e) {
-                console.warn('Invalid cached star data, will fetch fresh');
-                localStorage.removeItem('huntarr-github-stars');
-            }
-        }
-        
-        // Set loading state
-        starsElement.textContent = 'Loading...';
-        
-        HuntarrUtils.fetchWithTimeout('https://api.github.com/repos/plexguide/Huntarr.io')
-            .then(response => {
-                if (!response.ok) {
-                    if (response.status === 403) {
-                        throw new Error('Rate limited');
-                    }
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.stargazers_count !== undefined) {
-                    const stars = data.stargazers_count;
-                    starsElement.textContent = stars.toLocaleString();
-                    
-                    // Cache the result
-                    localStorage.setItem('huntarr-github-stars', JSON.stringify({
-                        stars: stars,
-                        timestamp: Date.now()
-                    }));
-                } else {
-                    starsElement.textContent = 'N/A';
-                }
-            })
-            .catch(error => {
-                console.error('Error loading GitHub stars:', error);
-                starsElement.textContent = error.message === 'Rate limited' ? 'Rate Limited' : 'Error';
-            });
-    },
-
-    loadUsername: function() {
+    loadUsername: function () {
         HuntarrUtils.fetchWithTimeout('./api/user/info')
             .then(response => {
                 if (!response.ok) {
@@ -1154,7 +1025,7 @@ window.HuntarrVersion = {
                     // Store username in localStorage for reference
                     localStorage.setItem('huntarr-username', data.username);
                 }
-                
+
                 // Check local access bypass status after loading username
                 if (window.HuntarrAuth) {
                     window.HuntarrAuth.checkLocalAccessBypassStatus();
@@ -1162,7 +1033,7 @@ window.HuntarrVersion = {
             })
             .catch(error => {
                 console.error('Error loading username:', error);
-                
+
                 // Still check local access bypass status even if username loading failed
                 if (window.HuntarrAuth) {
                     window.HuntarrAuth.checkLocalAccessBypassStatus();
@@ -1179,7 +1050,7 @@ window.HuntarrVersion = {
  */
 
 window.HuntarrAuth = {
-    checkLocalAccessBypassStatus: function() {
+    checkLocalAccessBypassStatus: function () {
         console.log("[HuntarrAuth] Checking local access bypass status...");
         HuntarrUtils.fetchWithTimeout('./api/get_local_access_bypass_status')
             .then(response => {
@@ -1198,11 +1069,11 @@ window.HuntarrAuth = {
                 this.updateUIForLocalAccessBypass(false);
             });
     },
-    
-    updateUIForLocalAccessBypass: function(isEnabled) {
+
+    updateUIForLocalAccessBypass: function (isEnabled) {
         const userInfoContainer = document.getElementById('userInfoContainer');
         const userNav = document.getElementById('userNav');
-        
+
         if (isEnabled === true) {
             if (userInfoContainer) userInfoContainer.style.display = 'none';
             if (userNav) {
@@ -1213,26 +1084,26 @@ window.HuntarrAuth = {
             if (userNav) userNav.style.display = '';
         }
     },
-    
-    logout: function(e) {
+
+    logout: function (e) {
         if (e) e.preventDefault();
         console.log('[HuntarrAuth] Logging out...');
         HuntarrUtils.fetchWithTimeout('./logout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                window.location.href = './login';
-            } else {
-                if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('Logout failed', 'error');
-            }
-        })
-        .catch(error => {
-            console.error('[HuntarrAuth] Error during logout:', error);
-            if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('An error occurred during logout', 'error');
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = './login';
+                } else {
+                    if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('Logout failed', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('[HuntarrAuth] Error during logout:', error);
+                if (window.HuntarrNotifications) window.HuntarrNotifications.showNotification('An error occurred during logout', 'error');
+            });
     }
 };
 
@@ -1244,34 +1115,34 @@ window.HuntarrAuth = {
  */
 
 window.HuntarrUIHandlers = {
-    handleHistoryOptionChange: function(app) {
+    handleHistoryOptionChange: function (app) {
         if (app && app.target && typeof app.target.value === 'string') {
             app = app.target.value;
         } else if (app && app.target && typeof app.target.getAttribute === 'function') {
             app = app.target.getAttribute('data-app');
         }
-        
+
         if (!app || (window.huntarrUI && app === window.huntarrUI.currentHistoryApp)) return;
-        
+
         const historyAppSelect = document.getElementById('historyAppSelect');
         if (historyAppSelect) historyAppSelect.value = app;
-        
+
         let displayName = app.charAt(0).toUpperCase() + app.slice(1);
         if (app === 'whisparr') displayName = 'Whisparr V2';
         else if (app === 'eros') displayName = 'Whisparr V3';
-        
+
         if (window.huntarrUI && window.huntarrUI.elements.currentHistoryApp) {
             window.huntarrUI.elements.currentHistoryApp.textContent = displayName;
         }
-        
+
         this.updateHistoryPlaceholder(app);
         if (window.huntarrUI) window.huntarrUI.currentHistoryApp = app;
     },
-    
-    updateHistoryPlaceholder: function(app) {
+
+    updateHistoryPlaceholder: function (app) {
         const placeholder = document.getElementById('history-placeholder-text');
         if (!placeholder) return;
-        
+
         let message = "";
         if (app === 'all') {
             message = "The History feature will be available in a future update. Stay tuned for enhancements that will allow you to view your media processing history.";
@@ -1279,45 +1150,45 @@ window.HuntarrUIHandlers = {
             const displayName = window.HuntarrHelpers ? window.HuntarrHelpers.capitalizeFirst(app) : app;
             message = `The ${displayName} History feature is under development and will be available in a future update. You'll be able to track your ${displayName} media processing history here.`;
         }
-        
+
         placeholder.textContent = message;
     },
-    
-    handleSettingsOptionChange: function(e) {
+
+    handleSettingsOptionChange: function (e) {
         e.preventDefault();
-        
+
         const app = e.target.getAttribute('data-app');
         if (!app || (window.huntarrUI && app === window.huntarrUI.currentSettingsApp)) return;
-        
+
         if (window.huntarrUI && window.huntarrUI.elements.settingsOptions) {
             window.huntarrUI.elements.settingsOptions.forEach(option => {
                 option.classList.remove('active');
             });
         }
         e.target.classList.add('active');
-        
+
         let displayName = app.charAt(0).toUpperCase() + app.slice(1);
         if (window.huntarrUI && window.huntarrUI.elements.currentSettingsApp) {
             window.huntarrUI.elements.currentSettingsApp.textContent = displayName;
         }
-        
+
         if (window.huntarrUI && window.huntarrUI.elements.settingsDropdownContent) {
             window.huntarrUI.elements.settingsDropdownContent.classList.remove('show');
         }
-        
+
         if (window.huntarrUI && window.huntarrUI.elements.appSettingsPanels) {
             window.huntarrUI.elements.appSettingsPanels.forEach(panel => {
                 panel.classList.remove('active');
                 panel.style.display = 'none';
             });
         }
-        
+
         const selectedPanel = document.getElementById(app + 'Settings');
         if (selectedPanel) {
             selectedPanel.classList.add('active');
             selectedPanel.style.display = 'block';
         }
-        
+
         if (window.huntarrUI) window.huntarrUI.currentSettingsTab = app;
         console.log(`[HuntarrUIHandlers] Switched settings tab to: ${app}`);
     }
@@ -1331,22 +1202,22 @@ window.HuntarrUIHandlers = {
  */
 
 window.HuntarrInit = {
-    initializeLogsSettings: function() {
+    initializeLogsSettings: function () {
         console.log('[HuntarrInit] initializeLogsSettings called');
         const container = document.getElementById('logsSettingsContainer');
         if (!container) return;
-        
+
         const currentContent = container.innerHTML.trim();
         if (currentContent !== '' && !currentContent.includes('<!-- Content will be loaded here -->')) return;
-        
+
         container.innerHTML = '<div class="loading-spinner" style="text-align: center; padding: 20px;"><i class="fas fa-circle-notch fa-spin"></i> Loading settings...</div>';
-        
+
         HuntarrUtils.fetchWithTimeout('./api/settings')
             .then(response => response.json())
             .then(settings => {
                 if (window.huntarrUI) window.huntarrUI.originalSettings.general = settings.general;
                 const generalSettings = settings.general || {};
-                
+
                 if (window.SettingsForms && typeof window.SettingsForms.generateLogsSettingsForm === 'function') {
                     container.innerHTML = '';
                     window.SettingsForms.generateLogsSettingsForm(container, generalSettings);
@@ -1360,7 +1231,7 @@ window.HuntarrInit = {
             });
     },
 
-    initializeSettings: function() {
+    initializeSettings: function () {
         console.log('[HuntarrInit] initializeSettings called');
         const generalSettings = document.getElementById('generalSettings');
         if (!generalSettings) return;
@@ -1384,7 +1255,7 @@ window.HuntarrInit = {
             });
     },
 
-    initializeNotifications: function() {
+    initializeNotifications: function () {
         console.log('[HuntarrInit] initializeNotifications called');
         // New notification system initializes itself via generateNotificationsForm
         // which is called by the settings loader, or we can trigger it directly.
@@ -1396,18 +1267,18 @@ window.HuntarrInit = {
         }
     },
 
-    initializeBackupRestore: function() {
+    initializeBackupRestore: function () {
         console.log('[HuntarrInit] initializeBackupRestore called');
         if (typeof BackupRestore !== 'undefined') {
             BackupRestore.initialize();
         }
     },
 
-    initializeProwlarr: function() {
+    initializeProwlarr: function () {
         console.log('[HuntarrInit] initializeProwlarr called');
         const prowlarrContainer = document.getElementById('prowlarrContainer');
         if (!prowlarrContainer) return;
-        
+
         const currentContent = prowlarrContainer.innerHTML.trim();
         if (currentContent !== '' && !currentContent.includes('<!-- Prowlarr content will be loaded here -->')) return;
 
@@ -1427,7 +1298,7 @@ window.HuntarrInit = {
             });
     },
 
-    initializeUser: function() {
+    initializeUser: function () {
         console.log('[HuntarrInit] initializeUser called');
         if (typeof UserModule !== 'undefined') {
             if (!window.userModule) {
@@ -1436,11 +1307,11 @@ window.HuntarrInit = {
         }
     },
 
-    initializeSwaparr: function() {
+    initializeSwaparr: function () {
         console.log('[HuntarrInit] initializeSwaparr called');
         const swaparrContainer = document.getElementById('swaparrContainer');
         if (!swaparrContainer) return;
-        
+
         const currentContent = swaparrContainer.innerHTML.trim();
         if (currentContent !== '' && !currentContent.includes('<!-- Swaparr settings content will be shown here -->')) return;
 

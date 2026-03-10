@@ -7,27 +7,29 @@
 !verbose 4 ; Increase verbosity for debugging defines
 !define DEFAULT_VERSION "1.0.0-default"
 
-!ifdef VERSIONFILE
-  !echo "VERSIONFILE is defined by command line as: '${VERSIONFILE}'"
-  !if /FILEEXISTS "${VERSIONFILE}"
-    !define /file VERSION "${VERSIONFILE}"
-    !searchreplace VERSION "${VERSION}" "\n" ""
-    !searchreplace VERSION "${VERSION}" "\r" ""
-    !echo "Successfully read version '${VERSION}' from '${VERSIONFILE}'"
+!ifndef VERSION
+  !ifdef VERSIONFILE
+    !echo "VERSIONFILE is defined by command line as: '${VERSIONFILE}'"
+    !if /FILEEXISTS "${VERSIONFILE}"
+      !define /file VERSION "${VERSIONFILE}"
+      !searchreplace VERSION "${VERSION}" "\n" ""
+      !searchreplace VERSION "${VERSION}" "\r" ""
+      !echo "Successfully read version '${VERSION}' from '${VERSIONFILE}'"
+    !else
+      !error "VERSIONFILE was defined as '${VERSIONFILE}', but this file was NOT FOUND! Using default version."
+      !define VERSION "${DEFAULT_VERSION}" ; Fallback
+    !endif
   !else
-    !error "VERSIONFILE was defined as '${VERSIONFILE}', but this file was NOT FOUND! Using default version."
-    !define VERSION "${DEFAULT_VERSION}" ; Fallback
-  !endif
-!else
-  !warning "VERSIONFILE was NOT defined on the command line. Trying relative 'version.txt'."
-  !if /FILEEXISTS "version.txt" ; Relative to script path, or project root if lucky
-    !define /file VERSION "version.txt"
-    !searchreplace VERSION "${VERSION}" "\n" ""
-    !searchreplace VERSION "${VERSION}" "\r" ""
-    !echo "Successfully read version '${VERSION}' from relative 'version.txt'"
-  !else
-    !warning "Relative 'version.txt' also not found. Using default version '${DEFAULT_VERSION}'."
-    !define VERSION "${DEFAULT_VERSION}"
+    !warning "VERSIONFILE was NOT defined on the command line. Trying relative 'version.txt'."
+    !if /FILEEXISTS "version.txt" ; Relative to script path, or project root if lucky
+      !define /file VERSION "version.txt"
+      !searchreplace VERSION "${VERSION}" "\n" ""
+      !searchreplace VERSION "${VERSION}" "\r" ""
+      !echo "Successfully read version '${VERSION}' from relative 'version.txt'"
+    !else
+      !warning "Relative 'version.txt' also not found. Using default version '${DEFAULT_VERSION}'."
+      !define VERSION "${DEFAULT_VERSION}"
+    !endif
   !endif
 !endif
 
@@ -37,7 +39,7 @@
 !define APPNAME "Huntarr"
 !define EXENAME "Huntarr.exe"
 !define PUBLISHER "Huntarr"
-!define URL "https://github.com/plexguide/Huntarr.io"
+!define URL "https://github.com/emiliomm/huntarr-custom"
 
 ; General settings
 Name "${APPNAME}"

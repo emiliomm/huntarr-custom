@@ -111,7 +111,7 @@
 /* Colors based on user preferences */
 .movie_hunt .cycle-timer,
 .movie-hunt .cycle-timer {
-    border-left: 2px solid var(--movie-hunt-color, #f59e0b);
+    border-left: 2px solid var(--movie-hunt-color, #FBBC04);
 }
 
 .sonarr .cycle-timer {

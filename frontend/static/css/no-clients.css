@@ -39,7 +39,7 @@
 #logsSection .logs-no-clients i.fa-download,
 #media-hunt-collection-view .media-hunt-collection-no-clients i.fa-download {
     font-size: 3rem;
-    color: #334155;
+    color: #3c4043;
     margin-bottom: 16px;
     display: block;
 }
@@ -101,7 +101,7 @@
     gap: 8px;
     background: rgba(99, 102, 241, 0.2);
     border: 1px solid rgba(99, 102, 241, 0.4);
-    color: #818cf8;
+    color: #8ab4f8;
     padding: 10px 20px;
     border-radius: 8px;
     text-decoration: none;
@@ -142,7 +142,7 @@
 #activitySection .activity-unable-to-load i.fa-exclamation-triangle,
 #tvHuntActivitySection .activity-unable-to-load i.fa-exclamation-triangle {
     font-size: 3rem;
-    color: #f59e0b;
+    color: #FBBC04;
     margin-bottom: 16px;
     display: block;
 }

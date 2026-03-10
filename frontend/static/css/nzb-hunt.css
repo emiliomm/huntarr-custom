@@ -111,13 +111,13 @@
     flex-shrink: 0;
     transition: all 0.3s ease;
     background: rgba(99, 102, 241, 0.1);
-    color: #a5b4fc;
+    color: #8ab4f8;
     border: 1px solid rgba(99, 102, 241, 0.2);
 }
 
 .nzb-server-connection-pill.pill-checking {
     background: rgba(99, 102, 241, 0.1);
-    color: #a5b4fc;
+    color: #8ab4f8;
     border-color: rgba(99, 102, 241, 0.2);
 }
 
@@ -129,7 +129,7 @@
 
 .nzb-server-connection-pill.pill-fail {
     background: rgba(239, 68, 68, 0.08);
-    color: #f87171;
+    color: #f28b82;
     border-color: rgba(239, 68, 68, 0.2);
 }
 
@@ -172,7 +172,7 @@
 
 .nzb-editor-icon-blue {
     background: rgba(99, 102, 241, 0.12);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .nzb-editor-icon-green {
@@ -182,7 +182,7 @@
 
 .nzb-editor-icon-amber {
     background: rgba(245, 158, 11, 0.12);
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .nzb-editor-icon-purple {
@@ -232,7 +232,7 @@
     position: relative;
     width: 44px;
     height: 24px;
-    background: #334155;
+    background: #3c4043;
     border: 1px solid rgba(71, 85, 105, 0.5);
     border-radius: 12px;
     transition: background 0.25s ease, border-color 0.25s ease;
@@ -256,8 +256,8 @@
 }
 
 .nzb-toggle-row-huntarr input:checked+.nzb-toggle-slider-huntarr {
-    background: #6366f1;
-    border-color: #818cf8;
+    background: #4285F4;
+    border-color: #8ab4f8;
 }
 
 .nzb-toggle-row-huntarr input:checked+.nzb-toggle-slider-huntarr::after {
@@ -277,7 +277,7 @@
 
 .nzb-btn-test-inline:hover {
     background: rgba(99, 102, 241, 0.08) !important;
-    color: #a5b4fc !important;
+    color: #8ab4f8 !important;
     border-color: rgba(99, 102, 241, 0.25) !important;
 }
 
@@ -474,7 +474,7 @@
     border-radius: 8px;
     background: rgba(99, 102, 241, 0.2) !important;
     border: 1px solid rgba(99, 102, 241, 0.4) !important;
-    color: #a5b4fc !important;
+    color: #8ab4f8 !important;
 }
 
 .nzb-btn-pause:hover {
@@ -510,7 +510,7 @@
 .nzb-client-warning i {
     flex-shrink: 0;
     font-size: 1.25rem;
-    color: #a5b4fc;
+    color: #8ab4f8;
     margin-top: 2px;
 }
 
@@ -524,7 +524,7 @@
 }
 
 .nzb-client-warning-link {
-    color: #a5b4fc;
+    color: #8ab4f8;
     font-weight: 500;
     text-decoration: none;
     border-bottom: 1px solid rgba(96, 165, 250, 0.5);
@@ -533,7 +533,7 @@
 
 .nzb-client-warning-link:hover {
     color: #93c5fd;
-    border-bottom-color: #a5b4fc;
+    border-bottom-color: #8ab4f8;
 }
 
 /* ── Speed limit control ─────────────────────────────────────────── */
@@ -543,7 +543,7 @@
     padding: 2px 6px;
     border-radius: 8px;
     background: rgba(245, 158, 11, 0.2);
-    color: #fbbf24;
+    color: #fcd230;
     margin-left: 4px;
     white-space: nowrap;
 }
@@ -599,7 +599,7 @@
 
 .nzb-speed-opt.active {
     background: rgba(99, 102, 241, 0.2);
-    color: #a5b4fc;
+    color: #8ab4f8;
     font-weight: 600;
 }
 
@@ -622,7 +622,7 @@
 }
 
 .nzb-speed-popover-custom input:focus {
-    border-color: #6366f1;
+    border-color: #4285F4;
     outline: none;
 }
 
@@ -661,7 +661,7 @@
 }
 
 .nzb-tab.active {
-    color: #6366f1;
+    color: #4285F4;
 }
 
 .nzb-tab.active::after {
@@ -671,7 +671,7 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: #6366f1;
+    background: #4285F4;
     border-radius: 1px;
 }
 
@@ -690,17 +690,17 @@
 
 .nzb-tab-badge-default {
     background: rgba(99, 102, 241, 0.15);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .nzb-tab-badge-warning {
     background: rgba(245, 158, 11, 0.15);
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .nzb-tab-badge-warn {
     background: rgba(245, 158, 11, 0.2);
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 /* ── Warnings panel ──────────────────────────────────────────── */
@@ -722,29 +722,29 @@
 
 .nzb-warning-error {
     background: rgba(239, 68, 68, 0.06);
-    border-left-color: #ef4444;
+    border-left-color: #EA4335;
 }
 
 .nzb-warning-error .nzb-warning-icon {
-    color: #ef4444;
+    color: #EA4335;
 }
 
 .nzb-warning-warning {
     background: rgba(245, 158, 11, 0.06);
-    border-left-color: #f59e0b;
+    border-left-color: #FBBC04;
 }
 
 .nzb-warning-warning .nzb-warning-icon {
-    color: #f59e0b;
+    color: #FBBC04;
 }
 
 .nzb-warning-info {
     background: rgba(99, 102, 241, 0.06);
-    border-left-color: #6366f1;
+    border-left-color: #4285F4;
 }
 
 .nzb-warning-info .nzb-warning-icon {
-    color: #6366f1;
+    color: #4285F4;
 }
 
 .nzb-warning-icon {
@@ -821,7 +821,7 @@
 }
 
 .nzb-queue-title i {
-    color: #6366f1;
+    color: #4285F4;
 }
 
 .nzb-queue-actions {
@@ -854,7 +854,7 @@
 .nzb-btn-primary {
     background: rgba(99, 102, 241, 0.15);
     border-color: rgba(99, 102, 241, 0.3);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .nzb-btn-primary:hover {
@@ -881,7 +881,7 @@
 .nzb-btn-danger {
     background: rgba(239, 68, 68, 0.1);
     border-color: rgba(239, 68, 68, 0.25);
-    color: #f87171;
+    color: #f28b82;
 }
 
 .nzb-btn-danger:hover {
@@ -913,7 +913,7 @@
 
 .nzb-queue-empty-icon i {
     font-size: 2rem;
-    color: #334155;
+    color: #3c4043;
 }
 
 .nzb-queue-empty h3 {
@@ -973,7 +973,7 @@
 
 .nzb-queue-item-progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, #6366f1, #a5b4fc);
+    background: linear-gradient(90deg, #4285F4, #8ab4f8);
     border-radius: 3px;
     transition: width 0.3s;
 }
@@ -985,11 +985,11 @@
 }
 
 .nzb-queue-item-status.downloading {
-    color: #6366f1;
+    color: #4285F4;
 }
 
 .nzb-queue-item-status.paused {
-    color: #f59e0b;
+    color: #FBBC04;
 }
 
 .nzb-queue-item-status.queued {
@@ -1020,7 +1020,7 @@
 
 .nzb-coming-soon-icon i {
     font-size: 2.5rem;
-    color: #6366f1;
+    color: #4285F4;
 }
 
 .nzb-coming-soon h2 {
@@ -1047,7 +1047,7 @@
     border-radius: 20px;
     background: rgba(99, 102, 241, 0.1);
     border: 1px solid rgba(99, 102, 241, 0.2);
-    color: #a5b4fc;
+    color: #8ab4f8;
     font-size: 0.85rem;
     font-weight: 500;
 }
@@ -1099,7 +1099,7 @@
 }
 
 .nzb-settings-tab.active {
-    color: #6366f1;
+    color: #4285F4;
 }
 
 .nzb-settings-tab.active::after {
@@ -1109,7 +1109,7 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: #6366f1;
+    background: #4285F4;
     border-radius: 1px;
 }
 
@@ -1195,7 +1195,7 @@
 
 .nzb-folder-input:focus {
     outline: none;
-    border-color: #6366f1;
+    border-color: #4285F4;
     box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
 }
 
@@ -1272,12 +1272,12 @@
 
 #nzb-hunt-settings-advanced .nzb-adv-icon-amber {
     background: rgba(245, 158, 11, 0.12);
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 #nzb-hunt-settings-advanced .nzb-adv-icon-blue {
     background: rgba(99, 102, 241, 0.12);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 #nzb-hunt-settings-advanced .nzb-adv-icon-teal {
@@ -1393,12 +1393,12 @@
     flex-shrink: 0;
     font-size: 0.95rem;
     background: rgba(99, 102, 241, 0.12);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .nzb-servers-guidance-icon-tip {
     background: rgba(245, 158, 11, 0.12);
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .nzb-servers-guidance-body {
@@ -1468,7 +1468,7 @@
 }
 
 .nzb-server-card-name i {
-    color: #6366f1;
+    color: #4285F4;
     flex-shrink: 0;
 }
 
@@ -1495,22 +1495,22 @@
 
 .nzb-badge-priority {
     background: rgba(99, 102, 241, 0.2);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .nzb-badge-enabled {
     background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
+    color: #81c995;
 }
 
 .nzb-badge-disabled {
     background: rgba(239, 68, 68, 0.15);
-    color: #f87171;
+    color: #f28b82;
 }
 
 .nzb-badge-ssl {
     background: rgba(245, 158, 11, 0.15);
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .nzb-server-card-body {
@@ -1591,7 +1591,7 @@
 .nzb-server-bandwidth-fill {
     height: 100%;
     border-radius: 2px;
-    background: linear-gradient(90deg, #6366f1, #a5b4fc);
+    background: linear-gradient(90deg, #4285F4, #8ab4f8);
     transition: width 0.4s;
 }
 
@@ -1644,7 +1644,7 @@
 
 .nzb-server-card-footer-secondary .nzb-btn.nzb-btn-subtle:hover {
     background: rgba(99, 102, 241, 0.08);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 /* ── Add server card (matches instance-card-grid pattern) ────────── */
@@ -1669,7 +1669,7 @@
 
 #nzb-add-server-card .add-icon {
     font-size: 2rem;
-    color: #6366f1;
+    color: #4285F4;
 }
 
 #nzb-add-server-card .add-text {
@@ -1718,7 +1718,7 @@
 
 .nzb-server-modal-header {
     position: relative;
-    background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #0f172a 100%);
+    background: linear-gradient(135deg, #303134 0%, #3c4043 50%, #202124 100%);
     padding: 16px 24px 12px;
 }
 
@@ -1793,7 +1793,7 @@
 }
 
 .nzb-form-group input:focus {
-    border-color: #6366f1;
+    border-color: #4285F4;
     outline: none;
     box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
 }
@@ -1841,7 +1841,7 @@
     position: relative !important;
     width: 64px !important;
     height: 32px !important;
-    background: #ef4444 !important;
+    background: #EA4335 !important;
     border-radius: 16px !important;
     transition: background 0.3s ease, box-shadow 0.3s ease !important;
     flex-shrink: 0 !important;
@@ -1886,7 +1886,7 @@
 /* Checked (ON) state */
 .nzb-toggle-row input:checked+.nzb-toggle-switch,
 .nzb-toggle-row input:checked+.nzb-toggle-slider {
-    background: #22c55e !important;
+    background: #34A853 !important;
     box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.6), 0 0 16px rgba(34, 197, 94, 0.4) !important;
 }
 
@@ -1936,15 +1936,15 @@
 }
 
 .nzb-server-test-status.test-testing .nzb-server-test-inner {
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .nzb-server-test-status.test-success .nzb-server-test-inner {
-    color: #4ade80;
+    color: #81c995;
 }
 
 .nzb-server-test-status.test-fail .nzb-server-test-inner {
-    color: #f87171;
+    color: #f28b82;
 }
 
 .nzb-server-test-inner i {
@@ -1964,16 +1964,16 @@
 }
 
 .nzb-server-status-dot.status-checking {
-    background: #6366f1;
+    background: #4285F4;
 }
 
 .nzb-server-status-dot.status-online {
-    background: #22c55e;
+    background: #34A853;
     box-shadow: 0 0 6px rgba(34, 197, 94, 0.5);
 }
 
 .nzb-server-status-dot.status-offline {
-    background: #ef4444;
+    background: #EA4335;
     box-shadow: 0 0 6px rgba(239, 68, 68, 0.4);
 }
 
@@ -1987,7 +1987,7 @@
 
 .nzb-btn-test-subtle:hover {
     background: rgba(99, 102, 241, 0.1) !important;
-    color: #a5b4fc !important;
+    color: #8ab4f8 !important;
     border-color: rgba(99, 102, 241, 0.3) !important;
 }
 
@@ -2090,7 +2090,7 @@
 }
 
 #nzb-browse-path-input:focus {
-    border-color: #6366f1;
+    border-color: #4285F4;
     outline: none;
 }
 
@@ -2103,8 +2103,8 @@
     align-items: center;
     gap: 8px;
     padding: 10px 16px;
-    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-    color: #0f172a;
+    background: linear-gradient(135deg, #FBBC04 0%, #fcd230 100%);
+    color: #202124;
     border: 1px solid rgba(245, 158, 11, 0.5);
     border-radius: 8px;
     font-weight: 600;
@@ -2112,7 +2112,7 @@
 }
 
 .nzb-browse-up-btn:hover {
-    background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);
+    background: linear-gradient(135deg, #fcd230 0%, #fcd34d 100%);
 }
 
 .nzb-browse-up-btn:disabled {
@@ -2164,7 +2164,7 @@
     font-size: 0.85rem;
     background: rgba(99, 102, 241, 0.2);
     border: 1px solid rgba(99, 102, 241, 0.4);
-    color: #a5b4fc;
+    color: #8ab4f8;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 500;
@@ -2188,7 +2188,7 @@
 }
 
 .nzb-browse-inline-row i {
-    color: #818cf8;
+    color: #8ab4f8;
     font-size: 1rem;
     flex-shrink: 0;
 }
@@ -2199,7 +2199,7 @@
 }
 
 .nzb-browse-delete-row i {
-    color: #f87171 !important;
+    color: #f28b82 !important;
 }
 
 .nzb-browse-delete-row span {
@@ -2229,7 +2229,7 @@
 
 .nzb-browse-inline-input:focus {
     outline: none;
-    border-color: #6366f1;
+    border-color: #4285F4;
 }
 
 .nzb-browse-inline-ok {
@@ -2265,7 +2265,7 @@
     background: rgba(239, 68, 68, 0.2);
     border: 1px solid rgba(239, 68, 68, 0.4);
     border-radius: 6px;
-    color: #f87171;
+    color: #f28b82;
     cursor: pointer;
     font-size: 0.85rem;
     font-weight: 600;
@@ -2316,7 +2316,7 @@
 }
 
 .nzb-browse-item-btn[data-action="delete"]:hover {
-    color: #f87171;
+    color: #f28b82;
 }
 
 /* Inline rename input */
@@ -2334,7 +2334,7 @@
 
 .nzb-browse-item-rename-input:focus {
     outline: none;
-    border-color: #6366f1;
+    border-color: #4285F4;
 }
 
 .nzb-browse-actions {
@@ -2689,7 +2689,7 @@
 
 .nzb-badge-default {
     background: rgba(99, 102, 241, 0.2);
-    color: #a5b4fc;
+    color: #8ab4f8;
 }
 
 .nzb-cat-default-text {
@@ -2706,7 +2706,7 @@
 .nzb-cat-default-path {
     font-family: 'SF Mono', 'Fira Code', monospace;
     font-size: 0.85rem;
-    color: #a5b4fc;
+    color: #8ab4f8;
     padding: 4px 10px;
     background: rgba(99, 102, 241, 0.1);
     border-radius: 6px;
@@ -2723,7 +2723,7 @@
 .nzb-cat-card {
     padding: 0;
     border-radius: 10px;
-    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    background: linear-gradient(145deg, #303134 0%, #202124 100%);
     border: 1px solid rgba(148, 163, 184, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
@@ -2774,12 +2774,12 @@
 
 .nzb-badge-processing {
     background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
+    color: #81c995;
 }
 
 .nzb-badge-priority-cat {
     background: rgba(245, 158, 11, 0.15);
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .nzb-cat-card-body {
@@ -2900,18 +2900,18 @@
 }
 
 .nzb-cat-status-ok {
-    color: #22c55e;
+    color: #34A853;
     font-size: 1rem;
 }
 
 .nzb-cat-status-error {
-    color: #ef4444;
+    color: #EA4335;
     font-size: 1rem;
 }
 
 .nzb-cat-error-msg {
     font-size: 0.8rem;
-    color: #f87171;
+    color: #f28b82;
     margin-top: 4px;
 }
 
@@ -3063,7 +3063,7 @@
     width: 15px;
     height: 15px;
     cursor: pointer;
-    accent-color: #6366f1;
+    accent-color: #4285F4;
     vertical-align: middle;
 }
 
@@ -3082,7 +3082,7 @@
 .nzb-cell-cat {
     text-transform: uppercase;
     font-size: 0.72rem;
-    color: #818cf8;
+    color: #8ab4f8;
     font-weight: 600;
 }
 
@@ -3100,17 +3100,17 @@
 }
 
 .nzb-priority-select:focus {
-    border-color: #6366f1;
+    border-color: #4285F4;
 }
 
 /* Priority color classes */
 .nzb-priority-force .nzb-priority-select {
-    color: #f87171;
+    color: #f28b82;
     border-color: rgba(248, 113, 113, 0.4);
 }
 
 .nzb-priority-high .nzb-priority-select {
-    color: #fbbf24;
+    color: #fcd230;
     border-color: rgba(251, 191, 36, 0.4);
 }
 
@@ -3140,7 +3140,7 @@
 
 .nzb-mass-count {
     font-size: 0.78rem;
-    color: #a5b4fc;
+    color: #8ab4f8;
     font-weight: 600;
     white-space: nowrap;
 }
@@ -3157,7 +3157,7 @@
 }
 
 .nzb-mass-priority-select:focus {
-    border-color: #6366f1;
+    border-color: #4285F4;
 }
 
 .nzb-mass-delete-btn {
@@ -3165,7 +3165,7 @@
     background: rgba(239, 68, 68, 0.12);
     border: 1px solid rgba(239, 68, 68, 0.3);
     border-radius: 4px;
-    color: #f87171;
+    color: #f28b82;
     padding: 5px 10px;
     cursor: pointer;
     font-size: 0.82rem;
@@ -3183,11 +3183,11 @@
 
 /* Status column state colors */
 .nzb-queue-row.nzb-item-downloading .nzb-col-status {
-    color: #4ade80;
+    color: #81c995;
 }
 
 .nzb-queue-row.nzb-item-assembling .nzb-col-status {
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 .nzb-queue-row.nzb-item-queued .nzb-col-status {
@@ -3195,19 +3195,19 @@
 }
 
 .nzb-queue-row.nzb-item-paused .nzb-col-status {
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .nzb-queue-row.nzb-item-failed .nzb-col-status {
-    color: #f87171;
+    color: #f28b82;
 }
 
 .nzb-queue-row.nzb-item-extracting .nzb-col-status {
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 .nzb-queue-row.nzb-item-completed .nzb-col-status {
-    color: #22c55e;
+    color: #34A853;
 }
 
 .nzb-queue-table .nzb-col-status {
@@ -3241,7 +3241,7 @@
 }
 
 .nzb-status-msg-warn {
-    color: #f59e0b !important;
+    color: #FBBC04 !important;
 }
 
 .nzb-progress-pct {
@@ -3249,7 +3249,7 @@
 }
 
 .nzb-missing-icon {
-    color: #f59e0b;
+    color: #FBBC04;
     font-size: 0.7rem;
     margin-left: 2px;
     cursor: help;
@@ -3257,11 +3257,11 @@
 
 /* State icons */
 .nzb-icon-downloading {
-    color: #4ade80;
+    color: #81c995;
 }
 
 .nzb-icon-assembling {
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 .nzb-icon-queued {
@@ -3269,19 +3269,19 @@
 }
 
 .nzb-icon-paused {
-    color: #fbbf24;
+    color: #fcd230;
 }
 
 .nzb-icon-extracting {
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 .nzb-icon-completed {
-    color: #22c55e;
+    color: #34A853;
 }
 
 .nzb-icon-failed {
-    color: #ef4444;
+    color: #EA4335;
 }
 
 /* Action buttons in table */
@@ -3315,7 +3315,7 @@
 .nzb-item-btn-danger:hover {
     background: rgba(239, 68, 68, 0.15);
     border-color: rgba(239, 68, 68, 0.35);
-    color: #ef4444;
+    color: #EA4335;
 }
 
 /* ═══ History table – same layout as Queue (NAME | CATEGORY | SIZE | RESULT | AGE | actions) ═══ */
@@ -3341,12 +3341,12 @@
 
 /* Result column styling */
 .nzb-hist-result-ok {
-    color: #22c55e;
+    color: #34A853;
     font-weight: 500;
 }
 
 .nzb-hist-result-fail {
-    color: #ef4444;
+    color: #EA4335;
     font-weight: 500;
 }
 
@@ -3363,7 +3363,7 @@
 }
 
 .nzb-hist-delete-btn:hover {
-    color: #ef4444;
+    color: #EA4335;
     background: rgba(239, 68, 68, 0.1);
 }
 
@@ -3401,7 +3401,7 @@
 }
 
 .nzb-hist-search input:focus {
-    border-color: #6366f1;
+    border-color: #4285F4;
 }
 
 .nzb-hist-search input::placeholder {
@@ -3432,9 +3432,9 @@
 }
 
 .nzb-hist-pagination button.active {
-    background: #6366f1;
+    background: #4285F4;
     color: #fff;
-    border-color: #6366f1;
+    border-color: #4285F4;
 }
 
 .nzb-hist-pagination button:disabled {
@@ -3511,7 +3511,7 @@
 }
 
 .nzb-prefs-modal {
-    background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%);
+    background: linear-gradient(160deg, #303134 0%, #202124 100%);
     border: 1px solid rgba(71, 85, 105, 0.45);
     border-radius: 14px;
     width: 380px;
@@ -3559,7 +3559,7 @@
 }
 
 .nzb-prefs-close:hover {
-    color: #ef4444;
+    color: #EA4335;
 }
 
 .nzb-prefs-body {
@@ -3594,7 +3594,7 @@
 }
 
 .nzb-prefs-select:focus {
-    border-color: #6366f1;
+    border-color: #4285F4;
 }
 
 .nzb-prefs-divider {
@@ -3638,7 +3638,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: #334155;
+    background: #3c4043;
     border: 1px solid rgba(71, 85, 105, 0.5);
     border-radius: 18px;
     transition: background 0.25s, border-color 0.25s;
@@ -3658,8 +3658,8 @@
 }
 
 .nzb-pref-toggle input[type="checkbox"]:checked+.nzb-pref-slider {
-    background: #22c55e;
-    border-color: #16a34a;
+    background: #34A853;
+    border-color: #1e8e3e;
 }
 
 .nzb-pref-toggle input[type="checkbox"]:checked+.nzb-pref-slider::before {

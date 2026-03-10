@@ -44,7 +44,7 @@ body.huntarr-confirm-modal-open .app-container {
 .huntarr-confirm-modal-header {
     position: relative;
     padding: 20px 24px 16px;
-    background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #0f172a 100%);
+    background: linear-gradient(135deg, #303134 0%, #3c4043 50%, #202124 100%);
 }
 .huntarr-confirm-modal-close {
     position: absolute;
@@ -94,7 +94,7 @@ body.huntarr-confirm-modal-open .app-container {
 }
 .huntarr-confirm-modal-confirm {
     padding: 10px 20px;
-    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    background: linear-gradient(135deg, #4285F4 0%, #4f46e5 100%);
     border: 1px solid rgba(99, 102, 241, 0.5);
     border-radius: 8px;
     color: #fff;
@@ -116,7 +116,7 @@ body.huntarr-confirm-modal-open .app-container {
     background: rgba(239, 68, 68, 0.2);
     border: 1px solid rgba(239, 68, 68, 0.4);
     border-radius: 8px;
-    color: #f87171;
+    color: #f28b82;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -128,7 +128,7 @@ body.huntarr-confirm-modal-open .app-container {
 .huntarr-confirm-modal-extra.danger {
     background: rgba(239, 68, 68, 0.2);
     border-color: rgba(239, 68, 68, 0.4);
-    color: #f87171;
+    color: #f28b82;
 }
 .huntarr-confirm-modal-extra.danger:hover {
     background: rgba(239, 68, 68, 0.35);

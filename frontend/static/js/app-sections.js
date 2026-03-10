@@ -205,9 +205,6 @@ Object.assign(huntarrUI, {
 
         // Show selected section
         let newTitle = 'Home'; // Default title
-        const sponsorsSection = document.getElementById('sponsorsSection'); // Get sponsors section element
-        const sponsorsNav = document.getElementById('sponsorsNav'); // Get sponsors nav element
-
         if (section === 'home' && this.elements.homeSection) {
             this.elements.homeSection.classList.add('active');
             this.elements.homeSection.style.display = 'block';

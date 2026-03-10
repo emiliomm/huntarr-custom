@@ -33,9 +33,9 @@
     background: linear-gradient(180deg,
         rgba(99, 102, 241, 0.15) 0%,
         rgba(99, 102, 241, 0.5) 20%,
-        #6366f1 40%,
-        #818cf8 50%,
-        #6366f1 60%,
+        #4285F4 40%,
+        #8ab4f8 50%,
+        #4285F4 60%,
         rgba(99, 102, 241, 0.5) 80%,
         rgba(99, 102, 241, 0.15) 100%
     );
@@ -72,10 +72,10 @@
 /* Blue slate background for main content area (Home, Media Hunt, etc.) */
 body:has(.app-container) .main-content,
 .app-container .main-content {
-    background-color: #0f172a !important;
+    background-color: #202124 !important;
 }
 body:has(.app-container) {
-    background-color: #0f172a !important;
+    background-color: #202124 !important;
 }
 
 /* REMOVED DUPLICATE - Using flex-based approach above */
@@ -603,7 +603,7 @@ body:has(.app-container) {
     height: 24px;
     /* border-box so the 1px border is INSIDE the 24px height */
     box-sizing: border-box;
-    background: var(--switch-bg, #334155);
+    background: var(--switch-bg, #3c4043);
     border: 1px solid rgba(71, 85, 105, 0.3);
     border-radius: 12px;
     transition: background 0.25s ease, border-color 0.25s ease;
@@ -630,7 +630,7 @@ body:has(.app-container) {
 }
 
 input:checked + .toggle-slider {
-    background: #6366f1;
+    background: #4285F4;
     border-color: rgba(99, 102, 241, 0.5);
     box-shadow: 0 0 12px rgba(99, 102, 241, 0.2);
 }
@@ -1104,7 +1104,7 @@ label .info-icon ~ text {
 }
 
 .tag-item {
-    background: linear-gradient(135deg, #312e81 0%, #6366f1 100%);
+    background: linear-gradient(135deg, #174ea6 0%, #4285F4 100%);
     border: 1px solid rgba(99, 102, 241, 0.3);
     border-radius: var(--radius-sm);
     padding: 6px 10px;
@@ -1119,7 +1119,7 @@ label .info-icon ~ text {
 }
 
 .tag-item:hover {
-    background: linear-gradient(135deg, #4338ca 0%, #818cf8 100%);
+    background: linear-gradient(135deg, #4338ca 0%, #8ab4f8 100%);
     border-color: rgba(99, 102, 241, 0.5);
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -1128,7 +1128,7 @@ label .info-icon ~ text {
 .tag-remove {
     background: none;
     border: none;
-    color: #ef4444;
+    color: #EA4335;
     cursor: pointer;
     padding: 0;
     width: 16px;
@@ -1248,7 +1248,7 @@ label .info-icon ~ text {
 
 /* Button styling */
 .add-instance-btn {
-    background-color: var(--accent-color, #6366f1);
+    background-color: var(--accent-color, #4285F4);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -1533,7 +1533,7 @@ label .info-icon ~ text {
 
 .app-sponsor-banner .sponsor-name {
     font-weight: 600;
-    color: #a5b4fc;
+    color: #8ab4f8;
     font-size: 12px;
 }
 

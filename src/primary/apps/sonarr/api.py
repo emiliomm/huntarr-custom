@@ -53,7 +53,7 @@ def arr_request(api_url: str, api_key: str, api_timeout: int, endpoint: str, met
         headers = {
             "X-Api-Key": api_key,
             "Content-Type": "application/json",
-            "User-Agent": "Huntarr/1.0 (https://github.com/plexguide/Huntarr.io)"
+            "User-Agent": "Huntarr/1.0 (https://github.com/emiliomm/huntarr-custom)"
         }
         
         # Get SSL verification setting

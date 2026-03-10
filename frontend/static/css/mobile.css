@@ -146,7 +146,7 @@
     .mtb-chip-stars {
         background: rgba(245, 158, 11, 0.08);
         border: 1px solid rgba(245, 158, 11, 0.15);
-        color: #fbbf24;
+        color: #fcd230;
     }
 
     .mtb-chip-stars:active {
@@ -155,7 +155,7 @@
     }
 
     .mtb-chip-stars i {
-        color: #f59e0b;
+        color: #FBBC04;
     }
 
     /* Icon buttons — frosted glass circles */

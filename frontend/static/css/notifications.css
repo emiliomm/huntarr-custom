@@ -54,11 +54,11 @@
     flex-shrink: 0;
 }
 
-.notif-icon-blue    { background: linear-gradient(135deg, #6366f1, #818cf8); }
+.notif-icon-blue    { background: linear-gradient(135deg, #4285F4, #8ab4f8); }
 .notif-icon-green   { background: linear-gradient(135deg, #059669, #34d399); }
 .notif-icon-slate   { background: linear-gradient(135deg, #475569, #64748b); }
-.notif-icon-amber   { background: linear-gradient(135deg, #d97706, #fbbf24); }
-.notif-icon-red     { background: linear-gradient(135deg, #dc2626, #f87171); }
+.notif-icon-amber   { background: linear-gradient(135deg, #f29900, #fcd230); }
+.notif-icon-red     { background: linear-gradient(135deg, #d93025, #f28b82); }
 
 .notif-card-body {
     padding: 20px;
@@ -251,7 +251,7 @@
     padding: 1px 7px;
     border-radius: 20px;
     background: rgba(129, 140, 248, 0.12);
-    color: #a5b4fc;
+    color: #8ab4f8;
     font-size: 10px;
 }
 
@@ -300,8 +300,8 @@
 }
 
 .notif-btn-icon.test-btn:hover { color: #34d399; border-color: rgba(52, 211, 153, 0.3); background: rgba(52, 211, 153, 0.08); }
-.notif-btn-icon.edit-btn:hover { color: #fbbf24; border-color: rgba(251, 191, 36, 0.3); }
-.notif-btn-icon.delete-btn:hover { color: #f87171; border-color: rgba(248, 113, 113, 0.3); }
+.notif-btn-icon.edit-btn:hover { color: #fcd230; border-color: rgba(251, 191, 36, 0.3); }
+.notif-btn-icon.delete-btn:hover { color: #f28b82; border-color: rgba(248, 113, 113, 0.3); }
 
 /* ---- Empty State ---- */
 .notif-empty-state {
@@ -421,7 +421,7 @@ body.notif-modal-open { overflow: hidden; }
 }
 
 .notif-form-group label .required {
-    color: #f87171;
+    color: #f28b82;
     margin-left: 2px;
 }
 
@@ -458,7 +458,7 @@ body.notif-modal-open { overflow: hidden; }
 
 .notif-checkbox-row input[type="checkbox"] {
     width: auto;
-    accent-color: #818cf8;
+    accent-color: #8ab4f8;
 }
 
 /* ---- Scope Row (App + Instance dropdowns) ---- */
@@ -505,7 +505,7 @@ body.notif-modal-open { overflow: hidden; }
 }
 
 .notif-trigger-item input[type="checkbox"] {
-    accent-color: #818cf8;
+    accent-color: #8ab4f8;
     flex-shrink: 0;
 }
 
@@ -534,7 +534,7 @@ body.notif-modal-open { overflow: hidden; }
 }
 
 .notif-options-row input[type="checkbox"] {
-    accent-color: #818cf8;
+    accent-color: #8ab4f8;
 }
 
 /* ---- Modal Footer ---- */
@@ -599,7 +599,7 @@ body.notif-modal-open { overflow: hidden; }
 }
 
 .notif-btn-save {
-    background: linear-gradient(135deg, #6366f1, #818cf8);
+    background: linear-gradient(135deg, #4285F4, #8ab4f8);
     color: #fff;
 }
 
@@ -622,7 +622,7 @@ body.notif-modal-open { overflow: hidden; }
 
 /* ---- Spinning test indicator ---- */
 .notif-btn-icon.testing {
-    color: #818cf8;
+    color: #8ab4f8;
 }
 
 .notif-btn-icon.testing i,
