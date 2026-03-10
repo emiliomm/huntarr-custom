@@ -832,7 +832,8 @@ def process_stalled_downloads(app_name, instance_name, instance_data, settings):
                 sizeleft = int(raw_sizeleft) if raw_sizeleft is not None else 0
             except (TypeError, ValueError):
                 sizeleft = 0
-            is_completed = sizeleft == 0
+            total_size = item.get("size", 0)
+            is_completed = sizeleft == 0 and total_size > 0
             remove_completed_stalled = settings.get("remove_completed_stalled", True)
             if is_completed and not remove_completed_stalled:
                 swaparr_logger.debug(f"Ignoring completed download (100% - waiting for import): {item['name']}")
