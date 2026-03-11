@@ -526,7 +526,7 @@
                     });
                 })
                 .catch(function () {
-                    treeEl.innerHTML = '<span class="custom-format-loading" style="color:#f87171;">Failed to load formats.</span>';
+                    treeEl.innerHTML = '<span class="custom-format-loading" style="color:var(--ui-danger-soft);">Failed to load formats.</span>';
                 });
         },
 

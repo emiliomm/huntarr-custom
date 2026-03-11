@@ -936,16 +936,16 @@ let huntarrUI = {
 
             if (enable) {
                 btn.disabled = false;
-                btn.style.background = '#dc2626'; // Red color for enabled state
-                btn.style.color = '#ffffff';
-                btn.style.borderColor = '#b91c1c';
+                btn.style.background = 'var(--app-color-1)'; // Red color for enabled state
+                btn.style.color = 'var(--button-primary-text)';
+                btn.style.borderColor = 'var(--app-color-2)';
                 btn.style.cursor = 'pointer';
-                btn.style.boxShadow = '0 0 10px rgba(220, 38, 38, 0.3)';
+                btn.style.boxShadow = '0 0 10px var(--app-color-3)';
             } else {
                 btn.disabled = true;
-                btn.style.background = '#6b7280';
-                btn.style.color = '#9ca3af';
-                btn.style.borderColor = '#4b5563';
+                btn.style.background = 'var(--app-color-4)';
+                btn.style.color = 'var(--ui-neutral-400)';
+                btn.style.borderColor = 'var(--app-color-6)';
                 btn.style.cursor = 'not-allowed';
                 btn.style.boxShadow = 'none';
             }
@@ -1198,7 +1198,6 @@ let huntarrUI = {
         return window.HuntarrHelpers ? window.HuntarrHelpers.capitalizeFirst(string) : string.charAt(0).toUpperCase() + string.slice(1);
     },
 
-    // Load current version from version.txt
     // Load current version from version.txt
     loadCurrentVersion: function () {
         if (window.HuntarrVersion) {

@@ -168,7 +168,7 @@
                     var results = data.results || [];
                     if (!grid) return;
                     if (results.length === 0) {
-                        grid.innerHTML = '<p style="text-align:center;color:#888;padding:40px;">No results found.</p>';
+                        grid.innerHTML = '<p style="text-align:center;color:var(--ui-brand);padding:40px;">No results found.</p>';
                         return;
                     }
                     grid.innerHTML = '';
@@ -178,7 +178,7 @@
                     });
                 })
                 .catch(function(err) {
-                    if (grid) grid.innerHTML = '<p style="text-align:center;color:#f87171;">' + (err && err.message ? HuntarrUtils.escapeHtml(err.message) : 'Search failed.') + '</p>';
+                    if (grid) grid.innerHTML = '<p style="text-align:center;color:var(--ui-danger-soft);">' + (err && err.message ? HuntarrUtils.escapeHtml(err.message) : 'Search failed.') + '</p>';
                 });
         },
 
@@ -202,7 +202,7 @@
                     '<img src="' + posterUrl + '" alt="' + HuntarrUtils.escapeHtml(title) + '" loading="lazy">' +
                     '<div class="media-overlay">' +
                         (inCollection
-                            ? '<span style="color:#4ade80;font-size:0.9em;"><i class="fas fa-check"></i> In Collection</span>'
+                            ? '<span style="color:var(--hunt-manager-section-text-4);font-size:0.9em;"><i class="fas fa-check"></i> In Collection</span>'
                             : '<button class="add-to-collection-btn" title="Add to Collection"><i class="fas fa-plus"></i></button>') +
                     '</div>' +
                 '</div>' +
@@ -220,7 +220,7 @@
                         e.stopPropagation();
                         var add = (window.MediaHunt && window.MediaHunt.addToCollection) ? window.MediaHunt.addToCollection : (window.TVHunt && window.TVHunt.addToCollection);
                         if (add) add(show, instanceId);
-                        addBtn.outerHTML = '<span style="color:#4ade80;font-size:0.9em;"><i class="fas fa-check"></i> Added</span>';
+                        addBtn.outerHTML = '<span style="color:var(--hunt-manager-section-text-4);font-size:0.9em;"><i class="fas fa-check"></i> Added</span>';
                     });
                 }
             }
@@ -279,11 +279,11 @@
                     grid.style.display = 'flex';
                     grid.style.alignItems = 'center';
                     grid.style.justifyContent = 'center';
-                    grid.innerHTML = '<div style="text-align: center; color: #9ca3af; max-width: 600px;">' +
+                    grid.innerHTML = '<div style="text-align: center; color: var(--ui-neutral-400); max-width: 600px;">' +
                         '<i class="fas fa-cube" style="font-size: 64px; margin-bottom: 30px; opacity: 0.4; display: block;"></i>' +
                         '<p style="font-size: 20px; margin-bottom: 15px; font-weight: 500;">No TV Hunt instance</p>' +
                         '<p style="font-size: 15px; line-height: 1.6; opacity: 0.8; margin-bottom: 20px;">Create a TV Hunt instance to manage your TV collection and requested shows.</p>' +
-                        '<a href="./#media-hunt-instances" class="action-button" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); color: #818cf8; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.2s ease;">' +
+                        '<a href="./#media-hunt-instances" class="action-button" style="display: inline-flex; align-items: center; gap: 8px; background: var(--ui-accent-bg-soft); border: 1px solid var(--ui-accent-border); color: var(--ui-accent-soft); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.2s ease;">' +
                         '<i class="fas fa-cog"></i> Set up TV Hunt instance</a></div>';
                 }
                 return;
@@ -300,7 +300,7 @@
                     grid.style.display = 'flex';
                     grid.style.alignItems = 'center';
                     grid.style.justifyContent = 'center';
-                    grid.innerHTML = '<div style="text-align: center; color: #9ca3af; max-width: 600px;">' +
+                    grid.innerHTML = '<div style="text-align: center; color: var(--ui-neutral-400); max-width: 600px;">' +
                         '<i class="fas fa-inbox" style="font-size: 64px; margin-bottom: 30px; opacity: 0.4; display: block;"></i>' +
                         '<p style="font-size: 20px; margin-bottom: 15px; font-weight: 500;">No Requested Media</p>' +
                         '<p style="font-size: 15px; line-height: 1.6; opacity: 0.8;">TV shows you add from TV Hunt will appear here. Track status as Requested or Available.</p></div>';
@@ -362,11 +362,11 @@
                 div.style.alignItems = 'center';
                 div.style.gap = '12px';
                 div.style.padding = '10px 0';
-                div.style.borderBottom = '1px solid rgba(255,255,255,0.06)';
+                div.style.borderBottom = '1px solid var(--ui-alpha-white)';
                 div.style.cursor = 'pointer';
                 div.innerHTML = '<img src="' + posterUrl + '" alt="" style="width:50px;height:75px;object-fit:cover;border-radius:6px;" onerror="this.src=\'./static/images/no-poster.png\'">' +
-                    '<div><div style="font-weight:600;color:#e2e8f0;">' + HuntarrUtils.escapeHtml(series.title || '') + '</div>' +
-                    '<div style="font-size:0.85rem;color:#94a3b8;">' + year + (series.status ? ' · ' + HuntarrUtils.escapeHtml(series.status) : '') + '</div></div>';
+                    '<div><div style="font-weight:600;color:var(--text-secondary);">' + HuntarrUtils.escapeHtml(series.title || '') + '</div>' +
+                    '<div style="font-size:0.85rem;color:var(--ui-text-muted);">' + year + (series.status ? ' · ' + HuntarrUtils.escapeHtml(series.status) : '') + '</div></div>';
                 div.addEventListener('click', function() {
                     if (window.RequestarrTVDetail) {
                         window.RequestarrTVDetail.openDetail({ tmdb_id: series.tmdb_id, id: series.tmdb_id, title: series.title, poster_path: series.poster_path });
@@ -408,7 +408,7 @@
                         '<span class="media-type-badge">TV</span>' +
                         '<img src="' + posterUrl + '" alt="' + HuntarrUtils.escapeHtml(title) + '" loading="lazy">' +
                         '<div class="media-overlay">' +
-                            '<span style="font-size:0.85em;color:#ddd;">' + seasonCount + ' Season' + (seasonCount !== 1 ? 's' : '') + ' &middot; ' + episodeCount + ' Ep' + (episodeCount !== 1 ? 's' : '') + '</span>' +
+                            '<span style="font-size:0.85em;color:var(--home-border-15);">' + seasonCount + ' Season' + (seasonCount !== 1 ? 's' : '') + ' &middot; ' + episodeCount + ' Ep' + (episodeCount !== 1 ? 's' : '') + '</span>' +
                         '</div>' +
                     '</div>' +
                     '<div class="' + barClass + '"' +

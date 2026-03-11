@@ -152,7 +152,7 @@
                     grid.innerHTML = '';
 
                     if (results.length === 0) {
-                        grid.innerHTML = '<p style="color: #888; text-align: center; padding: 40px; width: 100%;">No movies found matching "' + query + '"</p>';
+                        grid.innerHTML = '<p style="color: var(--ui-brand); text-align: center; padding: 40px; width: 100%;">No movies found matching "' + query + '"</p>';
                         return;
                     }
 
@@ -163,7 +163,7 @@
                 })
                 .catch(function(err) {
                     console.error('[MovieHuntCollection] Search failed:', err);
-                    grid.innerHTML = '<p style="color: #ef4444; text-align: center; padding: 40px; width: 100%;">Search failed. Please try again.</p>';
+                    grid.innerHTML = '<p style="color: var(--ui-danger); text-align: center; padding: 40px; width: 100%;">Search failed. Please try again.</p>';
                 });
         },
 
@@ -300,7 +300,7 @@
                     self.renderPage();
                 })
                 .catch(function() {
-                    grid.innerHTML = '<p style="color: #ef4444; text-align: center; padding: 60px;">Failed to load collection.</p>';
+                    grid.innerHTML = '<p style="color: var(--ui-danger); text-align: center; padding: 60px;">Failed to load collection.</p>';
                 });
         },
 
@@ -323,11 +323,11 @@
                     grid.style.display = 'flex';
                     grid.style.alignItems = 'center';
                     grid.style.justifyContent = 'center';
-                    grid.innerHTML = '<div style="text-align: center; color: #9ca3af; max-width: 600px;">' +
+                    grid.innerHTML = '<div style="text-align: center; color: var(--ui-neutral-400); max-width: 600px;">' +
                         '<i class="fas fa-cube" style="font-size: 64px; margin-bottom: 30px; opacity: 0.4; display: block;"></i>' +
                         '<p style="font-size: 20px; margin-bottom: 15px; font-weight: 500;">No Movie Hunt instance</p>' +
                         '<p style="font-size: 15px; line-height: 1.6; opacity: 0.8; margin-bottom: 20px;">Create a Movie Hunt instance to manage your media collection and requested movies.</p>' +
-                        '<a href="./#media-hunt-instances" class="action-button" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); color: #818cf8; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.2s ease;">' +
+                        '<a href="./#media-hunt-instances" class="action-button" style="display: inline-flex; align-items: center; gap: 8px; background: var(--ui-accent-bg-soft); border: 1px solid var(--ui-accent-border); color: var(--ui-accent-soft); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.2s ease;">' +
                         '<i class="fas fa-cog"></i> Set up Movie Hunt instance</a></div>';
                 }
                 return;
@@ -346,7 +346,7 @@
                     grid.style.display = 'flex';
                     grid.style.alignItems = 'center';
                     grid.style.justifyContent = 'center';
-                    grid.innerHTML = '<div style="text-align: center; color: #9ca3af; max-width: 600px;">' +
+                    grid.innerHTML = '<div style="text-align: center; color: var(--ui-neutral-400); max-width: 600px;">' +
                         '<i class="fas fa-inbox" style="font-size: 64px; margin-bottom: 30px; opacity: 0.4; display: block;"></i>' +
                         '<p style="font-size: 20px; margin-bottom: 15px; font-weight: 500;">No Requested Media</p>' +
                         '<p style="font-size: 15px; line-height: 1.6; opacity: 0.8;">Movies you request from Movie Home will appear here. Track status as Requested or Available.</p></div>';

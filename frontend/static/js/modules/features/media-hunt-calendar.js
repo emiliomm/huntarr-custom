@@ -116,7 +116,7 @@
             '<div class="mh-cal-event-title">' + escapeHtml(ep.series_title || '') + '</div>' +
             '<div class="mh-cal-event-meta">' +
             '<span class="mh-cal-event-type inCinemas">' + epLabel + '</span>' +
-            '<span style="color:#94a3b8;font-size:0.85em;">' + escapeHtml(ep.title || '') + '</span>' +
+            '<span style="color:var(--ui-text-muted);font-size:0.85em;">' + escapeHtml(ep.title || '') + '</span>' +
             statusHtml + '</div></div></div>';
     }
 

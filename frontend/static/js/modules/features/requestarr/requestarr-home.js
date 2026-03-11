@@ -445,11 +445,11 @@ const HomeRequestarr = {
                     }
                 });
             } else {
-                this.elements.searchResultsGrid.innerHTML = '<p style="color: #888; text-align: center; padding: 60px; width: 100%;">No results found</p>';
+                this.elements.searchResultsGrid.innerHTML = '<p style="color: var(--ui-brand); text-align: center; padding: 60px; width: 100%;">No results found</p>';
             }
         } catch (error) {
             console.error('[HomeRequestarr] Error searching:', error);
-            this.elements.searchResultsGrid.innerHTML = '<p style="color: #ef4444; text-align: center; padding: 60px; width: 100%;">Search failed</p>';
+            this.elements.searchResultsGrid.innerHTML = '<p style="color: var(--ui-danger); text-align: center; padding: 60px; width: 100%;">Search failed</p>';
         }
     },
 

@@ -374,7 +374,7 @@
                     </select>
                 </div>
                 <div class="reqrequests-pagination-bar">
-                    <span style="color:#94a3b8; font-size:13px;">Show</span>
+                    <span style="color:var(--ui-text-muted); font-size:13px;">Show</span>
                     <select id="reqrequests-page-size" class="control-select"
                         style="min-width:60px; padding:4px 8px; font-size:13px;"
                         onchange="window.RequestarrRequests && window.RequestarrRequests.onPageSizeChange()">
@@ -386,7 +386,7 @@
                         onclick="window.RequestarrRequests && window.RequestarrRequests.prevPage()" disabled>
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    <span id="reqrequests-page-info" style="color:#94a3b8; font-size:13px; white-space:nowrap;">Page 1
+                    <span id="reqrequests-page-info" style="color:var(--ui-text-muted); font-size:13px; white-space:nowrap;">Page 1
                         of 1</span>
                     <button id="reqrequests-next-page" class="pagination-btn" style="padding:4px 10px; font-size:13px;"
                         onclick="window.RequestarrRequests && window.RequestarrRequests.nextPage()" disabled>
@@ -617,7 +617,7 @@
                                 <div style="display: flex; gap: 10px; align-items: center;">
                                     <input type="number" id="smarthunt-year-start" min="1900" max="2030" value="2000"
                                         class="settings-input" style="flex:1;">
-                                    <span style="color: #888;">to</span>
+                                    <span style="color: var(--ui-brand);">to</span>
                                     <input type="number" id="smarthunt-year-end" min="1900" max="2030" value="2027"
                                         class="settings-input" style="flex:1;">
                                 </div>

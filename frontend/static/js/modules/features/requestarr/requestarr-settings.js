@@ -41,11 +41,11 @@ export class RequestarrSettings {
                 );
                 items.forEach(item => container.appendChild(item));
             } else {
-                container.innerHTML = '<p style="color: #888; text-align: center; padding: 60px;">No request history</p>';
+                container.innerHTML = '<p style="color: var(--ui-brand); text-align: center; padding: 60px;">No request history</p>';
             }
         } catch (error) {
             console.error('[RequestarrDiscover] Error loading history:', error);
-            container.innerHTML = '<p style="color: #ef4444; text-align: center; padding: 60px;">Failed to load history</p>';
+            container.innerHTML = '<p style="color: var(--ui-danger); text-align: center; padding: 60px;">Failed to load history</p>';
         }
     }
 
@@ -161,7 +161,7 @@ export class RequestarrSettings {
             this.renderHiddenMediaPage();
         } catch (error) {
             console.error('[RequestarrSettings] Error loading hidden media:', error);
-            container.innerHTML = '<p style="color: #ef4444; text-align: center; padding: 60px;">Failed to load hidden media.</p>';
+            container.innerHTML = '<p style="color: var(--ui-danger); text-align: center; padding: 60px;">Failed to load hidden media.</p>';
         }
     }
 
@@ -295,7 +295,7 @@ export class RequestarrSettings {
             container.style.alignItems = 'center';
             container.style.justifyContent = 'center';
             container.innerHTML = `
-                <div style="text-align: center; color: #9ca3af; max-width: 600px;">
+                <div style="text-align: center; color: var(--ui-neutral-400); max-width: 600px;">
                     <i class="fas fa-inbox" style="font-size: 64px; margin-bottom: 30px; opacity: 0.4; display: block;"></i>
                     <p style="font-size: 20px; margin-bottom: 15px; font-weight: 500; white-space: nowrap;">No Blacklisted Media</p>
                     <p style="font-size: 15px; line-height: 1.6; opacity: 0.8;">Items you blacklist will appear here. Blacklisted media is hidden across all instances.</p>
@@ -809,7 +809,7 @@ export class RequestarrSettings {
         }
     }
 
-    /** Default root folders per app (issue #806) */
+    /** Default root folders per app (issue var(--requestarr-settings-color-2)) */
     async loadDefaultRootFolders() {
         const { decodeInstanceValue } = await import('./requestarr-core.js');
         const radarrSelect = document.getElementById('default-root-folder-radarr');
@@ -1421,7 +1421,7 @@ export class RequestarrSettings {
         providerList.innerHTML = '';
 
         if (!this.providers || this.providers.length === 0) {
-            providerList.innerHTML = '<div class="language-item" style="color: #888;">No providers found</div>';
+            providerList.innerHTML = '<div class="language-item" style="color: var(--ui-brand);">No providers found</div>';
             return;
         }
 

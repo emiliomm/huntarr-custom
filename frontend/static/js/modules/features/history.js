@@ -457,7 +457,7 @@ const historyModule = {
             '<': '&lt;',
             '>': '&gt;',
             '"': '&quot;',
-            "'": '&#039;'
+            "'": '&var(--history-color-1);'
         };
         
         return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });

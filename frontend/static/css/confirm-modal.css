@@ -25,7 +25,7 @@ body.huntarr-confirm-modal-open .app-container {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--ui-overlay-backdrop);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
@@ -33,18 +33,18 @@ body.huntarr-confirm-modal-open .app-container {
 .huntarr-confirm-modal-content {
     position: relative;
     z-index: 1001;
-    background: rgba(15, 23, 42, 0.98);
-    border: 2px solid rgba(99, 102, 241, 0.4);
+    background: var(--ui-surface-opaque);
+    border: 2px solid var(--ui-accent-border);
     border-radius: 12px;
     max-width: 420px;
     width: 90%;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px var(--ui-overlay-backdrop);
     overflow: hidden;
 }
 .huntarr-confirm-modal-header {
     position: relative;
     padding: 20px 24px 16px;
-    background: linear-gradient(135deg, #303134 0%, #3c4043 50%, #202124 100%);
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-hover) 50%, var(--bg-primary) 100%);
 }
 .huntarr-confirm-modal-close {
     position: absolute;
@@ -52,24 +52,24 @@ body.huntarr-confirm-modal-open .app-container {
     right: 12px;
     background: transparent;
     border: none;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     font-size: 1.2rem;
     cursor: pointer;
     padding: 4px;
 }
 .huntarr-confirm-modal-close:hover {
-    color: #f8fafc;
+    color: var(--text-primary);
 }
 .huntarr-confirm-modal-title {
     margin: 0 0 8px 0;
     font-size: 1.25rem;
     font-weight: 600;
-    color: #f8fafc;
+    color: var(--text-primary);
 }
 .huntarr-confirm-modal-message {
     margin: 0;
     font-size: 0.95rem;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     line-height: 1.5;
     white-space: pre-line;
 }
@@ -78,26 +78,26 @@ body.huntarr-confirm-modal-open .app-container {
     justify-content: flex-end;
     gap: 12px;
     padding: 16px 24px 20px;
-    border-top: 1px solid rgba(148, 163, 184, 0.1);
+    border-top: 1px solid var(--ui-border-subtle);
 }
 .huntarr-confirm-modal-cancel {
     padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(148, 163, 184, 0.3);
+    background: var(--ui-alpha-white);
+    border: 1px solid var(--ui-border-tint);
     border-radius: 8px;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 14px;
     cursor: pointer;
 }
 .huntarr-confirm-modal-cancel:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--confirm-modal-bg-2);
 }
 .huntarr-confirm-modal-confirm {
     padding: 10px 20px;
-    background: linear-gradient(135deg, #4285F4 0%, #4f46e5 100%);
-    border: 1px solid rgba(99, 102, 241, 0.5);
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--ui-indigo-600) 100%);
+    border: 1px solid var(--ui-accent-strong);
     border-radius: 8px;
-    color: #fff;
+    color: var(--button-primary-text);
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -113,23 +113,23 @@ body.huntarr-confirm-modal-open .app-container {
 /* Extra button (e.g. Global Blacklist) */
 .huntarr-confirm-modal-extra {
     padding: 10px 20px;
-    background: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.4);
+    background: var(--ui-danger-tint);
+    border: 1px solid var(--backup-restore-border-5);
     border-radius: 8px;
-    color: #f28b82;
+    color: var(--button-danger-hover);
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
 }
 .huntarr-confirm-modal-extra:hover {
-    background: rgba(239, 68, 68, 0.35);
-    border-color: rgba(239, 68, 68, 0.6);
+    background: var(--backup-restore-shadow-6);
+    border-color: var(--backup-restore-border-6);
 }
 .huntarr-confirm-modal-extra.danger {
-    background: rgba(239, 68, 68, 0.2);
-    border-color: rgba(239, 68, 68, 0.4);
-    color: #f28b82;
+    background: var(--ui-danger-tint);
+    border-color: var(--backup-restore-border-5);
+    color: var(--button-danger-hover);
 }
 .huntarr-confirm-modal-extra.danger:hover {
-    background: rgba(239, 68, 68, 0.35);
+    background: var(--backup-restore-shadow-6);
 }

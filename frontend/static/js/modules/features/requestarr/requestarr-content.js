@@ -645,7 +645,7 @@ export class RequestarrContent {
                 carousel.appendChild(this.createMediaCard(item, suggestedInstance));
             });
         } else if (!append) {
-            carousel.innerHTML = '<p style="color: #888; text-align: center; width: 100%; padding: 40px;">No trending content available</p>';
+            carousel.innerHTML = '<p style="color: var(--ui-brand); text-align: center; width: 100%; padding: 40px;">No trending content available</p>';
         }
     }
 
@@ -688,7 +688,7 @@ export class RequestarrContent {
             this._attachCarouselInfiniteScroll(carousel, '_trending');
         } catch (error) {
             console.error('[RequestarrDiscover] Error loading trending:', error);
-            carousel.innerHTML = '<p style="color: #ef4444; text-align: center; width: 100%; padding: 40px;">Failed to load trending content</p>';
+            carousel.innerHTML = '<p style="color: var(--ui-danger); text-align: center; width: 100%; padding: 40px;">Failed to load trending content</p>';
         }
     }
 
@@ -728,7 +728,7 @@ export class RequestarrContent {
                 carousel.appendChild(this.createMediaCard(item, this.selectedMovieInstance || null));
             });
         } else if (!append) {
-            carousel.innerHTML = '<p style="color: #888; text-align: center; width: 100%; padding: 40px;">No movies available</p>';
+            carousel.innerHTML = '<p style="color: var(--ui-brand); text-align: center; width: 100%; padding: 40px;">No movies available</p>';
         }
     }
 
@@ -751,7 +751,7 @@ export class RequestarrContent {
             this._attachCarouselInfiniteScroll(carousel, '_popMovies');
         } catch (error) {
             console.error('[RequestarrDiscover] Error loading popular movies:', error);
-            carousel.innerHTML = '<p style="color: #ef4444; text-align: center; width: 100%; padding: 40px;">Failed to load movies</p>';
+            carousel.innerHTML = '<p style="color: var(--ui-danger); text-align: center; width: 100%; padding: 40px;">Failed to load movies</p>';
         }
     }
 
@@ -792,7 +792,7 @@ export class RequestarrContent {
                 carousel.appendChild(this.createMediaCard(item, this.selectedTVInstance || null));
             });
         } else if (!append) {
-            carousel.innerHTML = '<p style="color: #888; text-align: center; width: 100%; padding: 40px;">No TV shows available</p>';
+            carousel.innerHTML = '<p style="color: var(--ui-brand); text-align: center; width: 100%; padding: 40px;">No TV shows available</p>';
         }
     }
 
@@ -815,7 +815,7 @@ export class RequestarrContent {
             this._attachCarouselInfiniteScroll(carousel, '_popTV');
         } catch (error) {
             console.error('[RequestarrDiscover] Error loading popular TV:', error);
-            carousel.innerHTML = '<p style="color: #ef4444; text-align: center; width: 100%; padding: 40px;">Failed to load TV shows</p>';
+            carousel.innerHTML = '<p style="color: var(--ui-danger); text-align: center; width: 100%; padding: 40px;">Failed to load TV shows</p>';
         }
     }
 
@@ -976,7 +976,7 @@ export class RequestarrContent {
                     this.moviesHasMore = data.results.length >= 20;
                 }
             } else {
-                grid.innerHTML = '<p style="color: #888; text-align: center; width: 100%; padding: 40px;">No movies found</p>';
+                grid.innerHTML = '<p style="color: var(--ui-brand); text-align: center; width: 100%; padding: 40px;">No movies found</p>';
                 // Use has_more from API if available
                 if (data.has_more !== undefined) {
                     this.moviesHasMore = data.has_more;
@@ -987,7 +987,7 @@ export class RequestarrContent {
         } catch (error) {
             console.error('[RequestarrContent] Error loading movies:', error);
             if (this.moviesPage === 1) {
-                grid.innerHTML = '<p style="color: #ef4444; text-align: center; width: 100%; padding: 40px;">Failed to load movies</p>';
+                grid.innerHTML = '<p style="color: var(--ui-danger); text-align: center; width: 100%; padding: 40px;">Failed to load movies</p>';
             }
         } finally {
             this.isLoadingMovies = false;
@@ -1088,7 +1088,7 @@ export class RequestarrContent {
                     this.tvHasMore = data.results.length >= 20;
                 }
             } else {
-                grid.innerHTML = '<p style="color: #888; text-align: center; width: 100%; padding: 40px;">No TV shows found</p>';
+                grid.innerHTML = '<p style="color: var(--ui-brand); text-align: center; width: 100%; padding: 40px;">No TV shows found</p>';
                 // Use has_more from API if available
                 if (data.has_more !== undefined) {
                     this.tvHasMore = data.has_more;
@@ -1099,7 +1099,7 @@ export class RequestarrContent {
         } catch (error) {
             console.error('[RequestarrContent] Error loading TV shows:', error);
             if (this.tvPage === 1) {
-                grid.innerHTML = '<p style="color: #ef4444; text-align: center; width: 100%; padding: 40px;">Failed to load TV shows</p>';
+                grid.innerHTML = '<p style="color: var(--ui-danger); text-align: center; width: 100%; padding: 40px;">Failed to load TV shows</p>';
             }
         } finally {
             this.isLoadingTV = false;
@@ -1192,7 +1192,7 @@ export class RequestarrContent {
         } catch (error) {
             console.error('[RequestarrContent] Error loading Smart Hunt:', error);
             if (this.smarthuntPage === 0) {
-                grid.innerHTML = '<p style="color: #ef4444; text-align: center; width: 100%; padding: 40px;">Failed to load Smart Hunt results</p>';
+                grid.innerHTML = '<p style="color: var(--ui-danger); text-align: center; width: 100%; padding: 40px;">Failed to load Smart Hunt results</p>';
             }
         } finally {
             this.isLoadingSmartHunt = false;
@@ -1218,7 +1218,7 @@ export class RequestarrContent {
         const filtered = this._applySmartHuntFilters(all);
 
         if (filtered.length === 0) {
-            grid.innerHTML = '<p style="color: #888; text-align: center; width: 100%; padding: 40px;">No results match your filters</p>';
+            grid.innerHTML = '<p style="color: var(--ui-brand); text-align: center; width: 100%; padding: 40px;">No results match your filters</p>';
             return;
         }
 

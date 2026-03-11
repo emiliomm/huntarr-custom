@@ -19,16 +19,16 @@
         top: 0;
         z-index: 200;
         background: linear-gradient(168deg,
-                rgba(16, 22, 36, 0.95) 0%,
-                rgba(12, 17, 30, 0.97) 50%,
-                rgba(10, 14, 26, 0.98) 100%);
+                var(--history-section-bg-17) 0%,
+                var(--history-section-bg-17) 50%,
+                var(--history-section-bg-27) 100%);
         backdrop-filter: blur(20px) saturate(1.2);
         -webkit-backdrop-filter: blur(20px) saturate(1.2);
-        border-bottom: 1px solid rgba(148, 163, 184, 0.04);
+        border-bottom: 1px solid var(--home-bg-11);
         box-shadow:
-            0 1px 0 0 rgba(255, 255, 255, 0.02) inset,
-            0 4px 20px rgba(0, 0, 0, 0.35),
-            0 0 40px -12px rgba(99, 102, 241, 0.06);
+            0 1px 0 0 var(--home-bg-12) inset,
+            0 4px 20px var(--home-shadow-6),
+            0 0 40px -12px var(--components-shadow-2);
     }
 
     .mtb-inner {
@@ -62,8 +62,8 @@
         width: 34px;
         height: 34px;
         padding: 7px;
-        background: rgba(148, 163, 184, 0.04);
-        border: 1px solid rgba(148, 163, 184, 0.06);
+        background: var(--home-bg-11);
+        border: 1px solid var(--home-bg-11);
         border-radius: 10px;
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
@@ -71,15 +71,15 @@
     }
 
     .mtb-hamburger:active {
-        background: rgba(99, 102, 241, 0.12);
-        border-color: rgba(99, 102, 241, 0.15);
+        background: var(--ui-accent-tint);
+        border-color: var(--ui-accent-bg-strong);
         transform: scale(0.95);
     }
 
     .mtb-hamburger span {
         display: block;
         height: 2px;
-        background: rgba(200, 210, 225, 0.7);
+        background: var(--mobile-bg-2);
         border-radius: 2px;
         transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -105,7 +105,7 @@
 
     .mtb-logo {
         border-radius: 8px;
-        filter: drop-shadow(0 2px 6px rgba(99, 102, 241, 0.15));
+        filter: drop-shadow(0 2px 6px var(--ui-accent-bg-strong));
         transition: all 0.2s ease;
     }
 
@@ -117,7 +117,7 @@
     .mtb-title {
         font-size: 15px;
         font-weight: 700;
-        color: #f0f3f8;
+        color: var(--mobile-text-1);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -144,18 +144,18 @@
     }
 
     .mtb-chip-stars {
-        background: rgba(245, 158, 11, 0.08);
-        border: 1px solid rgba(245, 158, 11, 0.15);
-        color: #fcd230;
+        background: var(--backup-restore-bg-4);
+        border: 1px solid var(--backup-restore-bg-4);
+        color: var(--ui-warning);
     }
 
     .mtb-chip-stars:active {
-        background: rgba(245, 158, 11, 0.15);
+        background: var(--backup-restore-bg-4);
         transform: scale(0.95);
     }
 
     .mtb-chip-stars i {
-        color: #FBBC04;
+        color: var(--warning-color);
     }
 
     /* Icon buttons — frosted glass circles */
@@ -177,47 +177,47 @@
     }
 
     .mtb-discord {
-        color: rgba(88, 101, 242, 0.85);
-        background: rgba(88, 101, 242, 0.08);
-        border-color: rgba(88, 101, 242, 0.06);
+        color: var(--apps-section-text-2);
+        background: var(--mobile-bg-4);
+        border-color: var(--components-shadow-2);
     }
 
     .mtb-discord:active {
-        background: rgba(88, 101, 242, 0.18);
-        box-shadow: 0 0 12px rgba(88, 101, 242, 0.15);
+        background: var(--mobile-bg-5);
+        box-shadow: 0 0 12px var(--mobile-bg-4);
     }
 
     .mtb-reddit {
-        color: rgba(255, 69, 0, 0.85);
-        background: rgba(255, 69, 0, 0.08);
-        border-color: rgba(255, 69, 0, 0.06);
+        color: var(--mobile-text-3);
+        background: var(--mobile-bg-6);
+        border-color: var(--mobile-border-5);
     }
 
     .mtb-reddit:active {
-        background: rgba(255, 69, 0, 0.18);
-        box-shadow: 0 0 12px rgba(255, 69, 0, 0.15);
+        background: var(--mobile-bg-7);
+        box-shadow: 0 0 12px var(--mobile-bg-6);
     }
 
     .mtb-docs {
-        color: rgba(99, 102, 241, 0.85);
-        background: rgba(99, 102, 241, 0.08);
-        border-color: rgba(99, 102, 241, 0.06);
+        color: var(--apps-section-text-2);
+        background: var(--ui-accent-bg);
+        border-color: var(--components-shadow-2);
     }
 
     .mtb-docs:active {
-        background: rgba(99, 102, 241, 0.18);
-        box-shadow: 0 0 12px rgba(99, 102, 241, 0.15);
+        background: var(--ui-accent-bg-soft);
+        box-shadow: 0 0 12px var(--ui-accent-bg-strong);
     }
 
     .mtb-heart {
-        color: rgba(239, 68, 68, 0.85);
-        background: rgba(239, 68, 68, 0.08);
-        border-color: rgba(239, 68, 68, 0.06);
+        color: var(--components-bg-6);
+        background: var(--ui-danger-tint);
+        border-color: var(--backup-restore-bg-2);
     }
 
     .mtb-heart:active {
-        background: rgba(239, 68, 68, 0.18);
-        box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+        background: var(--backup-restore-bg-7);
+        box-shadow: 0 0 12px var(--ui-danger-tint);
     }
 
     /* Accent line — indigo-to-amber gradient (matches login/modal design) */
@@ -225,11 +225,11 @@
         height: 1px;
         background: linear-gradient(90deg,
                 transparent 0%,
-                rgba(99, 102, 241, 0.3) 15%,
-                rgba(139, 92, 246, 0.4) 35%,
-                rgba(245, 158, 11, 0.3) 50%,
-                rgba(139, 92, 246, 0.4) 65%,
-                rgba(99, 102, 241, 0.3) 85%,
+                var(--ui-accent-ring) 15%,
+                var(--mobile-color-7) 35%,
+                var(--home-color-1) 50%,
+                var(--mobile-color-7) 65%,
+                var(--ui-accent-ring) 85%,
                 transparent 100%);
     }
 }
@@ -249,7 +249,7 @@
         position: fixed;
         inset: 0;
         z-index: 998;
-        background: rgba(0, 0, 0, 0.6);
+        background: var(--activity-section-bg-2);
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
         opacity: 0;
@@ -274,8 +274,8 @@
         transform: translateX(-100%);
         transition: transform .3s cubic-bezier(.16, 1, .3, 1);
         box-shadow:
-            8px 0 40px rgba(0, 0, 0, 0.5),
-            2px 0 12px rgba(0, 0, 0, 0.3);
+            8px 0 40px var(--ui-overlay-backdrop),
+            2px 0 12px var(--ui-shadow-strong);
     }
 
     body.mobile-sidebar-open .app-container>.sidebar-wrapper {
@@ -418,16 +418,16 @@
 
     .app-stats-card.swaparr .stat-box {
         padding: 15px !important;
-        background: rgba(26, 32, 44, 0.5) !important;
+        background: var(--media-hunt-tv-bg-9) !important;
         border-radius: 10px !important;
-        border: 1px solid rgba(120, 140, 180, 0.2) !important;
+        border: 1px solid var(--mobile-border-7) !important;
         transition: all 0.3s ease !important;
         width: 100% !important;
         box-sizing: border-box !important;
     }
 
     .app-stats-card.swaparr .stat-box:hover {
-        border-color: rgba(120, 140, 180, 0.4) !important;
-        background: rgba(26, 32, 44, 0.7) !important;
+        border-color: var(--mobile-border-8) !important;
+        background: var(--apps-section-bg-4) !important;
     }
 }

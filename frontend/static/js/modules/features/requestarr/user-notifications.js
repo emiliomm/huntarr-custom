@@ -141,7 +141,7 @@
 
     function renderConnectionItem(conn) {
         var meta = providerMeta[conn.provider] || {};
-        var color = meta.color || '#64748b';
+        var color = meta.color || 'var(--ui-text-dim)';
         var icon = meta.icon || 'fas fa-bell';
         var providerName = meta.name || conn.provider;
 
@@ -206,7 +206,7 @@
         editingId = existingConn ? existingConn.id : null;
 
         titleEl.textContent = existingConn ? 'Edit ' + meta.name : 'Add ' + (meta.name || providerKey);
-        iconEl.style.background = meta.color || '#64748b';
+        iconEl.style.background = meta.color || 'var(--ui-text-dim)';
         iconI.className = meta.icon || 'fas fa-bell';
 
         if (testBtn) {
@@ -329,7 +329,7 @@
             }
             if (field.required && !settings[field.key]) {
                 missingRequired = true;
-                el.style.borderColor = '#f87171';
+                el.style.borderColor = 'var(--ui-danger-soft)';
             } else if (el.style) {
                 el.style.borderColor = '';
             }

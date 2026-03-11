@@ -718,7 +718,7 @@
                         el.innerHTML = '<div class="import-media-search-result-poster"><img src="' + posterUrl + '" loading="lazy" onerror="this.src=\'./static/images/blackout.jpg\'"></div>' +
                             '<div class="import-media-search-result-info">' +
                             '<div class="import-media-search-result-title">' + self.escapeHtml(r.title) + '</div>' +
-                            '<div class="import-media-search-result-meta">' + (r.year || 'N/A') + ' &middot; ' + (r.vote_average || 0).toFixed(1) + ' <i class="fas fa-star" style="font-size:0.7em;color:#fbbf24;"></i></div>' +
+                            '<div class="import-media-search-result-meta">' + (r.year || 'N/A') + ' &middot; ' + (r.vote_average || 0).toFixed(1) + ' <i class="fas fa-star" style="font-size:0.7em;color:var(--ui-warning-400);"></i></div>' +
                             (overview ? '<div class="import-media-search-result-overview">' + self.escapeHtml(overview) + '</div>' : '') +
                             '</div><button class="select-btn" data-tmdb-id="' + r.tmdb_id + '" data-title="' + self.escapeAttr(r.title) + '" data-year="' + self.escapeAttr(r.year || '') + '" data-poster="' + self.escapeAttr(r.poster_path || '') + '">Select</button>';
                         results.appendChild(el);

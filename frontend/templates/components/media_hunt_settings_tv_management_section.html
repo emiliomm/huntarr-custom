@@ -39,27 +39,27 @@
         padding: 64px 24px;
         width: 100%;
         box-sizing: border-box;
-        background: rgba(15, 23, 42, 0.4);
-        border: 1px solid rgba(148, 163, 184, 0.08);
+        background: var(--ui-surface-overlay);
+        border: 1px solid var(--ui-border-faint);
         border-radius: 12px;
         margin: 0 0 20px 0;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 16px var(--glass-shadow);
     }
     .tv-management-no-instances i.fa-cube {
         font-size: 3rem;
-        color: #334155;
+        color: var(--ui-slate-700);
         margin-bottom: 16px;
         display: block;
     }
     .tv-management-no-instances .no-instances-title {
         font-size: 1.2rem;
         font-weight: 600;
-        color: #f1f5f9;
+        color: var(--ui-text-strong);
         margin: 0 0 8px 0;
     }
     .tv-management-no-instances .no-instances-desc {
         font-size: 0.95rem;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         line-height: 1.6;
         margin: 0 auto 24px auto;
         max-width: 400px;
@@ -68,9 +68,9 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: rgba(99, 102, 241, 0.2);
-        border: 1px solid rgba(99, 102, 241, 0.4);
-        color: #818cf8;
+        background: var(--ui-accent-bg-soft);
+        border: 1px solid var(--ui-accent-border);
+        color: var(--ui-accent-soft);
         padding: 10px 20px;
         border-radius: 8px;
         text-decoration: none;
@@ -78,8 +78,8 @@
         transition: background 0.2s, border-color 0.2s;
     }
     .tv-management-no-instances .no-instances-action-btn:hover {
-        background: rgba(99, 102, 241, 0.3);
-        border-color: rgba(99, 102, 241, 0.5);
+        background: var(--ui-accent-ring);
+        border-color: var(--ui-accent-strong);
     }
     #tvManagementContainer {
         width: 100%;
@@ -94,8 +94,8 @@
         align-items: start;
     }
     #tv-management-content .editor-section {
-        background: rgba(30, 41, 59, 0.5);
-        border: 1px solid rgba(148, 163, 184, 0.1);
+        background: var(--ui-surface-slate);
+        border: 1px solid var(--ui-border-subtle);
         border-radius: 12px;
         padding: 25px;
         margin-bottom: 25px;
@@ -103,12 +103,12 @@
     #tv-management-content .editor-section-title {
         font-size: 1rem;
         font-weight: 600;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         text-transform: uppercase;
         letter-spacing: 0.05em;
         margin-bottom: 20px;
         padding-bottom: 10px;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        border-bottom: 1px solid var(--ui-border-subtle);
     }
     #tv-management-content .editor-field-group {
         display: flex;
@@ -118,16 +118,16 @@
         width: 100%;
     }
     #tv-management-content .editor-field-group:last-child { margin-bottom: 0; }
-    #tv-management-content .editor-field-group label { color: #e2e8f0; font-weight: 500; font-size: 0.95rem; margin: 0; }
+    #tv-management-content .editor-field-group label { color: var(--text-secondary); font-weight: 500; font-size: 0.95rem; margin: 0; }
     #tv-management-content .editor-field-group input[type="text"],
     #tv-management-content .editor-field-group input[type="number"],
     #tv-management-content .editor-field-group select {
         width: 100%;
         padding: 10px 12px;
         border-radius: 8px;
-        border: 1px solid rgba(148, 163, 184, 0.2);
-        background: rgba(15, 23, 42, 0.6);
-        color: #f8fafc;
+        border: 1px solid var(--ui-border);
+        background: var(--ui-surface-raised);
+        color: var(--text-primary);
         font-size: 0.95rem;
     }
     #tv-management-content .editor-field-group select {
@@ -140,12 +140,12 @@
     }
     #tv-management-content .editor-field-group input:focus,
     #tv-management-content .editor-field-group select:focus {
-        border-color: #6366f1;
+        border-color: var(--app-sonarr-color);
         outline: none;
-        background: rgba(15, 23, 42, 0.8);
+        background: var(--ui-surface-solid);
     }
     #tv-management-content .editor-help-text {
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         font-size: 0.85rem;
         margin: 4px 0 0 0;
         line-height: 1.4;
@@ -174,19 +174,19 @@
     }
     #tv-management-content .tv-mgmt-doc-link {
         margin-left: 4px;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         font-size: 0.9rem;
         text-decoration: none;
     }
     #tv-management-content .tv-mgmt-doc-link:hover {
-        color: #6366f1;
+        color: var(--app-sonarr-color);
     }
     #tv-management-content .tv-mgmt-colon-demo {
         margin-top: 6px;
         padding: 8px 10px;
-        background: rgba(99, 102, 241, 0.08);
+        background: var(--ui-accent-bg);
         border-radius: 6px;
-        border-left: 3px solid rgba(99, 102, 241, 0.4);
+        border-left: 3px solid var(--ui-accent-border);
         font-family: inherit;
     }
 
@@ -211,49 +211,49 @@
         width: 42px;
         flex-shrink: 0;
         padding: 0;
-        border: 1px solid rgba(148, 163, 184, 0.2);
+        border: 1px solid var(--ui-border);
         border-left: none;
         border-radius: 0 8px 8px 0;
-        background: rgba(99, 102, 241, 0.12);
-        color: #818cf8;
+        background: var(--ui-accent-tint);
+        color: var(--ui-accent-soft);
         font-size: 14px;
         cursor: pointer;
         transition: all 0.2s;
     }
     #tvManagementSection .token-builder-btn:hover {
-        background: rgba(99, 102, 241, 0.25);
-        color: #a5b4fc;
+        background: var(--ui-accent-bg-hover);
+        color: var(--home-section-text-9);
     }
 
     /* ── Reset Library (Danger Zone) ────── */
     #tv-management-content .reset-library-section {
-        background: rgba(239, 68, 68, 0.08);
-        border: 1px solid rgba(239, 68, 68, 0.35);
+        background: var(--ui-danger-tint);
+        border: 1px solid var(--backup-restore-shadow-6);
     }
     #tv-management-content .reset-library-title {
-        color: #f87171 !important;
-        border-bottom-color: rgba(239, 68, 68, 0.25) !important;
+        color: var(--ui-danger-soft) !important;
+        border-bottom-color: var(--ui-danger-tint) !important;
     }
     #tv-management-content .reset-library-title i { margin-right: 6px; }
     #tv-management-content .reset-library-card {
         padding: 16px;
-        background: rgba(239, 68, 68, 0.05);
+        background: var(--backup-restore-bg-2);
         border-radius: 8px;
-        border: 1px solid rgba(239, 68, 68, 0.2);
+        border: 1px solid var(--ui-danger-tint);
     }
     #tv-management-content .reset-library-warning {
-        color: #fca5a5;
+        color: var(--ui-danger-soft-300);
         font-size: 0.9rem;
         line-height: 1.5;
         margin: 0 0 16px 0;
     }
-    #tv-management-content .reset-library-warning strong { color: #fecaca; }
+    #tv-management-content .reset-library-warning strong { color: var(--backup-restore-text-5); }
     #tv-management-content .reset-library-btn {
         padding: 10px 20px;
-        background: rgba(239, 68, 68, 0.2);
-        border: 1px solid rgba(239, 68, 68, 0.5);
+        background: var(--ui-danger-tint);
+        border: 1px solid var(--ui-danger-strong);
         border-radius: 8px;
-        color: #f87171;
+        color: var(--ui-danger-soft);
         font-weight: 600;
         cursor: pointer;
         display: inline-flex;
@@ -262,8 +262,8 @@
         transition: all 0.2s;
     }
     #tv-management-content .reset-library-btn:hover {
-        background: rgba(239, 68, 68, 0.3);
-        border-color: rgba(239, 68, 68, 0.6);
+        background: var(--ui-danger-bg-hover);
+        border-color: var(--backup-restore-border-6);
     }
 
     @media (max-width: 768px) {

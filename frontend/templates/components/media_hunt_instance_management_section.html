@@ -111,10 +111,10 @@
     }
 
     .instances-settings-group {
-        background: rgba(30, 41, 59, 0.32);
+        background: var(--activity-section-bg-1);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(148, 163, 184, 0.07);
+        border: 1px solid var(--home-bg-11);
         border-radius: 16px;
         padding: 0;
         margin: 0 0 22px 0;
@@ -123,8 +123,8 @@
     }
 
     .instances-settings-group:hover {
-        border-color: rgba(148, 163, 184, 0.14);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        border-color: var(--ui-border-soft);
+        box-shadow: 0 8px 30px var(--ui-shadow-soft);
     }
 
     .instances-settings-group .profiles-header {
@@ -133,7 +133,7 @@
         justify-content: flex-start;
         gap: 12px;
         padding: 14px 18px;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.07);
+        border-bottom: 1px solid var(--home-bg-11);
     }
 
     .instances-settings-group .profiles-header h3 {
@@ -141,7 +141,7 @@
         padding: 0;
         font-size: 0.72rem;
         font-weight: 700;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         text-transform: uppercase;
         letter-spacing: 0.12em;
         border: none;
@@ -150,7 +150,7 @@
     }
 
     .instances-settings-group .profiles-help {
-        color: rgba(255, 255, 255, 0.45);
+        color: var(--apps-section-text-7);
         font-size: 0.8rem;
         margin: 0;
     }
@@ -180,25 +180,25 @@
         padding: 10px 12px;
         font-size: 1rem;
         line-height: 1.4;
-        background: rgba(15, 23, 42, 0.9);
-        border: 1px solid rgba(148, 163, 184, 0.3);
+        background: var(--cycle-countdown-bg-1);
+        border: 1px solid var(--ui-border-tint);
         border-radius: 8px;
-        color: #f8fafc;
+        color: var(--text-primary);
         transition: border-color 0.2s, box-shadow 0.2s;
         box-sizing: border-box;
     }
 
     #mediaHuntInstanceManagementSection .root-folder-add-modal .control-input::placeholder {
-        color: rgba(148, 163, 184, 0.5);
+        color: var(--cycle-countdown-text-6);
     }
 
     #mediaHuntInstanceManagementSection .root-folder-add-modal .control-input:hover {
-        border-color: rgba(148, 163, 184, 0.4);
+        border-color: var(--import-media-text-5);
     }
 
     #mediaHuntInstanceManagementSection .root-folder-add-modal .control-input:focus {
         outline: none;
-        border-color: #6366f1;
-        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        border-color: var(--app-sonarr-color);
+        box-shadow: 0 0 0 2px var(--ui-accent-bg-soft);
     }
 </style>

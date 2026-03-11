@@ -21,8 +21,8 @@
 
 /* ---- Card ---- */
 .br-card {
-    background: rgba(15, 23, 42, 0.45);
-    border: 1px solid rgba(148, 163, 184, 0.10);
+    background: var(--backup-restore-bg-1);
+    border: 1px solid var(--ui-border-subtle);
     border-radius: 14px;
     overflow: hidden;
     backdrop-filter: blur(12px);
@@ -31,17 +31,17 @@
 }
 
 .br-card:hover {
-    border-color: rgba(148, 163, 184, 0.18);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    border-color: var(--ui-border);
+    box-shadow: 0 4px 24px var(--glass-shadow);
 }
 
 .br-card-danger {
-    border-color: rgba(239, 68, 68, 0.30);
-    background: rgba(239, 68, 68, 0.04);
+    border-color: var(--ui-danger-bg-hover);
+    background: var(--backup-restore-bg-2);
 }
 
 .br-card-danger:hover {
-    border-color: rgba(239, 68, 68, 0.50);
+    border-color: var(--backup-restore-border-4);
 }
 
 /* ---- Card header ---- */
@@ -50,14 +50,14 @@
     align-items: center;
     gap: 12px;
     padding: 18px 22px 14px;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    border-bottom: 1px solid var(--ui-border-faint);
 }
 
 .br-card-header h3 {
     margin: 0;
     font-size: 1.05rem;
     font-weight: 600;
-    color: #f1f5f9;
+    color: var(--ui-text-strong);
     letter-spacing: -0.01em;
     /* Reset any inherited settings-group h3 styles */
     padding: 0;
@@ -69,7 +69,7 @@
 }
 
 .br-card-danger .br-card-header h3 {
-    color: #fca5a5;
+    color: var(--ui-danger-soft-300);
 }
 
 /* ---- Card icon circles ---- */
@@ -85,32 +85,32 @@
 }
 
 .br-icon-blue {
-    background: rgba(99, 102, 241, 0.15);
-    color: #8ab4f8;
+    background: var(--ui-accent-bg-strong);
+    color: var(--accent-hover);
 }
 .br-icon-green {
-    background: rgba(34, 197, 94, 0.15);
-    color: #81c995;
+    background: var(--backup-restore-bg-3);
+    color: var(--button-success-hover);
 }
 .br-icon-amber {
-    background: rgba(245, 158, 11, 0.15);
-    color: #fcd230;
+    background: var(--backup-restore-bg-4);
+    color: var(--ui-warning);
 }
 .br-icon-purple {
-    background: rgba(139, 92, 246, 0.15);
-    color: #a78bfa;
+    background: var(--about-section-bg-2);
+    color: var(--ui-accent-soft-300);
 }
 .br-icon-teal {
-    background: rgba(20, 184, 166, 0.15);
-    color: #2dd4bf;
+    background: var(--backup-restore-bg-6);
+    color: var(--backup-restore-text-3);
 }
 .br-icon-red {
-    background: rgba(239, 68, 68, 0.18);
-    color: #f28b82;
+    background: var(--backup-restore-bg-7);
+    color: var(--button-danger-hover);
 }
 .br-icon-slate {
-    background: rgba(148, 163, 184, 0.12);
-    color: #94a3b8;
+    background: var(--ui-border-tint);
+    color: var(--ui-text-muted);
 }
 
 /* ---- Card body ---- */
@@ -134,7 +134,7 @@
     margin-bottom: 7px;
     font-size: 0.875rem;
     font-weight: 500;
-    color: #cbd5e1;
+    color: var(--ui-primary-border);
 }
 
 /* Visual properties enforced by components.css — only layout kept here */
@@ -147,23 +147,23 @@
 }
 
 .br-input-danger {
-    border-color: rgba(239, 68, 68, 0.4) !important;
+    border-color: var(--backup-restore-border-5) !important;
 }
 
 .br-input-danger:focus {
-    border-color: rgba(239, 68, 68, 0.6) !important;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12) !important;
+    border-color: var(--backup-restore-border-6) !important;
+    box-shadow: 0 0 0 3px var(--ui-danger-tint) !important;
 }
 
 .br-hint {
     display: block;
     margin-top: 5px;
     font-size: 0.75rem;
-    color: #64748b;
+    color: var(--ui-text-dim);
 }
 
 .br-description {
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     font-size: 0.875rem;
     margin: 0 0 14px 0;
     line-height: 1.5;
@@ -171,7 +171,7 @@
 
 /* ---- Info link (replaces old blue circle-i) ---- */
 .br-info-link {
-    color: #8ab4f8;
+    color: var(--accent-hover);
     text-decoration: none;
     font-size: 14px;
     opacity: 0.7;
@@ -181,7 +181,7 @@
 
 .br-info-link:hover {
     opacity: 1;
-    color: #93bbfc;
+    color: var(--backup-restore-text-4);
 }
 
 /* ---- Schedule badge ---- */
@@ -190,10 +190,10 @@
     align-items: center;
     gap: 8px;
     padding: 10px 16px;
-    background: rgba(99, 102, 241, 0.08);
-    border: 1px solid rgba(99, 102, 241, 0.18);
+    background: var(--ui-accent-bg);
+    border: 1px solid var(--ui-accent-bg-soft);
     border-radius: 8px;
-    color: #93bbfc;
+    color: var(--backup-restore-text-4);
     font-size: 0.875rem;
     font-weight: 500;
 }
@@ -219,46 +219,46 @@
 }
 
 .br-btn-primary {
-    background: linear-gradient(135deg, #4285F4 0%, #2563eb 100%);
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--backup-restore-bg-9) 100%);
+    color: var(--button-primary-text);
+    box-shadow: 0 2px 8px var(--ui-accent-bg-hover);
 }
 .br-btn-primary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #8ab4f8 0%, #4285F4 100%);
-    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+    background: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent-color) 100%);
+    box-shadow: 0 4px 14px var(--ui-accent-glow);
     transform: translateY(-1px);
 }
 
 .br-btn-secondary {
-    background: linear-gradient(135deg, #4285F4 0%, #7c3aed 100%);
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.25);
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--backup-restore-bg-10) 100%);
+    color: var(--button-primary-text);
+    box-shadow: 0 2px 8px var(--backup-restore-shadow-3);
 }
 .br-btn-secondary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #a78bfa 0%, #4285F4 100%);
-    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+    background: linear-gradient(135deg, var(--ui-accent-soft-300) 0%, var(--accent-color) 100%);
+    box-shadow: 0 4px 14px var(--backup-restore-shadow-4);
     transform: translateY(-1px);
 }
 
 .br-btn-danger {
-    background: linear-gradient(135deg, #EA4335 0%, #d93025 100%);
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+    background: linear-gradient(135deg, var(--error-color) 0%, var(--backup-restore-bg-11) 100%);
+    color: var(--button-primary-text);
+    box-shadow: 0 2px 8px var(--ui-danger-tint);
 }
 .br-btn-danger:hover:not(:disabled) {
-    background: linear-gradient(135deg, #f28b82 0%, #EA4335 100%);
-    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+    background: linear-gradient(135deg, var(--button-danger-hover) 0%, var(--error-color) 100%);
+    box-shadow: 0 4px 14px var(--backup-restore-shadow-6);
     transform: translateY(-1px);
 }
 
 .br-btn-danger-solid {
-    background: linear-gradient(135deg, #d93025 0%, #b91c1c 100%);
-    color: #fff;
-    box-shadow: 0 2px 10px rgba(220, 38, 38, 0.35);
+    background: linear-gradient(135deg, var(--backup-restore-bg-11) 0%, var(--backup-restore-bg-12) 100%);
+    color: var(--button-primary-text);
+    box-shadow: 0 2px 10px var(--backup-restore-shadow-7);
 }
 .br-btn-danger-solid:hover:not(:disabled) {
-    background: linear-gradient(135deg, #EA4335 0%, #d93025 100%);
-    box-shadow: 0 4px 16px rgba(220, 38, 38, 0.45);
+    background: linear-gradient(135deg, var(--error-color) 0%, var(--backup-restore-bg-11) 100%);
+    box-shadow: 0 4px 16px var(--backup-restore-border-8);
     transform: translateY(-1px);
 }
 
@@ -269,37 +269,37 @@
     gap: 10px;
     margin-top: 12px;
     padding: 12px 14px;
-    background: rgba(239, 68, 68, 0.08);
-    border: 1px solid rgba(239, 68, 68, 0.25);
+    background: var(--ui-danger-tint);
+    border: 1px solid var(--ui-danger-tint);
     border-radius: 8px;
-    color: #fca5a5;
+    color: var(--ui-danger-soft-300);
     font-size: 0.813rem;
     line-height: 1.5;
 }
 
 .br-warning-box > i {
     margin-top: 2px;
-    color: #f28b82;
+    color: var(--button-danger-hover);
     flex-shrink: 0;
 }
 
 .br-warning-critical {
-    background: rgba(220, 38, 38, 0.12);
-    border-color: rgba(220, 38, 38, 0.40);
+    background: var(--backup-restore-bg-14);
+    border-color: var(--backup-restore-border-8);
 }
 
 .br-danger-description {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #fca5a5;
+    color: var(--ui-danger-soft-300);
     font-size: 0.875rem;
     margin: 0 0 16px 0;
     line-height: 1.5;
 }
 
 .br-danger-description i {
-    color: #f28b82;
+    color: var(--button-danger-hover);
 }
 
 /* ---- File upload ---- */
@@ -323,17 +323,17 @@
     justify-content: center;
     gap: 10px;
     padding: 24px 16px;
-    border: 2px dashed rgba(148, 163, 184, 0.18);
+    border: 2px dashed var(--ui-border);
     border-radius: 10px;
-    color: #64748b;
+    color: var(--ui-text-dim);
     font-size: 0.875rem;
     transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
 .br-file-upload:hover .br-file-label {
-    border-color: rgba(99, 102, 241, 0.35);
-    color: #93bbfc;
-    background: rgba(99, 102, 241, 0.04);
+    border-color: var(--ui-accent-glow);
+    color: var(--backup-restore-text-4);
+    background: var(--ui-accent-tint);
 }
 
 .br-file-label i {
@@ -348,7 +348,7 @@
 .br-progress-track {
     width: 100%;
     height: 6px;
-    background: rgba(148, 163, 184, 0.10);
+    background: var(--ui-border-subtle);
     border-radius: 3px;
     overflow: hidden;
     margin-bottom: 8px;
@@ -357,7 +357,7 @@
 .br-progress-track .progress-fill,
 .br-progress-wrap .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #4285F4, #8ab4f8);
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
     width: 0%;
     border-radius: 3px;
     transition: width 0.3s ease;
@@ -365,7 +365,7 @@
 
 .br-progress-wrap .progress-text {
     font-size: 0.813rem;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     text-align: center;
 }
 
@@ -373,7 +373,7 @@
 .br-list-empty {
     text-align: center;
     padding: 28px 16px;
-    color: #64748b;
+    color: var(--ui-text-dim);
     font-size: 0.875rem;
 }
 
@@ -381,7 +381,7 @@
 .backup-list-loading {
     text-align: center;
     padding: 28px 16px;
-    color: #64748b;
+    color: var(--ui-text-dim);
     font-size: 0.875rem;
 }
 
@@ -390,16 +390,16 @@
     justify-content: space-between;
     align-items: center;
     padding: 14px 16px;
-    background: rgba(15, 23, 42, 0.35);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    background: var(--shadow-md);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 10px;
     margin-bottom: 8px;
     transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .backup-item:hover {
-    border-color: rgba(148, 163, 184, 0.18);
-    background: rgba(15, 23, 42, 0.50);
+    border-color: var(--ui-border);
+    background: var(--backup-restore-bg-16);
 }
 
 .backup-info {
@@ -410,7 +410,7 @@
 .backup-name {
     font-weight: 500;
     font-size: 0.875rem;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -418,7 +418,7 @@
 
 .backup-details {
     font-size: 0.75rem;
-    color: #64748b;
+    color: var(--ui-text-dim);
     margin-top: 3px;
 }
 
@@ -431,20 +431,20 @@
 
 .delete-backup-btn {
     padding: 6px 14px;
-    border: 1px solid rgba(239, 68, 68, 0.30);
+    border: 1px solid var(--ui-danger-bg-hover);
     border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 500;
     cursor: pointer;
-    color: #fca5a5;
-    background: rgba(239, 68, 68, 0.10);
+    color: var(--ui-danger-soft-300);
+    background: var(--ui-danger-tint);
     transition: all 0.2s ease;
 }
 
 .delete-backup-btn:hover {
-    background: rgba(239, 68, 68, 0.20);
-    border-color: rgba(239, 68, 68, 0.50);
-    color: #fecaca;
+    background: var(--ui-danger-tint);
+    border-color: var(--backup-restore-border-4);
+    color: var(--backup-restore-text-5);
 }
 
 /* ============================================================

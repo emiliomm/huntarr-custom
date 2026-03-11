@@ -29,7 +29,7 @@
         var gridEl = document.getElementById('indexer-instance-status-grid');
         var statusArea = document.getElementById('indexer-instance-status-area');
         if (!gridEl) return;
-        gridEl.innerHTML = '<div style="padding: 12px; color: #94a3b8;"><i class="fas fa-spinner fa-spin"></i> Checking instances...</div>';
+        gridEl.innerHTML = '<div style="padding: 12px; color: var(--ui-text-muted);"><i class="fas fa-spinner fa-spin"></i> Checking instances...</div>';
         var ts = '?t=' + Date.now();
         Promise.all([
             fetch('./api/movie-hunt/instances' + ts, { cache: 'no-store' }).then(function (r) { return r.json(); }),
@@ -185,7 +185,7 @@
         var list = document.getElementById('ih-import-list');
         var actions = document.getElementById('ih-import-actions');
         if (panel) panel.style.display = 'block';
-        if (list) list.innerHTML = '<div style="color: #94a3b8; padding: 20px; text-align: center;"><i class="fas fa-spinner fa-spin"></i> Loading available indexers...</div>';
+        if (list) list.innerHTML = '<div style="color: var(--ui-text-muted); padding: 20px; text-align: center;"><i class="fas fa-spinner fa-spin"></i> Loading available indexers...</div>';
         if (actions) actions.style.display = 'none';
 
         var par = _getInstanceIdAndMode();
@@ -196,7 +196,7 @@
             .then(function (data) {
                 var available = data.available || [];
                 if (available.length === 0) {
-                    if (list) list.innerHTML = '<div class="ih-import-empty"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>All Index Master indexers are already imported to this instance.</div>';
+                    if (list) list.innerHTML = '<div class="ih-import-empty"><i class="fas fa-check-circle" style="color: var(--ui-success); margin-right: 6px;"></i>All Index Master indexers are already imported to this instance.</div>';
                     return;
                 }
                 var html = '';
@@ -641,19 +641,19 @@
             hasSavedKey = !!(existing && existing.api_key_last4);
         }
         if (url.length <= 10 && apiKey.length < 10) {
-            container.innerHTML = '<div class="connection-status" style="background: rgba(148,163,184,0.1); color: #94a3b8; border: 1px solid rgba(148,163,184,0.2);"><i class="fas fa-info-circle"></i><span>Enter URL and API Key</span></div>';
+            container.innerHTML = '<div class="connection-status" style="background: var(--ui-border-subtle); color: var(--ui-text-muted); border: 1px solid var(--ui-border);"><i class="fas fa-info-circle"></i><span>Enter URL and API Key</span></div>';
             return;
         }
         if (url.length <= 10) {
-            container.innerHTML = '<div class="connection-status" style="background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2);"><i class="fas fa-exclamation-triangle"></i><span>Missing URL</span></div>';
+            container.innerHTML = '<div class="connection-status" style="background: var(--client-editor-color-6); color: var(--ui-warning-400); border: 1px solid var(--client-editor-color-8);"><i class="fas fa-exclamation-triangle"></i><span>Missing URL</span></div>';
             return;
         }
         if (apiKey.length < 10 && !hasSavedKey) {
-            container.innerHTML = '<div class="connection-status" style="background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2);"><i class="fas fa-exclamation-triangle"></i><span>Missing API Key</span></div>';
+            container.innerHTML = '<div class="connection-status" style="background: var(--client-editor-color-6); color: var(--ui-warning-400); border: 1px solid var(--client-editor-color-8);"><i class="fas fa-exclamation-triangle"></i><span>Missing API Key</span></div>';
             return;
         }
         if (apiKey.length < 10 && hasSavedKey) {
-            container.innerHTML = '<div class="connection-status" style="background: rgba(148,163,184,0.1); color: #94a3b8; border: 1px solid rgba(148,163,184,0.2);"><i class="fas fa-check-circle"></i><span>API key saved. Leave blank to keep.</span></div>';
+            container.innerHTML = '<div class="connection-status" style="background: var(--ui-border-subtle); color: var(--ui-text-muted); border: 1px solid var(--ui-border);"><i class="fas fa-check-circle"></i><span>API key saved. Leave blank to keep.</span></div>';
             return;
         }
         container.innerHTML = '<div class="connection-status checking"><i class="fas fa-spinner fa-spin"></i><span>Checking...</span></div>';

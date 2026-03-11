@@ -185,11 +185,11 @@
             var typeClass = 'ih-event-' + rawType;
             var typeBadge = '<span class="ih-event-badge ' + typeClass + '">' + _esc(typeLabel) + '</span>';
             var statusIcon = ev.success
-                ? '<i class="fas fa-check-circle" style="color: #10b981;"></i>'
-                : '<i class="fas fa-times-circle" style="color: #ef4444;"></i>';
+                ? '<i class="fas fa-check-circle" style="color: var(--ui-success);"></i>'
+                : '<i class="fas fa-times-circle" style="color: var(--ui-danger);"></i>';
 
             html += '<tr>'
-                + '<td style="white-space: nowrap; font-size: 0.85rem; color: #94a3b8;">' + _esc(date) + '</td>'
+                + '<td style="white-space: nowrap; font-size: 0.85rem; color: var(--ui-text-muted);">' + _esc(date) + '</td>'
                 + '<td>' + typeBadge + '</td>'
                 + '<td>' + _esc(ev.indexer_name || '\u2014') + '</td>'
                 + '<td>' + _esc(ev.query || '\u2014') + '</td>'

@@ -22,13 +22,13 @@
 
         var bodyHtml;
         if (isNzbHunt) {
-            bodyHtml = '<div class="instance-detail"><i class="fas fa-bolt" style="color: #10b981;"></i><span style="color: #10b981; font-weight: 500;">Built-in Client</span></div>' +
+            bodyHtml = '<div class="instance-detail"><i class="fas fa-bolt" style="color: var(--ui-success);"></i><span style="color: var(--ui-success); font-weight: 500;">Built-in Client</span></div>' +
                 '<div class="instance-detail"><i class="fas fa-server"></i><span>Uses NZB Hunt Servers</span></div>';
         } else if (isTorHunt) {
-            bodyHtml = '<div class="instance-detail"><i class="fas fa-magnet" style="color: #a855f7;"></i><span style="color: #a855f7; font-weight: 500;">Built-in Torrent Client</span></div>' +
+            bodyHtml = '<div class="instance-detail"><i class="fas fa-magnet" style="color: var(--client-editor-color-5);"></i><span style="color: var(--client-editor-color-5); font-weight: 500;">Built-in Torrent Client</span></div>' +
                 '<div class="instance-detail"><i class="fas fa-server"></i><span>Uses Tor Hunt Engine</span></div>';
         } else if (isQBit) {
-            bodyHtml = '<div class="instance-detail"><i class="fas fa-magnet" style="color: #818cf8;"></i><span style="color: #818cf8; font-weight: 500;">External Torrent Client</span></div>' +
+            bodyHtml = '<div class="instance-detail"><i class="fas fa-magnet" style="color: var(--ui-accent-soft);"></i><span style="color: var(--ui-accent-soft); font-weight: 500;">External Torrent Client</span></div>' +
                 '<div class="instance-detail"><i class="fas fa-server"></i><span>' + (client.host || '').replace(/</g, '&lt;') + ':' + (client.port !== undefined ? client.port : '') + '</span></div>';
         } else {
             var last4 = client.api_key_last4 || client.password_last4 || '****';

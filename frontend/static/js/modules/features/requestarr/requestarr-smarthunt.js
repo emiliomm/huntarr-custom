@@ -99,7 +99,7 @@ class SmartHunt {
             if (!append) {
                 const carousel = document.getElementById(this.carouselId);
                 if (carousel) {
-                    carousel.innerHTML = '<p style="color: #ef4444; text-align: center; width: 100%; padding: 40px;">Failed to load Smart Hunt results</p>';
+                    carousel.innerHTML = '<p style="color: var(--ui-danger); text-align: center; width: 100%; padding: 40px;">Failed to load Smart Hunt results</p>';
                 }
             }
         } finally {
@@ -168,7 +168,7 @@ class SmartHunt {
         }
 
         if (results.length === 0 && !append) {
-            carousel.innerHTML = '<p style="color: #888; text-align: center; width: 100%; padding: 40px;">No Smart Hunt results available</p>';
+            carousel.innerHTML = '<p style="color: var(--ui-brand); text-align: center; width: 100%; padding: 40px;">No Smart Hunt results available</p>';
             return;
         }
 

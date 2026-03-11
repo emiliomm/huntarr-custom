@@ -161,7 +161,7 @@
                     this.setupExemptTagsListeners(contentEl);
                 } catch (e) {
                     console.error('[SettingsForms] Error generating editor HTML:', e);
-                    contentEl.innerHTML = `<div class="error-message" style="color: #ef4444; padding: 20px;">Error generating editor: ${e.message}</div>`;
+                    contentEl.innerHTML = `<div class="error-message" style="color: var(--ui-danger); padding: 20px;">Error generating editor: ${e.message}</div>`;
                 }
             } else {
                 console.error('[SettingsForms] instance-editor-content element not found');
@@ -379,7 +379,7 @@
             const enabledEl = document.getElementById('editor-enabled');
             if (enabledEl && enabledEl.value === 'false') {
                 container.innerHTML = `
-                <div class="connection-status" style="background: rgba(100, 116, 139, 0.15); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.25);">
+                <div class="connection-status" style="background: var(--footer-border-1); color: var(--ui-text-muted); border: 1px solid var(--home-bg-20);">
                     <i class="fas fa-ban"></i>
                     <span>Disabled</span>
                 </div>
@@ -393,7 +393,7 @@
 
             if (urlLen <= 10 && keyLen <= 20) {
                 container.innerHTML = `
-                <div class="connection-status" style="background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2);">
+                <div class="connection-status" style="background: var(--ui-border-subtle); color: var(--ui-text-muted); border: 1px solid var(--ui-border);">
                     <i class="fas fa-info-circle"></i>
                     <span>Enter URL and API Key</span>
                 </div>
@@ -401,7 +401,7 @@
                 return;
             } else if (urlLen <= 10) {
                 container.innerHTML = `
-                <div class="connection-status" style="background: rgba(251, 191, 36, 0.1); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.2);">
+                <div class="connection-status" style="background: var(--client-editor-color-6); color: var(--ui-warning-400); border: 1px solid var(--client-editor-color-8);">
                     <i class="fas fa-exclamation-triangle"></i>
                     <span>Missing URL</span>
                 </div>
@@ -409,7 +409,7 @@
                 return;
             } else if (keyLen <= 20) {
                 container.innerHTML = `
-                <div class="connection-status" style="background: rgba(251, 191, 36, 0.1); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.2);">
+                <div class="connection-status" style="background: var(--client-editor-color-6); color: var(--ui-warning-400); border: 1px solid var(--client-editor-color-8);">
                     <i class="fas fa-exclamation-triangle"></i>
                     <span>Missing API Key</span>
                 </div>
@@ -567,7 +567,7 @@
                         <div class="editor-setting-item">
                             <label style="display: flex; align-items: center;">
                                 <span>Enable Status </span>
-                                <i id="enable-status-icon" class="fas ${safeInstance.enabled ? 'fa-check-circle' : 'fa-minus-circle'}" style="color: ${safeInstance.enabled ? '#10b981' : '#ef4444'}; font-size: 1.1rem;"></i>
+                                <i id="enable-status-icon" class="fas ${safeInstance.enabled ? 'fa-check-circle' : 'fa-minus-circle'}" style="color: ${safeInstance.enabled ? 'var(--ui-success)' : 'var(--ui-danger)'}; font-size: 1.1rem;"></i>
                             </label>
                             <select id="editor-enabled" onchange="window.SettingsForms.updateEnableStatusIcon(); window.SettingsForms.toggleFormFields();">
                                 <option value="true" ${safeInstance.enabled ? 'selected' : ''}>Enabled</option>
@@ -673,8 +673,8 @@
                             </select>
                         </div>
                         <p class="editor-help-text"><strong>Cutoff unmet:</strong> Items below quality cutoff (default). Huntarr does not add any upgrade tag. <strong>Tags (Upgradinatorr):</strong> Huntarr finds items WITHOUT the tag below, runs upgrade searches, then ADDS that tag when done. 
-                            <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: #2ecc71; text-decoration: underline;">💡 TrashGuides</a> | 
-                            <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: #e74c3c; text-decoration: underline;">🔗 Upgradinatorr</a>
+                            <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: var(--app-lidarr-color); text-decoration: underline;">💡 TrashGuides</a> | 
+                            <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: var(--app-readarr-color); text-decoration: underline;">🔗 Upgradinatorr</a>
                         </p>
                     </div>
                     <div class="editor-field-group editor-upgrade-tag-group" style="display: ${(safeInstance.upgrade_selection_method || 'cutoff') === 'tags' ? 'flex' : 'none'};">
@@ -683,8 +683,8 @@
                             <input type="text" id="editor-upgrade-tag" value="${(safeInstance.upgrade_tag || 'upgradinatorr').replace(/"/g, '&quot;')}" placeholder="e.g. upgradinatorr">
                         </div>
                         <p class="editor-help-text">Tag name in Sonarr. Huntarr finds series that don’t have this tag, runs upgrade searches, then adds the tag when done (tracks what’s been processed). 
-                            <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: #2ecc71; text-decoration: underline;">💡 TrashGuides</a> | 
-                            <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: #e74c3c; text-decoration: underline;">🔗 Upgradinatorr</a>
+                            <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: var(--app-lidarr-color); text-decoration: underline;">💡 TrashGuides</a> | 
+                            <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: var(--app-readarr-color); text-decoration: underline;">🔗 Upgradinatorr</a>
                         </p>
                     </div>
                     
@@ -767,8 +767,8 @@
                             </select>
                         </div>
                         <p class="editor-help-text"><strong>Cutoff unmet:</strong> Items below quality cutoff (default). Huntarr does not add any upgrade tag. <strong>Tags (Upgradinatorr):</strong> Huntarr finds items WITHOUT the tag below, runs upgrade searches, then ADDS that tag when done. 
-                            <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: #2ecc71; text-decoration: underline;">💡 TrashGuides</a> | 
-                            <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: #e74c3c; text-decoration: underline;">🔗 Upgradinatorr</a>
+                            <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: var(--app-lidarr-color); text-decoration: underline;">💡 TrashGuides</a> | 
+                            <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: var(--app-readarr-color); text-decoration: underline;">🔗 Upgradinatorr</a>
                         </p>
                     </div>
                     <div class="editor-field-group editor-upgrade-tag-group" style="display: ${(safeInstance.upgrade_selection_method || 'cutoff') === 'tags' ? 'flex' : 'none'};">
@@ -777,8 +777,8 @@
                             <input type="text" id="editor-upgrade-tag" value="${(safeInstance.upgrade_tag || 'upgradinatorr').replace(/"/g, '&quot;')}" placeholder="e.g. upgradinatorr">
                         </div>
                         <p class="editor-help-text">Tag name in Radarr. Huntarr finds movies that don’t have this tag, runs upgrade searches, then adds the tag when done (tracks what’s been processed). 
-                            <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: #2ecc71; text-decoration: underline;">💡 TrashGuides</a> | 
-                            <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: #e74c3c; text-decoration: underline;">🔗 Upgradinatorr</a>
+                            <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: var(--app-lidarr-color); text-decoration: underline;">💡 TrashGuides</a> | 
+                            <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: var(--app-readarr-color); text-decoration: underline;">🔗 Upgradinatorr</a>
                         </p>
                     </div>
                     <div class="editor-field-group">
@@ -803,8 +803,8 @@
                 }
                 if (appType === 'lidarr' || appType === 'readarr') {
                     const tagHelp = appType === 'lidarr'
-                        ? 'Tag name on artists in Lidarr. Huntarr finds artists that don’t have this tag, runs upgrade searches on their albums, then adds the tag when done (tracks what’s been processed). <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: #2ecc71; text-decoration: underline;">💡 TrashGuides</a> | <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: #e74c3c; text-decoration: underline;">🔗 Upgradinatorr</a>'
-                        : 'Tag name on authors in Readarr. Huntarr finds authors that don’t have this tag, runs upgrade searches on their books, then adds the tag when done (tracks what’s been processed). <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: #2ecc71; text-decoration: underline;">💡 TrashGuides</a> | <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: #e74c3c; text-decoration: underline;">🔗 Upgradinatorr</a>';
+                        ? 'Tag name on artists in Lidarr. Huntarr finds artists that don’t have this tag, runs upgrade searches on their albums, then adds the tag when done (tracks what’s been processed). <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: var(--app-lidarr-color); text-decoration: underline;">💡 TrashGuides</a> | <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: var(--app-readarr-color); text-decoration: underline;">🔗 Upgradinatorr</a>'
+                        : 'Tag name on authors in Readarr. Huntarr finds authors that don’t have this tag, runs upgrade searches on their books, then adds the tag when done (tracks what’s been processed). <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: var(--app-lidarr-color); text-decoration: underline;">💡 TrashGuides</a> | <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: var(--app-readarr-color); text-decoration: underline;">🔗 Upgradinatorr</a>';
                     html += `
                     <div class="editor-field-group">
                         <div class="editor-setting-item">
@@ -815,8 +815,8 @@
                             </select>
                         </div>
                         <p class="editor-help-text"><strong>Cutoff unmet:</strong> Items below quality cutoff (default). Huntarr does not add any upgrade tag. <strong>Tags (Upgradinatorr):</strong> Huntarr finds items WITHOUT the tag below, runs upgrade searches, then ADDS that tag when done. 
-                            <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: #2ecc71; text-decoration: underline;">💡 TrashGuides</a> | 
-                            <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: #e74c3c; text-decoration: underline;">🔗 Upgradinatorr</a>
+                            <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: var(--app-lidarr-color); text-decoration: underline;">💡 TrashGuides</a> | 
+                            <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: var(--app-readarr-color); text-decoration: underline;">🔗 Upgradinatorr</a>
                         </p>
                     </div>
                     <div class="editor-field-group editor-upgrade-tag-group" style="display: ${(safeInstance.upgrade_selection_method || 'cutoff') === 'tags' ? 'flex' : 'none'};">
@@ -862,12 +862,12 @@
                             <i class="fas fa-undo"></i> Reset Processed State Now
                         </button>
                         <p class="editor-help-text" style="text-align: center; margin-top: -10px !important;">Clears the history of processed items for this instance</p>
-                        <div id="state-status-display" style="margin-top: 15px; padding: 12px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px;">
-                            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #10b981; font-weight: 500; margin-bottom: 4px;">
+                        <div id="state-status-display" style="margin-top: 15px; padding: 12px; background: var(--client-editor-color-1); border: 1px solid var(--client-editor-color-2); border-radius: 8px;">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--ui-success); font-weight: 500; margin-bottom: 4px;">
                                 <i class="fas fa-check-circle"></i>
                                 <span>Active - Tracked Items: <span id="tracked-items-count">Loading...</span></span>
                             </div>
-                            <div style="text-align: center; color: #94a3b8; font-size: 0.9rem;">
+                            <div style="text-align: center; color: var(--ui-text-muted); font-size: 0.9rem;">
                                 Next Reset: <span id="next-reset-time">Loading...</span>
                             </div>
                         </div>
@@ -897,7 +897,7 @@
                             <input type="number" id="editor-hourly-cap" value="${safeInstance.hourly_cap !== undefined ? safeInstance.hourly_cap : 20}" min="1" max="400">
                         </div>
                         <p class="editor-help-text">Maximum API requests per hour for this instance (10-20 recommended, max 400)</p>
-                        <div id="editor-hourly-cap-warning" class="editor-hourly-cap-warning" style="display: none; margin-top: 8px; padding: 12px 14px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.5); border-radius: 6px; color: #fca5a5; font-size: 0.85rem; line-height: 1.4;">
+                        <div id="editor-hourly-cap-warning" class="editor-hourly-cap-warning" style="display: none; margin-top: 8px; padding: 12px 14px; background: var(--ui-danger-tint); border: 1px solid var(--ui-danger-strong); border-radius: 6px; color: var(--ui-danger-soft-300); font-size: 0.85rem; line-height: 1.4;">
                             <i class="fas fa-stop-circle" style="margin-right: 6px;"></i> <strong>Do not overwhelm your indexers.</strong> High request rates can trigger rate limits or bans. Keep at 10–20 unless your provider allows more. When in doubt, contact your indexer providers.
                         </div>
                     </div>
@@ -996,7 +996,7 @@
                                     <button type="button" class="btn-card" id="editor-exempt-tag-add" style="padding: 8px 14px; white-space: nowrap;">Add</button>
                                 </div>
                             </div>
-                            <p class="editor-help-text" style="color: #94a3b8; font-size: 0.85rem;">Tag &quot;upgradinatorr&quot; cannot be added.</p>
+                            <p class="editor-help-text" style="color: var(--ui-text-muted); font-size: 0.85rem;">Tag &quot;upgradinatorr&quot; cannot be added.</p>
                             <div id="editor-exempt-tags-list" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; min-height: 24px;">
                                 ${(safeInstance.exempt_tags || []).map(tag => `
                                     <span class="exempt-tag-chip" data-tag="${(tag || '').replace(/"/g, '&quot;')}">
@@ -1057,7 +1057,7 @@
                     </div>
                     ` : `
                     <div class="editor-field-group">
-                        <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">Enable Swaparr in Settings to access additional monitoring features for this instance.</p>
+                        <p style="color: var(--ui-text-muted); font-size: 0.9rem; margin: 0;">Enable Swaparr in Settings to access additional monitoring features for this instance.</p>
                     </div>
                     `}
                 </div>

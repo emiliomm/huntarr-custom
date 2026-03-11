@@ -53,7 +53,7 @@ const RequestarrServices = {
             <div class="settings-group">
                 <div class="settings-group-header">
                     <h2>What are Bundles?</h2>
-                    <p style="color: #94a3b8; font-size: 14px; margin-top: 8px; line-height: 1.5;">
+                    <p style="color: var(--ui-text-muted); font-size: 14px; margin-top: 8px; line-height: 1.5;">
                         Bundles allow you to group multiple independent instances (e.g., standard 1080p and 4K) into a single unified library view. 
                         When you browse the Primary Instance of a bundle, any missing media will automatically trigger requests to <strong>all</strong> other instances in that bundle simultaneously. 
                         If an item is already present in an instance, the request for that specific instance is seamlessly skipped.
@@ -107,7 +107,7 @@ const RequestarrServices = {
                 </div>
                 <div class="instance-card-body">
                     <div class="instance-detail">
-                        <i class="fas fa-star" style="color:#f59e0b;"></i>
+                        <i class="fas fa-star" style="color:var(--ui-warning-500);"></i>
                         <span>Primary: ${this._esc(primaryLabel)}${memberCount > 0 ? ` + ${memberCount} more` : ''}</span>
                     </div>
                 </div>
@@ -141,11 +141,11 @@ const RequestarrServices = {
             ? `<input type="hidden" id="bundle-type-select" value="${bundleType}">
                <div class="modal-form-section">
                    <div class="modal-section-title">Type</div>
-                   <input type="text" value="${bundleType === 'movies' ? 'Movies' : 'TV'}" disabled style="opacity:0.6;width:100%;padding:8px 12px;border-radius:6px;border:1px solid rgba(148,163,184,0.2);background:rgba(30,41,59,0.5);color:#cbd5e1;">
+                   <input type="text" value="${bundleType === 'movies' ? 'Movies' : 'TV'}" disabled style="opacity:0.6;width:100%;padding:8px 12px;border-radius:6px;border:1px solid var(--ui-border);background:var(--ui-surface-slate);color:var(--ui-primary-border);">
                </div>`
             : `<div class="modal-form-section">
                    <div class="modal-section-title">Type</div>
-                   <select id="bundle-type-select" style="width:100%;padding:8px 12px;border-radius:6px;border:1px solid rgba(148,163,184,0.2);background:rgba(30,41,59,0.5);color:#cbd5e1;">
+                   <select id="bundle-type-select" style="width:100%;padding:8px 12px;border-radius:6px;border:1px solid var(--ui-border);background:var(--ui-surface-slate);color:var(--ui-primary-border);">
                        <option value="movies"${bundleType === 'movies' ? ' selected' : ''}>Movies</option>
                        <option value="tv"${bundleType === 'tv' ? ' selected' : ''}>TV</option>
                    </select>
@@ -162,19 +162,19 @@ const RequestarrServices = {
                     <div class="modal-form-section">
                         <div class="modal-section-title">Bundle Name</div>
                         <input type="text" id="bundle-name-input" value="${this._esc(bundleName)}" placeholder="e.g. All Movies" maxlength="50"
-                            style="width:100%;padding:8px 12px;border-radius:6px;border:1px solid rgba(148,163,184,0.2);background:rgba(30,41,59,0.5);color:#f8fafc;">
+                            style="width:100%;padding:8px 12px;border-radius:6px;border:1px solid var(--ui-border);background:var(--ui-surface-slate);color:var(--text-primary);">
                     </div>
                     <div class="modal-form-section">
                         <div class="modal-section-title">Primary Instance</div>
-                        <select id="bundle-primary-select" style="width:100%;padding:8px 12px;border-radius:6px;border:1px solid rgba(148,163,184,0.2);background:rgba(30,41,59,0.5);color:#cbd5e1;">
+                        <select id="bundle-primary-select" style="width:100%;padding:8px 12px;border-radius:6px;border:1px solid var(--ui-border);background:var(--ui-surface-slate);color:var(--ui-primary-border);">
                             <option value="">Loading...</option>
                         </select>
-                        <div style="font-size:11px;color:#64748b;margin-top:6px;">This is the instance you browse. Its library is what you see.</div>
+                        <div style="font-size:11px;color:var(--ui-text-dim);margin-top:6px;">This is the instance you browse. Its library is what you see.</div>
                     </div>
                     <div class="modal-form-section">
                         <div class="modal-section-title">Bundled Instances</div>
                         <div id="bundle-members-list" style="display:flex;flex-direction:column;gap:8px;">Loading...</div>
-                        <div style="font-size:11px;color:#64748b;margin-top:6px;">These instances will automatically receive the same requests as the primary.</div>
+                        <div style="font-size:11px;color:var(--ui-text-dim);margin-top:6px;">These instances will automatically receive the same requests as the primary.</div>
                     </div>
                 </div>
                 <div class="huntarr-modal-footer">
@@ -247,7 +247,7 @@ const RequestarrServices = {
         const filtered = instances.filter(inst => `${inst.app_type}:${inst.instance_name}` !== primaryKey);
 
         if (filtered.length === 0) {
-            membersList.innerHTML = '<div style="color:#64748b;font-size:13px;">No other instances available</div>';
+            membersList.innerHTML = '<div style="color:var(--ui-text-dim);font-size:13px;">No other instances available</div>';
             return;
         }
 
@@ -255,7 +255,7 @@ const RequestarrServices = {
             const key = `${inst.app_type}:${inst.instance_name}`;
             const label = `${this._appLabel(inst.app_type)} \u2013 ${inst.instance_name}`;
             const checked = selectedMemberKeys.includes(key) ? ' checked' : '';
-            return `<label style="display:flex;align-items:center;gap:8px;padding:6px 0;color:#cbd5e1;font-size:13px;cursor:pointer;">
+            return `<label style="display:flex;align-items:center;gap:8px;padding:6px 0;color:var(--ui-primary-border);font-size:13px;cursor:pointer;">
                 <input type="checkbox" class="bundle-member-cb" value="${this._esc(key)}"${checked}>
                 <span>${this._esc(label)}</span>
             </label>`;

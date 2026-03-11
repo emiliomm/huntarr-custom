@@ -9,7 +9,7 @@
 
 /* ── NZB Hunt Home Card on Dashboard ────────────────────────────── */
 .nzb-home-card {
-    border: 1px solid rgba(96, 165, 250, 0.15);
+    border: 1px solid var(--home-border-1);
 }
 
 .nzb-home-status-bar {
@@ -25,19 +25,19 @@
     align-items: center;
     gap: 6px;
     font-size: 0.88rem;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     white-space: nowrap;
 }
 
 .nzb-home-stat i {
-    color: #60a5fa;
+    color: var(--footer-text-2);
     font-size: 0.82rem;
     width: 16px;
     text-align: center;
 }
 
 .nzb-home-stat-label {
-    color: #64748b;
+    color: var(--ui-text-dim);
     font-size: 0.78rem;
     margin-left: 2px;
 }
@@ -60,10 +60,10 @@
     gap: 14px;
     padding: 16px 20px;
     margin-bottom: 16px;
-    background: rgba(245, 158, 11, 0.1);
-    border: 1px solid rgba(245, 158, 11, 0.4);
+    background: var(--backup-restore-bg-4);
+    border: 1px solid var(--card-hover-effects-color-2);
     border-radius: 12px;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     font-size: 0.95rem;
     line-height: 1.5;
 }
@@ -71,7 +71,7 @@
 .nzb-hunt-home-warning i {
     flex-shrink: 0;
     font-size: 1.25rem;
-    color: #FBBC04;
+    color: var(--warning-color);
     margin-top: 2px;
 }
 
@@ -80,21 +80,21 @@
 }
 
 .nzb-hunt-home-warning-content strong {
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-weight: 600;
 }
 
 .nzb-hunt-home-warning-link {
-    color: #fcd230;
+    color: var(--ui-warning);
     font-weight: 500;
     text-decoration: none;
-    border-bottom: 1px solid rgba(251, 191, 36, 0.5);
+    border-bottom: 1px solid var(--home-border-3);
     transition: color 0.15s, border-color 0.15s;
 }
 
 .nzb-hunt-home-warning-link:hover {
-    color: #fcd34d;
-    border-bottom-color: #fcd230;
+    color: var(--home-text-2);
+    border-bottom-color: var(--ui-warning);
 }
 
 /* ── Section Bar (replaces old card-header) ─────────────────────── */
@@ -104,7 +104,7 @@
     justify-content: space-between;
     padding: 10px 18px 10px 16px;
     background: transparent;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.06);
+    border-bottom: 1px solid var(--home-bg-11);
     border-radius: 12px 12px 0 0;
     margin: -1px -1px 0 -1px;
 }
@@ -116,13 +116,13 @@
 }
 
 .home-section-icon {
-    color: #8ab4f8;
+    color: var(--accent-hover);
     font-size: 0.82rem;
     opacity: 0.7;
 }
 
 .home-section-title {
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.01em;
@@ -134,9 +134,9 @@
     gap: 6px;
     padding: 5px 14px;
     border-radius: 8px;
-    border: 1px solid rgba(148, 163, 184, 0.08);
-    background: rgba(30, 41, 59, 0.4);
-    color: #94a3b8;
+    border: 1px solid var(--ui-border-faint);
+    background: var(--home-bg-2);
+    color: var(--ui-text-muted);
     cursor: pointer;
     transition: all 0.2s;
     font-size: 0.78rem;
@@ -144,9 +144,9 @@
 }
 
 .home-section-btn:hover {
-    border-color: rgba(148, 163, 184, 0.15);
-    color: #e2e8f0;
-    background: rgba(30, 41, 59, 0.6);
+    border-color: var(--ui-border-soft);
+    color: var(--text-secondary);
+    background: var(--ui-surface-slate);
 }
 
 .home-section-btn i {
@@ -155,8 +155,8 @@
 
 /* ── Stats Card Container — modern dark glass ───────────────────── */
 #homeSection .stats-card {
-    background: rgba(15, 23, 42, 0.6) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    background: var(--ui-surface-raised) !important;
+    border: 1px solid var(--ui-alpha-white) !important;
     border-radius: 12px !important;
     box-shadow: none !important;
     overflow: hidden;
@@ -191,10 +191,10 @@
 
 /* ── App Stat Cards — modern glass card ─────────────────────────── */
 #homeSection .app-stats-card {
-    background: rgba(15, 23, 42, 0.5) !important;
-    border: 1px solid rgba(148, 163, 184, 0.06) !important;
+    background: var(--shadow-lg) !important;
+    border: 1px solid var(--home-bg-11) !important;
     border-radius: 12px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 2px 8px var(--glass-shadow) !important;
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
     padding: 0 16px 0 16px !important;
@@ -206,75 +206,75 @@
 
 #homeSection .app-stats-card:hover {
     transform: translateY(-2px) !important;
-    border-color: rgba(148, 163, 184, 0.12) !important;
-    background: rgba(15, 23, 42, 0.65) !important;
+    border-color: var(--ui-border-tint) !important;
+    background: var(--home-bg-17) !important;
 }
 
 /* Keep the colored top accent but make it more subtle */
 #homeSection .app-stats-card.movie_hunt,
 #homeSection .app-stats-card.tv_hunt {
-    border-top: 2px solid rgba(245, 158, 11, 0.4) !important;
+    border-top: 2px solid var(--card-hover-effects-color-2) !important;
 }
 
 #homeSection .app-stats-card.movie_hunt:hover,
 #homeSection .app-stats-card.tv_hunt:hover {
-    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.08), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 20px var(--backup-restore-bg-4), 0 2px 8px var(--ui-shadow) !important;
 }
 
 #homeSection .app-stats-card.sonarr {
-    border-top: 2px solid rgba(99, 102, 241, 0.4) !important;
+    border-top: 2px solid var(--ui-accent-border) !important;
 }
 
 #homeSection .app-stats-card.sonarr:hover {
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.08), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 20px var(--ui-accent-bg), 0 2px 8px var(--ui-shadow) !important;
 }
 
 #homeSection .app-stats-card.radarr {
-    border-top: 2px solid rgba(245, 158, 11, 0.4) !important;
+    border-top: 2px solid var(--card-hover-effects-color-2) !important;
 }
 
 #homeSection .app-stats-card.radarr:hover {
-    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.08), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 20px var(--backup-restore-bg-4), 0 2px 8px var(--ui-shadow) !important;
 }
 
 #homeSection .app-stats-card.lidarr {
-    border-top: 2px solid rgba(34, 197, 94, 0.4) !important;
+    border-top: 2px solid var(--home-border-6) !important;
 }
 
 #homeSection .app-stats-card.lidarr:hover {
-    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.08), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 20px var(--backup-restore-bg-3), 0 2px 8px var(--ui-shadow) !important;
 }
 
 #homeSection .app-stats-card.readarr {
-    border-top: 2px solid rgba(168, 85, 247, 0.4) !important;
+    border-top: 2px solid var(--home-border-7) !important;
 }
 
 #homeSection .app-stats-card.readarr:hover {
-    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.08), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 20px var(--client-editor-color-3), 0 2px 8px var(--ui-shadow) !important;
 }
 
 #homeSection .app-stats-card.whisparr {
-    border-top: 2px solid rgba(236, 72, 153, 0.4) !important;
+    border-top: 2px solid var(--home-border-8) !important;
 }
 
 #homeSection .app-stats-card.whisparr:hover {
-    box-shadow: 0 4px 20px rgba(236, 72, 153, 0.08), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 20px var(--home-shadow-4), 0 2px 8px var(--ui-shadow) !important;
 }
 
 #homeSection .app-stats-card.eros {
-    border-top: 2px solid rgba(236, 72, 153, 0.4) !important;
+    border-top: 2px solid var(--home-border-8) !important;
 }
 
 #homeSection .app-stats-card.eros:hover {
-    box-shadow: 0 4px 20px rgba(236, 72, 153, 0.08), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 20px var(--home-shadow-4), 0 2px 8px var(--ui-shadow) !important;
 }
 
 #homeSection .app-stats-card.swaparr {
-    border-top: 2px solid rgba(99, 102, 241, 0.4) !important;
+    border-top: 2px solid var(--ui-accent-border) !important;
 }
 
 #homeSection .app-stats-card.swaparr:hover {
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.08), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 20px var(--ui-accent-bg), 0 2px 8px var(--ui-shadow) !important;
 }
 
 /* ── App Icon — smaller, cleaner ────────────────────────────────── */
@@ -292,18 +292,18 @@
 
 #homeSection .app-stats-card.movie_hunt .app-icon-wrapper .app-logo,
 #homeSection .app-stats-card.tv_hunt .app-icon-wrapper .app-logo {
-    filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.35));
+    filter: drop-shadow(0 2px 8px var(--home-color-1));
 }
 
 #homeSection .app-icon-wrapper .app-logo {
     width: 48px !important;
     height: 48px !important;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 2px 4px var(--ui-shadow-strong));
 }
 
 #homeSection .app-stats-card h4 {
     font-size: 0.88rem !important;
-    color: #e2e8f0 !important;
+    color: var(--text-secondary) !important;
     font-weight: 600 !important;
     letter-spacing: 0.01em !important;
 }
@@ -315,7 +315,7 @@
 }
 
 #homeSection .app-stats-card .stat-label {
-    color: #64748b !important;
+    color: var(--ui-text-dim) !important;
     font-size: 0.68rem !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
@@ -325,26 +325,26 @@
 /* ── API Progress Bar — refined ─────────────────────────────────── */
 #homeSection .api-progress-bar {
     height: 4px !important;
-    background: rgba(15, 23, 42, 0.8) !important;
+    background: var(--ui-surface-solid) !important;
     border: none !important;
     border-radius: 4px !important;
 }
 
 #homeSection .hourly-cap-text {
     font-size: 0.68rem !important;
-    color: #64748b !important;
+    color: var(--ui-text-dim) !important;
 }
 
 #homeSection .api-progress-text {
     font-size: 0.62rem !important;
-    color: #475569 !important;
+    color: var(--ui-primary-surface) !important;
 }
 
 /* ── Per-card Reset Buttons — subtle icon style ─────────────────── */
 #homeSection .app-stats-card .cycle-reset-button {
-    background: rgba(30, 41, 59, 0.6) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    color: #64748b !important;
+    background: var(--ui-surface-slate) !important;
+    border: 1px solid var(--ui-alpha-white) !important;
+    color: var(--ui-text-dim) !important;
     border-radius: 6px !important;
     font-size: 0.75rem !important;
     padding: 4px 12px !important;
@@ -352,9 +352,9 @@
 }
 
 #homeSection .app-stats-card .cycle-reset-button:hover {
-    border-color: rgba(239, 68, 68, 0.3) !important;
-    color: #f28b82 !important;
-    background: rgba(239, 68, 68, 0.08) !important;
+    border-color: var(--ui-danger-bg-hover) !important;
+    color: var(--button-danger-hover) !important;
+    background: var(--ui-danger-tint) !important;
     transform: none !important;
 }
 
@@ -422,14 +422,14 @@
     min-width: 140px;
     width: auto;
     padding: 10px 36px 10px 14px;
-    background: linear-gradient(135deg, #303134 0%, #202124 50%, #303134 100%);
-    border: 1px solid rgba(90, 109, 137, 0.4);
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-primary) 50%, var(--bg-tertiary) 100%);
+    border: 1px solid var(--home-border-9);
     border-radius: 8px;
-    color: #f1f5f9;
+    color: var(--ui-text-strong);
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px var(--ui-shadow);
     transition: border-color 0.2s, box-shadow 0.2s;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -441,18 +441,18 @@
 }
 
 .home-filter-chip .chip-select:hover {
-    border-color: rgba(90, 109, 137, 0.6);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    border-color: var(--home-border-10);
+    box-shadow: 0 2px 10px var(--components-shadow-1);
 }
 
 .home-filter-chip .chip-select:focus {
-    border-color: #4285F4;
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px var(--ui-accent-bg-hover);
 }
 
 .home-filter-chip .chip-select option {
-    background: #303134;
-    color: #f1f5f9;
+    background: var(--bg-tertiary);
+    color: var(--ui-text-strong);
 }
 
 
@@ -468,7 +468,7 @@
     left: 14px;
     top: 50%;
     transform: translateY(-50%);
-    color: #475569;
+    color: var(--ui-primary-surface);
     font-size: 14px;
     pointer-events: none;
     z-index: 1;
@@ -477,10 +477,10 @@
 .home-search-bar input {
     width: 100%;
     padding: 12px 16px 12px 40px;
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--ui-surface-slate);
+    border: 1px solid var(--ui-alpha-white);
     border-radius: 10px;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 14px;
     transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
@@ -488,13 +488,13 @@
 }
 
 .home-search-bar input:focus {
-    border-color: rgba(99, 102, 241, 0.5);
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
-    background: rgba(30, 41, 59, 0.9);
+    border-color: var(--ui-accent-strong);
+    box-shadow: 0 0 0 2px var(--ui-accent-bg-subtle);
+    background: var(--history-section-bg-14);
 }
 
 .home-search-bar input::placeholder {
-    color: #475569;
+    color: var(--ui-primary-surface);
 }
 
 @media (max-width: 768px) {
@@ -532,14 +532,14 @@
 #homeSection .section-title {
     font-size: 1.4em !important;
     font-weight: 700 !important;
-    color: #e2e8f0 !important;
+    color: var(--text-secondary) !important;
     letter-spacing: 0.02em !important;
 }
 
 /* ── Trending bar accent ────────────────────────────────────────── */
 #homeSection .trending-bar {
     height: 2px !important;
-    background: linear-gradient(90deg, rgba(99, 102, 241, 0.6) 0%, rgba(99, 102, 241, 0) 100%) !important;
+    background: linear-gradient(90deg, var(--apps-section-border-3) 0%, var(--components-shadow-2) 100%) !important;
     border-radius: 2px;
     margin-bottom: 14px;
 }
@@ -551,16 +551,16 @@
 
 /* ── Empty State — refined ──────────────────────────────────────── */
 #homeSection #live-hunts-empty-state {
-    background: rgba(15, 23, 42, 0.4) !important;
-    border: 1px dashed rgba(255, 255, 255, 0.08) !important;
+    background: var(--ui-surface-overlay) !important;
+    border: 1px dashed var(--ui-alpha-white) !important;
     border-radius: 10px !important;
 }
 
 /* ── Support / Prowlarr cards — match container style ───────────── */
 #homeSection .support-links-card,
 #homeSection .community-hub-card {
-    background: rgba(15, 23, 42, 0.6) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    background: var(--ui-surface-raised) !important;
+    border: 1px solid var(--ui-alpha-white) !important;
     border-radius: 12px !important;
     box-shadow: none !important;
 }
@@ -585,16 +585,16 @@
 
 .view-toggle-group {
     display: inline-flex;
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 8px;
     overflow: hidden;
-    background: rgba(30, 41, 59, 0.4);
+    background: var(--home-bg-2);
 }
 
 .view-toggle-btn {
     background: transparent;
     border: none;
-    color: #475569;
+    color: var(--ui-primary-surface);
     padding: 5px 10px;
     cursor: pointer;
     font-size: 0.78rem;
@@ -604,17 +604,17 @@
 }
 
 .view-toggle-btn+.view-toggle-btn {
-    border-left: 1px solid rgba(148, 163, 184, 0.06);
+    border-left: 1px solid var(--home-bg-11);
 }
 
 .view-toggle-btn.active {
-    background: rgba(99, 102, 241, 0.12);
-    color: #8ab4f8;
+    background: var(--ui-accent-tint);
+    color: var(--accent-hover);
 }
 
 .view-toggle-btn:hover:not(.active) {
-    color: #94a3b8;
-    background: rgba(148, 163, 184, 0.04);
+    color: var(--ui-text-muted);
+    background: var(--home-bg-11);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -633,7 +633,7 @@
     gap: 10px;
     padding: 8px 4px;
     margin-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--ui-alpha-white);
 }
 
 .app-group-logo {
@@ -644,7 +644,7 @@
 }
 
 .app-group-label {
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 0.88rem;
     font-weight: 700;
     letter-spacing: 0.01em;
@@ -658,7 +658,7 @@
     top: 10px;
     left: 10px;
     cursor: grab;
-    color: #3c4043;
+    color: var(--bg-hover);
     font-size: 0.78rem;
     padding: 4px 5px;
     z-index: 5;
@@ -668,13 +668,13 @@
 }
 
 .card-drag-handle:hover {
-    color: #94a3b8;
-    background: rgba(255, 255, 255, 0.06);
+    color: var(--ui-text-muted);
+    background: var(--ui-alpha-white);
 }
 
 .card-drag-handle:active {
     cursor: grabbing;
-    color: #8ab4f8;
+    color: var(--accent-hover);
 }
 
 /* Push card content down so the drag handle doesn't overlap the API bar */
@@ -691,7 +691,7 @@
    ═══════════════════════════════════════════════════════════════════ */
 .drag-handle {
     cursor: grab;
-    color: #475569;
+    color: var(--ui-primary-surface);
     font-size: 0.78rem;
     padding: 2px;
     transition: color 0.2s;
@@ -699,7 +699,7 @@
 }
 
 .drag-handle:hover {
-    color: #94a3b8;
+    color: var(--ui-text-muted);
 }
 
 .drag-handle:active {
@@ -709,13 +709,13 @@
 /* SortableJS ghost element */
 .sortable-ghost {
     opacity: 0.35;
-    background: rgba(99, 102, 241, 0.08) !important;
-    border: 1px dashed rgba(99, 102, 241, 0.4) !important;
+    background: var(--ui-accent-bg) !important;
+    border: 1px dashed var(--ui-accent-border) !important;
     border-radius: 10px;
 }
 
 .sortable-chosen {
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
+    box-shadow: 0 8px 32px var(--home-shadow-6) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -731,8 +731,8 @@
     grid-column: unset;
     border-radius: 10px;
     overflow: hidden;
-    border: 1px solid rgba(148, 163, 184, 0.05);
-    background: rgba(15, 23, 42, 0.35);
+    border: 1px solid var(--home-bg-11);
+    background: var(--shadow-md);
     /* Extend into container padding so headers touch the border */
     margin: 0 -16px;
     padding: 0 16px;
@@ -743,8 +743,8 @@
     margin-left: -16px;
     margin-right: -16px;
     padding: 10px 20px 10px 16px;
-    background: rgba(15, 23, 42, 0.4);
-    border-bottom: 1px solid rgba(148, 163, 184, 0.04);
+    background: var(--ui-surface-overlay);
+    border-bottom: 1px solid var(--home-bg-11);
     border-radius: 0;
 }
 
@@ -783,12 +783,12 @@
 .app-list-table thead th {
     text-align: left;
     padding: 8px 20px;
-    color: #475569;
+    color: var(--ui-primary-surface);
     font-size: 0.65rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.04);
+    border-bottom: 1px solid var(--home-bg-11);
     background: transparent;
 }
 
@@ -797,17 +797,17 @@
 }
 
 .app-list-table tbody tr:nth-child(even) {
-    background: rgba(255, 255, 255, 0.015);
+    background: var(--home-bg-12);
 }
 
 .app-list-table tbody tr:hover {
-    background: rgba(99, 102, 241, 0.04);
+    background: var(--ui-accent-tint);
 }
 
 .app-list-table tbody td {
     padding: 10px 20px;
-    color: #cbd5e1;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.025);
+    color: var(--ui-primary-border);
+    border-bottom: 1px solid var(--home-bg-12);
     white-space: nowrap;
     vertical-align: middle;
 }
@@ -818,7 +818,7 @@
 
 .list-instance-name {
     font-weight: 600;
-    color: #f1f5f9;
+    color: var(--ui-text-strong);
     font-size: 0.84rem;
 }
 
@@ -831,28 +831,28 @@
 
 /* Per-app stat colors in list mode */
 .list-stat.movie_hunt {
-    color: #fcd230;
+    color: var(--ui-warning);
 }
 
 .list-stat.sonarr {
-    color: #8ab4f8;
+    color: var(--accent-hover);
 }
 
 .list-stat.radarr {
-    color: #fcd230;
+    color: var(--ui-warning);
 }
 
 .list-stat.lidarr {
-    color: #81c995;
+    color: var(--button-success-hover);
 }
 
 .list-stat.readarr {
-    color: #c084fc;
+    color: var(--home-text-3);
 }
 
 .list-stat.whisparr,
 .list-stat.eros {
-    color: #f472b6;
+    color: var(--home-text-4);
 }
 
 /* API + Status combined cell — two rows to prevent collision */
@@ -883,10 +883,10 @@
 
 .list-api-bar {
     height: 5px;
-    background: rgba(15, 23, 42, 0.8);
+    background: var(--ui-surface-solid);
     border-radius: 4px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--ui-alpha-white);
 }
 
 .list-api-fill {
@@ -897,38 +897,38 @@
 
 /* Per-app progress fill colors in list */
 .list-api-fill.movie_hunt {
-    background: linear-gradient(90deg, #FBBC04, #fcd230);
-    box-shadow: 0 0 4px rgba(245, 158, 11, 0.3);
+    background: linear-gradient(90deg, var(--warning-color), var(--ui-warning));
+    box-shadow: 0 0 4px var(--home-color-1);
 }
 
 .list-api-fill.sonarr {
-    background: linear-gradient(90deg, #4285F4, #8ab4f8);
-    box-shadow: 0 0 4px rgba(99, 102, 241, 0.3);
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+    box-shadow: 0 0 4px var(--ui-accent-ring);
 }
 
 .list-api-fill.radarr {
-    background: linear-gradient(90deg, #FBBC04, #fcd230);
-    box-shadow: 0 0 4px rgba(245, 158, 11, 0.3);
+    background: linear-gradient(90deg, var(--warning-color), var(--ui-warning));
+    box-shadow: 0 0 4px var(--home-color-1);
 }
 
 .list-api-fill.lidarr {
-    background: linear-gradient(90deg, #34A853, #81c995);
-    box-shadow: 0 0 4px rgba(34, 197, 94, 0.3);
+    background: linear-gradient(90deg, var(--success-color), var(--button-success-hover));
+    box-shadow: 0 0 4px var(--home-shadow-15);
 }
 
 .list-api-fill.readarr {
-    background: linear-gradient(90deg, #a855f7, #c084fc);
-    box-shadow: 0 0 4px rgba(168, 85, 247, 0.3);
+    background: linear-gradient(90deg, var(--client-editor-color-5), var(--home-text-3));
+    box-shadow: 0 0 4px var(--client-editor-color-4);
 }
 
 .list-api-fill.whisparr,
 .list-api-fill.eros {
-    background: linear-gradient(90deg, #ec4899, #f472b6);
-    box-shadow: 0 0 4px rgba(236, 72, 153, 0.3);
+    background: linear-gradient(90deg, var(--home-bg-15), var(--home-text-4));
+    box-shadow: 0 0 4px var(--home-shadow-10);
 }
 
 .list-api-text {
-    color: #64748b;
+    color: var(--ui-text-dim);
     font-size: 0.74rem;
     font-family: 'SF Mono', 'Fira Code', monospace;
     letter-spacing: 0.02em;
@@ -944,7 +944,7 @@
     padding: 3px 8px;
     margin: 0;
     max-width: none;
-    background: rgba(0, 0, 0, 0.15);
+    background: var(--glass-shadow);
     border-radius: 5px;
 }
 
@@ -969,20 +969,20 @@
     padding: 4px 10px !important;
     font-size: 0.72rem !important;
     border-radius: 6px !important;
-    background: rgba(30, 41, 59, 0.6) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    color: #64748b !important;
+    background: var(--ui-surface-slate) !important;
+    border: 1px solid var(--ui-alpha-white) !important;
+    color: var(--ui-text-dim) !important;
 }
 
 .list-actions .cycle-reset-button:hover {
-    border-color: rgba(239, 68, 68, 0.3) !important;
-    color: #f28b82 !important;
-    background: rgba(239, 68, 68, 0.08) !important;
+    border-color: var(--ui-danger-bg-hover) !important;
+    color: var(--button-danger-hover) !important;
+    background: var(--ui-danger-tint) !important;
 }
 
 /* State Management Reset column in list mode */
 .list-sm-reset {
-    color: #64748b;
+    color: var(--ui-text-dim);
     font-size: 0.78rem;
     white-space: nowrap;
     vertical-align: middle;
@@ -997,14 +997,14 @@
 .list-sm-reset .sm-reset-value {
     font-weight: 700;
     font-size: 0.88rem;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     font-variant-numeric: tabular-nums;
 }
 
 .list-sm-reset .sm-reset-off {
     font-weight: 600;
     font-size: 0.72rem;
-    color: #475569;
+    color: var(--ui-primary-surface);
     letter-spacing: 0.04em;
 }
 
@@ -1113,8 +1113,8 @@
 
     /* Each row becomes a compact card */
     .app-list-table tbody tr {
-        background: rgba(15, 23, 42, 0.45);
-        border: 1px solid rgba(255, 255, 255, 0.04);
+        background: var(--backup-restore-bg-1);
+        border: 1px solid var(--ui-alpha-white);
         border-radius: 10px;
         margin-bottom: 8px;
         padding: 12px 14px;
@@ -1122,7 +1122,7 @@
     }
 
     .app-list-table tbody tr:nth-child(even) {
-        background: rgba(15, 23, 42, 0.55);
+        background: var(--home-bg-17);
     }
 
     /* Each td becomes a label:value row */
@@ -1143,7 +1143,7 @@
         width: 36%;
         text-align: left;
         font-weight: 700;
-        color: #475569;
+        color: var(--ui-primary-surface);
         text-transform: uppercase;
         font-size: 0.64rem;
         letter-spacing: 0.05em;
@@ -1176,8 +1176,8 @@
         text-align: left;
         font-size: 0.88rem;
         font-weight: 700;
-        color: #f1f5f9;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        color: var(--ui-text-strong);
+        border-bottom: 1px solid var(--ui-alpha-white);
         padding-bottom: 6px;
         margin-bottom: 4px;
     }
@@ -1190,7 +1190,7 @@
     .app-list-table tbody td.list-actions {
         padding-left: 0;
         text-align: center;
-        border-top: 1px solid rgba(255, 255, 255, 0.04);
+        border-top: 1px solid var(--ui-alpha-white);
         margin-top: 4px;
         padding-top: 8px;
     }
@@ -1307,7 +1307,7 @@
     height: auto;
     margin-bottom: 12px;
     background-color: transparent;
-    border-bottom: 1px solid rgba(90, 109, 137, 0.2);
+    border-bottom: 1px solid var(--history-section-border-4);
 }
 
 .community-hub-card .card-header h3,
@@ -1322,8 +1322,8 @@
 .community-hub-card {
     padding: 8px;
     margin-bottom: 8px;
-    background: linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    background: linear-gradient(145deg, var(--home-bg-2) 0%, var(--ui-surface-raised) 100%);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 14px;
 }
 
@@ -1348,7 +1348,7 @@
     min-height: 0;
     margin-bottom: 12px;
     background-color: transparent;
-    border-bottom: 1px solid rgba(90, 109, 137, 0.2);
+    border-bottom: 1px solid var(--history-section-border-4);
     align-items: flex-end;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -1362,7 +1362,7 @@
 .stats-card .card-header h3 {
     font-size: 0.94em;
     line-height: 1.2;
-    color: #f1f5f9;
+    color: var(--ui-text-strong);
     font-weight: 700;
     backface-visibility: hidden;
     transform: translateZ(0);
@@ -1373,7 +1373,7 @@
 }
 
 .stats-card .card-header h3 i {
-    color: #FBBC04;
+    color: var(--warning-color);
 }
 
 .stats-card .card-header .action-button {
@@ -1384,9 +1384,9 @@
 /* Reset Stats header button – blue accent */
 #reset-stats,
 .stats-card>.card-header>.cycle-reset-button {
-    background: rgba(99, 102, 241, 0.15);
-    color: #8ab4f8;
-    border: 1px solid rgba(99, 102, 241, 0.3);
+    background: var(--ui-accent-bg-strong);
+    color: var(--accent-hover);
+    border: 1px solid var(--ui-accent-ring);
     padding: 6px 14px;
     border-radius: 8px;
     font-size: 0.85em;
@@ -1396,9 +1396,9 @@
 
 #reset-stats:hover,
 .stats-card>.card-header>.cycle-reset-button:hover {
-    background: rgba(99, 102, 241, 0.25);
-    border-color: rgba(99, 102, 241, 0.5);
-    color: #93c5fd;
+    background: var(--ui-accent-bg-hover);
+    border-color: var(--ui-accent-strong);
+    color: var(--backup-restore-text-4);
     transform: translateY(-1px);
 }
 
@@ -1415,10 +1415,10 @@
 /* ── Requestarr home card wrapper ────────────────────────────────── */
 .requestarr-home-card {
     padding: 16px 22px 10px;
-    background: linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    background: linear-gradient(145deg, var(--home-bg-2) 0%, var(--ui-surface-raised) 100%);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 14px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 20px var(--ui-shadow-soft);
 }
 
 /* ── Section Titles ──────────────────────────────────────────────── */
@@ -1436,7 +1436,7 @@
     font-size: 1.3em;
     font-weight: 700;
     letter-spacing: 0.01em;
-    color: #f1f5f9;
+    color: var(--ui-text-strong);
     margin: 0;
     display: flex;
     align-items: center;
@@ -1449,7 +1449,7 @@
 
 /* Glow only for Smart Hunt flame, not for Trending chart */
 .smarthunt-flame {
-    filter: drop-shadow(0 0 8px rgba(255, 100, 50, 0.8)) drop-shadow(0 0 16px rgba(255, 150, 50, 0.6));
+    filter: drop-shadow(0 0 8px var(--home-color-2)) drop-shadow(0 0 16px var(--home-color-3));
 }
 
 .movie-emoji,
@@ -1462,13 +1462,13 @@
     height: 2px;
     width: 100%;
     background: linear-gradient(to right,
-            rgba(245, 158, 11, 0.7) 0%,
-            rgba(245, 158, 11, 0.4) 30%,
-            rgba(99, 102, 241, 0.3) 60%,
+            var(--home-color-4) 0%,
+            var(--card-hover-effects-color-2) 30%,
+            var(--ui-accent-ring) 60%,
             transparent 100%);
     border-radius: 2px;
     margin-bottom: 16px;
-    box-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
+    box-shadow: 0 0 8px var(--home-section-shadow-15);
 }
 
 /* ── Carousel container + arrows ─────────────────────────────────── */
@@ -1482,9 +1482,9 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-    background: rgba(15, 23, 42, 0.85);
-    border: 1px solid rgba(148, 163, 184, 0.15);
-    color: #94a3b8;
+    background: var(--components-bg-9);
+    border: 1px solid var(--ui-border-soft);
+    color: var(--ui-text-muted);
     width: 38px;
     height: 38px;
     border-radius: 50%;
@@ -1495,15 +1495,15 @@
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px var(--ui-shadow-strong);
 }
 
 .carousel-arrow:hover {
-    background: rgba(245, 158, 11, 0.15);
-    border-color: rgba(245, 158, 11, 0.4);
-    color: #FBBC04;
+    background: var(--backup-restore-bg-4);
+    border-color: var(--card-hover-effects-color-2);
+    color: var(--warning-color);
     transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 6px 18px var(--home-shadow-6);
 }
 
 .carousel-arrow.left {
@@ -1522,7 +1522,7 @@
     scroll-behavior: smooth;
     padding: 10px 5px;
     scrollbar-width: thin;
-    scrollbar-color: rgba(148, 163, 184, 0.15) rgba(15, 23, 42, 0.3);
+    scrollbar-color: var(--ui-border-soft) var(--components-bg-4);
 }
 
 .media-carousel::-webkit-scrollbar {
@@ -1530,17 +1530,17 @@
 }
 
 .media-carousel::-webkit-scrollbar-track {
-    background: rgba(15, 23, 42, 0.3);
+    background: var(--components-bg-4);
     border-radius: 3px;
 }
 
 .media-carousel::-webkit-scrollbar-thumb {
-    background: rgba(148, 163, 184, 0.15);
+    background: var(--ui-border-soft);
     border-radius: 3px;
 }
 
 .media-carousel::-webkit-scrollbar-thumb:hover {
-    background: rgba(148, 163, 184, 0.25);
+    background: var(--home-bg-20);
 }
 
 .requestarr-home-content {
@@ -1554,10 +1554,10 @@
 }
 
 .global-search-bar input {
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(148, 163, 184, 0.15);
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border-soft);
     border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    box-shadow: 0 2px 12px var(--glass-shadow), inset 0 1px 0 var(--ui-alpha-white);
     transition: all 0.3s ease;
     padding: 11px 16px 11px 42px;
     font-size: 13px;
@@ -1572,7 +1572,7 @@
     left: 16px;
     top: 50%;
     transform: translateY(-50%);
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     font-size: 14px;
     z-index: 1;
     transition: color 0.3s ease;
@@ -1580,7 +1580,7 @@
 }
 
 .global-search-bar:focus-within i {
-    color: #FBBC04;
+    color: var(--warning-color);
 }
 
 /* ── Home search results grid ────────────────────────────────────── */
@@ -1633,7 +1633,7 @@
     height: 24px;
     border-radius: 50%;
     margin-right: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--home-border-15);
 }
 
 .sponsor-widget .sponsor-name {
@@ -1646,8 +1646,8 @@
     position: relative;
     border-radius: 50%;
     padding: 2px;
-    background: linear-gradient(45deg, #ffd700, #ffb700, #ffd700, #fff6a1, #ffd700);
-    box-shadow: 0 0 5px rgba(255, 215, 0, 0.4);
+    background: linear-gradient(45deg, var(--home-bg-21), var(--cycle-countdown-color-4), var(--home-bg-21), var(--home-bg-23), var(--home-bg-21));
+    box-shadow: 0 0 5px var(--home-shadow-14);
 }
 
 .sponsor-icon a {
@@ -1671,13 +1671,13 @@
 }
 
 .sponsor-title-link {
-    color: #ffffff;
+    color: var(--button-primary-text);
     text-decoration: none;
     transition: all 0.2s ease;
 }
 
 .sponsor-title-link:hover {
-    color: #e0e0e0;
+    color: var(--home-border-15);
     text-decoration: underline;
 }
 
@@ -1690,7 +1690,7 @@
 }
 
 .sponsor-widget .link-description a {
-    color: #ffb700;
+    color: var(--cycle-countdown-color-4);
     text-decoration: none;
     transition: all 0.2s ease;
     position: relative;
@@ -1698,7 +1698,7 @@
 }
 
 .sponsor-widget .link-description a:hover {
-    color: #ffd700;
+    color: var(--home-bg-21);
 }
 
 .sponsor-widget .link-description a::after {
@@ -1708,7 +1708,7 @@
     height: 1px;
     bottom: 0;
     left: 0;
-    background-color: #ffd700;
+    background-color: var(--home-bg-21);
     transition: width 0.3s ease;
 }
 
@@ -1728,23 +1728,23 @@
 
 /* ── Stats Card (Live Hunts / Swaparr / Prowlarr containers) ───── */
 .stats-card {
-    background: linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    background: linear-gradient(145deg, var(--home-bg-2) 0%, var(--ui-surface-raised) 100%);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 14px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 20px var(--ui-shadow-soft);
 }
 
 #swaparrStatusCard,
 #prowlarrStatusCard {
-    background: linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    background: linear-gradient(145deg, var(--home-bg-2) 0%, var(--ui-surface-raised) 100%);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 14px;
 }
 
 /* ── App Stats Cards (Sonarr, Radarr, etc.) ──────────────────────── */
 .app-stats-card {
-    background: linear-gradient(145deg, #303134 0%, #202124 100%);
-    border: 1px solid rgba(148, 163, 184, 0.1);
+    background: linear-gradient(145deg, var(--bg-tertiary) 0%, var(--bg-primary) 100%);
+    border: 1px solid var(--ui-border-subtle);
     border-radius: 12px;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     overflow: hidden;
@@ -1753,43 +1753,43 @@
 
 .app-stats-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
-    border-color: rgba(148, 163, 184, 0.18);
+    box-shadow: 0 10px 28px var(--ui-shadow-strong);
+    border-color: var(--ui-border);
 }
 
 /* Colored top accent per app */
 .app-stats-card.sonarr {
-    border-top: 2px solid rgba(99, 102, 241, 0.5);
+    border-top: 2px solid var(--ui-accent-strong);
 }
 
 .app-stats-card.radarr {
-    border-top: 2px solid rgba(245, 158, 11, 0.5);
+    border-top: 2px solid var(--home-border-17);
 }
 
 .app-stats-card.lidarr {
-    border-top: 2px solid rgba(34, 197, 94, 0.5);
+    border-top: 2px solid var(--home-border-18);
 }
 
 .app-stats-card.readarr {
-    border-top: 2px solid rgba(168, 85, 247, 0.5);
+    border-top: 2px solid var(--home-border-19);
 }
 
 .app-stats-card.whisparr {
-    border-top: 2px solid rgba(236, 72, 153, 0.5);
+    border-top: 2px solid var(--home-border-20);
 }
 
 .app-stats-card.eros {
-    border-top: 2px solid rgba(236, 72, 153, 0.5);
+    border-top: 2px solid var(--home-border-20);
 }
 
 .app-stats-card.swaparr {
-    border-top: 2px solid rgba(99, 102, 241, 0.5);
+    border-top: 2px solid var(--ui-accent-strong);
 }
 
 .app-stats-card h4 {
     font-weight: 700;
     font-size: 0.95rem;
-    color: #f1f5f9;
+    color: var(--ui-text-strong);
     letter-spacing: 0.02em;
 }
 
@@ -1805,7 +1805,7 @@
 }
 
 .app-stats-card a:hover h4 {
-    color: #fcd230;
+    color: var(--ui-warning);
 }
 
 /* ── Stat Numbers ────────────────────────────────────────────────── */
@@ -1813,7 +1813,7 @@
     font-weight: 800;
     font-size: 2rem;
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
+    background: linear-gradient(135deg, var(--ui-text-strong) 0%, var(--ui-text-muted) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1821,28 +1821,28 @@
 
 /* Per-app stat number colors */
 .app-stats-card.sonarr .stat-number {
-    background: linear-gradient(135deg, #8ab4f8 0%, #4285F4 100%);
+    background: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent-color) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .app-stats-card.radarr .stat-number {
-    background: linear-gradient(135deg, #fcd230 0%, #FBBC04 100%);
+    background: linear-gradient(135deg, var(--ui-warning) 0%, var(--warning-color) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .app-stats-card.lidarr .stat-number {
-    background: linear-gradient(135deg, #81c995 0%, #34A853 100%);
+    background: linear-gradient(135deg, var(--button-success-hover) 0%, var(--success-color) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .app-stats-card.readarr .stat-number {
-    background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
+    background: linear-gradient(135deg, var(--home-text-3) 0%, var(--client-editor-color-5) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1850,7 +1850,7 @@
 
 .app-stats-card.whisparr .stat-number,
 .app-stats-card.eros .stat-number {
-    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+    background: linear-gradient(135deg, var(--home-text-4) 0%, var(--home-bg-15) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1859,7 +1859,7 @@
 /* Movie Hunt: "found / searched" stat layout */
 .app-stats-card.movie_hunt .stat-number,
 .app-stats-card.tv_hunt .stat-number {
-    background: linear-gradient(135deg, #fcd230 0%, #FBBC04 100%);
+    background: linear-gradient(135deg, var(--ui-warning) 0%, var(--warning-color) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1867,11 +1867,11 @@
 
 .app-stats-card.movie_hunt .stat-found,
 .app-stats-card.tv_hunt .stat-found {
-    background: linear-gradient(135deg, #81c995 0%, #34A853 100%);
+    background: linear-gradient(135deg, var(--button-success-hover) 0%, var(--success-color) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+    text-shadow: 0 0 12px var(--home-border-6);
 }
 
 .stat-number-found-wrap {
@@ -1881,7 +1881,7 @@
     gap: 0.15em;
     font-size: 1.8rem;
     font-weight: 800;
-    color: rgba(148, 163, 184, 0.5);
+    color: var(--cycle-countdown-text-6);
 }
 
 .stat-number-found-wrap .stat-number {
@@ -1891,17 +1891,17 @@
 /* List view: found ratio */
 .found-ratio {
     white-space: nowrap;
-    color: rgba(148, 163, 184, 0.7);
+    color: var(--home-text-9);
 }
 
 .found-ratio .found-num {
-    color: #81c995;
+    color: var(--button-success-hover);
     font-weight: 700;
-    text-shadow: 0 0 8px rgba(34, 197, 94, 0.35);
+    text-shadow: 0 0 8px var(--home-shadow-15);
 }
 
 .app-stats-card .stat-label {
-    color: #64748b;
+    color: var(--ui-text-dim);
     font-size: 0.72rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -1910,11 +1910,11 @@
 
 /* ── API Progress Bar ────────────────────────────────────────────── */
 .api-progress-bar {
-    background: rgba(15, 23, 42, 0.6);
+    background: var(--ui-surface-raised);
     border-radius: 6px;
     height: 5px;
     overflow: hidden;
-    border: 1px solid rgba(148, 163, 184, 0.06);
+    border: 1px solid var(--home-bg-11);
 }
 
 .api-progress-fill {
@@ -1923,49 +1923,49 @@
 }
 
 .app-stats-card.sonarr .api-progress-fill {
-    background: linear-gradient(90deg, #4285F4, #8ab4f8);
-    box-shadow: 0 0 6px rgba(99, 102, 241, 0.4);
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+    box-shadow: 0 0 6px var(--ui-accent-border);
 }
 
 .app-stats-card.radarr .api-progress-fill {
-    background: linear-gradient(90deg, #FBBC04, #fcd230);
-    box-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+    background: linear-gradient(90deg, var(--warning-color), var(--ui-warning));
+    box-shadow: 0 0 6px var(--card-hover-effects-color-2);
 }
 
 .app-stats-card.lidarr .api-progress-fill {
-    background: linear-gradient(90deg, #34A853, #81c995);
-    box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
+    background: linear-gradient(90deg, var(--success-color), var(--button-success-hover));
+    box-shadow: 0 0 6px var(--home-border-6);
 }
 
 .app-stats-card.readarr .api-progress-fill {
-    background: linear-gradient(90deg, #a855f7, #c084fc);
-    box-shadow: 0 0 6px rgba(168, 85, 247, 0.4);
+    background: linear-gradient(90deg, var(--client-editor-color-5), var(--home-text-3));
+    box-shadow: 0 0 6px var(--home-border-7);
 }
 
 .app-stats-card.whisparr .api-progress-fill,
 .app-stats-card.eros .api-progress-fill {
-    background: linear-gradient(90deg, #ec4899, #f472b6);
-    box-shadow: 0 0 6px rgba(236, 72, 153, 0.4);
+    background: linear-gradient(90deg, var(--home-bg-15), var(--home-text-4));
+    box-shadow: 0 0 6px var(--home-border-8);
 }
 
 .hourly-cap-text {
     font-family: 'SF Mono', 'Fira Code', monospace;
     font-size: 0.7rem;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     letter-spacing: 0.03em;
 }
 
 .api-progress-text {
     font-family: 'SF Mono', 'Fira Code', monospace;
     font-size: 0.65rem;
-    color: #64748b;
+    color: var(--ui-text-dim);
 }
 
 /* ── Per-card Reset Buttons ──────────────────────────────────────── */
 .app-stats-card .cycle-reset-button {
-    background: rgba(30, 41, 59, 0.7);
-    border: 1px solid rgba(148, 163, 184, 0.15);
-    color: #94a3b8;
+    background: var(--apps-section-bg-3);
+    border: 1px solid var(--ui-border-soft);
+    color: var(--ui-text-muted);
     border-radius: 8px;
     font-size: 0.8rem;
     font-weight: 500;
@@ -1975,9 +1975,9 @@
 }
 
 .app-stats-card .cycle-reset-button:hover {
-    background: rgba(239, 68, 68, 0.12);
-    border-color: rgba(239, 68, 68, 0.3);
-    color: #f28b82;
+    background: var(--ui-danger-tint);
+    border-color: var(--ui-danger-bg-hover);
+    color: var(--button-danger-hover);
     transform: translateY(-1px);
 }
 
@@ -1992,37 +1992,37 @@
 
 /* ── Empty State ─────────────────────────────────────────────────── */
 #live-hunts-empty-state {
-    background: rgba(15, 23, 42, 0.3);
+    background: var(--components-bg-4);
     border-radius: 12px;
-    border: 1px dashed rgba(148, 163, 184, 0.12);
+    border: 1px dashed var(--ui-border-tint);
 }
 
 #live-hunts-empty-state .action-button {
-    background: rgba(245, 158, 11, 0.12);
-    border: 1px solid rgba(245, 158, 11, 0.3);
-    color: #fcd230;
+    background: var(--backup-restore-bg-4);
+    border: 1px solid var(--home-color-1);
+    color: var(--ui-warning);
     border-radius: 8px;
     font-weight: 600;
     transition: all 0.2s ease;
 }
 
 #live-hunts-empty-state .action-button:hover {
-    background: rgba(245, 158, 11, 0.2);
-    border-color: rgba(245, 158, 11, 0.5);
+    background: var(--home-section-shadow-15);
+    border-color: var(--home-border-17);
     transform: translateY(-1px);
 }
 
 /* ── Media Cards (carousel context) ──────────────────────────────── */
 #homeSection .media-card {
     border-radius: 10px;
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    border: 1px solid var(--ui-border-faint);
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    background: rgba(15, 23, 42, 0.5);
+    background: var(--shadow-lg);
 }
 
 #homeSection .media-card:hover {
-    border-color: rgba(245, 158, 11, 0.4);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    border-color: var(--card-hover-effects-color-2);
+    box-shadow: 0 12px 32px var(--home-shadow-6);
 }
 
 #homeSection .media-card-poster {
@@ -2036,11 +2036,11 @@
 #homeSection .media-card-title {
     font-weight: 600;
     font-size: 12.5px;
-    color: #e2e8f0;
+    color: var(--text-secondary);
 }
 
 #homeSection .media-card-year {
-    color: #64748b;
+    color: var(--ui-text-dim);
     font-size: 11px;
 }
 
@@ -2057,23 +2057,23 @@
 .prowlarr-health-indicator {
     margin-top: 10px;
     padding: 8px 12px;
-    background: rgba(15, 23, 42, 0.4);
+    background: var(--ui-surface-overlay);
     border-radius: 8px;
-    border-left: 3px solid rgba(99, 102, 241, 0.4);
+    border-left: 3px solid var(--ui-accent-border);
 }
 
 .health-status-text {
     font-size: 0.9em;
     font-weight: 500;
-    color: #9ca3af;
+    color: var(--ui-neutral-400);
 }
 
 .prowlarr-main-card {
-    background: linear-gradient(145deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.6) 100%);
+    background: linear-gradient(145deg, var(--ui-surface-slate) 0%, var(--ui-surface-raised) 100%);
     border-radius: 12px;
     padding: 16px 18px;
     margin-bottom: 14px;
-    border: 1px solid rgba(99, 102, 241, 0.1);
+    border: 1px solid var(--ui-accent-bg-subtle);
 }
 
 .prowlarr-header-section {
@@ -2091,7 +2091,7 @@
 
 .prowlarr-info h4 {
     margin: 0;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 1.1em;
     font-weight: 600;
     letter-spacing: 0.01em;
@@ -2104,21 +2104,21 @@
 }
 
 .prowlarr-subcard {
-    background: rgba(15, 23, 42, 0.5);
+    background: var(--shadow-lg);
     border-radius: 10px;
-    border: 1px solid rgba(148, 163, 184, 0.06);
+    border: 1px solid var(--home-bg-11);
     overflow: hidden;
 }
 
 .subcard-header {
-    background: rgba(30, 41, 59, 0.4);
+    background: var(--home-bg-2);
     padding: 10px 16px;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.05);
+    border-bottom: 1px solid var(--home-bg-11);
 }
 
 .subcard-header h5 {
     margin: 0;
-    color: #cbd5e1;
+    color: var(--ui-primary-border);
     font-size: 0.82em;
     font-weight: 600;
     display: flex;
@@ -2129,7 +2129,7 @@
 
 .subcard-header i {
     font-size: 0.75em;
-    color: #8ab4f8;
+    color: var(--accent-hover);
 }
 
 .indexers-list {
@@ -2141,7 +2141,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 0;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.05);
+    border-bottom: 1px solid var(--home-bg-11);
 }
 
 .indexer-item:last-child {
@@ -2150,7 +2150,7 @@
 
 .indexer-name {
     font-weight: 500;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 0.88rem;
     transition: color 0.2s ease;
 }
@@ -2163,7 +2163,7 @@
 .indexer-name.hoverable:hover,
 .indexer-name.hovered {
     color: var(--accent-color);
-    text-shadow: 0 0 8px rgba(90, 109, 137, 0.4);
+    text-shadow: 0 0 8px var(--home-border-9);
 }
 
 .indexer-name.hoverable::after {
@@ -2191,18 +2191,18 @@
 }
 
 .indexer-status.active {
-    background: rgba(16, 185, 129, 0.12);
-    color: #34d399;
+    background: var(--client-editor-color-1);
+    color: var(--home-text-11);
 }
 
 .indexer-status.throttled {
-    background: rgba(245, 158, 11, 0.12);
-    color: #fcd230;
+    background: var(--backup-restore-bg-4);
+    color: var(--ui-warning);
 }
 
 .indexer-status.failed {
-    background: rgba(239, 68, 68, 0.12);
-    color: #f28b82;
+    background: var(--ui-danger-tint);
+    color: var(--button-danger-hover);
 }
 
 .loading-text {
@@ -2221,8 +2221,8 @@
 /* Prowlarr statistics: keep 2-column grid from .statistics-content (matching 9.2.0) */
 
 .stat-card {
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(148, 163, 184, 0.06);
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--home-bg-11);
     border-radius: 8px;
     padding: 10px 12px;
     text-align: center;
@@ -2238,8 +2238,8 @@
 
 .stat-card:hover {
     transform: none;
-    border-color: rgba(99, 102, 241, 0.15);
-    background: rgba(15, 23, 42, 0.75);
+    border-color: var(--ui-accent-bg-strong);
+    background: var(--components-bg-9);
 }
 
 .stat-card::before {
@@ -2290,27 +2290,27 @@
 }
 
 .stat-value.success {
-    color: #10b981;
-    text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+    color: var(--ui-success);
+    text-shadow: 0 0 8px var(--client-editor-color-2);
 }
 
 .stat-value.warning {
-    color: #FBBC04;
-    text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+    color: var(--warning-color);
+    text-shadow: 0 0 8px var(--home-color-1);
 }
 
 .stat-value.error {
-    color: #EA4335;
-    text-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+    color: var(--error-color);
+    text-shadow: 0 0 8px var(--ui-danger-bg-hover);
 }
 
 /* Prowlarr legend */
 .prowlarr-legend {
     margin-top: 12px;
     padding: 10px 14px;
-    background: rgba(15, 23, 42, 0.4);
+    background: var(--ui-surface-overlay);
     border-radius: 8px;
-    border: 1px solid rgba(148, 163, 184, 0.05);
+    border: 1px solid var(--home-bg-11);
 }
 
 .legend-title {
@@ -2382,29 +2382,29 @@ body.setup-wizard-active .app-banners-row {
     align-items: flex-start;
     gap: 14px;
     padding: 16px 20px;
-    background: rgba(99, 102, 241, 0.12);
-    border: 1px solid rgba(99, 102, 241, 0.35);
-    border-left: 4px solid #4285F4;
+    background: var(--ui-accent-tint);
+    border: 1px solid var(--ui-accent-glow);
+    border-left: 4px solid var(--accent-color);
     border-radius: 10px;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.6;
 }
 
 .instance-setup-callout i {
     font-size: 1.25rem;
-    color: #8ab4f8;
+    color: var(--accent-hover);
     flex-shrink: 0;
     margin-top: 2px;
 }
 
 .instance-setup-callout strong {
-    color: #f1f5f9;
+    color: var(--ui-text-strong);
 }
 
 .instance-selector-label-emphasis {
     font-weight: 700 !important;
-    color: #e2e8f0 !important;
+    color: var(--text-secondary) !important;
     font-size: 15px !important;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -2426,27 +2426,27 @@ body.setup-wizard-active .app-banners-row {
     min-width: 200px;
     flex: 1 1 200px;
     max-width: 280px;
-    background: rgba(15, 23, 42, 0.5);
-    border: 1px solid rgba(148, 163, 184, 0.12);
+    background: var(--shadow-lg);
+    border: 1px solid var(--ui-border-tint);
     transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .root-folders-instance-status-card:hover {
-    background: rgba(30, 41, 59, 0.5);
-    border-color: rgba(148, 163, 184, 0.2);
+    background: var(--ui-surface-slate);
+    border-color: var(--ui-border);
 }
 
 .root-folders-instance-status-card.instance-complete {
-    border-left: 3px solid rgba(16, 185, 129, 0.5);
+    border-left: 3px solid var(--home-border-22);
 }
 
 .root-folders-instance-status-card.instance-complete .instance-status-icon {
-    color: rgba(16, 185, 129, 0.85);
+    color: var(--home-text-12);
 }
 
 .root-folders-instance-status-card.instance-complete .instance-status-badge {
-    background: rgba(16, 185, 129, 0.2);
-    color: #6ee7b7;
+    background: var(--home-bg-30);
+    color: var(--home-text-13);
     font-weight: 600;
     font-size: 0.7rem;
     padding: 3px 8px;
@@ -2456,16 +2456,16 @@ body.setup-wizard-active .app-banners-row {
 }
 
 .root-folders-instance-status-card.instance-not-setup {
-    border-left: 3px solid rgba(180, 150, 80, 0.5);
+    border-left: 3px solid var(--home-border-23);
 }
 
 .root-folders-instance-status-card.instance-not-setup .instance-status-icon {
-    color: rgba(180, 150, 80, 0.8);
+    color: var(--home-text-14);
 }
 
 .root-folders-instance-status-card.instance-not-setup .instance-status-badge {
-    background: rgba(180, 150, 80, 0.12);
-    color: #d4c4a8;
+    background: var(--home-bg-31);
+    color: var(--home-text-15);
     font-weight: 600;
     font-size: 0.7rem;
     padding: 3px 8px;
@@ -2492,7 +2492,7 @@ body.setup-wizard-active .app-banners-row {
 
 .root-folders-instance-status-card .instance-status-name {
     font-weight: 600;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 0.9rem;
     margin-bottom: 4px;
 }
@@ -2502,8 +2502,8 @@ body.setup-wizard-active .app-banners-row {
 }
 
 .setup-wizard {
-    background: rgba(15, 20, 30, 0.6);
-    border: 1px solid rgba(90, 109, 137, 0.25);
+    background: var(--apps-section-bg-2);
+    border: 1px solid var(--history-section-border-4);
     border-radius: 14px;
     overflow: hidden;
 }
@@ -2513,7 +2513,7 @@ body.setup-wizard-active .app-banners-row {
     align-items: center;
     gap: 14px;
     padding: 20px 20px 16px;
-    border-bottom: 1px solid rgba(90, 109, 137, 0.15);
+    border-bottom: 1px solid var(--footer-border-1);
 }
 
 .setup-wizard-icon {
@@ -2524,13 +2524,13 @@ body.setup-wizard-active .app-banners-row {
     margin: 0 0 2px;
     font-size: 1.15rem;
     font-weight: 600;
-    color: #e2e8f0;
+    color: var(--text-secondary);
 }
 
 .setup-wizard-desc {
     margin: 0;
     font-size: 0.85rem;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     line-height: 1.4;
 }
 
@@ -2538,7 +2538,7 @@ body.setup-wizard-active .app-banners-row {
     margin-left: auto;
     background: none;
     border: none;
-    color: #64748b;
+    color: var(--ui-text-dim);
     font-size: 1rem;
     cursor: pointer;
     padding: 6px;
@@ -2548,27 +2548,27 @@ body.setup-wizard-active .app-banners-row {
 }
 
 .setup-wizard-skip:hover {
-    color: #e2e8f0;
-    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-secondary);
+    background: var(--ui-alpha-white);
 }
 
 /* Progress bar */
 .setup-wizard-progress {
     height: 3px;
-    background: rgba(90, 109, 137, 0.15);
+    background: var(--footer-border-1);
     position: relative;
 }
 
 .setup-wizard-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #4285F4, #8ab4f8);
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
     border-radius: 2px;
     transition: width 0.4s ease;
 }
 
 /* Individual step */
 .setup-wizard-step {
-    border-bottom: 1px solid rgba(90, 109, 137, 0.1);
+    border-bottom: 1px solid var(--footer-border-1);
 }
 
 .setup-wizard-step:last-child {
@@ -2586,7 +2586,7 @@ body.setup-wizard-active .app-banners-row {
 }
 
 .setup-wizard-step-header:hover {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--home-bg-12);
 }
 
 /* Step indicator circle */
@@ -2598,42 +2598,42 @@ body.setup-wizard-active .app-banners-row {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    background: rgba(90, 109, 137, 0.15);
-    border: 2px solid rgba(90, 109, 137, 0.3);
+    background: var(--footer-border-1);
+    border: 2px solid var(--about-section-border-1);
     transition: all 0.3s ease;
 }
 
 .setup-wizard-step-indicator .step-number {
     font-size: 0.8rem;
     font-weight: 700;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     transition: color 0.3s;
 }
 
 .setup-wizard-step-indicator .step-check {
     display: none;
-    color: #fff;
+    color: var(--button-primary-text);
     font-size: 0.75rem;
 }
 
 /* Current step */
 .setup-wizard-step.current .setup-wizard-step-indicator {
-    background: rgba(99, 102, 241, 0.2);
-    border-color: #4285F4;
+    background: var(--ui-accent-bg-soft);
+    border-color: var(--accent-color);
 }
 
 .setup-wizard-step.current .setup-wizard-step-indicator .step-number {
-    color: #8ab4f8;
+    color: var(--accent-hover);
 }
 
 .setup-wizard-step.current .setup-wizard-step-title {
-    color: #e2e8f0;
+    color: var(--text-secondary);
 }
 
 /* Completed step */
 .setup-wizard-step.completed .setup-wizard-step-indicator {
-    background: rgba(16, 185, 129, 0.2);
-    border-color: #10b981;
+    background: var(--home-bg-30);
+    border-color: var(--ui-success);
 }
 
 .setup-wizard-step.completed .setup-wizard-step-indicator .step-number {
@@ -2642,11 +2642,11 @@ body.setup-wizard-active .app-banners-row {
 
 .setup-wizard-step.completed .setup-wizard-step-indicator .step-check {
     display: inline;
-    color: #10b981;
+    color: var(--ui-success);
 }
 
 .setup-wizard-step.completed .setup-wizard-step-title {
-    color: #10b981;
+    color: var(--ui-success);
 }
 
 /* Step info text */
@@ -2659,20 +2659,20 @@ body.setup-wizard-active .app-banners-row {
     display: block;
     font-size: 0.95rem;
     font-weight: 600;
-    color: #cbd5e1;
+    color: var(--ui-primary-border);
     transition: color 0.3s;
 }
 
 .setup-wizard-step-subtitle {
     display: block;
     font-size: 0.8rem;
-    color: #64748b;
+    color: var(--ui-text-dim);
     margin-top: 1px;
 }
 
 /* Chevron */
 .setup-wizard-step-chevron {
-    color: #475569;
+    color: var(--ui-primary-surface);
     font-size: 0.75rem;
     transition: transform 0.25s ease, color 0.2s;
     flex-shrink: 0;
@@ -2680,14 +2680,14 @@ body.setup-wizard-active .app-banners-row {
 
 .setup-wizard-step.expanded .setup-wizard-step-chevron {
     transform: rotate(180deg);
-    color: #94a3b8;
+    color: var(--ui-text-muted);
 }
 
 /* Step body (collapsible) */
 .setup-wizard-step-body {
     display: none;
     padding: 0 20px 18px 66px;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     font-size: 0.88rem;
     line-height: 1.55;
 }
@@ -2706,9 +2706,9 @@ body.setup-wizard-active .app-banners-row {
     align-items: center;
     gap: 8px;
     padding: 8px 18px;
-    background: rgba(99, 102, 241, 0.15);
-    border: 1px solid rgba(99, 102, 241, 0.35);
-    color: #8ab4f8;
+    background: var(--ui-accent-bg-strong);
+    border: 1px solid var(--ui-accent-glow);
+    color: var(--accent-hover);
     border-radius: 8px;
     font-size: 0.88rem;
     font-weight: 500;
@@ -2717,8 +2717,8 @@ body.setup-wizard-active .app-banners-row {
 }
 
 .setup-wizard-action-btn:hover {
-    background: rgba(99, 102, 241, 0.25);
-    border-color: rgba(99, 102, 241, 0.5);
+    background: var(--ui-accent-bg-hover);
+    border-color: var(--ui-accent-strong);
     transform: translateY(-1px);
 }
 
@@ -2733,10 +2733,10 @@ body.setup-wizard-active .app-banners-row {
     gap: 12px;
     flex-wrap: wrap;
     padding: 12px 16px;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.25);
+    background: var(--ui-accent-bg-subtle);
+    border: 1px solid var(--ui-accent-bg-hover);
     border-radius: 8px;
-    color: #8ab4f8;
+    color: var(--accent-hover);
     font-size: 0.9rem;
 }
 
@@ -2751,9 +2751,9 @@ body.setup-wizard-active .app-banners-row {
     align-items: center;
     gap: 8px;
     padding: 6px 14px;
-    background: rgba(99, 102, 241, 0.25);
-    border: 1px solid rgba(99, 102, 241, 0.4);
-    color: #c7d2fe;
+    background: var(--ui-accent-bg-hover);
+    border: 1px solid var(--ui-accent-border);
+    color: var(--home-text-16);
     border-radius: 6px;
     font-size: 0.85rem;
     font-weight: 500;
@@ -2762,8 +2762,8 @@ body.setup-wizard-active .app-banners-row {
 }
 
 .setup-wizard-continue-btn:hover {
-    background: rgba(99, 102, 241, 0.35);
-    border-color: rgba(99, 102, 241, 0.5);
+    background: var(--ui-accent-glow);
+    border-color: var(--ui-accent-strong);
 }
 
 /* Return-from-config success banner */
@@ -2773,10 +2773,10 @@ body.setup-wizard-active .app-banners-row {
     gap: 10px;
     padding: 12px 16px;
     margin-bottom: 20px;
-    background: rgba(34, 197, 94, 0.12);
-    border: 1px solid rgba(34, 197, 94, 0.3);
+    background: var(--backup-restore-bg-3);
+    border: 1px solid var(--home-shadow-15);
     border-radius: 8px;
-    color: #86efac;
+    color: var(--home-text-17);
     font-size: 0.9rem;
     font-weight: 500;
 }
@@ -2790,13 +2790,13 @@ body.setup-wizard-active .app-banners-row {
 .setup-wizard-done-area {
     text-align: center;
     padding: 20px 20px 24px;
-    border-top: 1px solid rgba(148, 163, 184, 0.08);
+    border-top: 1px solid var(--ui-border-faint);
 }
 
 .setup-wizard-done-btn {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0.08) 100%);
-    border: 1px solid rgba(99, 102, 241, 0.3);
-    color: #8ab4f8;
+    background: linear-gradient(135deg, var(--ui-accent-bg-strong) 0%, var(--ui-accent-bg) 100%);
+    border: 1px solid var(--ui-accent-ring);
+    color: var(--accent-hover);
     padding: 12px 32px;
     border-radius: 10px;
     font-size: 0.95rem;
@@ -2809,11 +2809,11 @@ body.setup-wizard-active .app-banners-row {
 }
 
 .setup-wizard-done-btn:hover {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0.15) 100%);
-    border-color: rgba(99, 102, 241, 0.5);
-    color: #c7d2fe;
+    background: linear-gradient(135deg, var(--ui-accent-bg-hover) 0%, var(--ui-accent-bg-strong) 100%);
+    border-color: var(--ui-accent-strong);
+    color: var(--home-text-16);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+    box-shadow: 0 4px 12px var(--ui-accent-bg-strong);
 }
 
 .setup-wizard-done-btn i {
@@ -2823,14 +2823,14 @@ body.setup-wizard-active .app-banners-row {
 .setup-wizard-done-hint {
     margin: 10px 0 0;
     font-size: 0.78rem;
-    color: #64748b;
+    color: var(--ui-text-dim);
 }
 
 /* Legacy skip button class (keep for JS compatibility) */
 .setup-wizard-skip-btn {
     background: none;
-    border: 1px solid rgba(100, 116, 139, 0.3);
-    color: #94a3b8;
+    border: 1px solid var(--about-section-border-1);
+    color: var(--ui-text-muted);
     padding: 8px 20px;
     border-radius: 8px;
     font-size: 0.85rem;
@@ -2843,9 +2843,9 @@ body.setup-wizard-active .app-banners-row {
 }
 
 .setup-wizard-skip-btn:hover {
-    border-color: rgba(100, 116, 139, 0.5);
-    color: #e2e8f0;
-    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--apps-section-border-2);
+    color: var(--text-secondary);
+    background: var(--ui-alpha-white);
 }
 
 /* Mobile adjustments */

@@ -102,11 +102,11 @@
             '<p class="editor-help-text">How often to check for new releases (15\u201360 minutes)</p></div>' +
             '<div class="editor-field-group">' +
             '<label>Last Sync</label>' +
-            '<div id="movie-mgmt-rss-last-sync" class="editor-help-text" style="color: #94a3b8; padding: 6px 0;">Loading\u2026</div>' +
+            '<div id="movie-mgmt-rss-last-sync" class="editor-help-text" style="color: var(--ui-text-muted); padding: 6px 0;">Loading\u2026</div>' +
             '</div>' +
             '<div class="editor-field-group">' +
             '<label>Next Sync</label>' +
-            '<div id="movie-mgmt-rss-next-sync" class="editor-help-text" style="color: #94a3b8; padding: 6px 0;">Loading\u2026</div>' +
+            '<div id="movie-mgmt-rss-next-sync" class="editor-help-text" style="color: var(--ui-text-muted); padding: 6px 0;">Loading\u2026</div>' +
             '</div>' +
             '</div>' +
             '<div class="editor-section reset-library-section">' +

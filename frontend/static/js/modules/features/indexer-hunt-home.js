@@ -138,7 +138,7 @@ window.HuntarrIndexerHuntHome = {
                     '</div>';
             })
             .catch(function() {
-                content.innerHTML = '<div class="loading-text" style="color: #ef4444;">Failed to load stats</div>';
+                content.innerHTML = '<div class="loading-text" style="color: var(--ui-danger);">Failed to load stats</div>';
             });
     }
 };

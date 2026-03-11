@@ -24,7 +24,7 @@
                     tbody.innerHTML = '';
                     
                     if (this.currentMappings.length === 0) {
-                        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #94a3b8;">No remote path mappings configured</td></tr>';
+                        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--ui-text-muted);">No remote path mappings configured</td></tr>';
                         return;
                     }
 
@@ -45,7 +45,7 @@
                 })
                 .catch(err => {
                     console.error('[RemoteMappings] Error loading mappings:', err);
-                    tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #fca5a5;">Error loading remote path mappings</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--ui-danger-soft-300);">Error loading remote path mappings</td></tr>';
                 });
         },
 

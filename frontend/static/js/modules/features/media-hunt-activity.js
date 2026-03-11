@@ -281,7 +281,7 @@
                 '<td class="col-date">' + dateText + '</td>' +
                 '<td class="col-actions">' +
                 '<button type="button" class="activity-blocklist-btn-info" title="Details" data-source-title="' + sourceTitleEsc + '" data-reason="' + reasonEsc + '" data-date="' + escapeAttr(item.date || '') + '" data-movie="' + escapeAttr(item.movie || '') + '" aria-label="Details"><i class="fas fa-info-circle"></i></button>' +
-                '<button type="button" class="activity-blocklist-btn-remove" title="Remove from blocklist" data-source-title="' + sourceTitleEsc + '" aria-label="Remove from blocklist"><i class="fas fa-times" style="color: #ef4444;"></i></button>' +
+                '<button type="button" class="activity-blocklist-btn-remove" title="Remove from blocklist" data-source-title="' + sourceTitleEsc + '" aria-label="Remove from blocklist"><i class="fas fa-times" style="color: var(--ui-danger);"></i></button>' +
                 '</td>';
             var infoBtn = tr.querySelector('.activity-blocklist-btn-info');
             var removeBtn = tr.querySelector('.activity-blocklist-btn-remove');
@@ -705,7 +705,7 @@
                 '<td class="col-date">' + dateText + '</td>' +
                 '<td class="col-actions">' +
                 '<button type="button" class="tv-hunt-activity-blocklist-btn-info" title="Details" data-source-title="' + sourceTitleEsc + '" data-date="' + escapeAttr(item.added_at || '') + '" aria-label="Details"><i class="fas fa-info-circle"></i></button>' +
-                '<button type="button" class="tv-hunt-activity-blocklist-btn-remove" title="Remove from blocklist" data-id="' + escapeAttr(id) + '" aria-label="Remove from blocklist"><i class="fas fa-times" style="color: #ef4444;"></i></button>' +
+                '<button type="button" class="tv-hunt-activity-blocklist-btn-remove" title="Remove from blocklist" data-id="' + escapeAttr(id) + '" aria-label="Remove from blocklist"><i class="fas fa-times" style="color: var(--ui-danger);"></i></button>' +
                 '</td>';
             var infoBtn = tr.querySelector('.tv-hunt-activity-blocklist-btn-info');
             var removeBtn = tr.querySelector('.tv-hunt-activity-blocklist-btn-remove');

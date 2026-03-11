@@ -117,7 +117,7 @@
 
         <!-- Directories -->
         <div class="tor-settings-group">
-            <h3><i class="fas fa-folder-open" style="color: #f59e0b; margin-right: 8px;"></i>Directories</h3>
+            <h3><i class="fas fa-folder-open" style="color: var(--ui-warning-500); margin-right: 8px;"></i>Directories</h3>
             <div class="tor-settings-row">
                 <label for="tor-cfg-download-dir">Download Directory</label>
                 <input type="text" id="tor-cfg-download-dir" placeholder="/downloads/tor-hunt" autocomplete="off">
@@ -133,7 +133,7 @@
 
         <!-- Connection -->
         <div class="tor-settings-group">
-            <h3><i class="fas fa-network-wired" style="color: #6366f1; margin-right: 8px;"></i>Connection</h3>
+            <h3><i class="fas fa-network-wired" style="color: var(--app-sonarr-color); margin-right: 8px;"></i>Connection</h3>
             <div class="tor-settings-row">
                 <label for="tor-cfg-listen-port">Listen Port</label>
                 <input type="number" id="tor-cfg-listen-port" value="6881" min="1024" max="65535">
@@ -157,7 +157,7 @@
 
         <!-- Speed Limits -->
         <div class="tor-settings-group">
-            <h3><i class="fas fa-tachometer-alt" style="color: #10b981; margin-right: 8px;"></i>Speed Limits</h3>
+            <h3><i class="fas fa-tachometer-alt" style="color: var(--ui-success); margin-right: 8px;"></i>Speed Limits</h3>
             <div class="tor-settings-row">
                 <label for="tor-cfg-dl-limit">Download Limit (KB/s)</label>
                 <input type="number" id="tor-cfg-dl-limit" value="0" min="0">
@@ -172,7 +172,7 @@
 
         <!-- Queue Limits -->
         <div class="tor-settings-group">
-            <h3><i class="fas fa-list-ol" style="color: #a78bfa; margin-right: 8px;"></i>Queue</h3>
+            <h3><i class="fas fa-list-ol" style="color: var(--ui-accent-soft-300); margin-right: 8px;"></i>Queue</h3>
             <div class="tor-settings-row">
                 <label for="tor-cfg-active-downloads">Active Downloads</label>
                 <input type="number" id="tor-cfg-active-downloads" value="8" min="1" max="100">
@@ -192,7 +192,7 @@
 
         <!-- Seeding -->
         <div class="tor-settings-group">
-            <h3><i class="fas fa-seedling" style="color: #34d399; margin-right: 8px;"></i>Seeding</h3>
+            <h3><i class="fas fa-seedling" style="color: var(--home-text-11); margin-right: 8px;"></i>Seeding</h3>
             <div class="tor-settings-row">
                 <label for="tor-cfg-seed-ratio">Seed Ratio Limit</label>
                 <input type="number" id="tor-cfg-seed-ratio" value="0" min="0" step="0.1">
@@ -207,7 +207,7 @@
 
         <!-- Network Features -->
         <div class="tor-settings-group">
-            <h3><i class="fas fa-globe" style="color: #38bdf8; margin-right: 8px;"></i>Network</h3>
+            <h3><i class="fas fa-globe" style="color: var(--indexer-hunt-text-2); margin-right: 8px;"></i>Network</h3>
             <div class="tor-settings-row tor-settings-toggle-row">
                 <label for="tor-cfg-dht">DHT (Distributed Hash Table)</label>
                 <label class="tor-toggle"><input type="checkbox" id="tor-cfg-dht" checked><span

@@ -470,7 +470,7 @@ window.RequestarrRequests = {
             container.style.alignItems = 'center';
             container.style.justifyContent = 'center';
             container.innerHTML = `
-                <div style="text-align: center; color: #9ca3af; max-width: 600px;">
+                <div style="text-align: center; color: var(--ui-neutral-400); max-width: 600px;">
                     <i class="fas fa-ban" style="font-size: 64px; margin-bottom: 30px; opacity: 0.4; display: block;"></i>
                     <p style="font-size: 20px; margin-bottom: 15px; font-weight: 500; white-space: nowrap;">No Blacklisted Media</p>
                     <p style="font-size: 15px; line-height: 1.6; opacity: 0.8;">The global blacklist is empty. Blacklisted items cannot be requested by any user.</p>

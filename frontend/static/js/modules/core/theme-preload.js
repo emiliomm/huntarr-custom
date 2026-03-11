@@ -13,14 +13,14 @@
     const style = document.createElement('style');
     style.textContent = `
         body, html { 
-            background-color: #0f172a !important; 
-            color: #f8fafc !important;
+            background-color: var(--home-section-bg-77) !important; 
+            color: var(--text-primary) !important;
         }
         .sidebar {
-            background-color: rgba(15, 23, 42, 0.98) !important;
+            background-color: var(--ui-surface-opaque) !important;
         }
         .top-bar {
-            background-color: #111827 !important;
+            background-color: var(--history-section-bg-16) !important;
         }
     `;
     document.head.appendChild(style);

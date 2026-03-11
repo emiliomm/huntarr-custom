@@ -515,7 +515,7 @@ const huntManagerModule = {
                 if (instanceSettings && instanceSettings.api_url) {
                     let targetUrl;
                     
-                    // Prefer external_url for browser links (issue #617)
+                    // Prefer external_url for browser links (issue var(--hunt-manager-color-1))
                     const browserUrl = instanceSettings.external_url || instanceSettings.api_url;
  
                     // If we have item details, try to create a direct link for supported apps

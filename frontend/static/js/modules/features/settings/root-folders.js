@@ -23,8 +23,8 @@
         if (!container) return;
         var toast = document.createElement('div');
         toast.style.cssText = 'padding:8px 14px;margin-bottom:8px;border-radius:6px;font-size:0.85rem;font-weight:500;' +
-            (isError ? 'background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.3);'
-                : 'background:rgba(16,185,129,0.12);color:#6ee7b7;border:1px solid rgba(16,185,129,0.3);');
+            (isError ? 'background:var(--ui-danger-tint);color:var(--ui-danger-soft);border:1px solid var(--ui-danger-bg-hover);'
+                : 'background:var(--client-editor-color-1);color:var(--home-text-13);border:1px solid var(--client-editor-color-2);');
         toast.textContent = msg;
         container.insertBefore(toast, document.getElementById('root-folders-browse-list'));
         setTimeout(function () {
@@ -229,7 +229,7 @@
                     var addCard = '<div class="add-instance-card add-root-folder-card" id="root-folders-add-card" data-app-type="root-folder">' +
                         '<div class="add-icon"><i class="fas fa-plus-circle"></i></div>' +
                         '<div class="add-text">Add Root Folder</div></div>';
-                    gridEl.innerHTML = '<p style="color: #ef4444; margin: 0 0 12px 0;">Failed to load root folders.</p>' + addCard;
+                    gridEl.innerHTML = '<p style="color: var(--ui-danger); margin: 0 0 12px 0;">Failed to load root folders.</p>' + addCard;
                     window.RootFolders._bindAddCard();
                 });
         },
@@ -531,7 +531,7 @@
                     if (row) row.style.display = 'none';
                     window.RootFolders.loadBrowsePath(parent);
                 } else {
-                    if (input) { input.style.borderColor = '#f87171'; input.focus(); }
+                    if (input) { input.style.borderColor = 'var(--ui-danger-soft)'; input.focus(); }
                     _showBrowseToast(data.error || 'Failed to create folder', true);
                 }
             }).catch(function () { _showBrowseToast('Failed to create folder', true); });
@@ -546,7 +546,7 @@
             var main = el && el.querySelector('.root-folders-browse-item-main');
             if (!main) return;
             var origHTML = main.innerHTML;
-            main.innerHTML = '<i class="fas fa-folder" style="color:#818cf8;flex-shrink:0;"></i>' +
+            main.innerHTML = '<i class="fas fa-folder" style="color:var(--ui-accent-soft);flex-shrink:0;"></i>' +
                 '<input type="text" class="root-folders-browse-item-rename-input" value="' + (currentName || '').replace(/"/g, '&quot;') + '" />' +
                 '<button type="button" class="root-folders-browse-inline-ok root-folders-rename-confirm"><i class="fas fa-check"></i></button>' +
                 '<button type="button" class="root-folders-browse-inline-cancel root-folders-rename-cancel"><i class="fas fa-times"></i></button>';
@@ -569,7 +569,7 @@
                         var parent = path.replace(/\/+$/, '').split('/').slice(0, -1).join('/') || '/';
                         self.loadBrowsePath(parent || (pathInput && pathInput.value) || '/');
                     } else {
-                        if (inp) { inp.style.borderColor = '#f87171'; inp.focus(); }
+                        if (inp) { inp.style.borderColor = 'var(--ui-danger-soft)'; inp.focus(); }
                         _showBrowseToast(data.error || 'Failed to rename', true);
                     }
                 }).catch(function () { _showBrowseToast('Failed to rename folder', true); });
@@ -639,7 +639,7 @@
                 var parent = path.replace(/\/+$/, '').split('/').slice(0, -1).join('/') || '/';
                 upBtn.disabled = (parent === path || path === '/' || path === '');
             }
-            listEl.innerHTML = '<div style="padding: 16px; color: #94a3b8;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+            listEl.innerHTML = '<div style="padding: 16px; color: var(--ui-text-muted);"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
             var browseUrl = window.RootFolders.getApiBase() + '/browse?path=' + encodeURIComponent(path);
             browseUrl = window.RootFolders._appendInstanceParam(browseUrl);
             fetch(browseUrl)
@@ -648,7 +648,7 @@
                     var dirs = (data && data.directories) ? data.directories : [];
                     var err = data && data.error;
                     if (err) {
-                        listEl.innerHTML = '<div style="padding: 16px; color: #f87171;">' + (String(err).replace(/</g, '&lt;')) + '</div>';
+                        listEl.innerHTML = '<div style="padding: 16px; color: var(--ui-danger-soft);">' + (String(err).replace(/</g, '&lt;')) + '</div>';
                         return;
                     }
                     if (pathInput) pathInput.value = data.path || path;
@@ -674,7 +674,7 @@
                             '<button type="button" class="root-folders-browse-item-btn" data-action="delete" title="Delete"><i class="fas fa-trash"></i></button>' +
                             '</span></div>';
                     }
-                    listEl.innerHTML = html || '<div style="padding: 16px; color: #64748b;">No subdirectories</div>';
+                    listEl.innerHTML = html || '<div style="padding: 16px; color: var(--ui-text-dim);">No subdirectories</div>';
                     listEl.querySelectorAll('.root-folders-browse-item').forEach(function (el) {
                         var main = el.querySelector('.root-folders-browse-item-main');
                         if (main) {
@@ -687,7 +687,7 @@
                     });
                 })
                 .catch(function () {
-                    listEl.innerHTML = '<div style="padding: 16px; color: #f87171;">Failed to load</div>';
+                    listEl.innerHTML = '<div style="padding: 16px; color: var(--ui-danger-soft);">Failed to load</div>';
                 });
         },
 
@@ -787,7 +787,7 @@
     function refreshInstanceStatusBanner() {
         var gridEl = document.getElementById('root-folders-instance-status-grid');
         if (!gridEl) return;
-        gridEl.innerHTML = '<div style="padding: 12px; color: #94a3b8;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+        gridEl.innerHTML = '<div style="padding: 12px; color: var(--ui-text-muted);"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
         var sf = window.RootFolders._safeJsonFetch.bind(window.RootFolders);
         var ts = '?t=' + Date.now();
         Promise.all([

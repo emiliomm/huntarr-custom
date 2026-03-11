@@ -36,7 +36,7 @@
 
 /* Plex icon color */
 .uset-icon-orange {
-    background: linear-gradient(135deg, #e69500, #f0a830);
+    background: linear-gradient(135deg, var(--requestarr-users-color-7), var(--user-bg-2));
 }
 
 /* Override card body for user page forms */
@@ -52,7 +52,7 @@
 .uset-container .form-group label {
     display: block;
     margin-bottom: 7px;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--apps-section-text-3);
     font-weight: 500;
     font-size: 13px;
 }
@@ -60,10 +60,10 @@
 .uset-container .current-value {
     display: inline-block;
     padding: 8px 12px;
-    background: rgba(15, 23, 42, 0.5);
+    background: var(--shadow-lg);
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--ui-alpha-white);
+    color: var(--apps-section-text-1);
     font-size: 14px;
 }
 
@@ -95,34 +95,34 @@
 }
 
 .uset-container .primary-button {
-    background: linear-gradient(135deg, #4285F4, #8ab4f8);
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
     color: white;
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 2px 8px var(--ui-accent-ring);
 }
 
 .uset-container .primary-button:hover {
-    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 4px 14px var(--ui-accent-border);
 }
 
 .uset-container .danger-button {
-    background: linear-gradient(135deg, #d93025, #EA4335);
+    background: linear-gradient(135deg, var(--backup-restore-bg-11), var(--error-color));
     color: white;
-    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+    box-shadow: 0 2px 8px var(--backup-restore-shadow-7);
 }
 
 .uset-container .danger-button:hover {
-    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
+    box-shadow: 0 4px 14px var(--backup-restore-border-8);
 }
 
 .uset-container .secondary-button {
-    background: rgba(255, 255, 255, 0.08);
-    color: #94a3b8;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--ui-alpha-white);
+    color: var(--ui-text-muted);
+    border: 1px solid var(--ui-alpha-white);
 }
 
 .uset-container .secondary-button:hover {
-    background: rgba(255, 255, 255, 0.12);
-    color: #e2e8f0;
+    background: var(--ui-alpha-white);
+    color: var(--text-secondary);
 }
 
 /* Status messages */
@@ -135,15 +135,15 @@
 }
 
 .uset-container .status-message.success {
-    background: rgba(34, 197, 94, 0.15);
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    color: #34A853;
+    background: var(--backup-restore-bg-3);
+    border: 1px solid var(--home-shadow-15);
+    color: var(--success-color);
 }
 
 .uset-container .status-message.error {
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #EA4335;
+    background: var(--ui-danger-tint);
+    border: 1px solid var(--ui-danger-bg-hover);
+    color: var(--error-color);
 }
 
 /* Status badges */
@@ -156,15 +156,15 @@
 }
 
 .uset-container .status-badge.enabled {
-    background: rgba(34, 197, 94, 0.15);
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    color: #34A853;
+    background: var(--backup-restore-bg-3);
+    border: 1px solid var(--home-shadow-15);
+    color: var(--success-color);
 }
 
 .uset-container .status-badge.disabled {
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #EA4335;
+    background: var(--ui-danger-tint);
+    border: 1px solid var(--ui-danger-bg-hover);
+    color: var(--error-color);
 }
 
 /* 2FA sections spacing */
@@ -212,10 +212,10 @@
 .uset-container .recovery-key-value {
     flex: 1;
     padding: 10px 12px;
-    background: rgba(15, 23, 42, 0.5);
+    background: var(--shadow-lg);
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #e2e8f0;
+    border: 1px solid var(--ui-alpha-white);
+    color: var(--text-secondary);
     font-family: 'Courier New', monospace;
     font-size: 12px;
     word-break: break-all;
@@ -224,7 +224,7 @@
 
 .uset-container .copy-button {
     padding: 8px 12px;
-    background: linear-gradient(135deg, #4285F4, #8ab4f8);
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
     color: white;
     border: none;
     border-radius: 6px;
@@ -236,38 +236,38 @@
 }
 
 .uset-container .copy-button:hover {
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 2px 8px var(--ui-accent-border);
 }
 
 .uset-container .copy-button.copied {
-    background: linear-gradient(135deg, #34A853, #81c995);
+    background: linear-gradient(135deg, var(--success-color), var(--button-success-hover));
 }
 
 /* Help text */
 .uset-container .help-text {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--apps-section-text-6);
     margin-top: 5px;
     line-height: 1.3;
 }
 
 /* Plex modal overrides */
 .plex-status.waiting {
-    background: rgba(99, 102, 241, 0.15);
-    border: 1px solid rgba(99, 102, 241, 0.3);
-    color: #4285F4;
+    background: var(--ui-accent-bg-strong);
+    border: 1px solid var(--ui-accent-ring);
+    color: var(--accent-color);
 }
 
 .plex-status.success {
-    background: rgba(34, 197, 94, 0.15);
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    color: #34A853;
+    background: var(--backup-restore-bg-3);
+    border: 1px solid var(--home-shadow-15);
+    color: var(--success-color);
 }
 
 .plex-status.error {
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #EA4335;
+    background: var(--ui-danger-tint);
+    border: 1px solid var(--ui-danger-bg-hover);
+    color: var(--error-color);
 }
 
 .spinner {

@@ -9,7 +9,7 @@
     left: 218px;
     right: 0;
     bottom: 0;
-    background: #0f1419;
+    background: var(--history-section-bg-27);
     z-index: 900;
     overflow-y: auto;
     display: none;
@@ -39,8 +39,8 @@
     justify-content: space-between;
     padding: 0 16px;
     height: 46px;
-    background: rgba(15, 23, 42, 0.95);
-    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    background: var(--cycle-countdown-bg-1);
+    border-bottom: 1px solid var(--ui-border-subtle);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -62,7 +62,7 @@
     background: transparent;
     border: none;
     border-radius: 4px;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     font-size: 13px;
     cursor: pointer;
     transition: all 0.15s;
@@ -74,13 +74,13 @@
 }
 
 .mh-tb:hover {
-    background: rgba(148, 163, 184, 0.1);
-    color: #e2e8f0;
+    background: var(--ui-border-subtle);
+    color: var(--text-secondary);
 }
 
 .mh-tb-danger:hover {
-    background: rgba(239, 68, 68, 0.15);
-    color: #EA4335;
+    background: var(--ui-danger-tint);
+    color: var(--error-color);
 }
 
 .mh-tb:disabled {
@@ -118,9 +118,9 @@
     width: 100%;
     min-height: 520px;
     background: linear-gradient(to bottom,
-            rgba(15, 20, 25, 0.4) 0%,
-            rgba(15, 20, 25, 0.7) 50%,
-            rgba(15, 20, 25, 1) 100%);
+            var(--home-section-bg-32) 0%,
+            var(--home-section-bg-7) 50%,
+            var(--history-section-bg-27) 100%);
     padding: 40px 48px 36px;
 }
 
@@ -138,7 +138,7 @@
     width: 240px;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 16px 48px var(--ui-overlay-backdrop);
 }
 
 .mh-hero-poster img {
@@ -156,10 +156,10 @@
 .mh-hero-title {
     font-size: 32px;
     font-weight: 700;
-    color: #fff;
+    color: var(--button-primary-text);
     margin: 0 0 10px 0;
     line-height: 1.2;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 2px 12px var(--ui-overlay-backdrop);
 }
 
 /* Meta row */
@@ -176,7 +176,7 @@
     align-items: center;
     gap: 5px;
     font-size: 14px;
-    color: rgba(226, 232, 240, 0.8);
+    color: var(--media-hunt-detail-text-1);
 }
 
 .mh-hero-meta i {
@@ -186,20 +186,20 @@
 
 .mh-cert {
     padding: 2px 8px;
-    border: 1px solid rgba(148, 163, 184, 0.4);
+    border: 1px solid var(--import-media-text-5);
     border-radius: 3px;
     font-size: 12px;
     font-weight: 600;
-    color: rgba(148, 163, 184, 0.9);
+    color: var(--import-media-text-7);
     letter-spacing: 0.5px;
 }
 
 .mh-star {
-    color: #FBBC04 !important;
+    color: var(--warning-color) !important;
 }
 
 .mh-star i {
-    color: #FBBC04;
+    color: var(--warning-color);
     opacity: 1 !important;
 }
 
@@ -231,29 +231,29 @@
 }
 
 .mh-ext-tmdb {
-    background: rgba(1, 180, 228, 0.15);
-    color: #01b4e4;
-    border: 1px solid rgba(1, 180, 228, 0.3);
+    background: var(--media-hunt-detail-bg-4);
+    color: var(--media-hunt-detail-text-3);
+    border: 1px solid var(--media-hunt-detail-border-2);
 }
 
 .mh-ext-tmdb:hover {
-    background: rgba(1, 180, 228, 0.3);
-    color: #01b4e4;
+    background: var(--media-hunt-detail-border-2);
+    color: var(--media-hunt-detail-text-3);
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(1, 180, 228, 0.2);
+    box-shadow: 0 2px 8px var(--media-hunt-detail-shadow-1);
 }
 
 .mh-ext-imdb {
-    background: rgba(245, 197, 24, 0.15);
-    color: #f5c518;
-    border: 1px solid rgba(245, 197, 24, 0.3);
+    background: var(--media-hunt-detail-bg-5);
+    color: var(--media-hunt-detail-text-4);
+    border: 1px solid var(--media-hunt-detail-border-3);
 }
 
 .mh-ext-imdb:hover {
-    background: rgba(245, 197, 24, 0.3);
-    color: #f5c518;
+    background: var(--media-hunt-detail-border-3);
+    color: var(--media-hunt-detail-text-4);
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(245, 197, 24, 0.2);
+    box-shadow: 0 2px 8px var(--media-hunt-detail-shadow-2);
 }
 
 /* Genres */
@@ -266,11 +266,11 @@
 
 .mh-genre-tag {
     padding: 3px 10px;
-    background: rgba(148, 163, 184, 0.1);
-    border: 1px solid rgba(148, 163, 184, 0.15);
+    background: var(--ui-border-subtle);
+    border: 1px solid var(--ui-border-soft);
     border-radius: 12px;
     font-size: 12px;
-    color: rgba(226, 232, 240, 0.7);
+    color: var(--media-hunt-detail-text-5);
 }
 
 /* Instance selector */
@@ -283,16 +283,16 @@
 
 .mh-hero-instance i {
     font-size: 13px;
-    color: rgba(148, 163, 184, 0.5);
+    color: var(--cycle-countdown-text-6);
 }
 
 .mh-hero-instance select,
 #mh-detail-instance-select {
     padding: 5px 10px;
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border);
     border-radius: 4px;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 13px;
     cursor: pointer;
     outline: none;
@@ -302,7 +302,7 @@
 
 .mh-hero-instance select:focus,
 #mh-detail-instance-select:focus {
-    border-color: rgba(99, 102, 241, 0.5);
+    border-color: var(--ui-accent-strong);
 }
 
 /* ── Info Bar (integrated into hero) ───────────────────── */
@@ -310,8 +310,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0;
-    background: rgba(15, 23, 42, 0.5);
-    border: 1px solid rgba(148, 163, 184, 0.1);
+    background: var(--shadow-lg);
+    border: 1px solid var(--ui-border-subtle);
     border-radius: 6px;
     margin-bottom: 14px;
     overflow: hidden;
@@ -322,7 +322,7 @@
     flex-direction: column;
     gap: 2px;
     padding: 8px 16px;
-    border-right: 1px solid rgba(148, 163, 184, 0.08);
+    border-right: 1px solid var(--ui-border-faint);
     min-width: 0;
 }
 
@@ -340,12 +340,12 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: rgba(148, 163, 184, 0.5);
+    color: var(--cycle-countdown-text-6);
 }
 
 .mh-ib-val {
     font-size: 13px;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
@@ -355,7 +355,7 @@
 #mh-ib-path {
     font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
     font-size: 12px;
-    color: rgba(148, 163, 184, 0.8);
+    color: var(--import-media-text-1);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -374,32 +374,32 @@
 }
 
 .mh-badge-ok {
-    background: rgba(34, 197, 94, 0.15);
-    color: #34A853;
-    border: 1px solid rgba(34, 197, 94, 0.3);
+    background: var(--backup-restore-bg-3);
+    color: var(--success-color);
+    border: 1px solid var(--home-shadow-15);
 }
 
 .mh-badge-warn {
-    background: rgba(245, 158, 11, 0.15);
-    color: #FBBC04;
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: var(--backup-restore-bg-4);
+    color: var(--warning-color);
+    border: 1px solid var(--home-color-1);
 }
 
 .mh-badge-none {
-    background: rgba(148, 163, 184, 0.08);
-    color: rgba(148, 163, 184, 0.5);
-    border: 1px solid rgba(148, 163, 184, 0.1);
+    background: var(--ui-border-faint);
+    color: var(--cycle-countdown-text-6);
+    border: 1px solid var(--ui-border-subtle);
 }
 
 .mh-badge-quality {
-    background: rgba(99, 102, 241, 0.15);
-    color: #4285F4;
-    border: 1px solid rgba(99, 102, 241, 0.3);
+    background: var(--ui-accent-bg-strong);
+    color: var(--accent-color);
+    border: 1px solid var(--ui-accent-ring);
     margin-left: 6px;
 }
 
 .mh-badge-loading {
-    color: rgba(148, 163, 184, 0.4);
+    color: var(--import-media-text-5);
 }
 
 /* Probe status badges */
@@ -419,21 +419,21 @@
 }
 
 .mh-probe-pending {
-    background: rgba(148, 163, 184, 0.10);
-    color: rgba(148, 163, 184, 0.6);
-    border: 1px solid rgba(148, 163, 184, 0.15);
+    background: var(--ui-border-subtle);
+    color: var(--import-media-text-6);
+    border: 1px solid var(--ui-border-soft);
 }
 
 .mh-probe-scanning {
-    background: rgba(99, 102, 241, 0.12);
-    color: #8ab4f8;
-    border: 1px solid rgba(99, 102, 241, 0.25);
+    background: var(--ui-accent-tint);
+    color: var(--accent-hover);
+    border: 1px solid var(--ui-accent-bg-hover);
 }
 
 .mh-probe-failed {
-    background: rgba(239, 68, 68, 0.12);
-    color: #f28b82;
-    border: 1px solid rgba(239, 68, 68, 0.25);
+    background: var(--ui-danger-tint);
+    color: var(--button-danger-hover);
+    border: 1px solid var(--ui-danger-tint);
 }
 
 /* Rescannable hover state */
@@ -459,8 +459,8 @@
 }
 
 .mh-rescannable:hover {
-    background: rgba(99, 102, 241, 0.10);
-    border-color: rgba(99, 102, 241, 0.25);
+    background: var(--ui-accent-bg-subtle);
+    border-color: var(--ui-accent-bg-hover);
 }
 
 .mh-rescannable:hover .mh-rescan-icon {
@@ -468,7 +468,7 @@
 }
 
 .mh-rescannable:active {
-    background: rgba(99, 102, 241, 0.18);
+    background: var(--ui-accent-bg-soft);
 }
 
 /* Info bar row 2 — sits directly below row 1 */
@@ -497,15 +497,15 @@
 }
 
 .mh-score-pos {
-    background: rgba(34, 197, 94, 0.15);
-    color: #34A853;
-    border: 1px solid rgba(34, 197, 94, 0.3);
+    background: var(--backup-restore-bg-3);
+    color: var(--success-color);
+    border: 1px solid var(--home-shadow-15);
 }
 
 .mh-score-neg {
-    background: rgba(239, 68, 68, 0.15);
-    color: #EA4335;
-    border: 1px solid rgba(239, 68, 68, 0.3);
+    background: var(--ui-danger-tint);
+    color: var(--error-color);
+    border: 1px solid var(--ui-danger-bg-hover);
 }
 
 /* Tooltip for score breakdown */
@@ -517,7 +517,7 @@
 .mh-hero-overview {
     font-size: 14px;
     line-height: 1.6;
-    color: rgba(226, 232, 240, 0.7);
+    color: var(--media-hunt-detail-text-5);
     margin: 0 0 16px 0;
     max-width: 700px;
     display: -webkit-box;
@@ -552,8 +552,8 @@
 }
 
 .mh-btn-primary {
-    background: linear-gradient(135deg, #FBBC04, #f29900);
-    color: #000;
+    background: linear-gradient(135deg, var(--warning-color), var(--ui-warning-strong));
+    color: var(--import-lists-text-7);
 }
 
 .mh-btn-primary:hover:not(:disabled) {
@@ -561,9 +561,9 @@
 }
 
 .mh-btn-success {
-    background: rgba(34, 197, 94, 0.15);
-    color: #34A853;
-    border: 1px solid rgba(34, 197, 94, 0.3);
+    background: var(--backup-restore-bg-3);
+    color: var(--success-color);
+    border: 1px solid var(--home-shadow-15);
 }
 
 .mh-btn-static {
@@ -572,35 +572,35 @@
 }
 
 .mh-btn-warning {
-    background: rgba(245, 158, 11, 0.15);
-    color: #FBBC04;
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: var(--backup-restore-bg-4);
+    color: var(--warning-color);
+    border: 1px solid var(--home-color-1);
 }
 
 .mh-btn-secondary {
-    background: rgba(148, 163, 184, 0.1);
-    color: #94a3b8;
-    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: var(--ui-border-subtle);
+    color: var(--ui-text-muted);
+    border: 1px solid var(--ui-border);
 }
 
 .mh-btn-secondary:hover {
-    background: rgba(148, 163, 184, 0.15);
-    color: #e2e8f0;
+    background: var(--ui-border-soft);
+    color: var(--text-secondary);
 }
 
 .mh-btn-danger {
-    background: rgba(239, 68, 68, 0.15);
-    color: #EA4335;
-    border: 1px solid rgba(239, 68, 68, 0.3);
+    background: var(--ui-danger-tint);
+    color: var(--error-color);
+    border: 1px solid var(--ui-danger-bg-hover);
 }
 
 .mh-btn-danger:hover:not(:disabled) {
-    background: rgba(239, 68, 68, 0.25);
+    background: var(--ui-danger-tint);
 }
 
 .mh-btn-watch {
-    background: linear-gradient(135deg, #34A853, #1e8e3e);
-    color: #fff;
+    background: linear-gradient(135deg, var(--success-color), var(--login-bg-16));
+    color: var(--button-primary-text);
 }
 
 .mh-btn-watch:hover {
@@ -628,7 +628,7 @@
 .mh-watch-modal-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.9);
+    background: var(--media-hunt-bg-13);
     cursor: pointer;
 }
 
@@ -636,10 +636,10 @@
     position: relative;
     width: 90vw;
     max-width: 1200px;
-    background: #0f1419;
+    background: var(--history-section-bg-27);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px -12px var(--ui-overlay-backdrop);
 }
 
 .mh-watch-modal-header {
@@ -647,14 +647,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px 16px;
-    background: rgba(15, 23, 42, 0.95);
-    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    background: var(--cycle-countdown-bg-1);
+    border-bottom: 1px solid var(--ui-border-subtle);
 }
 
 .mh-watch-modal-title {
     font-size: 16px;
     font-weight: 600;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     margin: 0;
 }
 
@@ -663,19 +663,19 @@
     background: transparent;
     border: none;
     border-radius: 4px;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     cursor: pointer;
     font-size: 18px;
 }
 
 .mh-watch-modal-close:hover {
-    color: #fff;
-    background: rgba(148, 163, 184, 0.1);
+    color: var(--button-primary-text);
+    background: var(--ui-border-subtle);
 }
 
 .mh-watch-modal-video {
     padding: 0;
-    background: #000;
+    background: var(--import-lists-text-7);
 }
 
 .mh-watch-modal-video video {
@@ -699,7 +699,7 @@
 .mh-section-title {
     font-size: 18px;
     font-weight: 600;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     margin: 0 0 16px 0;
     display: flex;
     align-items: center;
@@ -707,7 +707,7 @@
 }
 
 .mh-section-title i {
-    color: #FBBC04;
+    color: var(--warning-color);
     font-size: 16px;
 }
 
@@ -720,8 +720,8 @@
 
 .mh-grid-item {
     padding: 12px 16px;
-    background: rgba(15, 23, 42, 0.4);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    background: var(--ui-surface-overlay);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 8px;
 }
 
@@ -729,13 +729,13 @@
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: rgba(148, 163, 184, 0.5);
+    color: var(--cycle-countdown-text-6);
     margin-bottom: 4px;
 }
 
 .mh-grid-value {
     font-size: 14px;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-weight: 500;
 }
 
@@ -759,7 +759,7 @@
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto 8px;
-    background: rgba(15, 23, 42, 0.5);
+    background: var(--shadow-lg);
 }
 
 .mh-cast-photo img {
@@ -771,7 +771,7 @@
 .mh-cast-name {
     font-size: 13px;
     font-weight: 600;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -779,7 +779,7 @@
 
 .mh-cast-char {
     font-size: 11px;
-    color: rgba(148, 163, 184, 0.6);
+    color: var(--import-media-text-6);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -808,7 +808,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: var(--import-media-bg-7);
     z-index: 10000;
     display: flex;
     align-items: center;
@@ -817,12 +817,12 @@
 }
 
 .mh-modal {
-    background: #303134;
-    border: 1px solid rgba(148, 163, 184, 0.15);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--ui-border-soft);
     border-radius: 10px;
     width: 90%;
     max-width: 480px;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 24px 80px var(--ui-overlay-backdrop);
     overflow: hidden;
 }
 
@@ -831,14 +831,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 14px 20px;
-    background: rgba(15, 23, 42, 0.5);
-    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    background: var(--shadow-lg);
+    border-bottom: 1px solid var(--ui-border-subtle);
 }
 
 .mh-modal-header h3 {
     font-size: 16px;
     font-weight: 600;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     margin: 0;
     display: flex;
     align-items: center;
@@ -846,18 +846,18 @@
 }
 
 .mh-modal-header h3 i {
-    color: #FBBC04;
+    color: var(--warning-color);
     font-size: 14px;
 }
 
 .mh-modal-header-danger h3 i {
-    color: #EA4335;
+    color: var(--error-color);
 }
 
 .mh-modal-x {
     background: none;
     border: none;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     font-size: 22px;
     cursor: pointer;
     padding: 0 4px;
@@ -865,7 +865,7 @@
 }
 
 .mh-modal-x:hover {
-    color: #fff;
+    color: var(--button-primary-text);
 }
 
 .mh-modal-body {
@@ -877,7 +877,7 @@
     justify-content: flex-end;
     gap: 8px;
     padding: 14px 20px;
-    border-top: 1px solid rgba(148, 163, 184, 0.1);
+    border-top: 1px solid var(--ui-border-subtle);
 }
 
 /* Form elements */
@@ -893,23 +893,23 @@
     display: block;
     font-size: 13px;
     font-weight: 600;
-    color: rgba(148, 163, 184, 0.7);
+    color: var(--home-text-9);
     margin-bottom: 6px;
 }
 
 .mh-select {
     width: 100%;
     padding: 8px 12px;
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border);
     border-radius: 6px;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 13px;
     outline: none;
 }
 
 .mh-select:focus {
-    border-color: rgba(99, 102, 241, 0.5);
+    border-color: var(--ui-accent-strong);
 }
 
 /* Delete modal */
@@ -918,18 +918,18 @@
     align-items: center;
     gap: 8px;
     padding: 10px 14px;
-    background: rgba(15, 23, 42, 0.4);
-    border: 1px solid rgba(148, 163, 184, 0.1);
+    background: var(--ui-surface-overlay);
+    border: 1px solid var(--ui-border-subtle);
     border-radius: 6px;
     font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
     font-size: 12px;
-    color: rgba(148, 163, 184, 0.8);
+    color: var(--import-media-text-1);
     margin-bottom: 16px;
     overflow: hidden;
 }
 
 .mh-delete-path i {
-    color: #FBBC04;
+    color: var(--warning-color);
     font-size: 14px;
     flex-shrink: 0;
 }
@@ -947,7 +947,7 @@
     gap: 10px;
     padding: 10px 0;
     cursor: pointer;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 13px;
 }
 
@@ -955,7 +955,7 @@
     margin-top: 3px;
     width: 16px;
     height: 16px;
-    accent-color: #4285F4;
+    accent-color: var(--accent-color);
     flex-shrink: 0;
 }
 
@@ -965,7 +965,7 @@
 
 .mh-help {
     font-size: 12px;
-    color: rgba(148, 163, 184, 0.5);
+    color: var(--cycle-countdown-text-6);
     margin-top: 2px;
 }
 
@@ -976,7 +976,7 @@
     align-items: center;
     justify-content: center;
     min-height: 400px;
-    color: rgba(148, 163, 184, 0.6);
+    color: var(--import-media-text-6);
     font-size: 16px;
     gap: 16px;
 }
@@ -1033,7 +1033,7 @@
 
     .mh-ib {
         border-right: none;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.06);
+        border-bottom: 1px solid var(--home-bg-11);
         flex-direction: row;
         align-items: center;
         justify-content: space-between;

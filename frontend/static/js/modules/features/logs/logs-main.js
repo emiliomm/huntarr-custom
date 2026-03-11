@@ -67,7 +67,7 @@ window.LogsModule = {
         }
     },
 
-    // Show or hide DEBUG option in level dropdown based on enable_debug_logs setting (GitHub #756)
+    // Show or hide DEBUG option in level dropdown based on enable_debug_logs setting (GitHub var(--logs-main-color-1))
     updateDebugLevelVisibility: function() {
         const option = document.getElementById('logLevelOptionDebug');
         const levelSelect = document.getElementById('logLevelSelect');
