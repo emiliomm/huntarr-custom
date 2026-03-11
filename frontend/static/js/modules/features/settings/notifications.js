@@ -50,27 +50,27 @@
 
     // App type display info
     var APP_TYPES = [
-        { key: 'all', label: 'All Apps', icon: 'fas fa-layer-group', color: '#818cf8' },
-        { key: 'movie_hunt', label: 'Movie Hunt', icon: 'fas fa-film', color: '#f59e0b' },
-        { key: 'tv_hunt', label: 'TV Hunt', icon: 'fas fa-tv', color: '#0ea5e9' },
-        { key: 'sonarr', label: 'Sonarr', icon: 'fas fa-tv', color: '#60a5fa' },
-        { key: 'radarr', label: 'Radarr', icon: 'fas fa-video', color: '#f97316' },
-        { key: 'lidarr', label: 'Lidarr', icon: 'fas fa-music', color: '#34d399' },
-        { key: 'readarr', label: 'Readarr', icon: 'fas fa-book', color: '#a78bfa' },
-        { key: 'whisparr', label: 'Whisparr', icon: 'fas fa-microphone', color: '#f472b6' },
-        { key: 'eros', label: 'Eros', icon: 'fas fa-heart', color: '#fb7185' }
+        { key: 'all', label: 'All Apps', icon: 'fas fa-layer-group', color: 'var(--ui-accent-soft)' },
+        { key: 'movie_hunt', label: 'Movie Hunt', icon: 'fas fa-film', color: 'var(--ui-warning-500)' },
+        { key: 'tv_hunt', label: 'TV Hunt', icon: 'fas fa-tv', color: 'var(--notifications-color-9)' },
+        { key: 'sonarr', label: 'Sonarr', icon: 'fas fa-tv', color: 'var(--footer-text-2)' },
+        { key: 'radarr', label: 'Radarr', icon: 'fas fa-video', color: 'var(--media-hunt-bg-14)' },
+        { key: 'lidarr', label: 'Lidarr', icon: 'fas fa-music', color: 'var(--home-text-11)' },
+        { key: 'readarr', label: 'Readarr', icon: 'fas fa-book', color: 'var(--ui-accent-soft-300)' },
+        { key: 'whisparr', label: 'Whisparr', icon: 'fas fa-microphone', color: 'var(--home-text-4)' },
+        { key: 'eros', label: 'Eros', icon: 'fas fa-heart', color: 'var(--notifications-color-15)' }
     ];
 
     var CATEGORY_META = {
-        instance: { label: 'Instance Notifications', icon: 'fas fa-server', color: '#818cf8' },
-        requests: { label: 'User Requests', icon: 'fas fa-inbox', color: '#f59e0b' }
+        instance: { label: 'Instance Notifications', icon: 'fas fa-server', color: 'var(--ui-accent-soft)' },
+        requests: { label: 'User Requests', icon: 'fas fa-inbox', color: 'var(--ui-warning-500)' }
     };
 
     function getAppInfo(key) {
         for (var i = 0; i < APP_TYPES.length; i++) {
             if (APP_TYPES[i].key === key) return APP_TYPES[i];
         }
-        return { key: key, label: key, icon: 'fas fa-bell', color: '#64748b' };
+        return { key: key, label: key, icon: 'fas fa-bell', color: 'var(--ui-text-dim)' };
     }
 
     // ------------------------------------------------------------------
@@ -323,7 +323,7 @@
 
     function renderConnectionItem(conn) {
         var meta = providerMeta[conn.provider] || {};
-        var color = meta.color || '#64748b';
+        var color = meta.color || 'var(--ui-text-dim)';
         var icon = meta.icon || 'fas fa-bell';
         var providerName = meta.name || conn.provider;
 
@@ -441,7 +441,7 @@
 
         // Header
         titleEl.textContent = existingConn ? 'Edit ' + meta.name : 'Add ' + (meta.name || providerKey);
-        iconEl.style.background = meta.color || '#64748b';
+        iconEl.style.background = meta.color || 'var(--ui-text-dim)';
         iconI.className = meta.icon || 'fas fa-bell';
 
         // Test button availability (only for existing connections)
@@ -756,7 +756,7 @@
             }
             if (field.required && !settings[field.key]) {
                 missingRequired = true;
-                el.style.borderColor = '#f87171';
+                el.style.borderColor = 'var(--ui-danger-soft)';
             } else if (el.style) {
                 el.style.borderColor = '';
             }

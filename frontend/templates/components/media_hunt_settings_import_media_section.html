@@ -151,29 +151,29 @@
     width: 100%;
     box-sizing: border-box;
     margin: 20px 0;
-    background: rgba(15, 23, 42, 0.4);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    background: var(--ui-surface-overlay);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px var(--glass-shadow);
 }
 #mediaHuntSettingsImportMediaSection .settings-no-instances i.fa-cube,
 #mediaHuntSettingsImportMediaSection .settings-no-indexers i.fa-satellite-dish,
-#mediaHuntSettingsImportMediaSection .settings-no-clients i.fa-download { font-size: 3rem; color: #334155; margin-bottom: 16px; display: block; }
+#mediaHuntSettingsImportMediaSection .settings-no-clients i.fa-download { font-size: 3rem; color: var(--ui-slate-700); margin-bottom: 16px; display: block; }
 #mediaHuntSettingsImportMediaSection .settings-no-instances .no-instances-title,
 #mediaHuntSettingsImportMediaSection .settings-no-indexers .no-instances-title,
-#mediaHuntSettingsImportMediaSection .settings-no-clients .no-instances-title { font-size: 1.2rem; font-weight: 600; color: #f1f5f9; margin: 0 0 8px 0; }
+#mediaHuntSettingsImportMediaSection .settings-no-clients .no-instances-title { font-size: 1.2rem; font-weight: 600; color: var(--ui-text-strong); margin: 0 0 8px 0; }
 #mediaHuntSettingsImportMediaSection .settings-no-instances .no-instances-desc,
 #mediaHuntSettingsImportMediaSection .settings-no-indexers .no-instances-desc,
-#mediaHuntSettingsImportMediaSection .settings-no-clients .no-instances-desc { font-size: 0.95rem; color: #94a3b8; line-height: 1.6; margin: 0 auto 24px auto; max-width: 400px; }
+#mediaHuntSettingsImportMediaSection .settings-no-clients .no-instances-desc { font-size: 0.95rem; color: var(--ui-text-muted); line-height: 1.6; margin: 0 auto 24px auto; max-width: 400px; }
 #mediaHuntSettingsImportMediaSection .settings-no-instances .no-instances-action-btn,
 #mediaHuntSettingsImportMediaSection .settings-no-indexers .no-instances-action-btn,
 #mediaHuntSettingsImportMediaSection .settings-no-clients .no-instances-action-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(99, 102, 241, 0.2);
-    border: 1px solid rgba(99, 102, 241, 0.4);
-    color: #818cf8;
+    background: var(--ui-accent-bg-soft);
+    border: 1px solid var(--ui-accent-border);
+    color: var(--ui-accent-soft);
     padding: 10px 20px;
     border-radius: 8px;
     text-decoration: none;
@@ -183,8 +183,8 @@
 #mediaHuntSettingsImportMediaSection .settings-no-instances .no-instances-action-btn:hover,
 #mediaHuntSettingsImportMediaSection .settings-no-indexers .no-instances-action-btn:hover,
 #mediaHuntSettingsImportMediaSection .settings-no-clients .no-instances-action-btn:hover {
-    background: rgba(99, 102, 241, 0.3);
-    border-color: rgba(99, 102, 241, 0.5);
+    background: var(--ui-accent-ring);
+    border-color: var(--ui-accent-strong);
 }
 
 /* Import Progress modal (like Add Download Client) */
@@ -214,7 +214,7 @@ body.import-progress-modal-open .app-container {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--ui-overlay-backdrop);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
@@ -222,18 +222,18 @@ body.import-progress-modal-open .app-container {
 .import-progress-modal-content {
     position: relative;
     z-index: 1001;
-    background: rgba(15, 23, 42, 0.98);
-    border: 2px solid rgba(99, 102, 241, 0.4);
+    background: var(--ui-surface-opaque);
+    border: 2px solid var(--ui-accent-border);
     border-radius: 12px;
     max-width: 520px;
     width: 90%;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px var(--ui-overlay-backdrop);
     overflow: hidden;
 }
 .import-progress-modal-header {
     position: relative;
     min-height: 100px;
-    background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #0f172a 100%);
+    background: linear-gradient(135deg, var(--ui-slate-800) 0%, var(--ui-slate-700) 50%, var(--home-section-bg-77) 100%);
     padding: 20px 24px 24px;
 }
 .import-progress-modal-header::after {
@@ -243,7 +243,7 @@ body.import-progress-modal-open .app-container {
     left: 0;
     right: 0;
     height: 60px;
-    background: linear-gradient(to bottom, transparent, rgba(15, 23, 42, 0.98));
+    background: linear-gradient(to bottom, transparent, var(--ui-surface-opaque));
 }
 .import-progress-modal-close {
     position: absolute;
@@ -252,8 +252,8 @@ body.import-progress-modal-open .app-container {
     width: 36px;
     height: 36px;
     border: none;
-    background: rgba(255, 255, 255, 0.1);
-    color: #e2e8f0;
+    background: var(--ui-alpha-white);
+    color: var(--text-secondary);
     border-radius: 8px;
     cursor: pointer;
     display: flex;
@@ -262,7 +262,7 @@ body.import-progress-modal-open .app-container {
     z-index: 2;
 }
 .import-progress-modal-close:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--apps-section-shadow-1);
 }
 .import-progress-modal-header-overlay {
     position: relative;
@@ -272,12 +272,12 @@ body.import-progress-modal-open .app-container {
 .import-progress-modal-title {
     font-size: 18px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--apps-section-text-3);
     margin: 0 0 4px 0;
 }
 .import-progress-modal-subtitle {
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--import-lists-text-1);
     margin: 0;
 }
 .import-progress-modal-body {
@@ -293,19 +293,19 @@ body.import-progress-modal-open .app-container {
     flex-direction: column;
     align-items: center;
     padding: 12px 20px;
-    background: rgba(99, 102, 241, 0.08);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    background: var(--ui-accent-bg);
+    border: 1px solid var(--ui-accent-bg-soft);
     border-radius: 10px;
     min-width: 100px;
 }
 .import-progress-stat-value {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #a5b4fc;
+    color: var(--home-section-text-9);
 }
 .import-progress-stat-label {
     font-size: 0.75rem;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-top: 2px;
@@ -314,8 +314,8 @@ body.import-progress-modal-open .app-container {
     display: flex;
     gap: 16px;
     padding: 16px;
-    background: rgba(15, 23, 42, 0.6);
-    border: 2px solid rgba(148, 163, 184, 0.15);
+    background: var(--ui-surface-raised);
+    border: 2px solid var(--ui-border-soft);
     border-radius: 10px;
     margin-bottom: 20px;
 }
@@ -325,7 +325,7 @@ body.import-progress-modal-open .app-container {
     flex-shrink: 0;
     border-radius: 6px;
     overflow: hidden;
-    background: #1e293b;
+    background: var(--ui-slate-800);
 }
 .import-progress-current-poster img {
     width: 100%;
@@ -338,13 +338,13 @@ body.import-progress-modal-open .app-container {
 }
 .import-progress-current-title {
     font-weight: 600;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 1rem;
     margin-bottom: 4px;
 }
 .import-progress-current-path {
     font-size: 0.8rem;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     word-break: break-all;
     margin-bottom: 6px;
 }
@@ -352,19 +352,19 @@ body.import-progress-modal-open .app-container {
     font-size: 0.85rem;
     font-weight: 600;
 }
-.import-progress-current-confidence.high { color: #4ade80; }
-.import-progress-current-confidence.medium { color: #fbbf24; }
-.import-progress-current-confidence.low { color: #f87171; }
+.import-progress-current-confidence.high { color: var(--hunt-manager-section-text-4); }
+.import-progress-current-confidence.medium { color: var(--ui-warning-400); }
+.import-progress-current-confidence.low { color: var(--ui-danger-soft); }
 .import-progress-modal-actions {
     display: flex;
     justify-content: center;
 }
 .import-progress-modal-stop {
     padding: 10px 24px;
-    background: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.4);
+    background: var(--ui-danger-tint);
+    border: 1px solid var(--backup-restore-border-5);
     border-radius: 8px;
-    color: #f87171;
+    color: var(--ui-danger-soft);
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -373,7 +373,7 @@ body.import-progress-modal-open .app-container {
     gap: 8px;
 }
 .import-progress-modal-stop:hover {
-    background: rgba(239, 68, 68, 0.3);
-    border-color: rgba(239, 68, 68, 0.5);
+    background: var(--ui-danger-bg-hover);
+    border-color: var(--ui-danger-strong);
 }
 </style>

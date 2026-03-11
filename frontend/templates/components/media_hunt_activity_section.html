@@ -36,7 +36,7 @@
         </div>
         <div class="logs-toolbar-meta">
             <div class="logs-connection-dot">
-                <span class="logs-page-info" style="color: #64748b;">TV Hunt</span>
+                <span class="logs-page-info" style="color: var(--ui-text-dim);">TV Hunt</span>
             </div>
             <div class="logs-pagination">
                 <span class="logs-page-size">
@@ -144,19 +144,19 @@
 /* No-instances warning box (same style as Media Management) */
 #tvHuntActivitySection .activity-no-instances {
     text-align: center; padding: 64px 24px; width: 100%; box-sizing: border-box;
-    margin: 20px; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(148, 163, 184, 0.08);
-    border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    margin: 20px; background: var(--ui-surface-overlay); border: 1px solid var(--ui-border-faint);
+    border-radius: 12px; box-shadow: 0 4px 16px var(--glass-shadow);
 }
-#tvHuntActivitySection .activity-no-instances i.fa-cube { font-size: 3rem; color: #334155; margin-bottom: 16px; display: block; }
-#tvHuntActivitySection .activity-no-instances .no-instances-title { font-size: 1.2rem; font-weight: 600; color: #f1f5f9; margin: 0 0 8px 0; }
-#tvHuntActivitySection .activity-no-instances .no-instances-desc { font-size: 0.95rem; color: #94a3b8; line-height: 1.6; margin: 0 auto 24px auto; max-width: 400px; }
+#tvHuntActivitySection .activity-no-instances i.fa-cube { font-size: 3rem; color: var(--ui-slate-700); margin-bottom: 16px; display: block; }
+#tvHuntActivitySection .activity-no-instances .no-instances-title { font-size: 1.2rem; font-weight: 600; color: var(--ui-text-strong); margin: 0 0 8px 0; }
+#tvHuntActivitySection .activity-no-instances .no-instances-desc { font-size: 0.95rem; color: var(--ui-text-muted); line-height: 1.6; margin: 0 auto 24px auto; max-width: 400px; }
 #tvHuntActivitySection .activity-no-instances .no-instances-action-btn {
-    display: inline-flex; align-items: center; gap: 8px; background: rgba(99, 102, 241, 0.2);
-    border: 1px solid rgba(99, 102, 241, 0.4); color: #818cf8; padding: 10px 20px; border-radius: 8px;
+    display: inline-flex; align-items: center; gap: 8px; background: var(--ui-accent-bg-soft);
+    border: 1px solid var(--ui-accent-border); color: var(--ui-accent-soft); padding: 10px 20px; border-radius: 8px;
     text-decoration: none; font-weight: 500; transition: background 0.2s, border-color 0.2s;
 }
 #tvHuntActivitySection .activity-no-instances .no-instances-action-btn:hover {
-    background: rgba(99, 102, 241, 0.3); border-color: rgba(99, 102, 241, 0.5);
+    background: var(--ui-accent-ring); border-color: var(--ui-accent-strong);
 }
 #tvHuntActivitySection .logs-table-wrapper { margin-top: 0; margin-bottom: 16px; }
 #tvHuntActivitySection .col-select { width: 40px; text-align: center; }
@@ -169,23 +169,23 @@
     border: none;
     cursor: pointer;
     padding: 6px 10px;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     font-size: 1rem;
 }
-#tvHuntActivitySection .tv-hunt-activity-blocklist-btn-info:hover { color: #6366f1; }
-#tvHuntActivitySection .tv-hunt-activity-blocklist-btn-remove:hover { color: #ef4444; }
+#tvHuntActivitySection .tv-hunt-activity-blocklist-btn-info:hover { color: var(--app-sonarr-color); }
+#tvHuntActivitySection .tv-hunt-activity-blocklist-btn-remove:hover { color: var(--ui-danger); }
 #tvHuntActivitySection .empty-state-card {
     text-align: center;
     padding: 60px 20px;
-    background: rgba(30, 41, 59, 0.3);
+    background: var(--activity-section-bg-1);
     border-radius: 12px;
-    border: 1px dashed #334155;
+    border: 1px dashed var(--ui-slate-700);
     margin-top: 20px;
 }
-#tvHuntActivitySection .empty-state-icon { color: #334155; font-size: 4rem; margin-bottom: 20px; }
-#tvHuntActivitySection .empty-state-card h3 { color: #f1f5f9; margin-bottom: 10px; }
-#tvHuntActivitySection .empty-state-card p { color: #64748b; }
+#tvHuntActivitySection .empty-state-icon { color: var(--ui-slate-700); font-size: 4rem; margin-bottom: 20px; }
+#tvHuntActivitySection .empty-state-card h3 { color: var(--ui-text-strong); margin-bottom: 10px; }
+#tvHuntActivitySection .empty-state-card p { color: var(--ui-text-dim); }
 #tvHuntActivitySection .loading-overlay { text-align: center; padding: 60px 20px; }
-#tvHuntActivitySection .loading-spinner-container { color: #6366f1; }
-#tvHuntActivitySection .loading-spinner-container p { margin-top: 15px; color: #94a3b8; }
+#tvHuntActivitySection .loading-spinner-container { color: var(--app-sonarr-color); }
+#tvHuntActivitySection .loading-spinner-container p { margin-top: 15px; color: var(--ui-text-muted); }
 </style>

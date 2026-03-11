@@ -2,21 +2,21 @@
 .scheduler-history-section {
     margin-top: 20px;
     padding: 15px;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: var(--ui-shadow);
     border-radius: 5px;
 }
 
 .panel-subtitle {
     font-size: 1.2rem;
     margin-bottom: 15px;
-    color: #ddd;
+    color: var(--home-border-15);
 }
 
 .scheduler-history-container {
     max-height: 300px;
     overflow-y: auto;
     margin-bottom: 15px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--ui-shadow-soft);
     border-radius: 4px;
 }
 
@@ -29,13 +29,13 @@
 .history-table td {
     padding: 8px 10px;
     text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--ui-alpha-white);
 }
 
 .history-table th {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: var(--ui-shadow);
     font-weight: bold;
-    color: #ddd;
+    color: var(--home-border-15);
 }
 
 .history-row {
@@ -43,24 +43,24 @@
 }
 
 .history-row:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--ui-alpha-white);
 }
 
 /* Status-specific styles */
 .status-success {
-    color: #4caf50;
+    color: var(--dropdown-overrides-border-1);
 }
 
 .status-error {
-    color: #f44336;
+    color: var(--cycle-countdown-text-5);
 }
 
 .status-skipped {
-    color: #ffc107;
+    color: var(--apps-section-text-10);
 }
 
 .status-info {
-    color: #8ab4f8;
+    color: var(--accent-hover);
 }
 
 .empty-message, 
@@ -68,11 +68,11 @@
 .error-message {
     padding: 15px;
     text-align: center;
-    color: #aaa;
+    color: var(--media-hunt-tv-text-3);
 }
 
 .error-message {
-    color: #f44336;
+    color: var(--cycle-countdown-text-5);
 }
 
 #refreshHistoryButton {
@@ -84,13 +84,13 @@
 .timezone-info {
     margin-top: 0;
     padding: 4px 8px;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: var(--ui-shadow-strong);
     border-radius: 4px;
-    border-left: 3px solid #ffa500;
+    border-left: 3px solid var(--dropdown-overrides-border-2);
 }
 
 .timezone-display {
-    color: #ffa500;
+    color: var(--dropdown-overrides-border-2);
     font-size: 0.8rem;
     font-weight: 500;
     display: flex;
@@ -100,7 +100,7 @@
 }
 
 .timezone-label {
-    color: #ffa500;
+    color: var(--dropdown-overrides-border-2);
 }
 
 .timezone-content {
@@ -110,18 +110,18 @@
 }
 
 .timezone-display i {
-    color: #ffa500;
+    color: var(--dropdown-overrides-border-2);
 }
 
 .timezone-display span {
-    color: #ddd;
+    color: var(--home-border-15);
     font-weight: normal;
 }
 
 #serverCurrentTime {
     font-family: 'Courier New', monospace;
     font-weight: bold;
-    color: #90caf9;
+    color: var(--scheduler-history-text-6);
 }
 
 /* Mobile responsive adjustments for timezone display */

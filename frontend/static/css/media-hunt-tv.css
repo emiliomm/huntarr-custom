@@ -5,19 +5,19 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(138, 43, 226, 0.08);
-    border: 1px solid rgba(138, 43, 226, 0.25);
+    background: var(--media-hunt-tv-bg-1);
+    border: 1px solid var(--media-hunt-tv-bg-8);
     border-radius: 8px;
     padding: 10px 16px;
     margin-bottom: 16px;
     font-size: 0.92em;
-    color: #c0a8e0;
+    color: var(--media-hunt-tv-text-1);
 }
-.tv-hunt-beta-notice i { color: #a855f7; }
+.tv-hunt-beta-notice i { color: var(--client-editor-color-5); }
 .tv-hunt-beta-notice a {
     margin-left: auto;
     white-space: nowrap;
-    color: #a855f7;
+    color: var(--client-editor-color-5);
     text-decoration: underline;
 }
 
@@ -31,9 +31,9 @@
 }
 
 .series-detail-header .back-btn {
-    background: rgba(138, 43, 226, 0.15);
-    border: 1px solid rgba(138, 43, 226, 0.3);
-    color: #c0a8e0;
+    background: var(--media-hunt-tv-bg-1);
+    border: 1px solid var(--media-hunt-tv-border-2);
+    color: var(--media-hunt-tv-text-1);
     padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
@@ -41,8 +41,8 @@
     transition: all 0.2s;
 }
 .series-detail-header .back-btn:hover {
-    background: rgba(138, 43, 226, 0.3);
-    color: #fff;
+    background: var(--media-hunt-tv-border-2);
+    color: var(--button-primary-text);
 }
 
 /* Episode table */
@@ -55,20 +55,20 @@
     text-align: left;
     font-size: 0.8em;
     font-weight: 600;
-    color: #888;
+    color: var(--ui-brand);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    background: rgba(20, 20, 40, 0.5);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--history-section-bg-1);
+    border-bottom: 1px solid var(--ui-alpha-white);
 }
 .episode-table td {
     padding: 10px 12px;
     font-size: 0.9em;
-    color: #ccc;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: var(--media-hunt-tv-text-2);
+    border-bottom: 1px solid var(--ui-alpha-white);
 }
 .episode-table tr:hover td {
-    background: rgba(138, 43, 226, 0.05);
+    background: var(--media-hunt-tv-bg-4);
 }
 .episode-table .ep-monitor {
     width: 30px;
@@ -78,15 +78,15 @@
     width: 40px;
     text-align: center;
     font-weight: 600;
-    color: #aaa;
+    color: var(--media-hunt-tv-text-3);
 }
 .episode-table .ep-title {
     font-weight: 500;
-    color: #eee;
+    color: var(--media-hunt-tv-text-4);
 }
 .episode-table .ep-airdate {
     width: 120px;
-    color: #999;
+    color: var(--media-hunt-tv-text-5);
     font-size: 0.85em;
 }
 .episode-table .ep-status {
@@ -104,40 +104,40 @@
     font-weight: 600;
 }
 .ep-status-badge.available {
-    background: rgba(34, 197, 94, 0.2);
-    color: #81c995;
+    background: var(--hunt-manager-section-border-6);
+    color: var(--button-success-hover);
 }
 .ep-status-badge.missing {
-    background: rgba(239, 68, 68, 0.15);
-    color: #f28b82;
+    background: var(--ui-danger-tint);
+    color: var(--button-danger-hover);
 }
 .ep-status-badge.unaired {
-    background: rgba(100, 100, 140, 0.2);
-    color: #888;
+    background: var(--media-hunt-tv-bg-7);
+    color: var(--ui-brand);
 }
 .episode-table .ep-action-btn {
     background: none;
     border: none;
     cursor: pointer;
     padding: 4px 6px;
-    color: #888;
+    color: var(--ui-brand);
     font-size: 0.85em;
     border-radius: 4px;
     transition: all 0.2s;
 }
 .episode-table .ep-action-btn:hover {
-    background: rgba(138, 43, 226, 0.2);
-    color: #c0a8e0;
+    background: var(--media-hunt-tv-bg-8);
+    color: var(--media-hunt-tv-text-1);
 }
 
 /* Season/episode monitor checkbox */
 .monitor-checkbox {
     cursor: pointer;
-    color: #666;
+    color: var(--media-hunt-tv-text-6);
     font-size: 1em;
 }
 .monitor-checkbox.monitored {
-    color: #a855f7;
+    color: var(--client-editor-color-5);
 }
 
 /* Calendar view */
@@ -149,10 +149,10 @@
     align-items: center;
     gap: 12px;
     padding: 12px 16px;
-    background: rgba(30, 30, 50, 0.5);
+    background: var(--media-hunt-tv-bg-9);
     border-radius: 8px;
     margin-bottom: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--ui-alpha-white);
 }
 .calendar-episode-card .cal-poster {
     width: 40px;
@@ -165,15 +165,15 @@
 }
 .calendar-episode-card .cal-series-title {
     font-weight: 600;
-    color: #eee;
+    color: var(--media-hunt-tv-text-4);
     font-size: 0.95em;
 }
 .calendar-episode-card .cal-ep-title {
-    color: #999;
+    color: var(--media-hunt-tv-text-5);
     font-size: 0.85em;
 }
 .calendar-episode-card .cal-date {
-    color: #888;
+    color: var(--ui-brand);
     font-size: 0.82em;
     white-space: nowrap;
 }
@@ -194,10 +194,10 @@
 #media-hunt-collection-view .view-mode-selector .control-select {
     min-width: 140px;
     padding: 8px 12px;
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--ui-surface-slate);
+    border: 1px solid var(--ui-alpha-white);
     border-radius: 8px;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-size: 14px;
     cursor: pointer;
 }
@@ -231,12 +231,12 @@
 #media-hunt-collection-view .media-table td {
     padding: 10px 14px;
     text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    color: #e2e8f0;
+    border-bottom: 1px solid var(--ui-alpha-white);
+    color: var(--text-secondary);
 }
 
 #media-hunt-collection-view .media-table th {
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -259,7 +259,7 @@
     align-items: center;
     justify-content: center;
     padding: 60px 20px;
-    color: #64748b;
+    color: var(--ui-text-dim);
 }
 
 #media-hunt-collection-view .loading-spinner i {

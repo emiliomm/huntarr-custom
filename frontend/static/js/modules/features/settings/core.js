@@ -355,10 +355,10 @@ window.SettingsForms = {
 
         // Reset button to initial state
         saveButton.disabled = true;
-        saveButton.style.setProperty('background', '#6b7280', 'important');
-        saveButton.style.setProperty('color', '#9ca3af', 'important');
+        saveButton.style.setProperty('background', 'var(--core-color-1)', 'important');
+        saveButton.style.setProperty('color', 'var(--ui-neutral-400)', 'important');
         saveButton.style.setProperty('cursor', 'not-allowed', 'important');
-        saveButton.style.setProperty('border', '1px solid #4b5563', 'important');
+        saveButton.style.setProperty('border', '1px solid var(--core-color-3)', 'important');
         saveButton.style.setProperty('opacity', '0.6', 'important');
 
         const updateSaveButtonState = (changed) => {
@@ -368,18 +368,18 @@ window.SettingsForms = {
             if (changed) {
                 console.log(`[huntarrUI] UI CHANGE DETECTED: Enabling save button for ${appType}`);
                 currentSaveButton.disabled = false;
-                currentSaveButton.style.setProperty('background', '#dc2626', 'important');
-                currentSaveButton.style.setProperty('color', '#ffffff', 'important');
+                currentSaveButton.style.setProperty('background', 'var(--core-color-4)', 'important');
+                currentSaveButton.style.setProperty('color', 'var(--button-primary-text)', 'important');
                 currentSaveButton.style.setProperty('cursor', 'pointer', 'important');
-                currentSaveButton.style.setProperty('border', '1px solid #b91c1c', 'important');
+                currentSaveButton.style.setProperty('border', '1px solid var(--backup-restore-bg-12)', 'important');
                 currentSaveButton.style.setProperty('opacity', '1', 'important');
                 this.addUnsavedChangesWarning();
             } else {
                 currentSaveButton.disabled = true;
-                currentSaveButton.style.setProperty('background', '#6b7280', 'important');
-                currentSaveButton.style.setProperty('color', '#9ca3af', 'important');
+                currentSaveButton.style.setProperty('background', 'var(--core-color-1)', 'important');
+                currentSaveButton.style.setProperty('color', 'var(--ui-neutral-400)', 'important');
                 currentSaveButton.style.setProperty('cursor', 'not-allowed', 'important');
-                currentSaveButton.style.setProperty('border', '1px solid #4b5563', 'important');
+                currentSaveButton.style.setProperty('border', '1px solid var(--core-color-3)', 'important');
                 currentSaveButton.style.setProperty('opacity', '0.6', 'important');
                 this.removeUnsavedChangesWarning();
             }
@@ -482,10 +482,10 @@ window.SettingsForms = {
         // Update icon
         if (isEnabled) {
             icon.className = 'fas fa-check-circle';
-            icon.style.color = '#10b981'; // Green
+            icon.style.color = 'var(--ui-success)'; // Green
         } else {
             icon.className = 'fas fa-minus-circle';
-            icon.style.color = '#ef4444'; // Red
+            icon.style.color = 'var(--ui-danger)'; // Red
         }
     },
 

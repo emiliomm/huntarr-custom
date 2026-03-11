@@ -35,7 +35,7 @@
                                 <input type="number" id="log_max_size_mb" name="log_max_size_mb" min="1" max="500" value="${
                                   settings.log_max_size_mb || 50
                                 }" class="mset-input" style="width: 100px; max-width: 100px;">
-                                <span style="color: #9ca3af; font-size: 13px;">MB</span>
+                                <span style="color: var(--ui-neutral-400); font-size: 13px;">MB</span>
                             </div>
                             <p class="setting-help">Maximum size before rotating to a new file</p>
                         </div>
@@ -106,7 +106,7 @@
                                 <input type="number" id="log_refresh_interval_seconds" name="log_refresh_interval_seconds" min="5" max="300" value="${
                                   settings.log_refresh_interval_seconds || 30
                                 }" class="mset-input" style="width: 100px; max-width: 100px;">
-                                <span style="color: #9ca3af; font-size: 13px;">seconds</span>
+                                <span style="color: var(--ui-neutral-400); font-size: 13px;">seconds</span>
                             </div>
                             <p class="setting-help">How often the log viewer polls for new entries</p>
                         </div>

@@ -297,9 +297,9 @@
                     if (row) row.style.display = 'none';
                     self._loadBrowsePath(parent);
                 } else {
-                    if (input) { input.style.borderColor = '#f87171'; input.focus(); }
+                    if (input) { input.style.borderColor = 'var(--ui-danger-soft)'; input.focus(); }
                 }
-            }).catch(function () { if (input) { input.style.borderColor = '#f87171'; input.focus(); } });
+            }).catch(function () { if (input) { input.style.borderColor = 'var(--ui-danger-soft)'; input.focus(); } });
         },
 
         /* ── Browse: Rename folder ── */
@@ -307,7 +307,7 @@
             var main = el && el.querySelector('.nzb-browse-item-main');
             if (!main) return;
             var origHTML = main.innerHTML;
-            main.innerHTML = '<i class="fas fa-folder" style="color:#818cf8;flex-shrink:0;"></i>' +
+            main.innerHTML = '<i class="fas fa-folder" style="color:var(--ui-accent-soft);flex-shrink:0;"></i>' +
                 '<input type="text" class="nzb-browse-item-rename-input" value="' + (currentName || '').replace(/"/g, '&quot;') + '" />' +
                 '<button type="button" class="nzb-browse-inline-ok nzb-rename-confirm"><i class="fas fa-check"></i></button>' +
                 '<button type="button" class="nzb-browse-inline-cancel nzb-rename-cancel"><i class="fas fa-times"></i></button>';
@@ -328,7 +328,7 @@
                         var parent = path.replace(/\/+$/, '').split('/').slice(0, -1).join('/') || '/';
                         self._loadBrowsePath(parent || (pathInput && pathInput.value) || '/');
                     } else {
-                        if (inp) { inp.style.borderColor = '#f87171'; inp.focus(); }
+                        if (inp) { inp.style.borderColor = 'var(--ui-danger-soft)'; inp.focus(); }
                     }
                 }).catch(function () { revert(); });
             }
@@ -421,7 +421,7 @@
             if (newRow) newRow.style.display = 'none';
             if (delRow) delRow.style.display = 'none';
 
-            list.innerHTML = '<div style="padding: 20px; text-align: center; color: #94a3b8;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+            list.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--ui-text-muted);"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
 
             var self = this;
             fetch('./api/nzb-hunt/browse?path=' + encodeURIComponent(path) + '&t=' + Date.now())
@@ -435,7 +435,7 @@
                     }
                     var dirs = data.directories || [];
                     if (dirs.length === 0) {
-                        list.innerHTML = '<div style="padding: 20px; text-align: center; color: #64748b;">No subdirectories</div>';
+                        list.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--ui-text-dim);">No subdirectories</div>';
                         return;
                     }
                     var html = '';
@@ -461,7 +461,7 @@
                     });
                 })
                 .catch(function () {
-                    list.innerHTML = '<div style="padding: 20px; text-align: center; color: #f87171;">Failed to browse directory</div>';
+                    list.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--ui-danger-soft);">Failed to browse directory</div>';
                 });
         },
 
@@ -522,7 +522,7 @@
                     (srv.username ? '<div class="nzb-server-detail"><i class="fas fa-user"></i> <span>' + _esc(srv.username) + '</span></div>' : '') +
                     (srv.password_masked ? '<div class="nzb-server-detail"><i class="fas fa-key"></i> <span style="font-family: monospace; letter-spacing: 1px;">' + _esc(srv.password_masked) + '</span></div>' : '') +
                     '<div class="nzb-server-status-line" id="' + statusTextId + '">' +
-                    '<i class="fas fa-circle-notch fa-spin" style="font-size: 11px; color: #6366f1;"></i> <span style="font-size: 12px; color: #94a3b8;">Checking connection...</span>' +
+                    '<i class="fas fa-circle-notch fa-spin" style="font-size: 11px; color: var(--app-sonarr-color);"></i> <span style="font-size: 12px; color: var(--ui-text-muted);">Checking connection...</span>' +
                     '</div>' +
                     '<div class="nzb-server-bandwidth">' +
                     '<div class="nzb-server-bandwidth-grid">' +
@@ -657,9 +657,9 @@
 
             if (textEl) {
                 if (state === 'online') {
-                    textEl.innerHTML = '<i class="fas fa-check-circle" style="font-size: 11px; color: #22c55e;"></i> <span style="font-size: 12px; color: #4ade80;">Connected</span>';
+                    textEl.innerHTML = '<i class="fas fa-check-circle" style="font-size: 11px; color: var(--api-progress-color-1);"></i> <span style="font-size: 12px; color: var(--hunt-manager-section-text-4);">Connected</span>';
                 } else if (state === 'offline') {
-                    textEl.innerHTML = '<i class="fas fa-times-circle" style="font-size: 11px; color: #ef4444;"></i> <span style="font-size: 12px; color: #f87171;">' + _esc(message) + '</span>';
+                    textEl.innerHTML = '<i class="fas fa-times-circle" style="font-size: 11px; color: var(--ui-danger);"></i> <span style="font-size: 12px; color: var(--ui-danger-soft);">' + _esc(message) + '</span>';
                 }
             }
         },

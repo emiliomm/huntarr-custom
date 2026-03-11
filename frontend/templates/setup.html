@@ -328,7 +328,7 @@
                                 day! I never profit from this, and actually put a lot into supporting this. Regardless,
                                 enjoy Huntarr and also check out <a href="https://huntarros.com" target="_blank"
                                     rel="noopener noreferrer"
-                                    style="color: #a5b4fc; text-decoration: underline;">HuntarrOS.com</a> for cool
+                                    style="color: var(--home-section-text-9); text-decoration: underline;">HuntarrOS.com</a> for cool
                                 Docker deployment orchestration.
                             </p>
                             
@@ -399,11 +399,11 @@
             // Create popup overlay (same style as requestarr-users)
             const overlay = document.createElement('div');
             overlay.id = 'setup-plex-link-overlay';
-            overlay.style.cssText = 'position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;';
-            overlay.innerHTML = '<div style="background:linear-gradient(180deg,rgba(22,26,34,0.98),rgba(18,22,30,0.95));border-radius:15px;padding:30px;width:400px;max-width:90%;box-shadow:0 8px 30px rgba(0,0,0,0.5);border:1px solid rgba(90,109,137,0.15);color:#f8f9fa;text-align:center;">'
-                + '<div style="font-size:40px;color:#e69500;margin-bottom:10px;"><i class="fas fa-tv"></i></div>'
+            overlay.style.cssText = 'position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:var(--import-media-bg-7);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;';
+            overlay.innerHTML = '<div style="background:linear-gradient(180deg,var(--history-section-bg-16),var(--history-section-bg-17));border-radius:15px;padding:30px;width:400px;max-width:90%;box-shadow:0 8px 30px var(--ui-overlay-backdrop);border:1px solid var(--footer-border-1);color:var(--history-section-color-4);text-align:center;">'
+                + '<div style="font-size:40px;color:var(--requestarr-users-color-7);margin-bottom:10px;"><i class="fas fa-tv"></i></div>'
                 + '<h2 style="margin:0 0 15px;">Link Plex Account</h2>'
-                + '<div id="setup-plex-link-status" class="plex-status waiting" style="margin:15px 0;padding:10px;border-radius:8px;background:rgba(255,193,7,0.2);border:1px solid rgba(255,193,7,0.3);color:#ffc107;">'
+                + '<div id="setup-plex-link-status" class="plex-status waiting" style="margin:15px 0;padding:10px;border-radius:8px;background:var(--history-section-bg-44);border:1px solid var(--apps-section-bg-15);color:var(--apps-section-text-10);">'
                 + '<i class="fas fa-spinner fa-spin"></i> Preparing Plex authentication...</div>'
                 + '<button id="setup-plex-link-cancel" class="action-button secondary-button" style="margin-top:10px;">Cancel</button>'
                 + '</div>';
@@ -456,9 +456,9 @@
                                     clearInterval(pollInterval); pollInterval = null;
                                     if (plexPopup && !plexPopup.closed) plexPopup.close();
                                     statusEl.className = 'plex-status success';
-                                    statusEl.style.background = 'rgba(40,167,69,0.2)';
-                                    statusEl.style.borderColor = 'rgba(40,167,69,0.3)';
-                                    statusEl.style.color = '#2ecc71';
+                                    statusEl.style.background = 'var(--history-section-bg-37)';
+                                    statusEl.style.borderColor = 'var(--apps-section-bg-13)';
+                                    statusEl.style.color = 'var(--app-lidarr-color)';
                                     statusEl.innerHTML = '<i class="fas fa-check"></i> Plex authenticated! Linking account...';
 
                                     // Resolve username
@@ -485,9 +485,9 @@
                                                 }, 1500);
                                             } else {
                                                 statusEl.className = 'plex-status error';
-                                                statusEl.style.background = 'rgba(220,53,69,0.2)';
-                                                statusEl.style.borderColor = 'rgba(220,53,69,0.3)';
-                                                statusEl.style.color = '#ff6b6b';
+                                                statusEl.style.background = 'var(--history-section-bg-38)';
+                                                statusEl.style.borderColor = 'var(--apps-section-bg-14)';
+                                                statusEl.style.color = 'var(--cycle-countdown-color-7)';
                                                 statusEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + (linkResult.error || 'Linking failed');
                                             }
                                         })
@@ -735,7 +735,7 @@
                 const key = document.getElementById('recoveryKeyValue').textContent;
                 if (!key || key === 'Generating...') return;
                 const btn = this;
-                function showCopied() { const o = btn.innerHTML; btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; btn.style.backgroundColor = '#28a745'; setTimeout(() => { btn.innerHTML = o; btn.style.backgroundColor = ''; }, 2000); }
+                function showCopied() { const o = btn.innerHTML; btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; btn.style.backgroundColor = 'var(--apps-section-text-8)'; setTimeout(() => { btn.innerHTML = o; btn.style.backgroundColor = ''; }, 2000); }
                 if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(key).then(showCopied).catch(() => fallbackCopy(key, showCopied));
                 else fallbackCopy(key, showCopied);
             });
@@ -839,7 +839,7 @@
             function showCopied() {
                 const btn = document.querySelector('#twoFactorSetup .copy-button');
                 if (!btn) return; const o = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; btn.style.color = '#28a745';
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; btn.style.color = 'var(--apps-section-text-8)';
                 setTimeout(() => { btn.innerHTML = o; btn.style.color = ''; }, 2000);
             }
             function fallback(text, cb) { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); if (cb) cb(); } catch (e) { } document.body.removeChild(ta); }

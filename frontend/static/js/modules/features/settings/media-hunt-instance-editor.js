@@ -63,7 +63,7 @@
         var statefulBlockDisplay = safe.state_management_mode === 'disabled' ? 'none' : 'block';
 
         var exemptTagsHtml = (safe.exempt_tags || []).map(function (tag) {
-            return '<span class="exempt-tag-chip" data-tag="' + escapeAttr(tag) + '" style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; background: #dc2626; color: #fff; border-radius: 6px; font-size: 0.875rem;">' +
+            return '<span class="exempt-tag-chip" data-tag="' + escapeAttr(tag) + '" style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; background: var(--core-color-4); color: var(--button-primary-text); border-radius: 6px; font-size: 0.875rem;">' +
                 '<span class="exempt-tag-remove" style="cursor: pointer;">×</span><span>' + escapeHtml(tag) + '</span></span>';
         }).join('');
 
@@ -72,8 +72,8 @@
         var infoStatusIcon = safe.enabled ? '<i class="fas fa-check-circle" style="margin-right: 6px;"></i>' : '';
 
         var enableLabelIcon = safe.enabled
-            ? '<span id="mh-editor-enabled-icon"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i></span>'
-            : '<span id="mh-editor-enabled-icon"><i class="fas fa-times-circle" style="color: #6b7280; margin-right: 6px;"></i></span>';
+            ? '<span id="mh-editor-enabled-icon"><i class="fas fa-check-circle" style="color: var(--ui-success); margin-right: 6px;"></i></span>'
+            : '<span id="mh-editor-enabled-icon"><i class="fas fa-times-circle" style="color: var(--core-color-1); margin-right: 6px;"></i></span>';
 
         return '<div class="editor-grid">' +
             '<div class="editor-section mh-information-section">' +
@@ -92,7 +92,7 @@
             '<input type="text" id="mh-editor-instance-id" value="' + escapeAttr(safe.instance_id) + '" readonly disabled style="opacity: 0.8; cursor: not-allowed;"></div>' +
             '<p class="editor-help-text">Stable identifier for this instance (assigned automatically; cannot be changed)</p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Category Name</label>' +
-            '<input type="text" id="mh-editor-category-name" value="' + escapeAttr('Movies-' + ((safe.name || '').trim() || 'Unnamed').replace(/ /g, '_')) + '" readonly disabled style="opacity: 0.8; cursor: not-allowed; background: rgba(148,163,184,0.1);"></div>' +
+            '<input type="text" id="mh-editor-category-name" value="' + escapeAttr('Movies-' + ((safe.name || '').trim() || 'Unnamed').replace(/ /g, '_')) + '" readonly disabled style="opacity: 0.8; cursor: not-allowed; background: var(--ui-border-subtle);"></div>' +
             '<p class="editor-help-text">For NZB Hunt this is automatic. External clients (e.g. qBittorrent) require this exact category to be configured.</p></div>' +
             '</div>' +
             '<div class="editor-section">' +
@@ -103,10 +103,10 @@
             '<p class="editor-help-text">Number of items to upgrade in each cycle</p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Upgrade Selection Method</label>' +
             '<select id="mh-editor-upgrade-method"><option value="cutoff"' + (safe.upgrade_selection_method === 'cutoff' ? ' selected' : '') + '>Cutoff unmet</option><option value="tags"' + (safe.upgrade_selection_method === 'tags' ? ' selected' : '') + '>Tags</option></select></div>' +
-            '<p class="editor-help-text"><strong>Cutoff unmet:</strong> Items below quality cutoff (default). Huntarr does not add any upgrade tag. <strong>Tags (Upgradinatorr):</strong> Huntarr finds items WITHOUT the tag below, runs upgrade searches, then ADDS that tag when done. <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: #2ecc71; text-decoration: underline;">TrashGuides</a> | <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: #e74c3c; text-decoration: underline;">Upgradinatorr</a></p></div>' +
+            '<p class="editor-help-text"><strong>Cutoff unmet:</strong> Items below quality cutoff (default). Huntarr does not add any upgrade tag. <strong>Tags (Upgradinatorr):</strong> Huntarr finds items WITHOUT the tag below, runs upgrade searches, then ADDS that tag when done. <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: var(--app-lidarr-color); text-decoration: underline;">TrashGuides</a> | <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: var(--app-readarr-color); text-decoration: underline;">Upgradinatorr</a></p></div>' +
             '<div class="editor-field-group editor-upgrade-tag-group" style="display:' + upgradeTagGroupDisplay + ';"><div class="editor-setting-item"><label>Upgrade Tag</label>' +
             '<input type="text" id="mh-editor-upgrade-tag" value="' + escapeAttr(safe.upgrade_tag) + '" placeholder="e.g. upgradinatorr"></div>' +
-            '<p class="editor-help-text">Tag name. Huntarr finds movies that don’t have this tag, runs upgrade searches, then adds the tag when done (tracks what\'s been processed). <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: #2ecc71; text-decoration: underline;">TrashGuides</a> | <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: #e74c3c; text-decoration: underline;">Upgradinatorr</a></p></div>' +
+            '<p class="editor-help-text">Tag name. Huntarr finds movies that don’t have this tag, runs upgrade searches, then adds the tag when done (tracks what\'s been processed). <a href="https://trash-guides.info/" target="_blank" rel="noopener" style="color: var(--app-lidarr-color); text-decoration: underline;">TrashGuides</a> | <a href="https://github.com/angrycuban13/Just-A-Bunch-Of-Starr-Scripts/blob/main/Upgradinatorr/README.md#requirements" target="_blank" rel="noopener" style="color: var(--app-readarr-color); text-decoration: underline;">Upgradinatorr</a></p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Release Date Delay (Days)</label><input type="number" id="mh-editor-release-date-delay" value="' + safe.release_date_delay_days + '"></div>' +
             '<p class="editor-help-text">Only search for items released at least this many days ago</p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Search Order</label>' +
@@ -122,12 +122,12 @@
             '<div id="mh-editor-stateful-block" class="editor-field-group" style="display:' + statefulBlockDisplay + ';">' +
             '<button type="button" class="btn-card delete btn-reset-state" id="mh-editor-reset-state"><i class="fas fa-undo"></i> Reset Processed State Now</button>' +
             '<p class="editor-help-text" style="text-align: center; margin-top: -10px !important;">Clears the history of processed items for this instance</p>' +
-            '<div id="mh-state-status-display" style="margin-top: 15px; padding: 12px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px;">' +
-            '<div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #10b981; font-weight: 500; margin-bottom: 4px;"><i class="fas fa-check-circle"></i><span>Active - Tracked Items: <span id="mh-tracked-items-count">Loading...</span></span></div>' +
-            '<div style="text-align: center; color: #94a3b8; font-size: 0.9rem;">Next Reset: <span id="mh-next-reset-time">Loading...</span></div></div></div></div>' +
+            '<div id="mh-state-status-display" style="margin-top: 15px; padding: 12px; background: var(--client-editor-color-1); border: 1px solid var(--client-editor-color-2); border-radius: 8px;">' +
+            '<div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--ui-success); font-weight: 500; margin-bottom: 4px;"><i class="fas fa-check-circle"></i><span>Active - Tracked Items: <span id="mh-tracked-items-count">Loading...</span></span></div>' +
+            '<div style="text-align: center; color: var(--ui-text-muted); font-size: 0.9rem;">Next Reset: <span id="mh-next-reset-time">Loading...</span></div></div></div></div>' +
 
             '<div class="editor-section"><div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-additional"><i class="fas fa-sliders-h"></i></span>ADDITIONAL SETTINGS</div></div>' +
-            '<div class="editor-field-group" style="margin-bottom: 12px;"><div style="padding: 10px 12px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.5); border-radius: 6px; color: #fcd34d; font-size: 0.85rem; line-height: 1.4;"><i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i> Do not overwhelm your indexers. Contact them for advice!</div></div>' +
+            '<div class="editor-field-group" style="margin-bottom: 12px;"><div style="padding: 10px 12px; background: var(--backup-restore-bg-4); border: 1px solid var(--home-border-17); border-radius: 6px; color: var(--home-text-2); font-size: 0.85rem; line-height: 1.4;"><i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i> Do not overwhelm your indexers. Contact them for advice!</div></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Sleep Duration (Minutes)</label><input type="number" id="mh-editor-sleep-duration" value="' + sleepMins + '" min="' + _sleepMin + '" max="1440"></div>' +
             '<p class="editor-help-text">Time in minutes between processing cycles</p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>API Cap - Hourly</label><input type="number" id="mh-editor-hourly-cap" value="' + safe.hourly_cap + '" min="1" max="400"></div>' +
@@ -140,10 +140,10 @@
             '<div class="editor-field-group tag-sub-box mh-editor-upgrade-items-tag-section" style="display:' + (safe.upgrade_selection_method === 'tags' ? 'none' : 'block') + ';"><div class="editor-setting-item flex-row"><label>Tag upgrade items</label><label class="toggle-switch"><input type="checkbox" id="mh-editor-tag-enable-upgrade"' + (safe.tag_enable_upgrade ? ' checked' : '') + '><span class="toggle-slider"></span></label></div>' +
             '<div class="editor-setting-item" style="margin-top: 6px;"><label>Upgrade Items Tag</label><input type="text" id="mh-editor-tag-upgrade" value="' + escapeAttr((safe.custom_tags && safe.custom_tags.upgrade) ? safe.custom_tags.upgrade : 'huntarr-upgrade') + '" placeholder="huntarr-upgrade" maxlength="25"></div>' +
             '<p class="editor-help-text">Tag added to movies when they\'re upgraded in cutoff mode (max 25 characters). Not used when Upgrade Selection Method is Tags.</p></div>' +
-            '<div class="editor-section" style="border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 10px; padding: 14px; background: rgba(231, 76, 60, 0.06); margin-top: 16px;"><div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-exempt"><i class="fas fa-ban"></i></span>EXEMPT TAGS</div></div>' +
+            '<div class="editor-section" style="border: 1px solid var(--history-section-shadow-3); border-radius: 10px; padding: 14px; background: var(--media-hunt-instance-editor-color-9); margin-top: 16px;"><div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-exempt"><i class="fas fa-ban"></i></span>EXEMPT TAGS</div></div>' +
             '<p class="editor-help-text" style="margin-bottom: 12px;">Items with any of these tags are skipped for missing and upgrade searches. If the tag is removed in the app, Huntarr will process the item again.</p>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Add exempt tag</label><div style="display: flex; gap: 8px; align-items: center;"><input type="text" id="mh-editor-exempt-tag-input" placeholder="Type a tag to exempt..." style="flex: 1;" maxlength="50"><button type="button" class="btn-card" id="mh-editor-exempt-tag-add" style="padding: 8px 14px; white-space: nowrap;">Add</button></div></div>' +
-            '<p class="editor-help-text" style="color: #94a3b8; font-size: 0.85rem;">Tag &quot;upgradinatorr&quot; cannot be added.</p>' +
+            '<p class="editor-help-text" style="color: var(--ui-text-muted); font-size: 0.85rem;">Tag &quot;upgradinatorr&quot; cannot be added.</p>' +
             '<div id="mh-editor-exempt-tags-list" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; min-height: 24px;">' + exemptTagsHtml + '</div></div></div></div>' +
             '<div class="editor-section"><div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-advanced"><i class="fas fa-code"></i></span>ADVANCED SETTINGS</div></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>API Timeout (seconds)</label><input type="number" id="mh-editor-api-timeout" value="' + safe.api_timeout + '" min="30" max="600"></div>' +
@@ -157,33 +157,33 @@
             '</div>' +
 
             /* ── Debug Manager ────────────────────────────────── */
-            '<div class="editor-section mh-debug-manager-section" style="border: 2px solid rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.06);">' +
+            '<div class="editor-section mh-debug-manager-section" style="border: 2px solid var(--backup-restore-border-5); background: var(--backup-restore-bg-2);">' +
             '<div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-exempt"><i class="fas fa-bug"></i></span>DEBUG MANAGER</div></div>' +
-            '<p class="editor-help-text" style="margin-bottom: 16px; line-height: 1.5;">Dangerous operations for troubleshooting. These actions are <strong style="color: #f87171;">irreversible</strong>.</p>' +
+            '<p class="editor-help-text" style="margin-bottom: 16px; line-height: 1.5;">Dangerous operations for troubleshooting. These actions are <strong style="color: var(--ui-danger-soft);">irreversible</strong>.</p>' +
 
-            '<div class="editor-field-group" style="border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: 16px; background: rgba(239, 68, 68, 0.04);">' +
+            '<div class="editor-field-group" style="border: 1px solid var(--ui-danger-tint); border-radius: 8px; padding: 16px; background: var(--backup-restore-bg-2);">' +
             '<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">' +
             '<div style="flex: 1; min-width: 200px;">' +
-            '<strong style="color: #f1f5f9; font-size: 0.95rem;">Reset Movie Collection</strong>' +
+            '<strong style="color: var(--ui-text-strong); font-size: 0.95rem;">Reset Movie Collection</strong>' +
             '<p class="editor-help-text" style="margin-top: 4px;">Permanently deletes <strong>all</strong> movies from this instance\'s Movie Collection. Requested movies, status history, and collection data will be wiped. This cannot be undone.</p>' +
             '</div>' +
-            '<button type="button" class="btn-card delete" id="mh-editor-reset-collection" style="white-space: nowrap; background: #dc2626; color: white; border: 1px solid #dc2626; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;"><i class="fas fa-trash-alt" style="margin-right: 6px;"></i>Reset Library</button>' +
+            '<button type="button" class="btn-card delete" id="mh-editor-reset-collection" style="white-space: nowrap; background: var(--core-color-4); color: white; border: 1px solid var(--core-color-4); padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;"><i class="fas fa-trash-alt" style="margin-right: 6px;"></i>Reset Library</button>' +
             '</div></div>' +
 
             '</div>' +
 
             /* ── Reset Collection Confirmation Modal (hidden) ── */
             '<div id="mh-reset-collection-modal" style="display:none; position:fixed; inset:0; z-index:100000; align-items:center; justify-content:center;">' +
-            '<div id="mh-reset-collection-backdrop" style="position:absolute; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px);"></div>' +
-            '<div style="position:relative; background:#1e293b; border:1px solid rgba(239,68,68,0.4); border-radius:14px; padding:28px 32px; max-width:460px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.5);">' +
-            '<h3 style="margin:0 0 8px; color:#f87171; font-size:1.15rem;"><i class="fas fa-exclamation-triangle" style="margin-right:8px;"></i>Confirm Library Reset</h3>' +
-            '<p style="color:#94a3b8; font-size:0.9rem; line-height:1.5; margin:0 0 18px;">This will permanently delete <strong style="color:#f1f5f9;">all movies</strong> in the Movie Collection for this instance. To confirm, type the instance name below:</p>' +
-            '<p style="color:#f1f5f9; font-size:0.95rem; margin:0 0 10px; text-align:center;"><strong id="mh-reset-modal-instance-name">' + escapeHtml(safe.name) + '</strong></p>' +
-            '<input type="text" id="mh-reset-collection-input" placeholder="Type instance name to confirm..." style="width:100%; padding:12px; border-radius:8px; border:1px solid rgba(239,68,68,0.3); background:rgba(15,23,42,0.8); color:white; margin-bottom:16px; box-sizing:border-box;" autocomplete="off">' +
-            '<div id="mh-reset-collection-error" style="display:none; color:#f87171; font-size:0.85rem; margin-bottom:12px; text-align:center;"></div>' +
+            '<div id="mh-reset-collection-backdrop" style="position:absolute; inset:0; background:var(--activity-section-bg-2); backdrop-filter:blur(4px);"></div>' +
+            '<div style="position:relative; background:var(--ui-slate-800); border:1px solid var(--backup-restore-border-5); border-radius:14px; padding:28px 32px; max-width:460px; width:90%; box-shadow:0 20px 60px var(--ui-overlay-backdrop);">' +
+            '<h3 style="margin:0 0 8px; color:var(--ui-danger-soft); font-size:1.15rem;"><i class="fas fa-exclamation-triangle" style="margin-right:8px;"></i>Confirm Library Reset</h3>' +
+            '<p style="color:var(--ui-text-muted); font-size:0.9rem; line-height:1.5; margin:0 0 18px;">This will permanently delete <strong style="color:var(--ui-text-strong);">all movies</strong> in the Movie Collection for this instance. To confirm, type the instance name below:</p>' +
+            '<p style="color:var(--ui-text-strong); font-size:0.95rem; margin:0 0 10px; text-align:center;"><strong id="mh-reset-modal-instance-name">' + escapeHtml(safe.name) + '</strong></p>' +
+            '<input type="text" id="mh-reset-collection-input" placeholder="Type instance name to confirm..." style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--ui-danger-bg-hover); background:var(--ui-surface-solid); color:white; margin-bottom:16px; box-sizing:border-box;" autocomplete="off">' +
+            '<div id="mh-reset-collection-error" style="display:none; color:var(--ui-danger-soft); font-size:0.85rem; margin-bottom:12px; text-align:center;"></div>' +
             '<div style="display:flex; gap:10px; justify-content:flex-end;">' +
-            '<button type="button" id="mh-reset-collection-cancel" style="padding:10px 20px; border-radius:8px; border:1px solid rgba(148,163,184,0.3); background:rgba(148,163,184,0.1); color:#94a3b8; cursor:pointer; font-weight:500;">Cancel</button>' +
-            '<button type="button" id="mh-reset-collection-confirm" style="padding:10px 20px; border-radius:8px; border:1px solid #dc2626; background:#dc2626; color:white; cursor:pointer; font-weight:600; opacity:0.5;" disabled><i class="fas fa-trash-alt" style="margin-right:6px;"></i>Delete All</button>' +
+            '<button type="button" id="mh-reset-collection-cancel" style="padding:10px 20px; border-radius:8px; border:1px solid var(--ui-border-tint); background:var(--ui-border-subtle); color:var(--ui-text-muted); cursor:pointer; font-weight:500;">Cancel</button>' +
+            '<button type="button" id="mh-reset-collection-confirm" style="padding:10px 20px; border-radius:8px; border:1px solid var(--core-color-4); background:var(--core-color-4); color:white; cursor:pointer; font-weight:600; opacity:0.5;" disabled><i class="fas fa-trash-alt" style="margin-right:6px;"></i>Delete All</button>' +
             '</div></div></div>' +
 
             '</div>';
@@ -251,7 +251,7 @@
             var chip = document.createElement('span');
             chip.className = 'exempt-tag-chip';
             chip.setAttribute('data-tag', tag);
-            chip.style.cssText = 'display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; background: #dc2626; color: #fff; border-radius: 6px; font-size: 0.875rem;';
+            chip.style.cssText = 'display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; background: var(--core-color-4); color: var(--button-primary-text); border-radius: 6px; font-size: 0.875rem;';
             chip.innerHTML = '<span class="exempt-tag-remove" style="cursor: pointer;">×</span><span>' + escapeHtml(tag) + '</span>';
             list.appendChild(chip);
             input.value = '';
@@ -316,7 +316,7 @@
                 statusPill.className = 'mh-info-status-pill ' + (on ? 'mh-info-status-enabled' : 'mh-info-status-disabled');
                 statusPill.innerHTML = on ? '<i class="fas fa-check-circle" style="margin-right: 6px;"></i>Enabled' : 'Disabled';
                 if (enabledIconEl) {
-                    enabledIconEl.innerHTML = on ? '<i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>' : '<i class="fas fa-times-circle" style="color: #6b7280; margin-right: 6px;"></i>';
+                    enabledIconEl.innerHTML = on ? '<i class="fas fa-check-circle" style="color: var(--ui-success); margin-right: 6px;"></i>' : '<i class="fas fa-times-circle" style="color: var(--core-color-1); margin-right: 6px;"></i>';
                 }
             });
         }
@@ -347,7 +347,7 @@
         loadInstanceList: function () {
             var grid = document.getElementById('movie-hunt-settings-instances-grid');
             if (!grid) return;
-            grid.innerHTML = '<div style="color: #94a3b8;">Loading...</div>';
+            grid.innerHTML = '<div style="color: var(--ui-text-muted);">Loading...</div>';
             fetch(api('./api/movie-hunt/instances'), { cache: 'no-store' })
                 .then(function (r) { return r.json(); })
                 .then(function (data) {
@@ -420,7 +420,7 @@
                     });
                 })
                 .catch(function () {
-                    grid.innerHTML = '<div style="color: #f87171;">Failed to load instances.</div>';
+                    grid.innerHTML = '<div style="color: var(--ui-danger-soft);">Failed to load instances.</div>';
                 });
         },
 
@@ -755,7 +755,7 @@
         var infoStatusText = safe.enabled ? 'Enabled' : 'Disabled';
 
         var exemptTagsHtml = (safe.exempt_tags || []).map(function (tag) {
-            return '<span class="exempt-tag-chip" data-tag="' + escapeAttr(tag) + '" style="display:inline-flex;align-items:center;gap:6px;padding:4px 8px;background:#dc2626;color:#fff;border-radius:6px;font-size:0.875rem;">' +
+            return '<span class="exempt-tag-chip" data-tag="' + escapeAttr(tag) + '" style="display:inline-flex;align-items:center;gap:6px;padding:4px 8px;background:var(--core-color-4);color:var(--button-primary-text);border-radius:6px;font-size:0.875rem;">' +
                 '<span class="exempt-tag-remove" style="cursor:pointer;">&times;</span><span>' + escapeHtml(tag) + '</span></span>';
         }).join('');
 
@@ -767,7 +767,7 @@
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Enable Status</label><select id="th-editor-enabled"><option value="true"' + (safe.enabled ? ' selected' : '') + '>Enabled</option><option value="false"' + (!safe.enabled ? ' selected' : '') + '>Disabled</option></select></div><p class="editor-help-text">Enable or disable this instance</p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Name</label><input type="text" id="th-editor-name" value="' + escapeAttr(safe.name) + '" placeholder="e.g. Main TV" maxlength="64"></div><p class="editor-help-text">A friendly name to identify this instance</p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Instance ID</label><input type="text" id="th-editor-instance-id" value="' + escapeAttr(safe.instance_id) + '" readonly disabled style="opacity:0.8;cursor:not-allowed;"></div><p class="editor-help-text">Stable identifier (auto-assigned, cannot change)</p></div>' +
-            '<div class="editor-field-group"><div class="editor-setting-item"><label>Category Name</label><input type="text" id="th-editor-category-name" value="' + escapeAttr('TV-' + ((safe.name || '').trim() || 'Unnamed').replace(/ /g, '_')) + '" readonly disabled style="opacity:0.8;cursor:not-allowed;background:rgba(148,163,184,0.1);"></div><p class="editor-help-text">For NZB Hunt this is automatic. External clients (e.g. qBittorrent) require this exact category to be configured.</p></div>' +
+            '<div class="editor-field-group"><div class="editor-setting-item"><label>Category Name</label><input type="text" id="th-editor-category-name" value="' + escapeAttr('TV-' + ((safe.name || '').trim() || 'Unnamed').replace(/ /g, '_')) + '" readonly disabled style="opacity:0.8;cursor:not-allowed;background:var(--ui-border-subtle);"></div><p class="editor-help-text">For NZB Hunt this is automatic. External clients (e.g. qBittorrent) require this exact category to be configured.</p></div>' +
             '</div>' +
             // SEARCH SETTINGS
             '<div class="editor-section"><div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-search"><i class="fas fa-search"></i></span>SEARCH SETTINGS</div></div>' +
@@ -790,7 +790,7 @@
             '<p class="editor-help-text" style="text-align:center;margin-top:-10px !important;">Clears processed items history for this instance</p></div></div>' +
             // ADDITIONAL SETTINGS
             '<div class="editor-section"><div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-additional"><i class="fas fa-sliders-h"></i></span>ADDITIONAL SETTINGS</div></div>' +
-            '<div class="editor-field-group" style="margin-bottom:12px;"><div style="padding:10px 12px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.5);border-radius:6px;color:#fcd34d;font-size:0.85rem;"><i class="fas fa-exclamation-triangle" style="margin-right:6px;"></i> Do not overwhelm your indexers. Contact them for advice!</div></div>' +
+            '<div class="editor-field-group" style="margin-bottom:12px;"><div style="padding:10px 12px;background:var(--backup-restore-bg-4);border:1px solid var(--home-border-17);border-radius:6px;color:var(--home-text-2);font-size:0.85rem;"><i class="fas fa-exclamation-triangle" style="margin-right:6px;"></i> Do not overwhelm your indexers. Contact them for advice!</div></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Sleep Duration (Minutes)</label><input type="number" id="th-editor-sleep-duration" value="' + sleepMins + '" min="' + _sleepMin + '" max="1440"></div><p class="editor-help-text">Time between processing cycles</p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>API Cap - Hourly</label><input type="number" id="th-editor-hourly-cap" value="' + safe.hourly_cap + '" min="1" max="400"></div><p class="editor-help-text">Max API requests per hour (10-20 recommended)</p></div>' +
             '<div class="editor-field-group"><div class="editor-setting-item flex-row"><label>Monitored Only</label><label class="toggle-switch"><input type="checkbox" id="th-editor-monitored-only"' + (safe.monitored_only ? ' checked' : '') + '><span class="toggle-slider"></span></label></div><p class="editor-help-text">Only search for monitored episodes</p></div>' +
@@ -798,19 +798,19 @@
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Min Free Disk Space (GB)</label><input type="number" id="th-editor-min-free-space" value="' + safe.min_free_space_gb + '" min="0" step="1"></div><p class="editor-help-text">Skip cycle if any root folder has less free space than this (GB). 0 = disabled.</p></div>' +
             '</div>' +
             // EXEMPT TAGS
-            '<div class="editor-section" style="border:1px solid rgba(231,76,60,0.3);border-radius:10px;padding:14px;background:rgba(231,76,60,0.06);margin-top:16px;"><div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-exempt"><i class="fas fa-ban"></i></span>EXEMPT TAGS</div></div>' +
+            '<div class="editor-section" style="border:1px solid var(--history-section-shadow-3);border-radius:10px;padding:14px;background:var(--media-hunt-instance-editor-color-9);margin-top:16px;"><div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-exempt"><i class="fas fa-ban"></i></span>EXEMPT TAGS</div></div>' +
             '<p class="editor-help-text" style="margin-bottom:12px;">Items with any of these tags are skipped for missing and upgrade searches.</p>' +
             '<div class="editor-field-group"><div class="editor-setting-item"><label>Add exempt tag</label><div style="display:flex;gap:8px;align-items:center;"><input type="text" id="th-editor-exempt-tag-input" placeholder="Type a tag..." style="flex:1;" maxlength="50"><button type="button" class="btn-card" id="th-editor-exempt-tag-add" style="padding:8px 14px;white-space:nowrap;">Add</button></div></div>' +
             '<div id="th-editor-exempt-tags-list" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;min-height:24px;">' + exemptTagsHtml + '</div></div></div>' +
             // DEBUG MANAGER
-            '<div class="editor-section" style="border:2px solid rgba(239,68,68,0.4);background:rgba(239,68,68,0.06);">' +
+            '<div class="editor-section" style="border:2px solid var(--backup-restore-border-5);background:var(--backup-restore-bg-2);">' +
             '<div class="editor-section-title"><div class="section-title-text"><span class="section-title-icon accent-exempt"><i class="fas fa-bug"></i></span>DEBUG MANAGER</div></div>' +
-            '<p class="editor-help-text" style="margin-bottom:16px;">Dangerous operations for troubleshooting. These are <strong style="color:#f87171;">irreversible</strong>.</p>' +
-            '<div class="editor-field-group" style="border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:16px;background:rgba(239,68,68,0.04);">' +
+            '<p class="editor-help-text" style="margin-bottom:16px;">Dangerous operations for troubleshooting. These are <strong style="color:var(--ui-danger-soft);">irreversible</strong>.</p>' +
+            '<div class="editor-field-group" style="border:1px solid var(--ui-danger-tint);border-radius:8px;padding:16px;background:var(--backup-restore-bg-2);">' +
             '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">' +
-            '<div style="flex:1;min-width:200px;"><strong style="color:#f1f5f9;font-size:0.95rem;">Reset TV Collection</strong>' +
+            '<div style="flex:1;min-width:200px;"><strong style="color:var(--ui-text-strong);font-size:0.95rem;">Reset TV Collection</strong>' +
             '<p class="editor-help-text" style="margin-top:4px;">Permanently deletes all TV series from this instance\'s collection.</p></div>' +
-            '<button type="button" class="btn-card delete" id="th-editor-reset-collection" style="white-space:nowrap;background:#dc2626;color:white;border:1px solid #dc2626;padding:10px 20px;border-radius:8px;font-weight:600;cursor:pointer;"><i class="fas fa-trash-alt" style="margin-right:6px;"></i>Reset Library</button>' +
+            '<button type="button" class="btn-card delete" id="th-editor-reset-collection" style="white-space:nowrap;background:var(--core-color-4);color:white;border:1px solid var(--core-color-4);padding:10px 20px;border-radius:8px;font-weight:600;cursor:pointer;"><i class="fas fa-trash-alt" style="margin-right:6px;"></i>Reset Library</button>' +
             '</div></div></div>' +
             '</div>';
     }
@@ -859,7 +859,7 @@
             var chip = document.createElement('span');
             chip.className = 'exempt-tag-chip';
             chip.setAttribute('data-tag', tag);
-            chip.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:4px 8px;background:#dc2626;color:#fff;border-radius:6px;font-size:0.875rem;';
+            chip.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:4px 8px;background:var(--core-color-4);color:var(--button-primary-text);border-radius:6px;font-size:0.875rem;';
             chip.innerHTML = '<span class="exempt-tag-remove" style="cursor:pointer;">&times;</span><span>' + escapeHtml(tag) + '</span>';
             list.appendChild(chip);
             input.value = '';
@@ -997,7 +997,7 @@
         loadInstanceList: function () {
             var grid = document.getElementById('tv-hunt-settings-instances-grid');
             if (!grid) return;
-            grid.innerHTML = '<div style="color: #94a3b8;">Loading...</div>';
+            grid.innerHTML = '<div style="color: var(--ui-text-muted);">Loading...</div>';
             var url = api('./api/tv-hunt/instances') + '?t=' + (Date.now ? Date.now() : new Date().getTime());
             fetch(url, { cache: 'no-store', credentials: 'same-origin' })
                 .then(function (r) {
@@ -1015,7 +1015,7 @@
                 })
                 .catch(function () {
                     var errDiv = document.createElement('div');
-                    errDiv.style.cssText = 'color: #f87171; margin-bottom: 12px;';
+                    errDiv.style.cssText = 'color: var(--ui-danger-soft); margin-bottom: 12px;';
                     errDiv.textContent = 'Failed to load instances. You can still add a new TV instance below.';
                     grid.innerHTML = '';
                     grid.appendChild(errDiv);

@@ -61,7 +61,7 @@
                     var addCard = '<div class="add-instance-card add-root-folder-card" id="tv-hunt-root-folders-add-card" data-app-type="tv-hunt-root-folder">' +
                         '<div class="add-icon"><i class="fas fa-plus-circle"></i></div>' +
                         '<div class="add-text">Add Root Folder</div></div>';
-                    gridEl.innerHTML = '<p style="color: #ef4444; margin: 0 0 12px 0;">Failed to load TV Hunt root folders.</p>' + addCard;
+                    gridEl.innerHTML = '<p style="color: var(--ui-danger); margin: 0 0 12px 0;">Failed to load TV Hunt root folders.</p>' + addCard;
                     window.TVHuntRootFolders._bindAddCard();
                 });
         },
@@ -377,14 +377,14 @@
                 var parent = path.replace(/\/+$/, '').split('/').slice(0, -1).join('/') || '/';
                 upBtn.disabled = (parent === path || path === '/' || path === '');
             }
-            listEl.innerHTML = '<div style="padding: 16px; color: #94a3b8;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+            listEl.innerHTML = '<div style="padding: 16px; color: var(--ui-text-muted);"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
             fetch('./api/tv-hunt/root-folders/browse?path=' + encodeURIComponent(path))
                 .then(function(r) { return r.json(); })
                 .then(function(data) {
                     var dirs = (data && data.directories) ? data.directories : [];
                     var err = data && data.error;
                     if (err) {
-                        listEl.innerHTML = '<div style="padding: 16px; color: #f87171;">' + (String(err).replace(/</g, '&lt;')) + '</div>';
+                        listEl.innerHTML = '<div style="padding: 16px; color: var(--ui-danger-soft);">' + (String(err).replace(/</g, '&lt;')) + '</div>';
                         return;
                     }
                     if (pathInput) pathInput.value = data.path || path;
@@ -410,7 +410,7 @@
                             '<button type="button" class="root-folders-browse-item-btn" data-action="delete" title="Delete"><i class="fas fa-trash"></i></button>' +
                             '</span></div>';
                     }
-                    listEl.innerHTML = html || '<div style="padding: 16px; color: #64748b;">No subdirectories</div>';
+                    listEl.innerHTML = html || '<div style="padding: 16px; color: var(--ui-text-dim);">No subdirectories</div>';
                     listEl.querySelectorAll('.root-folders-browse-item').forEach(function(el) {
                         var main = el.querySelector('.root-folders-browse-item-main');
                         if (main) {
@@ -432,7 +432,7 @@
                     });
                 })
                 .catch(function() {
-                    listEl.innerHTML = '<div style="padding: 16px; color: #f87171;">Failed to load</div>';
+                    listEl.innerHTML = '<div style="padding: 16px; color: var(--ui-danger-soft);">Failed to load</div>';
                 });
         },
 

@@ -75,7 +75,7 @@
         return '<div class="editor-grid">' +
             '<div class="editor-section">' +
             '<div class="editor-section-title">General Settings</div>' +
-            '<p class="editor-help-text" style="margin-bottom: 12px; color: #94a3b8;">These options apply only to TV Hunt. Movie Hunt does not use these settings.</p>' +
+            '<p class="editor-help-text" style="margin-bottom: 12px; color: var(--ui-text-muted);">These options apply only to TV Hunt. Movie Hunt does not use these settings.</p>' +
             '<div class="editor-field-group">' +
             '<div class="editor-setting-item flex-row">' +
             '<label for="tv-mgmt-ignore-non-season">Exclude Specials from Collection Status</label>' +
@@ -157,11 +157,11 @@
             '<p class="editor-help-text">How often to check for new releases (15\u201360 minutes)</p></div>' +
             '<div class="editor-field-group">' +
             '<label>Last Sync</label>' +
-            '<div id="tv-mgmt-rss-last-sync" class="editor-help-text" style="color: #94a3b8; padding: 6px 0;">Loading\u2026</div>' +
+            '<div id="tv-mgmt-rss-last-sync" class="editor-help-text" style="color: var(--ui-text-muted); padding: 6px 0;">Loading\u2026</div>' +
             '</div>' +
             '<div class="editor-field-group">' +
             '<label>Next Sync</label>' +
-            '<div id="tv-mgmt-rss-next-sync" class="editor-help-text" style="color: #94a3b8; padding: 6px 0;">Loading\u2026</div>' +
+            '<div id="tv-mgmt-rss-next-sync" class="editor-help-text" style="color: var(--ui-text-muted); padding: 6px 0;">Loading\u2026</div>' +
             '</div>' +
             '</div>' +
             '<div class="editor-section reset-library-section">' +

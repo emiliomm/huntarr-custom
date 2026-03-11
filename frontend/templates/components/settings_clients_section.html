@@ -125,7 +125,7 @@
                 <div class="client-type-option-cards" id="client-type-option-cards">
                     <div class="client-type-option" data-client-type="nzbhunt" id="client-type-option-nzbhunt">
                         <div class="client-type-option-icon"
-                            style="background: rgba(16, 185, 129, 0.15); color: #10b981;"><i class="fas fa-bolt"></i>
+                            style="background: var(--client-editor-color-1); color: var(--ui-success);"><i class="fas fa-bolt"></i>
                         </div>
                         <div class="client-type-option-body">
                             <div class="client-type-option-name">NZB Hunt <span
@@ -137,7 +137,7 @@
                     </div>
                     <div class="client-type-option" data-client-type="torhunt" id="client-type-option-torhunt">
                         <div class="client-type-option-icon"
-                            style="background: rgba(168, 85, 247, 0.15); color: #a855f7;"><i class="fas fa-magnet"></i>
+                            style="background: var(--client-editor-color-3); color: var(--client-editor-color-5);"><i class="fas fa-magnet"></i>
                         </div>
                         <div class="client-type-option-body">
                             <div class="client-type-option-name">Tor Hunt <span
@@ -165,16 +165,16 @@
         padding: 64px 24px;
         width: 100%;
         box-sizing: border-box;
-        background: rgba(15, 23, 42, 0.4);
-        border: 1px solid rgba(148, 163, 184, 0.08);
+        background: var(--ui-surface-overlay);
+        border: 1px solid var(--ui-border-faint);
         border-radius: 12px;
         margin: 0 0 20px 0;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 16px var(--glass-shadow);
     }
 
     #settingsClientsSection .settings-no-instances i.fa-cube {
         font-size: 3rem;
-        color: #334155;
+        color: var(--ui-slate-700);
         margin-bottom: 16px;
         display: block;
     }
@@ -182,13 +182,13 @@
     #settingsClientsSection .settings-no-instances .no-instances-title {
         font-size: 1.2rem;
         font-weight: 600;
-        color: #f1f5f9;
+        color: var(--ui-text-strong);
         margin: 0 0 8px 0;
     }
 
     #settingsClientsSection .settings-no-instances .no-instances-desc {
         font-size: 0.95rem;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         line-height: 1.6;
         margin: 0 auto 24px auto;
         max-width: 400px;
@@ -198,9 +198,9 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: rgba(99, 102, 241, 0.2);
-        border: 1px solid rgba(99, 102, 241, 0.4);
-        color: #818cf8;
+        background: var(--ui-accent-bg-soft);
+        border: 1px solid var(--ui-accent-border);
+        color: var(--ui-accent-soft);
         padding: 10px 20px;
         border-radius: 8px;
         text-decoration: none;
@@ -209,8 +209,8 @@
     }
 
     #settingsClientsSection .settings-no-instances .no-instances-action-btn:hover {
-        background: rgba(99, 102, 241, 0.3);
-        border-color: rgba(99, 102, 241, 0.5);
+        background: var(--ui-accent-ring);
+        border-color: var(--ui-accent-strong);
     }
 
     #settingsClientsSection {
@@ -234,8 +234,8 @@
     }
 
     .client-settings-group {
-        background: rgba(15, 23, 42, 0.4);
-        border: 1px solid rgba(148, 163, 184, 0.08);
+        background: var(--ui-surface-overlay);
+        border: 1px solid var(--ui-border-faint);
         border-radius: 12px;
         padding: 24px;
         margin: 12px 0 20px 0;
@@ -246,14 +246,14 @@
         padding: 0 0 12px 0;
         font-size: 1.1rem;
         font-weight: 600;
-        color: #f1f5f9;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        color: var(--ui-text-strong);
+        border-bottom: 1px solid var(--ui-border-tint);
         background: none;
         box-shadow: none;
     }
 
     .client-settings-help {
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         font-size: 0.95rem;
         line-height: 1.6;
         margin: 0 0 20px 0;
@@ -275,8 +275,8 @@
         align-items: flex-start;
         gap: 14px;
         padding: 16px 18px;
-        background: rgba(15, 23, 42, 0.5);
-        border: 1px solid rgba(148, 163, 184, 0.12);
+        background: var(--shadow-lg);
+        border: 1px solid var(--ui-border-tint);
         border-radius: 10px;
         flex: 1 1 0;
         min-width: 240px;
@@ -284,16 +284,16 @@
     }
 
     .client-rec-card.client-rec-recommended {
-        border-color: rgba(16, 185, 129, 0.35);
-        background: rgba(16, 185, 129, 0.06);
+        border-color: var(--client-editor-color-2);
+        background: var(--settings-clients-section-bg-1);
     }
 
     .client-rec-badge {
         position: absolute;
         top: 10px;
         right: 12px;
-        background: rgba(16, 185, 129, 0.2);
-        color: #6ee7b7;
+        background: var(--home-bg-30);
+        color: var(--home-text-13);
         font-size: 0.7rem;
         font-weight: 700;
         padding: 3px 8px;
@@ -311,13 +311,13 @@
         justify-content: center;
         flex-shrink: 0;
         font-size: 1.1rem;
-        background: rgba(99, 102, 241, 0.15);
-        color: #818cf8;
+        background: var(--ui-accent-bg-strong);
+        color: var(--ui-accent-soft);
     }
 
     .client-rec-recommended .client-rec-icon {
-        background: rgba(16, 185, 129, 0.15);
-        color: #6ee7b7;
+        background: var(--client-editor-color-1);
+        color: var(--home-text-13);
     }
 
     .client-rec-body {
@@ -327,7 +327,7 @@
 
     .client-rec-name {
         font-weight: 600;
-        color: #e2e8f0;
+        color: var(--text-secondary);
         font-size: 0.95rem;
         margin-bottom: 4px;
     }
@@ -335,8 +335,8 @@
     .client-rec-tag {
         font-size: 0.75rem;
         font-weight: 500;
-        color: #6ee7b7;
-        background: rgba(16, 185, 129, 0.15);
+        color: var(--home-text-13);
+        background: var(--client-editor-color-1);
         padding: 1px 6px;
         border-radius: 4px;
         vertical-align: middle;
@@ -344,7 +344,7 @@
 
     .client-rec-desc {
         font-size: 0.85rem;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         line-height: 1.5;
     }
 
@@ -367,31 +367,31 @@
     }
 
     .remote-mappings-notice-ok {
-        background: rgba(16, 185, 129, 0.08);
-        border: 1px solid rgba(16, 185, 129, 0.25);
-        color: #d1fae5;
+        background: var(--client-editor-color-1);
+        border: 1px solid var(--home-bg-30);
+        color: var(--settings-clients-section-text-3);
     }
 
     .remote-mappings-notice-ok i {
-        color: rgba(16, 185, 129, 0.7);
+        color: var(--settings-clients-section-text-4);
     }
 
     .remote-mappings-notice-ok strong {
-        color: #6ee7b7;
+        color: var(--home-text-13);
     }
 
     .remote-mappings-notice-warn {
-        background: rgba(180, 150, 80, 0.08);
-        border: 1px solid rgba(180, 150, 80, 0.3);
-        color: #e2d9c8;
+        background: var(--home-bg-31);
+        border: 1px solid var(--settings-clients-section-border-4);
+        color: var(--settings-clients-section-text-5);
     }
 
     .remote-mappings-notice-warn i {
-        color: rgba(180, 150, 80, 0.8);
+        color: var(--home-text-14);
     }
 
     .remote-mappings-notice-warn strong {
-        color: #d4c4a8;
+        color: var(--home-text-15);
     }
 
     /* Client type selection modal (like request/movie modal) */
@@ -425,7 +425,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
+        background: var(--ui-overlay-backdrop);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         z-index: 1000;
@@ -434,19 +434,19 @@
     .client-type-modal-content {
         position: relative;
         z-index: 1001;
-        background: rgba(15, 23, 42, 0.98);
-        border: 2px solid rgba(99, 102, 241, 0.4);
+        background: var(--ui-surface-opaque);
+        border: 2px solid var(--ui-accent-border);
         border-radius: 12px;
         max-width: 480px;
         width: 90%;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 25px 50px var(--ui-overlay-backdrop);
         overflow: hidden;
     }
 
     .client-type-modal-header {
         position: relative;
         min-height: 120px;
-        background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #0f172a 100%);
+        background: linear-gradient(135deg, var(--ui-slate-800) 0%, var(--ui-slate-700) 50%, var(--home-section-bg-77) 100%);
         background-size: cover;
         background-position: center;
         padding: 20px 24px 24px;
@@ -459,7 +459,7 @@
         left: 0;
         right: 0;
         height: 80px;
-        background: linear-gradient(to bottom, transparent, rgba(15, 23, 42, 0.98));
+        background: linear-gradient(to bottom, transparent, var(--ui-surface-opaque));
     }
 
     .client-type-modal-close {
@@ -469,8 +469,8 @@
         width: 36px;
         height: 36px;
         border: none;
-        background: rgba(255, 255, 255, 0.1);
-        color: #e2e8f0;
+        background: var(--ui-alpha-white);
+        color: var(--text-secondary);
         border-radius: 8px;
         cursor: pointer;
         display: flex;
@@ -480,7 +480,7 @@
     }
 
     .client-type-modal-close:hover {
-        background: rgba(255, 255, 255, 0.2);
+        background: var(--apps-section-shadow-1);
     }
 
     .client-type-modal-header-overlay {
@@ -492,13 +492,13 @@
     .client-type-modal-title {
         font-size: 18px;
         font-weight: 600;
-        color: rgba(255, 255, 255, 0.9);
+        color: var(--apps-section-text-3);
         margin: 0 0 4px 0;
     }
 
     .client-type-modal-subtitle {
         font-size: 13px;
-        color: rgba(255, 255, 255, 0.6);
+        color: var(--import-lists-text-1);
         margin: 0;
     }
 
@@ -519,8 +519,8 @@
         align-items: center;
         gap: 14px;
         padding: 14px 16px;
-        background: rgba(15, 23, 42, 0.5);
-        border: 2px solid rgba(148, 163, 184, 0.1);
+        background: var(--shadow-lg);
+        border: 2px solid var(--ui-border-subtle);
         border-radius: 10px;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -528,13 +528,13 @@
     }
 
     .client-type-option:hover {
-        background: rgba(30, 41, 59, 0.6);
-        border-color: rgba(148, 163, 184, 0.25);
+        background: var(--ui-surface-slate);
+        border-color: var(--home-bg-20);
     }
 
     .client-type-option.selected {
-        border-color: rgba(99, 102, 241, 0.6);
-        background: rgba(99, 102, 241, 0.08);
+        border-color: var(--apps-section-border-3);
+        background: var(--ui-accent-bg);
     }
 
     .client-type-option.client-type-option-disabled {
@@ -552,13 +552,13 @@
         justify-content: center;
         flex-shrink: 0;
         font-size: 1rem;
-        background: rgba(99, 102, 241, 0.12);
-        color: #818cf8;
+        background: var(--ui-accent-tint);
+        color: var(--ui-accent-soft);
     }
 
     .client-type-option-icon-recommended {
-        background: rgba(16, 185, 129, 0.12);
-        color: #6ee7b7;
+        background: var(--client-editor-color-1);
+        color: var(--home-text-13);
     }
 
     .client-type-option-body {
@@ -568,7 +568,7 @@
 
     .client-type-option-name {
         font-weight: 600;
-        color: #e2e8f0;
+        color: var(--text-secondary);
         font-size: 0.95rem;
         margin-bottom: 2px;
     }
@@ -576,8 +576,8 @@
     .client-type-option-tag {
         font-size: 0.7rem;
         font-weight: 500;
-        color: #6ee7b7;
-        background: rgba(16, 185, 129, 0.15);
+        color: var(--home-text-13);
+        background: var(--client-editor-color-1);
         padding: 1px 6px;
         border-radius: 4px;
         vertical-align: middle;
@@ -585,7 +585,7 @@
 
     .client-type-option-desc {
         font-size: 0.82rem;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         line-height: 1.4;
     }
 
@@ -597,8 +597,8 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.4px;
-        color: #6ee7b7;
-        background: rgba(16, 185, 129, 0.15);
+        color: var(--home-text-13);
+        background: var(--client-editor-color-1);
         padding: 2px 7px;
         border-radius: 4px;
     }
@@ -608,12 +608,12 @@
         width: 24px;
         text-align: center;
         font-size: 1.1rem;
-        color: rgba(99, 102, 241, 0);
+        color: var(--components-shadow-2);
         transition: color 0.2s ease;
     }
 
     .client-type-option.selected .client-type-option-check {
-        color: #818cf8;
+        color: var(--ui-accent-soft);
     }
 
     .client-type-modal-actions {
@@ -624,24 +624,24 @@
 
     .client-type-modal-cancel {
         padding: 10px 20px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(148, 163, 184, 0.3);
+        background: var(--ui-alpha-white);
+        border: 1px solid var(--ui-border-tint);
         border-radius: 8px;
-        color: #e2e8f0;
+        color: var(--text-secondary);
         font-size: 14px;
         cursor: pointer;
     }
 
     .client-type-modal-cancel:hover {
-        background: rgba(255, 255, 255, 0.15);
+        background: var(--confirm-modal-bg-2);
     }
 
     .client-type-modal-continue {
         padding: 10px 20px;
-        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-        border: 1px solid rgba(99, 102, 241, 0.5);
+        background: linear-gradient(135deg, var(--app-sonarr-color) 0%, var(--ui-indigo-600) 100%);
+        border: 1px solid var(--ui-accent-strong);
         border-radius: 8px;
-        color: #fff;
+        color: var(--button-primary-text);
         font-size: 14px;
         font-weight: 600;
         cursor: pointer;
@@ -658,8 +658,8 @@
 
     /* Remote Path Mappings Styles */
     .remote-mappings-settings-group {
-        background: rgba(15, 23, 42, 0.4);
-        border: 1px solid rgba(148, 163, 184, 0.08);
+        background: var(--ui-surface-overlay);
+        border: 1px solid var(--ui-border-faint);
         border-radius: 12px;
         padding: 24px;
         margin: 12px 0 20px 0;
@@ -670,26 +670,26 @@
         padding: 0 0 10px 0;
         font-size: 1.1rem;
         font-weight: 600;
-        color: #f1f5f9;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        color: var(--ui-text-strong);
+        border-bottom: 1px solid var(--ui-border-tint);
         background: none;
         box-shadow: none;
     }
 
     .remote-mappings-help {
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         font-size: 0.9rem;
         margin: 0 0 20px 0;
         line-height: 1.5;
     }
 
     .remote-mappings-wiki-link {
-        color: #38bdf8;
+        color: var(--indexer-hunt-text-2);
         text-decoration: underline;
     }
 
     .remote-mappings-wiki-link:hover {
-        color: #7dd3fc;
+        color: var(--settings-clients-section-text-12);
     }
 
     .remote-mappings-table-wrapper {
@@ -700,28 +700,28 @@
     .remote-mappings-table {
         width: 100%;
         border-collapse: collapse;
-        background: rgba(15, 23, 42, 0.4);
+        background: var(--ui-surface-overlay);
         border-radius: 8px;
         overflow: hidden;
     }
 
     .remote-mappings-table thead {
-        background: rgba(30, 41, 59, 0.8);
+        background: var(--ui-surface-slate);
     }
 
     .remote-mappings-table th {
         padding: 12px 15px;
         text-align: left;
         font-weight: 600;
-        color: #e2e8f0;
+        color: var(--text-secondary);
         font-size: 0.9rem;
-        border-bottom: 2px solid rgba(148, 163, 184, 0.2);
+        border-bottom: 2px solid var(--ui-border);
     }
 
     .remote-mappings-table td {
         padding: 12px 15px;
-        color: #cbd5e1;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        color: var(--ui-primary-border);
+        border-bottom: 1px solid var(--ui-border-subtle);
         font-family: monospace;
         font-size: 0.9rem;
     }
@@ -731,7 +731,7 @@
     }
 
     .remote-mappings-table tbody tr:hover {
-        background: rgba(148, 163, 184, 0.1);
+        background: var(--ui-border-subtle);
     }
 
     .remote-mappings-actions-col {
@@ -742,27 +742,27 @@
     .btn-edit-mapping {
         padding: 6px 12px;
         margin-left: 6px;
-        background: rgba(148, 163, 184, 0.1);
-        border: 1px solid rgba(148, 163, 184, 0.3);
+        background: var(--ui-border-subtle);
+        border: 1px solid var(--ui-border-tint);
         border-radius: 6px;
-        color: #e2e8f0;
+        color: var(--text-secondary);
         cursor: pointer;
         font-size: 0.85rem;
         transition: all 0.2s ease;
     }
 
     .btn-edit-mapping:hover {
-        background: rgba(99, 102, 241, 0.2);
-        border-color: rgba(99, 102, 241, 0.5);
-        color: #c7d2fe;
+        background: var(--ui-accent-bg-soft);
+        border-color: var(--ui-accent-strong);
+        color: var(--home-text-16);
     }
 
     .btn-add-remote-mapping {
         padding: 10px 20px;
-        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-        border: 1px solid rgba(99, 102, 241, 0.5);
+        background: linear-gradient(135deg, var(--app-sonarr-color) 0%, var(--ui-indigo-600) 100%);
+        border: 1px solid var(--ui-accent-strong);
         border-radius: 8px;
-        color: #fff;
+        color: var(--button-primary-text);
         font-size: 0.95rem;
         font-weight: 600;
         cursor: pointer;
@@ -808,7 +808,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
+        background: var(--ui-overlay-backdrop);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         z-index: 1000;
@@ -817,8 +817,8 @@
     .remote-mapping-edit-modal-content {
         position: relative;
         z-index: 1001;
-        background: rgba(15, 23, 42, 0.98);
-        border: 2px solid rgba(99, 102, 241, 0.4);
+        background: var(--ui-surface-opaque);
+        border: 2px solid var(--ui-accent-border);
         border-radius: 12px;
         max-width: 600px;
         width: 90%;
@@ -830,7 +830,7 @@
 
     .remote-mapping-edit-modal-header {
         padding: 20px 24px;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        border-bottom: 1px solid var(--ui-border);
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -840,15 +840,15 @@
         margin: 0;
         font-size: 1.25rem;
         font-weight: 600;
-        color: #f8fafc;
+        color: var(--text-primary);
     }
 
     .remote-mapping-edit-modal-close {
         width: 32px;
         height: 32px;
         border: none;
-        background: rgba(255, 255, 255, 0.1);
-        color: #e2e8f0;
+        background: var(--ui-alpha-white);
+        color: var(--text-secondary);
         border-radius: 6px;
         cursor: pointer;
         display: flex;
@@ -859,7 +859,7 @@
     }
 
     .remote-mapping-edit-modal-close:hover {
-        background: rgba(255, 255, 255, 0.2);
+        background: var(--apps-section-shadow-1);
     }
 
     .remote-mapping-edit-modal-body {
@@ -880,17 +880,17 @@
         display: block;
         font-size: 0.95rem;
         font-weight: 500;
-        color: #e2e8f0;
+        color: var(--text-secondary);
         margin-bottom: 8px;
     }
 
     .remote-mapping-select {
         width: 100%;
         padding: 10px 12px;
-        background: rgba(15, 23, 42, 0.8);
-        border: 1px solid #475569;
+        background: var(--ui-surface-solid);
+        border: 1px solid var(--ui-primary-surface);
         border-radius: 8px;
-        color: #e2e8f0;
+        color: var(--text-secondary);
         font-size: 0.95rem;
         cursor: pointer;
         appearance: none;
@@ -901,7 +901,7 @@
     }
 
     .remote-mapping-select:focus {
-        border-color: #6366f1;
+        border-color: var(--app-sonarr-color);
         outline: none;
     }
 
@@ -914,16 +914,16 @@
     .remote-mapping-path-input {
         flex: 1;
         padding: 10px 12px;
-        background: rgba(15, 23, 42, 0.8);
-        border: 1px solid #475569;
+        background: var(--ui-surface-solid);
+        border: 1px solid var(--ui-primary-surface);
         border-radius: 8px;
-        color: #e2e8f0;
+        color: var(--text-secondary);
         font-size: 0.95rem;
         font-family: monospace;
     }
 
     .remote-mapping-path-input:focus {
-        border-color: #6366f1;
+        border-color: var(--app-sonarr-color);
         outline: none;
     }
 
@@ -934,29 +934,29 @@
 
     .btn-remote-mapping-browse-folder {
         padding: 10px 16px;
-        background: rgba(148, 163, 184, 0.1);
-        border: 1px solid rgba(148, 163, 184, 0.3);
+        background: var(--ui-border-subtle);
+        border: 1px solid var(--ui-border-tint);
         border-radius: 8px;
-        color: #e2e8f0;
+        color: var(--text-secondary);
         cursor: pointer;
         transition: all 0.2s ease;
         white-space: nowrap;
     }
 
     .btn-remote-mapping-browse-folder:hover {
-        background: rgba(148, 163, 184, 0.2);
+        background: var(--ui-border);
     }
 
     .remote-mapping-help-text {
         margin: 6px 0 0 0;
         font-size: 0.85rem;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         line-height: 1.4;
     }
 
     .remote-mapping-edit-modal-footer {
         padding: 16px 24px;
-        border-top: 1px solid rgba(148, 163, 184, 0.2);
+        border-top: 1px solid var(--ui-border);
         display: flex;
         gap: 12px;
         justify-content: flex-end;
@@ -964,24 +964,24 @@
 
     .remote-mapping-modal-cancel {
         padding: 10px 20px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(148, 163, 184, 0.3);
+        background: var(--ui-alpha-white);
+        border: 1px solid var(--ui-border-tint);
         border-radius: 8px;
-        color: #e2e8f0;
+        color: var(--text-secondary);
         font-size: 0.95rem;
         cursor: pointer;
     }
 
     .remote-mapping-modal-cancel:hover {
-        background: rgba(255, 255, 255, 0.15);
+        background: var(--confirm-modal-bg-2);
     }
 
     .remote-mapping-modal-save {
         padding: 10px 20px;
-        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-        border: 1px solid rgba(99, 102, 241, 0.5);
+        background: linear-gradient(135deg, var(--app-sonarr-color) 0%, var(--ui-indigo-600) 100%);
+        border: 1px solid var(--ui-accent-strong);
         border-radius: 8px;
-        color: #fff;
+        color: var(--button-primary-text);
         font-size: 0.95rem;
         font-weight: 600;
         cursor: pointer;
@@ -996,10 +996,10 @@
 
     .remote-mapping-modal-delete {
         padding: 10px 20px;
-        background: rgba(239, 68, 68, 0.1);
-        border: 1px solid rgba(239, 68, 68, 0.3);
+        background: var(--indexer-hunt-bg-10);
+        border: 1px solid var(--ui-danger-bg-hover);
         border-radius: 8px;
-        color: #fca5a5;
+        color: var(--ui-danger-soft-300);
         font-size: 0.95rem;
         cursor: pointer;
         display: flex;
@@ -1008,8 +1008,8 @@
     }
 
     .remote-mapping-modal-delete:hover {
-        background: rgba(239, 68, 68, 0.2);
-        border-color: rgba(239, 68, 68, 0.5);
+        background: var(--ui-danger-tint);
+        border-color: var(--ui-danger-strong);
     }
 
     @media (max-width: 768px) {

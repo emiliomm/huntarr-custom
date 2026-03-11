@@ -47,27 +47,27 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(99, 102, 241, 0.15);
+    background: var(--ui-accent-bg-strong);
     border-radius: 3px;
     transition: background-color var(--transition-base);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(99, 102, 241, 0.3);
+    background: var(--ui-accent-ring);
 }
 
 /* Allow scrolling on main elements */
 body, html, .main-content, .section-wrapper {
     overflow: auto !important;
     scrollbar-width: thin !important;
-    scrollbar-color: rgba(99, 102, 241, 0.2) transparent;
+    scrollbar-color: var(--ui-accent-bg-soft) transparent;
 }
 
 /* Only allow scrollbars on specific elements */
 .single-scroll-container {
     scrollbar-width: thin !important;
     overflow-y: auto !important;
-    scrollbar-color: rgba(99, 102, 241, 0.15) transparent;
+    scrollbar-color: var(--ui-accent-bg-strong) transparent;
 }
 
 /* Hide scrollbars on all table elements */

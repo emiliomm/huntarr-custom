@@ -17,9 +17,9 @@
     .top-bar {
         height: 44px;
         background: linear-gradient(180deg,
-                rgba(16, 21, 32, 0.99) 0%,
-                rgba(12, 17, 28, 0.99) 50%,
-                rgba(14, 19, 30, 0.99) 100%);
+                var(--history-section-bg-27) 0%,
+                var(--history-section-bg-27) 50%,
+                var(--history-section-bg-27) 100%);
         display: flex;
         align-items: center;
         padding: 0 24px;
@@ -27,10 +27,10 @@
         z-index: 100;
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(99, 102, 241, 0.04);
+        border-bottom: 1px solid var(--ui-accent-tint);
         box-shadow:
-            0 1px 0 rgba(255, 255, 255, 0.02) inset,
-            0 2px 12px rgba(0, 0, 0, 0.2);
+            0 1px 0 var(--home-bg-12) inset,
+            0 2px 12px var(--ui-shadow);
     }
 
     /* ===== ACCENT LINE (static) ===== */
@@ -41,13 +41,13 @@
         right: 0;
         height: 2px;
         background: linear-gradient(90deg,
-                rgba(99, 102, 241, 0) 0%,
-                rgba(99, 102, 241, 0.4) 15%,
-                #6366f1 35%,
-                #818cf8 50%,
-                #6366f1 65%,
-                rgba(99, 102, 241, 0.4) 85%,
-                rgba(99, 102, 241, 0) 100%);
+                var(--components-shadow-2) 0%,
+                var(--ui-accent-border) 15%,
+                var(--app-sonarr-color) 35%,
+                var(--ui-accent-soft) 50%,
+                var(--app-sonarr-color) 65%,
+                var(--ui-accent-border) 85%,
+                var(--components-shadow-2) 100%);
         z-index: 10;
         opacity: 0.7;
     }
@@ -81,7 +81,7 @@
     .top-bar .page-title {
         font-size: 15px;
         font-weight: 600;
-        color: #e8ecf2;
+        color: var(--sidebar-text-1);
         letter-spacing: 0.3px;
         line-height: 1;
         margin: 0;
@@ -95,7 +95,7 @@
     }
 
     .top-bar .page-title .client-editor-title-app {
-        color: #f59e0b;
+        color: var(--ui-warning-500);
         font-weight: 700;
     }
 
@@ -118,8 +118,8 @@
         font-size: 12px;
         font-weight: 600;
         text-decoration: none;
-        border: 1px solid rgba(148, 163, 184, 0.08);
-        background: rgba(30, 41, 59, 0.4);
+        border: 1px solid var(--ui-border-faint);
+        background: var(--home-bg-2);
         transition: all 0.2s ease;
         cursor: pointer;
         position: relative;
@@ -128,8 +128,8 @@
     }
 
     .topbar-chip:hover {
-        border-color: rgba(148, 163, 184, 0.15);
-        background: rgba(30, 41, 59, 0.6);
+        border-color: var(--ui-border-soft);
+        background: var(--ui-surface-slate);
         text-decoration: none;
     }
 
@@ -146,26 +146,26 @@
 
     /* ===== STAR CHIP ===== */
     .star-chip {
-        color: #e2e8f0;
+        color: var(--text-secondary);
     }
 
     .star-chip .chip-icon {
-        color: #fbbf24;
-        filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.3));
+        color: var(--ui-warning-400);
+        filter: drop-shadow(0 0 3px var(--notifications-color-6));
     }
 
     .star-chip .chip-value {
-        color: #cbd5e1;
+        color: var(--ui-primary-border);
         font-weight: 600;
     }
 
     .star-chip:hover {
-        border-color: rgba(251, 191, 36, 0.15);
-        box-shadow: 0 0 12px rgba(251, 191, 36, 0.06);
+        border-color: var(--client-editor-color-6);
+        box-shadow: 0 0 12px var(--requestarr-discover-bg-62);
     }
 
     .star-chip:hover .chip-value {
-        color: #fbbf24;
+        color: var(--ui-warning-400);
     }
 
     /* ===== SPONSOR BUTTON ===== */
@@ -179,9 +179,9 @@
         font-size: 11px;
         font-weight: 600;
         text-decoration: none;
-        color: #cbd5e1;
-        background: rgba(30, 41, 59, 0.4);
-        border: 1px solid rgba(148, 163, 184, 0.08);
+        color: var(--ui-primary-border);
+        background: var(--home-bg-2);
+        border: 1px solid var(--ui-border-faint);
         transition: all 0.2s ease;
         white-space: nowrap;
         backdrop-filter: blur(8px);
@@ -190,36 +190,36 @@
 
     .topbar-sponsor-btn i {
         font-size: 10px;
-        color: #ec4899;
-        filter: drop-shadow(0 0 3px rgba(236, 72, 153, 0.3));
+        color: var(--home-bg-15);
+        filter: drop-shadow(0 0 3px var(--home-shadow-10));
     }
 
     .topbar-sponsor-btn:hover {
-        border-color: rgba(236, 72, 153, 0.15);
-        color: #f9a8d4;
-        box-shadow: 0 0 12px rgba(236, 72, 153, 0.06);
+        border-color: var(--home-shadow-4);
+        color: var(--topbar-text-5);
+        box-shadow: 0 0 12px var(--topbar-shadow-2);
         text-decoration: none;
     }
 
     /* ===== HUNTARROS CHIP ===== */
     .huntarros-chip .chip-icon {
-        color: #a78bfa;
-        filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.4));
+        color: var(--ui-accent-soft-300);
+        filter: drop-shadow(0 0 3px var(--mobile-color-7));
     }
 
     .huntarros-chip .chip-value {
         font-size: 11px;
         font-weight: 600;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
     }
 
     .huntarros-chip:hover {
-        border-color: rgba(139, 92, 246, 0.15);
-        box-shadow: 0 0 12px rgba(139, 92, 246, 0.06);
+        border-color: var(--about-section-bg-2);
+        box-shadow: 0 0 12px var(--topbar-shadow-3);
     }
 
     .huntarros-chip:hover .chip-value {
-        color: #c4b5fd;
+        color: var(--topbar-text-7);
     }
 
     /* ===== RESPONSIVE ===== */

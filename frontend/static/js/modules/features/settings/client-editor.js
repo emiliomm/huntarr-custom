@@ -54,7 +54,7 @@
             enabledSelect.addEventListener('change', function () {
                 const isEnabled = enabledSelect.value === 'true';
                 enableIcon.className = isEnabled ? 'fas fa-check-circle' : 'fas fa-minus-circle';
-                enableIcon.style.color = isEnabled ? '#10b981' : '#ef4444';
+                enableIcon.style.color = isEnabled ? 'var(--ui-success)' : 'var(--ui-danger)';
             });
         }
 
@@ -132,12 +132,12 @@
                     </div>
                     ${isNzbHunt ? `
                     <div class="editor-field-group">
-                        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 16px; margin-bottom: 12px;">
+                        <div style="background: var(--client-editor-color-1); border: 1px solid var(--client-editor-color-2); border-radius: 8px; padding: 16px; margin-bottom: 12px;">
                             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                                <i class="fas fa-bolt" style="color: #10b981; font-size: 1.2rem;"></i>
-                                <strong style="color: #10b981;">Built-in Download Client</strong>
+                                <i class="fas fa-bolt" style="color: var(--ui-success); font-size: 1.2rem;"></i>
+                                <strong style="color: var(--ui-success);">Built-in Download Client</strong>
                             </div>
-                            <p style="color: #94a3b8; margin: 0; font-size: 0.9rem; line-height: 1.5;">
+                            <p style="color: var(--ui-text-muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
                                 NZB Hunt is Huntarr's integrated usenet download client. No external host, port, or API keys needed &mdash; 
                                 it uses the usenet servers configured in <strong>NZB Hunt → Settings → Servers</strong>.
                             </p>
@@ -146,12 +146,12 @@
                     ` : ''}
                     ${isTorHunt ? `
                     <div class="editor-field-group">
-                        <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 8px; padding: 16px; margin-bottom: 12px;">
+                        <div style="background: var(--client-editor-color-3); border: 1px solid var(--client-editor-color-4); border-radius: 8px; padding: 16px; margin-bottom: 12px;">
                             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                                <i class="fas fa-magnet" style="color: #a855f7; font-size: 1.2rem;"></i>
-                                <strong style="color: #a855f7;">Built-in Torrent Client</strong>
+                                <i class="fas fa-magnet" style="color: var(--client-editor-color-5); font-size: 1.2rem;"></i>
+                                <strong style="color: var(--client-editor-color-5);">Built-in Torrent Client</strong>
                             </div>
-                            <p style="color: #94a3b8; margin: 0; font-size: 0.9rem; line-height: 1.5;">
+                            <p style="color: var(--ui-text-muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
                                 Tor Hunt is Huntarr's integrated torrent download client. No external software needed &mdash; 
                                 configure download settings in <strong>Tor Hunt → Settings</strong>.
                             </p>
@@ -160,12 +160,12 @@
                     ` : ''}
                     ${isQBit ? `
                     <div class="editor-field-group">
-                        <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 8px; padding: 16px; margin-bottom: 12px;">
+                        <div style="background: var(--ui-accent-bg-subtle); border: 1px solid var(--ui-accent-ring); border-radius: 8px; padding: 16px; margin-bottom: 12px;">
                             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                                <i class="fas fa-magnet" style="color: #818cf8; font-size: 1.2rem;"></i>
-                                <strong style="color: #818cf8;">External Torrent Client</strong>
+                                <i class="fas fa-magnet" style="color: var(--ui-accent-soft); font-size: 1.2rem;"></i>
+                                <strong style="color: var(--ui-accent-soft);">External Torrent Client</strong>
                             </div>
-                            <p style="color: #94a3b8; margin: 0; font-size: 0.9rem; line-height: 1.5;">
+                            <p style="color: var(--ui-text-muted); margin: 0; font-size: 0.9rem; line-height: 1.5;">
                                 Connects to your external qBittorrent instance via its Web API. Make sure the Web UI is enabled in qBittorrent settings.
                             </p>
                         </div>
@@ -175,7 +175,7 @@
                         <div class="editor-setting-item">
                             <label style="display: flex; align-items: center;">
                                 <span>Enable Status</span>
-                                <i id="client-enable-status-icon" class="fas ${enabled ? 'fa-check-circle' : 'fa-minus-circle'}" style="color: ${enabled ? '#10b981' : '#ef4444'}; font-size: 1.1rem; margin-left: 8px;"></i>
+                                <i id="client-enable-status-icon" class="fas ${enabled ? 'fa-check-circle' : 'fa-minus-circle'}" style="color: ${enabled ? 'var(--ui-success)' : 'var(--ui-danger)'}; font-size: 1.1rem; margin-left: 8px;"></i>
                             </label>
                             <select id="editor-client-enabled">
                                 <option value="true" ${enabled ? 'selected' : ''}>Enabled</option>
@@ -392,7 +392,7 @@
 
         // Check if minimum requirements are met
         if (!host || !port) {
-            container.innerHTML = '<span class="connection-status" style="background: rgba(251, 191, 36, 0.1); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.2);"><i class="fas fa-exclamation-triangle"></i><span>Enter host and port</span></span>';
+            container.innerHTML = '<span class="connection-status" style="background: var(--client-editor-color-6); color: var(--ui-warning-400); border: 1px solid var(--client-editor-color-8);"><i class="fas fa-exclamation-triangle"></i><span>Enter host and port</span></span>';
             return;
         }
 

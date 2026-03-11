@@ -167,11 +167,11 @@
                         if (results.length > 0) {
                             results.forEach(function (item) { grid.appendChild(window.MediaHunt.createCard(item)); });
                         } else {
-                            grid.innerHTML = '<p style="color: #888; text-align: center; padding: 60px; width: 100%;">No movies found</p>';
+                            grid.innerHTML = '<p style="color: var(--ui-brand); text-align: center; padding: 60px; width: 100%;">No movies found</p>';
                         }
                     })
                     .catch(function () {
-                        grid.innerHTML = '<p style="color: #ef4444; text-align: center; padding: 60px; width: 100%;">Search failed</p>';
+                        grid.innerHTML = '<p style="color: var(--ui-danger); text-align: center; padding: 60px; width: 100%;">Search failed</p>';
                     });
             } else {
                 fetch('./api/tv-hunt/search?q=' + encodeURIComponent(query))
@@ -182,11 +182,11 @@
                         if (results.length > 0) {
                             results.forEach(function (show) { grid.appendChild(window.MediaHunt.createShowCard(show)); });
                         } else {
-                            grid.innerHTML = '<p style="color: #888; text-align: center; padding: 60px; width: 100%;">No results found.</p>';
+                            grid.innerHTML = '<p style="color: var(--ui-brand); text-align: center; padding: 60px; width: 100%;">No results found.</p>';
                         }
                     })
                     .catch(function () {
-                        grid.innerHTML = '<p style="color: #ef4444; text-align: center; padding: 60px; width: 100%;">Search failed</p>';
+                        grid.innerHTML = '<p style="color: var(--ui-danger); text-align: center; padding: 60px; width: 100%;">Search failed</p>';
                     });
             }
         },
@@ -261,12 +261,12 @@
                     if (results.length > 0) {
                         results.forEach(function (item) { grid.appendChild(window.MediaHunt.createCard(item)); });
                     } else if (page === 1) {
-                        grid.innerHTML = '<p style="color: #888; text-align: center; width: 100%; padding: 40px;">No movies found</p>';
+                        grid.innerHTML = '<p style="color: var(--ui-brand); text-align: center; width: 100%; padding: 40px;">No movies found</p>';
                     }
                     window.MediaHunt.hasMore = data.has_more !== false && results.length >= 20;
                 })
                 .catch(function () {
-                    if (page === 1) grid.innerHTML = '<p style="color: #ef4444; text-align: center; width: 100%; padding: 40px;">Failed to load movies</p>';
+                    if (page === 1) grid.innerHTML = '<p style="color: var(--ui-danger); text-align: center; width: 100%; padding: 40px;">Failed to load movies</p>';
                     window.MediaHunt.hasMore = false;
                 })
                 .finally(function () {
@@ -302,7 +302,7 @@
                     self.loading = false;
                 })
                 .catch(function () {
-                    if (self.page === 1) grid.innerHTML = '<p style="color: #ef4444; text-align: center; width: 100%; padding: 40px;">Failed to load TV shows.</p>';
+                    if (self.page === 1) grid.innerHTML = '<p style="color: var(--ui-danger); text-align: center; width: 100%; padding: 40px;">Failed to load TV shows.</p>';
                     self.loading = false;
                 });
         },
@@ -503,7 +503,7 @@
                 '<img src="' + posterUrl + '" alt="' + (typeof HuntarrUtils !== 'undefined' ? HuntarrUtils.escapeHtml(title) : title.replace(/</g, '&lt;').replace(/>/g, '&gt;')) + '" loading="lazy">' +
                 '<div class="media-overlay"><button class="add-to-collection-btn" title="Add to Collection"><i class="fas fa-plus"></i></button></div></div>' +
                 '<div class="media-info"><div class="media-title">' + (typeof HuntarrUtils !== 'undefined' ? HuntarrUtils.escapeHtml(title) : title.replace(/</g, '&lt;').replace(/>/g, '&gt;')) + '</div>' +
-                '<div class="media-year">' + (year || '') + (rating ? ' &middot; <i class="fas fa-star" style="color:#facc15;font-size:0.8em;"></i> ' + rating : '') + '</div></div>';
+                '<div class="media-year">' + (year || '') + (rating ? ' &middot; <i class="fas fa-star" style="color:var(--media-hunt-color-3);font-size:0.8em;"></i> ' + rating : '') + '</div></div>';
 
             const addBtn = card.querySelector('.add-to-collection-btn');
             if (addBtn) {

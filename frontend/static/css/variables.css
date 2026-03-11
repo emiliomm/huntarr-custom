@@ -5,79 +5,81 @@
 
 :root {
     /* ── Background Scale ─────────────────────────────────────── */
-    --bg-primary: #202124;
+    --bg-primary: rgb(32,33,36);
     /* Google Dark Material  */
-    --bg-secondary: #292a2d;
+    --bg-secondary: rgb(41,42,45);
     /* Lighter dark gray     */
-    --bg-tertiary: #303134;
+    --bg-tertiary: rgb(48,49,52);
     /* Elevated dark gray    */
-    --bg-hover: #3c4043;
+    --bg-hover: rgb(60,64,67);
     /* Dark hover state      */
 
     /* ── Text Scale ───────────────────────────────────────────── */
-    --text-primary: #f8fafc;
+    --text-primary: rgb(248,250,252);
     /* slate-50   */
-    --text-secondary: #e2e8f0;
+    --text-secondary: rgb(226,232,240);
     /* slate-200  */
-    --text-muted: #9aa0a6;
+    --text-muted: rgb(154,160,166);
     /* Google gray-500  */
-    --text-dim: #80868b;
+    --text-dim: rgb(128,134,139);
     /* Google gray-600  */
 
     /* ── Accent ───────────────────────────────────────────────── */
-    --accent-color: #4285F4;
+    --accent-color: rgb(66,133,244);
     /* Google Blue */
-    --accent-hover: #8ab4f8;
+    --accent-hover: rgb(138,180,248);
     /* Google Blue Light */
-    --accent-secondary: #8ab4f8;
+    --accent-secondary: rgb(138,180,248);
     /* Google Blue Light */
-    --accent-glow: rgba(66, 133, 244, 0.35);
+    --accent-glow: rgba(66,133,244,0.35);
+    --accent-color-dark: rgb(52,110,210);
 
     /* ── Semantic Status ──────────────────────────────────────── */
-    --success-color: #34A853;
+    --success-color: rgb(52,168,83);
     /* Google Green */
-    --warning-color: #FBBC04;
+    --warning-color: rgb(251,188,4);
     /* Google Yellow */
-    --error-color: #EA4335;
+    --error-color: rgb(234,67,53);
     /* Google Red */
-    --info-color: #4285F4;
+    --info-color: rgb(66,133,244);
     /* Google Blue */
-    --debug-color: #80868b;
+    --debug-color: rgb(128,134,139);
     /* dim text */
 
+    --delete-color: rgb(234,67,53);
+    --delete-color-dark: rgb(200,50,40);
+
     /* ── Borders ──────────────────────────────────────────────── */
-    --border-color: rgba(255, 255, 255, 0.12);
-    --border-color-light: rgba(66, 133, 244, 0.1);
+    --border-color-light: rgba(66,133,244,0.1);
 
     /* ── Component Surfaces ───────────────────────────────────── */
-    --sidebar-bg: rgba(32, 33, 36, 0.98);
+    --sidebar-bg: rgba(32,33,36,1);
     /* bg-primary */
-    --sidebar-text: #e2e8f0;
-    --sidebar-item-hover: rgba(66, 133, 244, 0.08);
-    --sidebar-item-active: #4285F4;
-    --topbar-bg: #292a2d;
+    --sidebar-text: rgb(226,232,240);
+    --sidebar-item-hover: rgba(66,133,244,0.1);
+    --sidebar-item-active: rgb(66,133,244);
+    --topbar-bg: rgb(41,42,45);
     /* bg-secondary */
-    --card-bg: rgba(41, 42, 45, 0.65);
+    --card-bg: rgba(41,42,45,0.65);
     /* bg-secondary alpha */
-    --switch-bg: #3c4043;
-    --switch-active: #4285F4;
+    --switch-bg: rgb(60,64,67);
+    --switch-active: rgb(66,133,244);
 
     /* ── Buttons ──────────────────────────────────────────────── */
-    --button-primary-bg: #4285F4;
-    --button-primary-text: #ffffff;
-    --button-primary-hover: #8ab4f8;
-    --button-danger-bg: #EA4335;
-    --button-danger-hover: #f28b82;
-    --button-success-bg: #34A853;
-    --button-success-hover: #81c995;
+    --button-primary-bg: rgb(66,133,244);
+    --button-primary-text: rgb(255,255,255);
+    --button-primary-hover: rgb(138,180,248);
+    --button-danger-bg: rgb(234,67,53);
+    --button-danger-hover: rgb(242,139,130);
+    --button-success-bg: rgb(52,168,83);
+    --button-success-hover: rgb(129,201,149);
 
     /* ── Status ───────────────────────────────────────────────── */
-    --status-connected: #34A853;
-    --status-not-connected: #EA4335;
+    --status-connected: rgb(52,168,83);
+    --status-not-connected: rgb(234,67,53);
 
     /* ── Logs ─────────────────────────────────────────────────── */
-    --log-bg: #292a2d;
-    --log-border: rgba(255, 255, 255, 0.12);
+    --log-bg: rgb(41,42,45);
 
     /* ── Page Layout ─────────────────────────────────────────── */
     --page-gap: 30px;
@@ -85,20 +87,80 @@
     --page-gap-mobile: 15px;
 
     /* ── Glass Card Surface ──────────────────────────────────── */
-    --glass-bg: rgba(41, 42, 45, 0.65);
-    --glass-border: rgba(66, 133, 244, 0.08);
+    --glass-bg: rgba(41,42,45,0.65);
+    --glass-border: rgba(66,133,244,0.1);
     --glass-blur: 12px;
-    --glass-shadow: 0 2px 16px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(66, 133, 244, 0.04);
+    --glass-shadow: 0 2px 16px rgba(0,0,0,0.15), 0 0 0 1px rgba(66,133,244,0.05);
 
     /* ── Form Inputs ─────────────────────────────────────────── */
-    --input-bg: rgba(32, 33, 36, 0.6);
-    --input-border: rgba(255, 255, 255, 0.12);
-    --input-focus-border: rgba(66, 133, 244, 0.5);
-    --input-focus-glow: 0 0 0 2px rgba(66, 133, 244, 0.08);
-    --input-text: #e2e8f0;
-    --input-placeholder: #80868b;
+    --input-bg: rgba(32,33,36,0.6);
+    --input-focus-border: rgba(66,133,244,0.5);
+    --input-focus-glow: 0 0 0 2px rgba(66,133,244,0.1);
+    --input-text: rgb(226,232,240);
+    --input-placeholder: rgb(128,134,139);
     --input-height: 42px;
     --input-radius: 8px;
+
+    --ui-text-muted: rgb(148,163,184);
+    --ui-text-dim: rgb(100,116,139);
+    --ui-text-strong: rgb(241,245,249);
+
+    --ui-border-faint: rgba(148,163,184,0.08);
+    --ui-border-subtle: rgba(148,163,184,0.1);
+    --ui-border-soft: rgba(148,163,184,0.15);
+    --ui-border: rgba(148,163,184,0.2);
+
+    --ui-accent-ring: rgba(99,102,241,0.3);
+    --ui-accent-border: rgba(99,102,241,0.4);
+    --ui-accent-strong: rgba(99,102,241,0.5);
+    --ui-accent-bg: rgba(99,102,241,0.08);
+    --ui-accent-bg-strong: rgba(99,102,241,0.15);
+    --ui-accent-bg-subtle: rgba(99,102,241,0.1);
+    --ui-accent-bg-soft: rgba(99,102,241,0.2);
+    --ui-accent-bg-hover: rgba(99,102,241,0.25);
+
+    --ui-surface-overlay: rgba(15,23,42,0.4);
+    --ui-surface-raised: rgba(15,23,42,0.6);
+    --ui-surface-solid: rgba(15,23,42,0.8);
+
+    --ui-overlay-backdrop: rgba(0,0,0,0.5);
+    --ui-shadow-soft: rgba(0,0,0,0.1);
+    --ui-shadow: rgba(0,0,0,0.2);
+    --ui-shadow-strong: rgba(0,0,0,0.3);
+
+    --ui-alpha-white: rgba(255,255,255,0.1);
+
+    --ui-danger: rgb(239,68,68);
+    --ui-danger-bg-hover: rgba(239,68,68,0.3);
+    --ui-success: rgb(16,185,129);
+    --ui-primary-surface: rgb(71,85,105);
+    --ui-primary-border: rgb(203,213,225);
+    --ui-warning: rgb(252,210,48);
+    --ui-danger-soft: rgb(248,113,113);
+    --ui-accent-soft: rgb(129,140,248);
+    --ui-brand: rgb(136,136,136);
+    --ui-warning-strong: rgb(242,153,0);
+
+    --ui-neutral-400: rgb(156,163,175);
+    --ui-slate-800: rgb(30,41,59);
+    --ui-slate-700: rgb(51,65,85);
+
+    --ui-indigo-600: rgb(79,70,229);
+    --ui-accent-tint: rgba(99,102,241,0.12);
+    --ui-accent-glow: rgba(99,102,241,0.35);
+
+    --ui-border-tint: rgba(148,163,184,0.12);
+
+    --ui-danger-tint: rgba(239,68,68,0.2);
+    --ui-danger-strong: rgba(239,68,68,0.5);
+    --ui-danger-soft-300: rgb(252,165,165);
+    --ui-accent-soft-300: rgb(167,139,250);
+
+    --ui-warning-500: rgb(245,158,11);
+    --ui-warning-400: rgb(251,191,36);
+
+    --ui-surface-opaque: rgba(15,23,42,0.98);
+    --ui-surface-slate: rgba(30,41,59,0.5);
 
     /* ── Radius Scale ─────────────────────────────────────────── */
     --radius-sm: 6px;
@@ -107,17 +169,598 @@
     --radius-xl: 16px;
 
     /* ── Shadow Scale ─────────────────────────────────────────── */
-    --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.25);
-    --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.35);
-    --shadow-lg: 0 8px 32px rgba(15, 23, 42, 0.5);
+    --shadow-sm: 0 2px 8px rgba(15,23,42,0.25);
+    --shadow-md: 0 4px 16px rgba(15,23,42,0.35);
+    --shadow-lg: 0 8px 32px rgba(15,23,42,0.5);
 
     /* ── Transition ───────────────────────────────────────────── */
     --transition-fast: 0.15s ease;
     --transition-base: 0.2s ease;
     --transition-slow: 0.3s ease;
+
+    /* ── App Accents (used by JS widgets like circular-progress) ─ */
+    --app-sonarr-color: rgb(99,102,241);
+    --app-radarr-color: rgb(243,156,18);
+    --app-lidarr-color: rgb(46,204,113);
+    --app-readarr-color: rgb(231,76,60);
+    --app-whisparr-color: rgb(155,89,182);
+    --app-eros-color: rgb(26,188,156);
+    --app-swaparr-color: rgb(99,102,241);
+
+    /* ── Common Literal Colors (keep UI consistent across files) ─ */
+
+    --about-section-bg-1: rgb(139,92,246);
+    --about-section-bg-2: rgba(139,92,246,0.1);
+    --about-section-border-1: rgba(100,116,139,0.3);
+    --activity-section-bg-1: rgba(30,41,59,0.3);
+    --activity-section-bg-2: rgba(0,0,0,0.6);
+    --api-progress-color-1: rgb(34,197,94);
+    --api-progress-color-3: rgb(234,88,12);
+    --app-color-1: rgb(220,38,38);
+    --app-color-2: rgb(185,28,28);
+    --app-color-3: rgba(220,38,38,0.3);
+    --app-color-4: rgb(107,114,128);
+    --app-color-6: rgb(75,85,99);
+    --apps-section-bg-1: rgba(30,39,56,0.6);
+    --apps-section-bg-10: rgba(30,39,56,0.8);
+    --apps-section-bg-11: rgba(14,20,32,0.8);
+    --apps-section-bg-12: rgba(108,117,125,0.3);
+    --apps-section-bg-13: rgba(40,167,69,0.3);
+    --apps-section-bg-14: rgba(220,53,69,0.3);
+    --apps-section-bg-15: rgba(255,193,7,0.3);
+    --apps-section-bg-2: rgba(14,20,32,0.6);
+    --apps-section-bg-3: rgba(40,49,66,0.7);
+    --apps-section-bg-4: rgba(24,30,42,0.7);
+    --apps-section-bg-5: rgba(41,128,185,0.9);
+    --apps-section-bg-6: rgba(99,102,241,0.9);
+    --apps-section-bg-7: rgba(41,128,185,1);
+    --apps-section-bg-8: rgb(26,30,42);
+    --apps-section-bg-9: rgba(155,89,182,0.2);
+    --apps-section-border-2: rgba(90,109,137,0.5);
+    --apps-section-border-3: rgba(99,102,241,0.6);
+    --apps-section-border-4: rgba(99,102,241,1);
+    --apps-section-shadow-1: rgba(255,255,255,0.2);
+    --apps-section-text-1: rgba(255,255,255,0.8);
+    --apps-section-text-10: rgb(255,193,7);
+    --apps-section-text-11: rgba(40,167,69,0.8);
+    --apps-section-text-12: rgba(255,193,7,0.8);
+    --apps-section-text-13: rgba(23,162,184,0.8);
+    --apps-section-text-2: rgba(99,102,241,0.8);
+    --apps-section-text-3: rgba(255,255,255,0.95);
+    --apps-section-text-5: rgba(255,255,255,0.7);
+    --apps-section-text-6: rgba(255,255,255,0.5);
+    --apps-section-text-7: rgba(255,255,255,0.4);
+    --apps-section-text-8: rgb(40,167,69);
+    --apps-section-text-9: rgb(220,53,69);
+    --background-pattern-color-1: rgba(85,97,215,0.05);
+    --backup-restore-bg-1: rgba(15,23,42,0.45);
+    --backup-restore-bg-10: rgb(124,58,237);
+    --backup-restore-bg-11: rgb(217,48,37);
+    --backup-restore-bg-12: rgb(185,28,28);
+    --backup-restore-bg-14: rgba(220,38,38,0.1);
+    --backup-restore-bg-16: rgba(15,23,42,0.5);
+    --backup-restore-bg-2: rgba(239,68,68,0.05);
+    --backup-restore-bg-3: rgba(34,197,94,0.15);
+    --backup-restore-bg-4: rgba(245,158,11,0.15);
+    --backup-restore-bg-6: rgba(20,184,166,0.15);
+    --backup-restore-bg-7: rgba(239,68,68,0.2);
+    --backup-restore-bg-9: rgb(37,99,235);
+    --backup-restore-border-4: rgba(239,68,68,0.5);
+    --backup-restore-border-5: rgba(239,68,68,0.4);
+    --backup-restore-border-6: rgba(239,68,68,0.6);
+    --backup-restore-border-8: rgba(220,38,38,0.4);
+    --backup-restore-shadow-3: rgba(139,92,246,0.25);
+    --backup-restore-shadow-4: rgba(139,92,246,0.35);
+    --backup-restore-shadow-6: rgba(239,68,68,0.35);
+    --backup-restore-shadow-7: rgba(220,38,38,0.35);
+    --backup-restore-text-3: rgb(45,212,191);
+    --backup-restore-text-4: rgb(147,187,252);
+    --backup-restore-text-5: rgb(254,202,202);
+    --card-hover-effects-color-1: rgba(52,152,219,0.4);
+    --card-hover-effects-color-2: rgba(243,156,18,0.4);
+    --card-hover-effects-color-3: rgba(46,204,113,0.4);
+    --card-hover-effects-color-4: rgba(231,76,60,0.4);
+    --card-hover-effects-color-5: rgba(155,89,182,0.4);
+    --card-hover-effects-color-6: rgba(26,188,156,0.4);
+    --client-editor-color-1: rgba(16,185,129,0.1);
+    --client-editor-color-2: rgba(16,185,129,0.3);
+    --client-editor-color-3: rgba(168,85,247,0.1);
+    --client-editor-color-4: rgba(168,85,247,0.3);
+    --client-editor-color-5: rgb(168,85,247);
+    --client-editor-color-6: rgba(251,191,36,0.1);
+    --client-editor-color-8: rgba(251,191,36,0.2);
+    --components-bg-1: rgba(17,24,39,0.65);
+    --components-bg-4: rgba(15,23,42,0.3);
+    --components-bg-5: rgba(34,197,94,0.85);
+    --components-bg-6: rgba(239,68,68,0.85);
+    --components-bg-8: rgba(245,158,11,0.85);
+    --components-bg-9: rgba(15,23,42,0.75);
+    --components-border-2: rgba(71,85,105,0.4);
+    --components-color-1: rgba(129,140,248,0.1);
+    --components-shadow-1: rgba(0,0,0,0.25);
+    --components-shadow-2: rgba(99,102,241,0.05);
+    --components-shadow-3: rgba(0,0,0,0.05);
+    --confirm-modal-bg-2: rgba(255,255,255,0.15);
+    --core-color-1: rgb(107,114,128);
+    --core-color-3: rgb(75,85,99);
+    --core-color-4: rgb(220,38,38);
+    --cycle-countdown-bg-1: rgba(15,23,42,0.95);
+    --cycle-countdown-border-1: rgb(0,194,206);
+    --cycle-countdown-border-2: rgb(255,190,11);
+    --cycle-countdown-border-3: rgb(64,192,87);
+    --cycle-countdown-border-4: rgb(255,69,183);
+    --cycle-countdown-border-5: rgba(255,69,183,0.2);
+    --cycle-countdown-color-3: rgb(0,255,136);
+    --cycle-countdown-color-4: rgb(255,170,0);
+    --cycle-countdown-color-5: rgb(255,51,51);
+    --cycle-countdown-color-6: rgb(255,140,0);
+    --cycle-countdown-color-7: rgb(255,107,107);
+    --cycle-countdown-shadow-1: rgba(255,69,183,0.4);
+    --cycle-countdown-text-2: rgb(255,82,82);
+    --cycle-countdown-text-5: rgb(244,67,54);
+    --cycle-countdown-text-6: rgba(148,163,184,0.5);
+    --dropdown-overrides-bg-1: rgb(231,243,231);
+    --dropdown-overrides-bg-2: rgb(255,243,224);
+    --dropdown-overrides-border-1: rgb(76,175,80);
+    --dropdown-overrides-border-2: rgb(255,152,0);
+    --footer-bg-2: rgba(138,153,175,0.3);
+    --footer-border-1: rgba(90,109,137,0.15);
+    --footer-text-1: rgb(224,230,237);
+    --footer-text-2: rgb(89,160,255);
+    --footer-text-3: rgb(74,144,226);
+    --footer-text-4: rgb(241,196,15);
+    --history-color-1: rgb(0,51,153);
+    --history-section-bg-1: rgba(18,22,30,0.5);
+    --history-section-bg-12: rgba(28,36,54,0.9);
+    --history-section-bg-13: rgba(24,32,48,0.8);
+    --history-section-bg-14: rgba(38,46,64,0.9);
+    --history-section-bg-15: rgba(34,42,58,0.8);
+    --history-section-bg-16: rgba(22,26,34,1);
+    --history-section-bg-17: rgba(18,22,30,0.95);
+    --history-section-bg-18: rgba(65,105,225,0.2);
+    --history-section-bg-19: rgba(65,105,225,0.3);
+    --history-section-bg-20: rgba(28,36,54,0.6);
+    --history-section-bg-21: rgb(241,88,70);
+    --history-section-bg-22: rgb(243,105,90);
+    --history-section-bg-23: rgba(30,39,56,0.95);
+    --history-section-bg-25: rgba(16,24,36,0.95);
+    --history-section-bg-26: rgb(30,39,56);
+    --history-section-bg-27: rgb(14,20,32);
+    --history-section-bg-29: rgba(99,102,241,0.7);
+    --history-section-bg-3: rgba(90,109,137,0.8);
+    --history-section-bg-30: rgba(155,89,182,0.3);
+    --history-section-bg-31: rgba(16,20,30,0.3);
+    --history-section-bg-32: rgba(24,32,48,0.4);
+    --history-section-bg-34: rgba(20,28,44,0.3);
+    --history-section-bg-35: rgba(16,20,34,0.2);
+    --history-section-bg-36: rgba(65,105,225,0.15);
+    --history-section-bg-37: rgba(40,167,69,0.2);
+    --history-section-bg-38: rgba(220,53,69,0.2);
+    --history-section-bg-40: rgba(25,118,210,0.2);
+    --history-section-bg-41: rgba(33,150,243,0.3);
+    --history-section-bg-42: rgba(211,47,47,0.2);
+    --history-section-bg-43: rgba(244,67,54,0.3);
+    --history-section-bg-44: rgba(255,193,7,0.2);
+    --history-section-border-10: rgba(25,118,210,0.3);
+    --history-section-border-11: rgba(211,47,47,0.3);
+    --history-section-border-12: rgb(33,133,208);
+    --history-section-border-4: rgba(90,109,137,0.2);
+    --history-section-border-6: rgba(65,105,225,0.6);
+    --history-section-color-1: rgba(155,89,182,0.5);
+    --history-section-color-2: rgb(52,152,219);
+    --history-section-color-4: rgb(255,255,255);
+    --history-section-shadow-3: rgba(231,76,60,0.3);
+    --history-section-shadow-5: rgba(0,0,0,0.8);
+    --history-section-text-10: rgb(239,83,80);
+    --history-section-text-12: rgb(30,123,184);
+    --history-section-text-13: rgb(142,68,173);
+    --history-section-text-14: rgb(125,60,152);
+    --history-section-text-9: rgb(66,165,245);
+    --home-bg-11: rgba(148,163,184,0.05);
+    --home-bg-12: rgba(255,255,255,0);
+    --home-bg-15: rgb(236,72,153);
+    --home-bg-17: rgba(15,23,42,0.55);
+    --home-bg-2: rgba(30,41,59,0.4);
+    --home-bg-20: rgba(148,163,184,0.25);
+    --home-bg-21: rgb(255,215,0);
+    --home-bg-23: rgb(255,246,161);
+    --home-bg-30: rgba(16,185,129,0.2);
+    --home-bg-31: rgba(180,150,80,0.1);
+    --home-border-1: rgba(96,165,250,0.15);
+    --home-border-10: rgba(90,109,137,0.6);
+    --home-border-15: rgb(221,221,221);
+    --home-border-17: rgba(245,158,11,0.5);
+    --home-border-18: rgba(34,197,94,0.5);
+    --home-border-19: rgba(168,85,247,0.5);
+    --home-border-20: rgba(236,72,153,0.5);
+    --home-border-22: rgba(16,185,129,0.5);
+    --home-border-23: rgba(180,150,80,0.5);
+    --home-border-3: rgba(251,191,36,0.5);
+    --home-border-6: rgba(34,197,94,0.4);
+    --home-border-7: rgba(168,85,247,0.4);
+    --home-border-8: rgba(236,72,153,0.4);
+    --home-border-9: rgba(90,109,137,0.4);
+    --home-color-1: rgba(245,158,11,0.35);
+    --home-color-2: rgba(255,100,50,0.8);
+    --home-color-3: rgba(255,150,50,0.6);
+    --home-color-4: rgba(245,158,11,0.7);
+    --home-section-bg-1: rgb(78,84,200);
+    --home-section-bg-10: rgba(22,27,38,0.8);
+    --home-section-bg-11: rgb(160,168,184);
+    --home-section-bg-12: rgb(90,205,255);
+    --home-section-bg-13: rgb(0,174,240);
+    --home-section-bg-14: rgb(255,224,102);
+    --home-section-bg-15: rgb(253,203,43);
+    --home-section-bg-16: rgb(93,226,100);
+    --home-section-bg-17: rgb(49,197,56);
+    --home-section-bg-18: rgb(227,87,81);
+    --home-section-bg-19: rgb(192,45,40);
+    --home-section-bg-2: rgb(36,198,220);
+    --home-section-bg-20: rgb(230,77,255);
+    --home-section-bg-21: rgb(195,0,230);
+    --home-section-bg-22: rgba(39,174,96,0.15);
+    --home-section-bg-23: rgba(46,204,113,0.05);
+    --home-section-bg-25: rgba(241,196,15,0.05);
+    --home-section-bg-26: rgba(231,76,60,0.15);
+    --home-section-bg-27: rgba(192,57,43,0.05);
+    --home-section-bg-28: rgb(192,57,43);
+    --home-section-bg-29: rgba(41,128,185,0.15);
+    --home-section-bg-3: rgba(24,28,37,0.6);
+    --home-section-bg-32: rgba(15,19,26,0.4);
+    --home-section-bg-34: rgba(20,25,35,0.5);
+    --home-section-bg-36: rgba(0,174,240,0.1);
+    --home-section-bg-37: rgba(253,203,43,0.1);
+    --home-section-bg-38: rgba(49,197,56,0.1);
+    --home-section-bg-39: rgba(192,45,40,0.1);
+    --home-section-bg-40: rgba(195,0,230,0.1);
+    --home-section-bg-41: rgba(244,67,54,0.1);
+    --home-section-bg-42: rgba(229,57,53,0.05);
+    --home-section-bg-44: rgba(244,67,54,0.9);
+    --home-section-bg-45: rgba(229,57,53,0.8);
+    --home-section-bg-46: rgba(229,57,53,0.9);
+    --home-section-bg-47: rgba(244,67,54,0.8);
+    --home-section-bg-49: rgba(25,30,40,0.4);
+    --home-section-bg-50: rgba(20,25,35,0.7);
+    --home-section-bg-53: rgb(64,78,237);
+    --home-section-bg-54: rgb(255,69,0);
+    --home-section-bg-55: rgb(255,106,51);
+    --home-section-bg-56: rgb(45,52,54);
+    --home-section-bg-57: rgb(99,110,114);
+    --home-section-bg-58: rgb(0,184,148);
+    --home-section-bg-59: rgb(0,160,135);
+    --home-section-bg-60: rgb(9,132,227);
+    --home-section-bg-61: rgb(5,112,194);
+    --home-section-bg-63: rgb(36,41,46);
+    --home-section-bg-66: rgb(30,58,138);
+    --home-section-bg-67: rgb(214,48,49);
+    --home-section-bg-68: rgb(232,67,147);
+    --home-section-bg-7: rgba(17,23,35,0.7);
+    --home-section-bg-71: rgba(41,128,185,0.2);
+    --home-section-bg-77: rgb(15,23,42);
+    --home-section-bg-80: rgba(234,179,8,0.05);
+    --home-section-bg-9: rgba(35,42,55,0.9);
+    --home-section-border-10: rgba(192,45,40,0.8);
+    --home-section-border-11: rgba(192,45,40,0.4);
+    --home-section-border-12: rgba(195,0,230,0.8);
+    --home-section-border-13: rgba(195,0,230,0.4);
+    --home-section-border-17: rgba(0,174,240,0.5);
+    --home-section-border-18: rgba(253,203,43,0.5);
+    --home-section-border-19: rgba(49,197,56,0.5);
+    --home-section-border-2: rgba(120,140,180,0.15);
+    --home-section-border-20: rgba(192,45,40,0.5);
+    --home-section-border-21: rgba(195,0,230,0.5);
+    --home-section-border-22: rgba(39,174,96,0.3);
+    --home-section-border-25: rgba(41,128,185,0.3);
+    --home-section-border-27: rgba(46,204,113,0.9);
+    --home-section-border-28: rgba(243,156,18,0.9);
+    --home-section-border-29: rgba(231,76,60,0.9);
+    --home-section-border-3: rgba(120,140,180,0.3);
+    --home-section-border-30: rgba(244,67,54,0.25);
+    --home-section-border-31: rgba(79,93,115,0.2);
+    --home-section-border-32: rgba(70,90,120,0.15);
+    --home-section-border-34: rgba(234,179,8,0.2);
+    --home-section-border-4: rgba(0,174,240,0.8);
+    --home-section-border-5: rgba(0,174,240,0.4);
+    --home-section-border-6: rgba(253,203,43,0.8);
+    --home-section-border-7: rgba(253,203,43,0.4);
+    --home-section-border-8: rgba(49,197,56,0.8);
+    --home-section-border-9: rgba(49,197,56,0.4);
+    --home-section-shadow-10: rgba(192,45,40,0.3);
+    --home-section-shadow-11: rgba(195,0,230,0.6);
+    --home-section-shadow-12: rgba(195,0,230,0.3);
+    --home-section-shadow-13: rgba(245,158,11,0.6);
+    --home-section-shadow-15: rgba(245,158,11,0.2);
+    --home-section-shadow-16: rgba(0,174,240,0.2);
+    --home-section-shadow-17: rgba(253,203,43,0.2);
+    --home-section-shadow-18: rgba(49,197,56,0.2);
+    --home-section-shadow-19: rgba(192,45,40,0.2);
+    --home-section-shadow-20: rgba(195,0,230,0.2);
+    --home-section-shadow-21: rgba(46,204,113,0.1);
+    --home-section-shadow-27: rgba(88,101,242,0.5);
+    --home-section-shadow-28: rgba(255,69,0,0.5);
+    --home-section-shadow-29: rgba(45,52,54,0.5);
+    --home-section-shadow-3: rgba(0,174,240,0.6);
+    --home-section-shadow-30: rgba(0,184,148,0.5);
+    --home-section-shadow-31: rgba(9,132,227,0.5);
+    --home-section-shadow-32: rgba(255,193,7,0.6);
+    --home-section-shadow-33: rgba(4,115,187,0.6);
+    --home-section-shadow-34: rgba(255,107,107,0.5);
+    --home-section-shadow-4: rgba(0,174,240,0.3);
+    --home-section-shadow-5: rgba(253,203,43,0.6);
+    --home-section-shadow-6: rgba(253,203,43,0.3);
+    --home-section-shadow-7: rgba(49,197,56,0.6);
+    --home-section-shadow-8: rgba(49,197,56,0.3);
+    --home-section-shadow-9: rgba(192,45,40,0.6);
+    --home-section-text-10: rgb(234,179,8);
+    --home-section-text-4: rgba(160,168,184,0.9);
+    --home-section-text-9: rgb(165,180,252);
+    --home-shadow-10: rgba(236,72,153,0.3);
+    --home-shadow-14: rgba(255,215,0,0.4);
+    --home-shadow-15: rgba(34,197,94,0.35);
+    --home-shadow-4: rgba(236,72,153,0.1);
+    --home-shadow-6: rgba(0,0,0,0.35);
+    --home-text-11: rgb(52,211,153);
+    --home-text-12: rgba(16,185,129,0.85);
+    --home-text-13: rgb(110,231,183);
+    --home-text-14: rgba(180,150,80,0.8);
+    --home-text-15: rgb(212,196,168);
+    --home-text-16: rgb(199,210,254);
+    --home-text-17: rgb(134,239,172);
+    --home-text-2: rgb(252,211,77);
+    --home-text-3: rgb(192,132,252);
+    --home-text-4: rgb(244,114,182);
+    --home-text-9: rgba(148,163,184,0.7);
+    --hunt-manager-color-1: rgb(102,17,119);
+    --hunt-manager-section-bg-3: rgba(30,41,59,1);
+    --hunt-manager-section-border-6: rgba(34,197,94,0.2);
+    --hunt-manager-section-text-4: rgb(74,222,128);
+    --import-lists-bg-12: rgb(229,160,21);
+    --import-lists-bg-13: rgb(204,138,0);
+    --import-lists-bg-3: rgba(30,41,59,0.5);
+    --import-lists-bg-4: rgba(0,0,0,0.15);
+    --import-lists-bg-7: rgba(30,41,59,0.6);
+    --import-lists-border-1: rgba(99,102,241,0.35);
+    --import-lists-border-10: rgba(229,160,21,0.25);
+    --import-lists-border-14: rgba(148,163,184,0.35);
+    --import-lists-border-4: rgba(99,102,241,0.45);
+    --import-lists-color-4: rgb(67,56,202);
+    --import-lists-text-1: rgba(255,255,255,0.55);
+    --import-lists-text-7: rgb(0,0,0);
+    --import-media-bg-7: rgba(0,0,0,0.7);
+    --import-media-bg-8: rgba(20,27,45,1);
+    --import-media-shadow-1: rgba(0,0,0,0.4);
+    --import-media-text-1: rgba(148,163,184,0.8);
+    --import-media-text-5: rgba(148,163,184,0.4);
+    --import-media-text-6: rgba(148,163,184,0.6);
+    --import-media-text-7: rgba(148,163,184,0.9);
+    --indexer-hunt-bg-10: rgba(239,68,68,0.1);
+    --indexer-hunt-bg-14: rgba(56,189,248,0.15);
+    --indexer-hunt-bg-8: rgba(51,65,85,0.8);
+    --indexer-hunt-border-3: rgba(16,185,129,0.4);
+    --indexer-hunt-text-2: rgb(56,189,248);
+    --instance-editor-bg-10: rgba(249,115,22,0.1);
+    --instance-editor-bg-13: rgba(6,182,212,0.1);
+    --instance-editor-bg-15: rgba(15,23,42,0.7);
+    --instance-editor-bg-19: rgba(71,85,105,0.3);
+    --instance-editor-bg-20: rgba(220,38,38,0.85);
+    --instance-editor-bg-23: rgba(15,23,42,0.2);
+    --instance-editor-text-1: rgba(255,255,255,0.3);
+    --instance-editor-text-3: rgb(251,146,60);
+    --instance-editor-text-5: rgb(34,211,238);
+    --instances-card-bg-3: rgba(251,146,60,0.35);
+    --instances-card-border-1: rgba(251,146,60,0.5);
+    --login-bg-11: rgba(245,158,11,0.05);
+    --login-bg-12: rgba(59,130,246,0.05);
+    --login-bg-13: rgba(34,197,94,0.05);
+    --login-bg-16: rgb(30,142,62);
+    --login-bg-5: rgba(71,85,105,0.2);
+    --login-border-10: rgba(59,130,246,0.1);
+    --login-color-1: rgb(240,173,78);
+    --login-color-11: rgba(8,12,22,0.9);
+    --login-color-16: rgba(139,92,246,0.5);
+    --login-color-3: rgb(22,163,74);
+    --login-text-4: rgba(71,85,105,0.6);
+    --login-text-9: rgba(71,85,105,0.5);
+    --logs-history-bg-1: rgb(209,236,241);
+    --logs-history-bg-2: rgb(255,243,205);
+    --logs-history-bg-3: rgb(248,215,218);
+    --logs-history-bg-5: rgba(66,133,244,0.1);
+    --logs-history-bg-6: rgb(139,21,56);
+    --logs-history-bg-7: rgb(30,64,175);
+    --logs-history-text-1: rgb(12,84,96);
+    --logs-history-text-2: rgb(133,100,4);
+    --logs-history-text-3: rgb(114,28,36);
+    --logs-history-text-4: rgb(56,61,65);
+    --logs-main-color-1: rgb(119,85,102);
+    --media-hunt-bg-13: rgba(0,0,0,0.9);
+    --media-hunt-bg-14: rgb(249,115,22);
+    --media-hunt-bg-24: rgba(31,41,55,0.3);
+    --media-hunt-bg-25: rgba(75,85,99,0.4);
+    --media-hunt-bg-27: rgba(31,41,55,0.5);
+    --media-hunt-border-14: rgba(75,85,99,0.3);
+    --media-hunt-border-15: rgba(75,85,99,0.5);
+    --media-hunt-border-7: rgb(180,83,9);
+    --media-hunt-color-3: rgb(250,204,21);
+    --media-hunt-detail-bg-4: rgba(1,180,228,0.15);
+    --media-hunt-detail-bg-5: rgba(245,197,24,0.15);
+    --media-hunt-detail-border-2: rgba(1,180,228,0.3);
+    --media-hunt-detail-border-3: rgba(245,197,24,0.3);
+    --media-hunt-detail-shadow-1: rgba(1,180,228,0.2);
+    --media-hunt-detail-shadow-2: rgba(245,197,24,0.2);
+    --media-hunt-detail-text-1: rgba(226,232,240,0.8);
+    --media-hunt-detail-text-3: rgb(1,180,228);
+    --media-hunt-detail-text-4: rgb(245,197,24);
+    --media-hunt-detail-text-5: rgba(226,232,240,0.7);
+    --media-hunt-instance-editor-color-9: rgba(231,76,60,0.05);
+    --media-hunt-profiles-section-bg-1: rgb(123,78,174);
+    --media-hunt-profiles-section-bg-2: rgba(74,106,255,0.25);
+    --media-hunt-profiles-section-bg-4: rgba(202,138,4,0.35);
+    --media-hunt-profiles-section-bg-5: rgba(180,83,9,0.35);
+    --media-hunt-profiles-section-border-2: rgba(74,106,255,0.4);
+    --media-hunt-profiles-section-border-3: rgb(74,106,255);
+    --media-hunt-profiles-section-border-4: rgba(202,138,4,0.5);
+    --media-hunt-profiles-section-text-3: rgb(147,168,255);
+    --media-hunt-tv-bg-1: rgba(138,43,226,0.1);
+    --media-hunt-tv-bg-4: rgba(138,43,226,0.05);
+    --media-hunt-tv-bg-7: rgba(100,100,140,0.2);
+    --media-hunt-tv-bg-8: rgba(138,43,226,0.2);
+    --media-hunt-tv-bg-9: rgba(30,30,50,0.5);
+    --media-hunt-tv-border-2: rgba(138,43,226,0.3);
+    --media-hunt-tv-text-1: rgb(192,168,224);
+    --media-hunt-tv-text-2: rgb(204,204,204);
+    --media-hunt-tv-text-3: rgb(170,170,170);
+    --media-hunt-tv-text-4: rgb(238,238,238);
+    --media-hunt-tv-text-5: rgb(153,153,153);
+    --media-hunt-tv-text-6: rgb(102,102,102);
+    --mobile-bg-2: rgba(200,210,225,0.7);
+    --mobile-bg-4: rgba(88,101,242,0.1);
+    --mobile-bg-5: rgba(88,101,242,0.2);
+    --mobile-bg-6: rgba(255,69,0,0.1);
+    --mobile-bg-7: rgba(255,69,0,0.2);
+    --mobile-border-5: rgba(255,69,0,0.05);
+    --mobile-border-7: rgba(120,140,180,0.2);
+    --mobile-border-8: rgba(120,140,180,0.4);
+    --mobile-color-7: rgba(139,92,246,0.4);
+    --mobile-text-1: rgb(240,243,248);
+    --mobile-text-3: rgba(255,69,0,0.85);
+    --notifications-bg-8: rgba(52,211,153,0.1);
+    --notifications-bg-9: rgba(52,211,153,0.2);
+    --notifications-border-1: rgba(129,140,248,0.4);
+    --notifications-border-5: rgba(129,140,248,0.5);
+    --notifications-color-1: rgb(5,150,105);
+    --notifications-color-15: rgb(251,113,133);
+    --notifications-color-4: rgba(52,211,153,0.3);
+    --notifications-color-6: rgba(251,191,36,0.3);
+    --notifications-color-7: rgba(248,113,113,0.3);
+    --notifications-color-9: rgb(14,165,233);
+    --nzb-hunt-bg-27: rgba(30,41,59,0.15);
+    --nzb-hunt-bg-35: rgba(167,139,250,0.05);
+    --nzb-hunt-border-24: rgba(167,139,250,0.3);
+    --nzb-hunt-border-25: rgba(167,139,250,0.2);
+    --nzb-hunt-border-26: rgba(167,139,250,0.4);
+    --nzb-hunt-border-28: rgba(248,113,113,0.4);
+    --nzb-hunt-border-29: rgba(251,191,36,0.4);
+    --nzb-hunt-border-8: rgba(96,165,250,0.5);
+    --nzb-hunt-shadow-4: rgba(34,197,94,0.6);
+    --nzb-hunt-shadow-6: rgba(167,139,250,0.15);
+    --requestarr-detail-color-3: rgba(107,114,128,0.5);
+    --requestarr-discover-bg-12: rgb(118,75,162);
+    --requestarr-discover-bg-16: rgb(29,78,216);
+    --requestarr-discover-bg-24: rgba(234,179,8,0.35);
+    --requestarr-discover-bg-25: rgba(234,179,8,0.15);
+    --requestarr-discover-bg-33: rgb(113,128,150);
+    --requestarr-discover-bg-35: rgb(30,30,40);
+    --requestarr-discover-bg-36: rgb(26,46,37);
+    --requestarr-discover-bg-37: rgb(46,26,26);
+    --requestarr-discover-bg-43: rgba(102,126,234,0.15);
+    --requestarr-discover-bg-44: rgb(85,104,211);
+    --requestarr-discover-bg-49: rgba(31,41,55,0.7);
+    --requestarr-discover-bg-5: rgba(20,30,48,0.5);
+    --requestarr-discover-bg-56: rgba(22,33,52,0.95);
+    --requestarr-discover-bg-62: rgba(251,191,36,0.05);
+    --requestarr-discover-border-1: rgb(102,126,234);
+    --requestarr-discover-border-13: rgba(234,179,8,0.5);
+    --requestarr-discover-border-19: rgba(249,115,22,0.3);
+    --requestarr-discover-border-21: rgba(102,126,234,0.3);
+    --requestarr-discover-border-23: rgba(34,197,94,0.7);
+    --requestarr-discover-border-25: rgba(75,85,99,0.7);
+    --requestarr-discover-color-18: rgba(96,165,250,0.6);
+    --requestarr-discover-color-19: rgba(96,165,250,0.2);
+    --requestarr-discover-shadow-2: rgba(249,115,22,0.4);
+    --requestarr-discover-shadow-3: rgba(217,119,6,0.4);
+    --requestarr-discover-text-11: rgba(100,116,139,0.7);
+    --requestarr-discover-text-31: rgb(136,146,164);
+    --requestarr-settings-color-2: rgb(136,0,102);
+    --requestarr-users-bg-10: rgb(240,180,41);
+    --requestarr-users-bg-25: rgba(234,179,8,0.85);
+    --requestarr-users-bg-4: rgba(20,184,166,0.2);
+    --requestarr-users-border-15: rgba(234,179,8,0.4);
+    --requestarr-users-border-3: rgba(59,130,246,0.2);
+    --requestarr-users-border-7: rgba(71,85,105,0.15);
+    --requestarr-users-color-7: rgb(230,149,0);
+    --requestarr-users-text-7: rgba(203,213,225,0.8);
+    --scheduler-history-text-6: rgb(144,202,249);
+    --scheduling-bg-2: rgba(155,89,182,0.1);
+    --settings-clients-section-bg-1: rgba(16,185,129,0.05);
+    --settings-clients-section-border-4: rgba(180,150,80,0.3);
+    --settings-clients-section-text-12: rgb(125,211,252);
+    --settings-clients-section-text-3: rgb(209,250,229);
+    --settings-clients-section-text-4: rgba(16,185,129,0.7);
+    --settings-clients-section-text-5: rgb(226,217,200);
+    --settings-custom-formats-section-bg-2: rgb(4,120,87);
+    --settings-custom-formats-section-bg-4: rgb(153,27,27);
+    --settings-custom-formats-section-bg-6: rgb(55,65,81);
+    --settings-custom-formats-section-border-2: rgba(5,150,105,0.4);
+    --settings-custom-formats-section-border-3: rgba(5,150,105,0.6);
+    --settings-custom-formats-section-border-5: rgba(220,38,38,0.6);
+    --settings-custom-formats-section-shadow-1: rgba(5,150,105,0.2);
+    --settings-custom-formats-section-shadow-2: rgba(5,150,105,0.3);
+    --settings-custom-formats-section-shadow-3: rgba(220,38,38,0.2);
+    --settings-forms-bg-12: rgba(90,109,137,0);
+    --settings-forms-bg-14: rgba(30,39,56,0.4);
+    --settings-forms-bg-18: rgba(39,174,96,0.2);
+    --settings-forms-bg-21: rgba(46,204,113,0.25);
+    --settings-forms-bg-22: rgba(231,76,60,0.2);
+    --settings-forms-bg-23: rgba(192,57,43,0.15);
+    --settings-forms-bg-24: rgba(192,57,43,0.25);
+    --settings-forms-bg-25: rgba(127,140,141,0.2);
+    --settings-forms-bg-26: rgba(20,25,35,0.4);
+    --settings-forms-border-7: rgba(46,204,113,0.3);
+    --settings-forms-text-11: rgba(231,76,60,1);
+    --settings-forms-text-12: rgb(127,140,141);
+    --settings-forms-text-9: rgba(46,204,113,1);
+    --settings-sizes-section-bg-6: rgba(168,85,247,0.2);
+    --settings-sizes-section-bg-7: rgba(236,72,153,0.2);
+    --settings-sizes-section-bg-9: rgba(51,65,85,0.6);
+    --setup-bg-16: rgba(240,173,78,0.1);
+    --setup-color-17: rgba(10,14,23,0.95);
+    --setup-color-19: rgba(10,14,23,0.8);
+    --setup-color-20: rgba(10,14,23,0.55);
+    --setup-color-21: rgba(10,14,23,0.45);
+    --setup-color-22: rgba(10,14,23,0.3);
+    --setup-text-3: rgb(244,63,94);
+    --sidebar-bg-2: rgba(241,196,15,0.15);
+    --sidebar-bg-6: rgba(142,68,173,0.15);
+    --sidebar-bg-7: rgba(230,126,34,0.15);
+    --sidebar-bg-8: rgba(0,188,212,0.15);
+    --sidebar-color-11: rgba(241,196,15,0.5);
+    --sidebar-color-12: rgba(46,204,113,0.5);
+    --sidebar-color-13: rgba(231,76,60,0.5);
+    --sidebar-color-15: rgba(142,68,173,0.5);
+    --sidebar-color-16: rgba(230,126,34,0.5);
+    --sidebar-color-17: rgba(0,188,212,0.5);
+    --sidebar-color-18: rgba(11,15,26,0);
+    --sidebar-color-6: rgba(165,180,252,0.6);
+    --sidebar-color-9: rgba(165,180,252,0.05);
+    --sidebar-text-1: rgb(232,236,242);
+    --sidebar-text-11: rgb(114,137,218);
+    --sidebar-text-12: rgb(255,102,51);
+    --sidebar-text-2: rgb(255,77,109);
+    --sidebar-text-4: rgba(203,213,225,0.7);
+    --sidebar-text-5: rgba(226,232,240,0.9);
+    --sidebar-text-6: rgba(165,180,252,0.85);
+    --sidebar-text-9: rgba(165,180,252,0.9);
+    --style-bg-11: rgb(6,95,70);
+    --style-bg-14: rgb(0,105,217);
+    --style-bg-8: rgb(23,78,166);
+    --style-border-10: rgba(251,191,36,0.8);
+    --swaparr-bg-6: rgb(14,116,144);
+    --swaparr-bg-7: rgb(8,145,178);
+    --swaparr-border-2: rgb(48,54,61);
+    --swaparr-border-3: rgb(211,84,0);
+    --swaparr-color-1: rgb(224,247,250);
+    --swaparr-shadow-1: rgba(34,211,238,0.1);
+    --topbar-shadow-2: rgba(236,72,153,0.05);
+    --topbar-shadow-3: rgba(139,92,246,0.05);
+    --topbar-text-5: rgb(249,168,212);
+    --topbar-text-7: rgb(196,181,253);
+    --tor-hunt-bg-2: rgba(248,113,113,0.1);
+    --user-bg-2: rgb(240,168,48);
+    --user-section-color-1: rgb(255,153,102);
 }
 
-/* Keep .dark-theme as an alias so existing JS classList.add('dark-theme') still works */
-.dark-theme {
-    /* intentionally empty — :root already holds the dark values */
+ /* Keep .dark-theme as an alias so existing JS classList.add('dark-theme') still works */
+ .dark-theme {
+     --dark-theme-alias: 1;
+ 
 }

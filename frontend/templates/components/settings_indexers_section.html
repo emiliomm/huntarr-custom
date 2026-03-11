@@ -20,11 +20,11 @@
 
         <!-- Indexer Hunt Management -->
         <div class="settings-group indexer-settings-group ih-mgmt-group">
-            <h3><i class="fas fa-search-plus" style="color: #6366f1; margin-right: 8px; font-size: 0.95rem;"></i>Indexer Hunt Management</h3>
+            <h3><i class="fas fa-search-plus" style="color: var(--app-sonarr-color); margin-right: 8px; font-size: 0.95rem;"></i>Indexer Hunt Management</h3>
             <p class="ih-mgmt-desc">Indexers synced from Indexer Hunt. Priority and categories can be customized per-instance.</p>
             <div class="instance-card-grid" id="indexer-instances-grid-ih">
                 <div class="add-instance-card" data-app-type="indexer" data-source="indexer-hunt">
-                    <div class="add-icon"><i class="fas fa-plus-circle" style="color: #6366f1;"></i></div>
+                    <div class="add-icon"><i class="fas fa-plus-circle" style="color: var(--app-sonarr-color);"></i></div>
                     <div class="add-text">Import from Indexer Hunt</div>
                 </div>
             </div>
@@ -32,10 +32,10 @@
 
         <!-- Import from Indexer Hunt checklist panel (hidden by default) -->
         <div class="settings-group indexer-settings-group ih-import-panel" id="ih-import-panel" style="display: none;">
-            <h3><i class="fas fa-download" style="color: #6366f1; margin-right: 8px; font-size: 0.95rem;"></i>Import Indexers from Indexer Hunt</h3>
+            <h3><i class="fas fa-download" style="color: var(--app-sonarr-color); margin-right: 8px; font-size: 0.95rem;"></i>Import Indexers from Indexer Hunt</h3>
             <p class="ih-mgmt-desc">Select indexers to import to this instance. Imported indexers stay linked for API key and enable/disable sync.</p>
             <div class="ih-import-list" id="ih-import-list">
-                <div style="color: #94a3b8; padding: 20px; text-align: center;">Loading available indexers...</div>
+                <div style="color: var(--ui-text-muted); padding: 20px; text-align: center;">Loading available indexers...</div>
             </div>
             <div class="ih-import-actions" id="ih-import-actions" style="display: none;">
                 <button type="button" class="ih-import-cancel-btn" id="ih-import-cancel">Cancel</button>
@@ -66,8 +66,8 @@
         border: none;
     }
     .indexer-settings-group {
-        background: rgba(15, 23, 42, 0.4);
-        border: 1px solid rgba(148, 163, 184, 0.08);
+        background: var(--ui-surface-overlay);
+        border: 1px solid var(--ui-border-faint);
         border-radius: 12px;
         padding: 24px;
         margin: 12px 0 20px 0;
@@ -77,8 +77,8 @@
         padding: 0 0 12px 0;
         font-size: 1.1rem;
         font-weight: 600;
-        color: #f1f5f9;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        color: var(--ui-text-strong);
+        border-bottom: 1px solid var(--ui-border-tint);
         background: none;
         box-shadow: none;
         display: flex;
@@ -86,16 +86,16 @@
     }
     .ih-mgmt-desc {
         font-size: 0.85rem;
-        color: #64748b;
+        color: var(--ui-text-dim);
         margin: 0 0 16px 0;
     }
     .ih-mgmt-group {
-        border-left: 3px solid #6366f1;
+        border-left: 3px solid var(--app-sonarr-color);
     }
 
     /* Import checklist */
     .ih-import-panel {
-        border-left: 3px solid #6366f1;
+        border-left: 3px solid var(--app-sonarr-color);
     }
     .ih-import-list {
         display: flex;
@@ -108,24 +108,24 @@
         align-items: center;
         gap: 14px;
         padding: 14px 16px;
-        background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-        border: 1px solid rgba(148, 163, 184, 0.1);
+        background: linear-gradient(145deg, var(--ui-slate-800) 0%, var(--home-section-bg-77) 100%);
+        border: 1px solid var(--ui-border-subtle);
         border-radius: 10px;
         cursor: pointer;
         transition: all 0.2s;
     }
     .ih-import-item:hover {
-        border-color: rgba(99, 102, 241, 0.3);
-        background: rgba(30, 41, 59, 0.8);
+        border-color: var(--ui-accent-ring);
+        background: var(--ui-surface-slate);
     }
     .ih-import-item.selected {
-        border-color: #6366f1;
-        background: rgba(99, 102, 241, 0.08);
+        border-color: var(--app-sonarr-color);
+        background: var(--ui-accent-bg);
     }
     .ih-import-checkbox {
         width: 20px;
         height: 20px;
-        border: 2px solid rgba(148, 163, 184, 0.3);
+        border: 2px solid var(--ui-border-tint);
         border-radius: 4px;
         display: flex;
         align-items: center;
@@ -134,11 +134,11 @@
         transition: all 0.2s;
     }
     .ih-import-item.selected .ih-import-checkbox {
-        background: #6366f1;
-        border-color: #6366f1;
+        background: var(--app-sonarr-color);
+        border-color: var(--app-sonarr-color);
     }
     .ih-import-checkbox i {
-        color: #fff;
+        color: var(--button-primary-text);
         font-size: 0.7rem;
         display: none;
     }
@@ -151,12 +151,12 @@
     }
     .ih-import-name {
         font-weight: 600;
-        color: #f1f5f9;
+        color: var(--ui-text-strong);
         font-size: 0.95rem;
     }
     .ih-import-meta {
         font-size: 0.8rem;
-        color: #64748b;
+        color: var(--ui-text-dim);
         margin-top: 2px;
         display: flex;
         gap: 12px;
@@ -172,24 +172,24 @@
         justify-content: flex-end;
         gap: 12px;
         padding-top: 12px;
-        border-top: 1px solid rgba(148, 163, 184, 0.08);
+        border-top: 1px solid var(--ui-border-faint);
     }
     .ih-import-cancel-btn {
-        background: rgba(148, 163, 184, 0.1);
-        color: #cbd5e1;
-        border: 1px solid rgba(148, 163, 184, 0.15);
+        background: var(--ui-border-subtle);
+        color: var(--ui-primary-border);
+        border: 1px solid var(--ui-border-soft);
         border-radius: 8px;
         padding: 9px 20px;
         cursor: pointer;
         transition: all 0.2s;
     }
     .ih-import-cancel-btn:hover {
-        background: rgba(148, 163, 184, 0.2);
-        color: #fff;
+        background: var(--ui-border);
+        color: var(--button-primary-text);
     }
     .ih-import-confirm-btn {
-        background: #6366f1;
-        color: #fff;
+        background: var(--app-sonarr-color);
+        color: var(--button-primary-text);
         border: none;
         border-radius: 8px;
         padding: 9px 20px;
@@ -201,7 +201,7 @@
         transition: background 0.2s;
     }
     .ih-import-confirm-btn:hover {
-        background: #4f46e5;
+        background: var(--ui-indigo-600);
     }
     .ih-import-confirm-btn:disabled {
         opacity: 0.4;
@@ -210,7 +210,7 @@
     .ih-import-empty {
         text-align: center;
         padding: 24px;
-        color: #64748b;
+        color: var(--ui-text-dim);
         font-size: 0.9rem;
     }
 </style>
@@ -315,7 +315,7 @@
 
         var list = document.getElementById('ih-import-list');
         var actions = document.getElementById('ih-import-actions');
-        if (list) list.innerHTML = '<div style="color: #94a3b8; padding: 20px; text-align: center;"><i class="fas fa-spinner fa-spin"></i> Loading available indexers...</div>';
+        if (list) list.innerHTML = '<div style="color: var(--ui-text-muted); padding: 20px; text-align: center;"><i class="fas fa-spinner fa-spin"></i> Loading available indexers...</div>';
         if (actions) actions.style.display = 'none';
 
         fetch('./api/indexer-hunt/available/' + instanceId)
@@ -323,7 +323,7 @@
             .then(function(data) {
                 var available = data.available || [];
                 if (available.length === 0) {
-                    if (list) list.innerHTML = '<div class="ih-import-empty"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 6px;"></i>All Indexer Hunt indexers are already imported to this instance.</div>';
+                    if (list) list.innerHTML = '<div class="ih-import-empty"><i class="fas fa-check-circle" style="color: var(--ui-success); margin-right: 6px;"></i>All Indexer Hunt indexers are already imported to this instance.</div>';
                     return;
                 }
 

@@ -46,16 +46,16 @@
 
     #media-hunt-instance-editor-content .mh-info-status-enabled,
     #media-hunt-instance-editor-content .th-info-status-enabled {
-        background: rgba(16, 185, 129, 0.2);
-        border: 1px solid rgba(16, 185, 129, 0.4);
-        color: #10b981;
+        background: var(--home-bg-30);
+        border: 1px solid var(--indexer-hunt-border-3);
+        color: var(--ui-success);
     }
 
     #media-hunt-instance-editor-content .mh-info-status-disabled,
     #media-hunt-instance-editor-content .th-info-status-disabled {
-        background: rgba(148, 163, 184, 0.15);
-        border: 1px solid rgba(148, 163, 184, 0.25);
-        color: #94a3b8;
+        background: var(--ui-border-soft);
+        border: 1px solid var(--home-bg-20);
+        color: var(--ui-text-muted);
     }
 
     /* Instance selector dropdown */
@@ -69,9 +69,9 @@
         padding: 10px 14px;
         font-size: 0.95rem;
         font-weight: 500;
-        color: #f1f5f9;
-        background: rgba(30, 41, 59, 0.5);
-        border: 1px solid rgba(148, 163, 184, 0.15);
+        color: var(--ui-text-strong);
+        background: var(--ui-surface-slate);
+        border: 1px solid var(--ui-border-soft);
         border-radius: 10px;
         cursor: pointer;
         transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -84,18 +84,18 @@
     }
 
     .instance-editor-select:hover {
-        border-color: rgba(148, 163, 184, 0.3);
+        border-color: var(--ui-border-tint);
     }
 
     .instance-editor-select:focus {
         outline: none;
-        border-color: #6366f1;
-        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+        border-color: var(--app-sonarr-color);
+        box-shadow: 0 0 0 2px var(--ui-accent-bg-strong);
     }
 
     .instance-editor-select option {
-        background: #1e293b;
-        color: #f1f5f9;
+        background: var(--ui-slate-800);
+        color: var(--ui-text-strong);
         padding: 8px;
     }
 </style>

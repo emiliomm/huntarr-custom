@@ -393,7 +393,7 @@
                     else if (data === null) fallbackToLegacyApis();
                 })
                 .catch(function () {
-                    if (!append) grid.innerHTML = '<p style="color: #ef4444; text-align: center; padding: 60px;">Failed to load collection.</p>';
+                    if (!append) grid.innerHTML = '<p style="color: var(--ui-danger); text-align: center; padding: 60px;">Failed to load collection.</p>';
                 });
         },
 
@@ -484,7 +484,7 @@
             mainContent.style.display = 'none';
             grid.innerHTML = '';
             if (filtered.length === 0) {
-                grid.innerHTML = '<p style="color:#888;text-align:center;padding:40px;">No results for "' + (query || '').replace(/</g, '&lt;') + '"</p>';
+                grid.innerHTML = '<p style="color:var(--ui-brand);text-align:center;padding:40px;">No results for "' + (query || '').replace(/</g, '&lt;') + '"</p>';
                 return;
             }
             filtered.forEach(function (item) {
@@ -558,7 +558,7 @@
                 grid.style.display = 'flex';
                 grid.style.alignItems = 'center';
                 grid.style.justifyContent = 'center';
-                grid.innerHTML = '<div style="text-align:center;color:#9ca3af;"><i class="fas fa-inbox" style="font-size:48px;opacity:0.4;margin-bottom:16px;display:block;"></i><p>No items in collection</p></div>';
+                grid.innerHTML = '<div style="text-align:center;color:var(--ui-neutral-400);"><i class="fas fa-inbox" style="font-size:48px;opacity:0.4;margin-bottom:16px;display:block;"></i><p>No items in collection</p></div>';
                 return;
             }
 

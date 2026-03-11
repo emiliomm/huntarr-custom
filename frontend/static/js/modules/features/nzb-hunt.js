@@ -909,7 +909,7 @@
             if (warnings.length === 0) {
                 body.innerHTML =
                     '<div class="nzb-queue-empty">' +
-                        '<div class="nzb-queue-empty-icon"><i class="fas fa-check-circle" style="color: #4ade80;"></i></div>' +
+                        '<div class="nzb-queue-empty-icon"><i class="fas fa-check-circle" style="color: var(--hunt-manager-section-text-4);"></i></div>' +
                         '<h3>No warnings</h3>' +
                         '<p>Everything looks good.</p>' +
                     '</div>';

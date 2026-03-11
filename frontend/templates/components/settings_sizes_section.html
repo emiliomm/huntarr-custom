@@ -70,8 +70,8 @@
     }
 
     .sizes-settings-group {
-        background: rgba(15, 23, 42, 0.4);
-        border: 1px solid rgba(148, 163, 184, 0.08);
+        background: var(--ui-surface-overlay);
+        border: 1px solid var(--ui-border-faint);
         border-radius: 12px;
         padding: 24px;
         margin: 12px 0 20px 0;
@@ -84,7 +84,7 @@
         gap: 16px;
         margin-bottom: 24px;
         padding-bottom: 16px;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        border-bottom: 1px solid var(--ui-border-tint);
         flex-wrap: wrap;
     }
 
@@ -92,7 +92,7 @@
         margin: 0 0 6px 0;
         font-size: 1.1rem;
         font-weight: 600;
-        color: #f1f5f9;
+        color: var(--ui-text-strong);
         background: none;
         box-shadow: none;
         border: none;
@@ -101,13 +101,13 @@
 
     .sizes-header-left h3 i {
         margin-right: 8px;
-        color: #6366f1;
+        color: var(--app-sonarr-color);
     }
 
     .sizes-subtitle {
         margin: 0;
         font-size: 0.82rem;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         max-width: 600px;
         line-height: 1.4;
     }
@@ -120,9 +120,9 @@
     }
 
     .btn-sizes-reset {
-        background: rgba(71, 85, 105, 0.4);
-        border: 1px solid rgba(148, 163, 184, 0.2);
-        color: #94a3b8;
+        background: var(--components-border-2);
+        border: 1px solid var(--ui-border);
+        color: var(--ui-text-muted);
         padding: 8px 14px;
         border-radius: 8px;
         font-size: 0.82rem;
@@ -131,8 +131,8 @@
     }
 
     .btn-sizes-reset:hover {
-        background: rgba(71, 85, 105, 0.6);
-        color: #f1f5f9;
+        background: var(--login-text-4);
+        color: var(--ui-text-strong);
     }
 
     /* Group headers */
@@ -158,43 +158,43 @@
         font-weight: 600;
         letter-spacing: 0.02em;
         text-transform: uppercase;
-        color: #f1f5f9;
+        color: var(--ui-text-strong);
     }
 
     .sizes-group-badge-low {
-        background: rgba(100, 116, 139, 0.4);
-        color: #94a3b8;
+        background: var(--home-border-9);
+        color: var(--ui-text-muted);
     }
 
     .sizes-group-badge-sd {
-        background: rgba(234, 179, 8, 0.2);
-        color: #fbbf24;
+        background: var(--home-section-border-34);
+        color: var(--ui-warning-400);
     }
 
     .sizes-group-badge-720 {
-        background: rgba(34, 197, 94, 0.2);
-        color: #4ade80;
+        background: var(--hunt-manager-section-border-6);
+        color: var(--hunt-manager-section-text-4);
     }
 
     .sizes-group-badge-1080 {
-        background: rgba(99, 102, 241, 0.2);
-        color: #a5b4fc;
+        background: var(--ui-accent-bg-soft);
+        color: var(--home-section-text-9);
     }
 
     .sizes-group-badge-2160 {
-        background: rgba(168, 85, 247, 0.2);
-        color: #c084fc;
+        background: var(--settings-sizes-section-bg-6);
+        color: var(--home-text-3);
     }
 
     .sizes-group-badge-ultra {
-        background: rgba(236, 72, 153, 0.2);
-        color: #f472b6;
+        background: var(--settings-sizes-section-bg-7);
+        color: var(--home-text-4);
     }
 
     .sizes-group-line {
         flex: 1;
         height: 1px;
-        background: rgba(148, 163, 184, 0.1);
+        background: var(--ui-border-subtle);
     }
 
     /* Quality rows */
@@ -210,13 +210,13 @@
     }
 
     .sizes-quality-row:hover {
-        background: rgba(30, 41, 59, 0.5);
+        background: var(--ui-surface-slate);
     }
 
     .sizes-quality-name {
         font-size: 0.88rem;
         font-weight: 500;
-        color: #e2e8f0;
+        color: var(--text-secondary);
         white-space: nowrap;
     }
 
@@ -236,7 +236,7 @@
 
     .sizes-input-label {
         font-size: 0.7rem;
-        color: #64748b;
+        color: var(--ui-text-dim);
         text-transform: uppercase;
         font-weight: 600;
         letter-spacing: 0.04em;
@@ -248,9 +248,9 @@
         width: 60px;
         padding: 5px 6px;
         font-size: 0.82rem;
-        color: #f1f5f9;
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(148, 163, 184, 0.2);
+        color: var(--ui-text-strong);
+        background: var(--ui-surface-raised);
+        border: 1px solid var(--ui-border);
         border-radius: 6px;
         text-align: center;
         -moz-appearance: textfield;
@@ -264,7 +264,7 @@
 
     .sizes-input:focus {
         outline: none;
-        border-color: #6366f1;
+        border-color: var(--app-sonarr-color);
     }
 
     /* Range track - the visual bar between min and max */
@@ -282,7 +282,7 @@
         right: 0;
         height: 6px;
         transform: translateY(-50%);
-        background: rgba(51, 65, 85, 0.6);
+        background: var(--settings-sizes-section-bg-9);
         border-radius: 3px;
         overflow: hidden;
     }
@@ -296,7 +296,7 @@
     }
 
     .sizes-range-fill-active {
-        background: linear-gradient(90deg, #6366f1, #818cf8);
+        background: linear-gradient(90deg, var(--app-sonarr-color), var(--ui-accent-soft));
     }
 
     .sizes-range-fill-preferred {
@@ -304,7 +304,7 @@
         top: 0;
         width: 3px;
         height: 100%;
-        background: #fbbf24;
+        background: var(--ui-warning-400);
         border-radius: 2px;
         transition: left 0.1s;
         z-index: 2;
@@ -329,33 +329,33 @@
     }
 
     .sizes-range-thumb-min {
-        background: #1e293b;
-        border-color: #6366f1;
+        background: var(--ui-slate-800);
+        border-color: var(--app-sonarr-color);
     }
 
     .sizes-range-thumb-min:hover {
-        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25);
+        box-shadow: 0 0 0 4px var(--ui-accent-bg-hover);
     }
 
     .sizes-range-thumb-preferred {
-        background: #fbbf24;
-        border-color: #f59e0b;
+        background: var(--ui-warning-400);
+        border-color: var(--ui-warning-500);
         width: 12px;
         height: 12px;
         z-index: 4;
     }
 
     .sizes-range-thumb-preferred:hover {
-        box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.25);
+        box-shadow: 0 0 0 4px var(--client-editor-color-8);
     }
 
     .sizes-range-thumb-max {
-        background: #1e293b;
-        border-color: #6366f1;
+        background: var(--ui-slate-800);
+        border-color: var(--app-sonarr-color);
     }
 
     .sizes-range-thumb-max:hover {
-        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25);
+        box-shadow: 0 0 0 4px var(--ui-accent-bg-hover);
     }
 
     /* Legend */
@@ -366,7 +366,7 @@
         margin-bottom: 16px;
         padding: 8px 14px;
         border-radius: 8px;
-        background: rgba(30, 41, 59, 0.3);
+        background: var(--activity-section-bg-1);
     }
 
     .sizes-legend-item {
@@ -374,7 +374,7 @@
         align-items: center;
         gap: 6px;
         font-size: 0.75rem;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
     }
 
     .sizes-legend-dot {
@@ -384,19 +384,19 @@
     }
 
     .sizes-legend-dot-min {
-        background: #6366f1;
+        background: var(--app-sonarr-color);
     }
 
     .sizes-legend-dot-preferred {
-        background: #fbbf24;
+        background: var(--ui-warning-400);
     }
 
     .sizes-legend-dot-max {
-        background: #6366f1;
+        background: var(--app-sonarr-color);
     }
 
     .sizes-legend-dot-range {
-        background: linear-gradient(90deg, #6366f1, #818cf8);
+        background: linear-gradient(90deg, var(--app-sonarr-color), var(--ui-accent-soft));
         width: 24px;
         border-radius: 3px;
         height: 6px;
@@ -405,7 +405,7 @@
     .sizes-loading {
         text-align: center;
         padding: 40px;
-        color: #64748b;
+        color: var(--ui-text-dim);
         font-size: 0.9rem;
     }
 
@@ -428,7 +428,7 @@
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.04em;
-        color: #64748b;
+        color: var(--ui-text-dim);
     }
 
     .sizes-column-label-min {
@@ -617,7 +617,7 @@
                 '<div class="sizes-legend-item"><span class="sizes-legend-dot sizes-legend-dot-range"></span> Accepted range</div>' +
                 '<div class="sizes-legend-item"><span class="sizes-legend-dot sizes-legend-dot-preferred"></span> Preferred</div>' +
                 '<span style="flex:1"></span>' +
-                '<div class="sizes-legend-item" style="color: #64748b; font-size: 0.72rem;">MB per minute of runtime &middot; Max scale: ' + _sizesMax + '</div>' +
+                '<div class="sizes-legend-item" style="color: var(--ui-text-dim); font-size: 0.72rem;">MB per minute of runtime &middot; Max scale: ' + _sizesMax + '</div>' +
                 '</div>';
 
             html += '<div class="sizes-column-labels"><div></div><div class="sizes-column-labels-right">' +
@@ -844,13 +844,13 @@
                         markClean();
                     } else if (data.error) {
                         var container = document.getElementById('sizes-quality-list');
-                        if (container) container.innerHTML = '<div class="sizes-loading" style="color:#ef4444;">' + escapeHtml(data.error) + '</div>';
+                        if (container) container.innerHTML = '<div class="sizes-loading" style="color:var(--ui-danger);">' + escapeHtml(data.error) + '</div>';
                     }
                 })
                 .catch(function (err) {
                     console.error('[Sizes] Failed to load:', err);
                     var container = document.getElementById('sizes-quality-list');
-                    if (container) container.innerHTML = '<div class="sizes-loading" style="color:#ef4444;">Failed to load sizes. <a href="#" onclick="location.reload()" style="color:#6366f1;">Retry</a></div>';
+                    if (container) container.innerHTML = '<div class="sizes-loading" style="color:var(--ui-danger);">Failed to load sizes. <a href="#" onclick="location.reload()" style="color:var(--app-sonarr-color);">Retry</a></div>';
                 });
         }
 

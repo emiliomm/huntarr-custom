@@ -21,10 +21,10 @@
     width: 100%;
     box-sizing: border-box;
     margin: 20px 0;
-    background: rgba(15, 23, 42, 0.4);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    background: var(--ui-surface-overlay);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px var(--glass-shadow);
 }
 #settingsClientsSection .settings-no-indexers i.fa-satellite-dish,
 #settingsSizesSection .settings-no-indexers i.fa-satellite-dish,
@@ -42,7 +42,7 @@
 #logsSection .logs-no-indexers i.fa-satellite-dish,
 #media-hunt-collection-view .media-hunt-collection-no-indexers i.fa-satellite-dish {
     font-size: 3rem;
-    color: #3c4043;
+    color: var(--bg-hover);
     margin-bottom: 16px;
     display: block;
 }
@@ -63,7 +63,7 @@
 #media-hunt-collection-view .media-hunt-collection-no-indexers .no-instances-title {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #f1f5f9;
+    color: var(--ui-text-strong);
     margin: 0 0 8px 0;
 }
 #settingsClientsSection .settings-no-indexers .no-instances-desc,
@@ -82,7 +82,7 @@
 #logsSection .logs-no-indexers .no-instances-desc,
 #media-hunt-collection-view .media-hunt-collection-no-indexers .no-instances-desc {
     font-size: 0.95rem;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     line-height: 1.6;
     margin: 0 auto 24px auto;
     max-width: 400px;
@@ -105,9 +105,9 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(99, 102, 241, 0.2);
-    border: 1px solid rgba(99, 102, 241, 0.4);
-    color: #8ab4f8;
+    background: var(--ui-accent-bg-soft);
+    border: 1px solid var(--ui-accent-border);
+    color: var(--accent-hover);
     padding: 10px 20px;
     border-radius: 8px;
     text-decoration: none;
@@ -129,6 +129,6 @@
 #mediaHuntCalendarSection .mh-calendar-no-indexers .no-instances-action-btn:hover,
 #logsSection .logs-no-indexers .no-instances-action-btn:hover,
 #media-hunt-collection-view .media-hunt-collection-no-indexers .no-instances-action-btn:hover {
-    background: rgba(99, 102, 241, 0.3);
-    border-color: rgba(99, 102, 241, 0.5);
+    background: var(--ui-accent-ring);
+    border-color: var(--ui-accent-strong);
 }

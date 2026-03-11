@@ -290,7 +290,7 @@
             } else if (_isNonOwner && !_userTVCat) {
                 actionButton = '<button class="mh-btn mh-btn-primary disabled" disabled style="opacity:0.6"><i class="fas fa-exclamation-triangle"></i> Not Available</button>';
             } else if (!hasInstances) {
-                actionButton = '<button class="mh-btn" disabled style="background: rgba(55, 65, 81, 0.8); color: #9ca3af; cursor: not-allowed;"><i class="fas fa-server" style="margin-right: 8px;"></i> No Instance Configured</button>';
+                actionButton = '<button class="mh-btn" disabled style="background: var(--indexer-hunt-bg-8); color: var(--ui-neutral-400); cursor: not-allowed;"><i class="fas fa-server" style="margin-right: 8px;"></i> No Instance Configured</button>';
             } else if (inLibrary) {
                 actionButton = '<button class="mh-btn mh-btn-success" disabled><i class="fas fa-check"></i> Already Available</button>';
             } else {
@@ -764,7 +764,7 @@
                             const eps = seasonData.episodes || [];
                             renderEpisodes(eps);
                         } catch {
-                            episodesEl.innerHTML = '<span style="color:#f87171;">Failed to load episodes</span>';
+                            episodesEl.innerHTML = '<span style="color:var(--ui-danger-soft);">Failed to load episodes</span>';
                         }
                     };
                     runExpand();
@@ -1341,12 +1341,12 @@
                 '<div class="mh-modal-backdrop" id="mh-delete-modal">' +
                 '<div class="mh-modal">' +
                 '<div class="mh-modal-header">' +
-                '<h3><i class="fas fa-trash-alt" style="color:#ef4444;"></i> Delete \u2014 ' + title + '</h3>' +
+                '<h3><i class="fas fa-trash-alt" style="color:var(--ui-danger);"></i> Delete \u2014 ' + title + '</h3>' +
                 '<button class="mh-modal-x" id="mh-delete-close">&times;</button>' +
                 '</div>' +
                 '<div class="mh-modal-body">' +
                 '<p>Are you sure you want to remove <strong>' + title + '</strong> from your TV Hunt collection?</p>' +
-                '<p style="color:#94a3b8;font-size:13px;">This will not delete any downloaded files.</p>' +
+                '<p style="color:var(--ui-text-muted);font-size:13px;">This will not delete any downloaded files.</p>' +
                 '</div>' +
                 '<div class="mh-modal-footer">' +
                 '<button class="mh-btn mh-btn-secondary" id="mh-delete-cancel">Cancel</button>' +
@@ -1401,8 +1401,8 @@
         getErrorHTML(message) {
             return `
                 <div class="movie-detail-loading">
-                    <i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i>
-                    <p style="color: #ef4444;">${this.escapeHtml(message)}</p>
+                    <i class="fas fa-exclamation-triangle" style="color: var(--ui-danger);"></i>
+                    <p style="color: var(--ui-danger);">${this.escapeHtml(message)}</p>
                 </div>
             `;
         }

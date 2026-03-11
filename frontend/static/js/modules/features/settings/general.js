@@ -174,7 +174,7 @@
                             </label>
                         </div>
                         <p class="setting-help">Disable SSL certificate verification when using self-signed certificates.</p>
-                        <div class="setting-item" style="margin-top: 15px; border-top: 1px solid rgba(148, 163, 184, 0.08); padding-top: 15px;">
+                        <div class="setting-item" style="margin-top: 15px; border-top: 1px solid var(--ui-border-faint); padding-top: 15px;">
                             <label for="frame_ancestors">Iframe Embedding:</label>
                             <select id="frame_ancestors" class="mset-select">
                                 <option value="'self'" ${!settings.frame_ancestors || settings.frame_ancestors === "'self'" ? "selected" : ""}>Disabled (Same Origin Only)</option>
@@ -184,7 +184,7 @@
                             <input type="text" id="frame_ancestors_custom" class="mset-input" placeholder="'self' https://organizr.local https://homepage.local" value="${settings.frame_ancestors && settings.frame_ancestors !== "'self'" && settings.frame_ancestors !== "*" ? settings.frame_ancestors : ""}" style="margin-top: 8px; display: ${settings.frame_ancestors && settings.frame_ancestors !== "'self'" && settings.frame_ancestors !== "*" ? "block" : "none"};">
                             <p class="setting-help">Allow Huntarr to be embedded in iframes (e.g. Organizr, Homepage). Custom origins use CSP frame-ancestors syntax.</p>
                         </div>
-                        <div style="margin-top: 18px; border-top: 1px solid rgba(148, 163, 184, 0.08); padding-top: 15px;">
+                        <div style="margin-top: 18px; border-top: 1px solid var(--ui-border-faint); padding-top: 15px;">
                             <div class="setting-item flex-row">
                                 <label for="proxy_enabled">Use Proxy:</label>
                                 <label class="toggle-switch">
@@ -235,13 +235,13 @@
                         <h3>Advanced Settings</h3>
                     </div>
                     <div class="mset-card-body">
-                        <div class="setting-item" style="margin-top: 15px; border-top: 1px solid rgba(148, 163, 184, 0.08); padding-top: 15px;">
+                        <div class="setting-item" style="margin-top: 15px; border-top: 1px solid var(--ui-border-faint); padding-top: 15px;">
                             <label for="base_url">Base URL:</label>
                             <input type="text" id="base_url" value="${settings.base_url || ""}" placeholder="/huntarr" class="mset-input">
                             <p class="setting-help">Base URL path for reverse proxy. Requires restart.</p>
                         </div>
                         <div class="setting-item">
-                            <label for="dev_key">Huntarr Dev Key:${settings.dev_mode === true ? ' <i class="fas fa-check-circle" style="color: #22c55e; margin-left: 5px;" title="Dev Mode Active"></i>' : ''}</label>
+                            <label for="dev_key">Huntarr Dev Key:${settings.dev_mode === true ? ' <i class="fas fa-check-circle" style="color: var(--api-progress-color-1); margin-left: 5px;" title="Dev Mode Active"></i>' : ''}</label>
                             <input type="password" id="dev_key" value="${settings.dev_key || ""}" placeholder="Enter dev key" class="mset-input">
                             <p class="setting-help">Enter development key to enable dev mode.</p>
                         </div>
@@ -257,16 +257,16 @@
                             </select>
                             <p class="setting-help">Number of web server worker threads for handling concurrent requests. Increase if using many apps/instances. Requires restart.</p>
                         </div>
-                        <div class="setting-item" style="margin-top: 15px; border-top: 1px solid rgba(148, 163, 184, 0.08); padding-top: 15px;">
+                        <div class="setting-item" style="margin-top: 15px; border-top: 1px solid var(--ui-border-faint); padding-top: 15px;">
                             <label>Reset Media Hunt Wizard:</label>
-                            <button type="button" id="reset-media-hunt-wizard-btn" class="mset-btn-secondary" style="margin-top: 6px; padding: 7px 16px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 6px; color: #f87171; font-size: 0.85rem; cursor: pointer; transition: all 0.15s;">
+                            <button type="button" id="reset-media-hunt-wizard-btn" class="mset-btn-secondary" style="margin-top: 6px; padding: 7px 16px; background: var(--ui-danger-tint); border: 1px solid var(--ui-danger-tint); border-radius: 6px; color: var(--ui-danger-soft); font-size: 0.85rem; cursor: pointer; transition: all 0.15s;">
                                 <i class="fas fa-redo"></i> Reset Wizard
                             </button>
                             <p class="setting-help">Re-show the Media Hunt setup wizard on next visit. Useful if you skipped the wizard and want to run it again.</p>
                         </div>
-                        <div class="setting-item" style="margin-top: 15px; border-top: 1px solid rgba(148, 163, 184, 0.08); padding-top: 15px;">
+                        <div class="setting-item" style="margin-top: 15px; border-top: 1px solid var(--ui-border-faint); padding-top: 15px;">
                             <label>Reset Welcome Message:</label>
-                            <button type="button" id="reset-welcome-message-btn" class="mset-btn-secondary" style="margin-top: 6px; padding: 7px 16px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 6px; color: #f87171; font-size: 0.85rem; cursor: pointer; transition: all 0.15s;">
+                            <button type="button" id="reset-welcome-message-btn" class="mset-btn-secondary" style="margin-top: 6px; padding: 7px 16px; background: var(--ui-danger-tint); border: 1px solid var(--ui-danger-tint); border-radius: 6px; color: var(--ui-danger-soft); font-size: 0.85rem; cursor: pointer; transition: all 0.15s;">
                                 <i class="fas fa-envelope-open"></i> Reset Welcome
                             </button>
                             <p class="setting-help">Re-show the welcome message on the Home page. Useful for testing or if you want to see the welcome message again.</p>

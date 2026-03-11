@@ -944,7 +944,7 @@
             } else if (_isNonOwnerRender && !_userMovieCatRender) {
                 actionButton = '<button class="mh-btn mh-btn-primary disabled" disabled style="opacity:0.6"><i class="fas fa-exclamation-triangle"></i> Not Available</button>';
             } else if (!hasInstances) {
-                actionButton = '<button class="mh-btn" disabled style="background: rgba(55, 65, 81, 0.8); color: #9ca3af; cursor: not-allowed; border: 1px solid rgba(107, 114, 128, 0.5); font-size: 0.95rem; padding: 10px 20px;"><i class="fas fa-server" style="margin-right: 8px; color: #9ca3af;"></i> No Instance Configured \u2014 Add to Get Started</button>';
+                actionButton = '<button class="mh-btn" disabled style="background: var(--indexer-hunt-bg-8); color: var(--ui-neutral-400); cursor: not-allowed; border: 1px solid var(--requestarr-detail-color-3); font-size: 0.95rem; padding: 10px 20px;"><i class="fas fa-server" style="margin-right: 8px; color: var(--ui-neutral-400);"></i> No Instance Configured \u2014 Add to Get Started</button>';
             } else if (inLibrary) {
                 actionButton = '<button class="mh-btn mh-btn-success" disabled><i class="fas fa-check"></i> Already Available</button>';
             } else {
@@ -1296,8 +1296,8 @@
         getErrorHTML(message) {
             return `
                 <div class="movie-detail-loading">
-                    <i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i>
-                    <p style="color: #ef4444;">${this.escapeHtml(message)}</p>
+                    <i class="fas fa-exclamation-triangle" style="color: var(--ui-danger);"></i>
+                    <p style="color: var(--ui-danger);">${this.escapeHtml(message)}</p>
                 </div>
             `;
         },
