@@ -373,17 +373,6 @@
                     </a>
                 </div>
             </div>
-
-            <!-- ── DAUGHTER'S SPONSORS ──────────────────────────────── -->
-            <div class="nav-group" id="main-sidebar-partner-projects-group">
-                <div class="nav-section-divider"></div>
-                <div class="nav-group-title">Daughter's Sponsors</div>
-                <a href="#" target="_blank" rel="noopener noreferrer" class="nav-item"
-                    id="sidebar-partner-projects-nav">
-                    <div class="nav-icon-wrapper"><i class="fas fa-heart" style="color: #ec4899;"></i></div>
-                    <span id="sidebar-partner-projects-name">Loading...</span>
-                </a>
-            </div>
         </nav>
 
         <div class="sidebar-footer">
@@ -411,11 +400,6 @@
             <div class="sidebar-footer-info">
                 <span class="sidebar-footer-version-link" id="sidebar-footer-version-link" title="Version">
                     <span class="sidebar-footer-version" id="sidebar-footer-version"></span>
-                </span>
-                <span class="sidebar-footer-upgrade" id="sidebar-footer-upgrade" style="display:none;"
-                    title="Update available">
-                    <i class="fas fa-arrow-up"></i>
-                    <span id="sidebar-footer-upgrade-version"></span>
                 </span>
             </div>
         </div>
@@ -812,12 +796,10 @@
         window.applyFeatureFlags = applyFeatureFlags;
     })();
 
-    // ── Sidebar footer version + upgrade indicator ───────────────
+    // ── Sidebar footer version ───────────────────────────────────
     (function () {
         function updateSidebarVersion() {
             var verEl = document.getElementById('sidebar-footer-version');
-            var upgradeEl = document.getElementById('sidebar-footer-upgrade');
-            var upgradeVerEl = document.getElementById('sidebar-footer-upgrade-version');
             var sepEl = document.getElementById('sidebar-footer-sep');
             if (!verEl) return;
             try {
@@ -826,24 +808,11 @@
                     var parsed = JSON.parse(info);
                     if (parsed.currentVersion) {
                         verEl.textContent = 'v' + parsed.currentVersion;
-                        // Show upgrade indicator if latest differs from current
-                        if (upgradeEl && upgradeVerEl && parsed.latestVersion &&
-                            parsed.latestVersion !== parsed.currentVersion) {
-                            upgradeVerEl.textContent = parsed.latestVersion;
-                            upgradeEl.style.display = '';
-                            if (sepEl) sepEl.style.display = 'none';
-                            upgradeEl.closest('.sidebar-footer-info')
-                                && upgradeEl.setAttribute('title', 'Update available: ' + parsed.latestVersion);
-                        } else if (upgradeEl) {
-                            upgradeEl.style.display = 'none';
-                            if (sepEl) sepEl.style.display = '';
-                        }
                         return;
                     }
                 }
             } catch (e) { }
             verEl.textContent = '';
-            if (upgradeEl) upgradeEl.style.display = 'none';
             if (sepEl) sepEl.style.display = '';
         }
         if (document.readyState === 'loading') {
