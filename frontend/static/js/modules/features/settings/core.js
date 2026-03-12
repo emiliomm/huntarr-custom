@@ -769,7 +769,6 @@ window.SettingsForms = {
         if (section === 'main') {
             return {
                 timezone: getVal('timezone', 'UTC'),
-                display_community_resources: getVal('display_community_resources', true),
                 display_huntarr_support: getVal('display_huntarr_support', true),
                 enable_requestarr: true, // Always enabled (required for Movie Hunt)
 
@@ -847,7 +846,6 @@ window.SettingsForms = {
         if (appType === "general") {
             settings.instances = [];
             settings.timezone = getInputValue("#timezone", "UTC");
-            settings.display_community_resources = getInputValue("#display_community_resources", true);
             settings.display_huntarr_support = getInputValue("#display_huntarr_support", true);
             settings.enable_requestarr = true; // Always enabled (required for Movie Hunt)
 

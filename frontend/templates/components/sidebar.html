@@ -850,11 +850,6 @@
                             avatarEl.innerHTML = '<span class="sidebar-avatar-fallback">' + initial + '</span>';
                         }
                     }
-                    // Hide sponsor section for owners — only show for non-owner users
-                    var sponsorGroup = document.getElementById('main-sidebar-partner-projects-group');
-                    if (sponsorGroup) {
-                        sponsorGroup.style.display = (data.role === 'owner') ? 'none' : '';
-                    }
                 })
                 .catch(function () { });
         }

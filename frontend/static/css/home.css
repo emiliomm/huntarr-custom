@@ -556,15 +556,6 @@
     border-radius: 10px !important;
 }
 
-/* ── Support / Prowlarr cards — match container style ───────────── */
-#homeSection .support-links-card,
-#homeSection .community-hub-card {
-    background: var(--ui-surface-raised) !important;
-    border: 1px solid var(--ui-alpha-white) !important;
-    border-radius: 12px !important;
-    box-shadow: none !important;
-}
-
 /* ── Cycle timer badges — smaller ───────────────────────────────── */
 #homeSection .inline-timer {
     font-size: 0.72rem !important;
@@ -1267,29 +1258,6 @@
     }
 }
 
-/* ── Support / Community link compaction ──────────────────────────── */
-.support-link,
-.community-link {
-    padding: 5px;
-    min-height: 0;
-}
-
-.support-links-grid .icon-container,
-.community-links-grid .icon-container {
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: scale(0.85);
-}
-
-.support-links-grid,
-.community-links-grid {
-    padding: 4px;
-    gap: 6px;
-}
-
 .link-title {
     font-size: 0.9em;
     margin-bottom: 1px;
@@ -1299,47 +1267,9 @@
     font-size: 0.8em;
 }
 
-/* Compact headers for Support + Resources */
-.community-hub-card .card-header,
-.support-links-card .card-header {
-    padding: 0 0 8px;
-    min-height: 0;
-    height: auto;
-    margin-bottom: 12px;
-    background-color: transparent;
-    border-bottom: 1px solid var(--history-section-border-4);
-}
-
-.community-hub-card .card-header h3,
-.support-links-card .card-header h3 {
-    margin: 0;
-    font-size: 0.75em;
-    line-height: 1.2;
-}
-
-/* Reduce height of both container cards */
-.support-links-card,
-.community-hub-card {
-    padding: 8px;
-    margin-bottom: 8px;
-    background: linear-gradient(145deg, var(--home-bg-2) 0%, var(--ui-surface-raised) 100%);
-    border: 1px solid var(--ui-border-faint);
-    border-radius: 14px;
-}
-
-.support-links-container,
-.community-resources-container {
-    padding: 2px;
-}
-
 /* Tighten the dashboard grid */
 .dashboard-grid {
     gap: 10px;
-}
-
-.support-link .link-details,
-.community-link .link-details {
-    margin-top: -3px;
 }
 
 /* ── Stats card headers ──────────────────────────────────────────── */
@@ -1608,79 +1538,6 @@
     width: 150px;
 }
 
-/* ── Sponsor widgets ─────────────────────────────────────────────── */
-.sponsor-widget .link-description {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 30px;
-    text-align: left;
-    opacity: 0.95;
-    margin-top: -2px;
-    padding-top: 0;
-    line-height: 1.2;
-}
-
-.sponsor-widget .sponsor-item {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-}
-
-.sponsor-widget .sponsor-avatar {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    margin-right: 8px;
-    border: 1px solid var(--home-border-15);
-}
-
-.sponsor-widget .sponsor-name {
-    font-size: 0.9em;
-    font-weight: 500;
-}
-
-/* Golden ring for sponsor avatars */
-.sponsor-icon {
-    position: relative;
-    border-radius: 50%;
-    padding: 2px;
-    background: linear-gradient(45deg, var(--home-bg-21), var(--cycle-countdown-color-4), var(--home-bg-21), var(--home-bg-23), var(--home-bg-21));
-    box-shadow: 0 0 5px var(--home-shadow-14);
-}
-
-.sponsor-icon a {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-.sponsor-widget .link-details {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding-left: 4px;
-}
-
-.sponsor-widget .link-title {
-    font-weight: 600;
-    margin-bottom: 4px;
-    letter-spacing: 0.3px;
-}
-
-.sponsor-title-link {
-    color: var(--button-primary-text);
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.sponsor-title-link:hover {
-    color: var(--home-border-15);
-    text-decoration: underline;
-}
-
 .full-title {
     font-size: 14px;
     font-weight: 600;
@@ -1688,43 +1545,6 @@
     margin-bottom: 0;
     line-height: 1.2;
 }
-
-.sponsor-widget .link-description a {
-    color: var(--cycle-countdown-color-4);
-    text-decoration: none;
-    transition: all 0.2s ease;
-    position: relative;
-    padding-bottom: 1px;
-}
-
-.sponsor-widget .link-description a:hover {
-    color: var(--home-bg-21);
-}
-
-.sponsor-widget .link-description a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 1px;
-    bottom: 0;
-    left: 0;
-    background-color: var(--home-bg-21);
-    transition: width 0.3s ease;
-}
-
-.sponsor-widget .link-description a:hover::after {
-    width: 100%;
-}
-
-.sponsor-icon a img {
-    transition: transform 0.3s ease;
-}
-
-.sponsor-icon a:hover img {
-    transform: scale(1.05);
-}
-
-/* Sponsor banners moved to sidebar — hidden globally */
 
 /* ── Stats Card (Live Hunts / Swaparr / Prowlarr containers) ───── */
 .stats-card {
@@ -2370,11 +2190,6 @@
 /* ═══════════════════════════════════════════════════════════════════
    SETUP WIZARD — step-by-step configuration guide on Home page
    ═══════════════════════════════════════════════════════════════════ */
-
-/* Hide sponsor banners during setup wizard (sidebar is also hidden) */
-body.setup-wizard-active .app-banners-row {
-    display: none !important;
-}
 
 /* Instance callout during setup — emphasizes per-instance config (Root Folders, Indexers) */
 .instance-setup-callout {

@@ -40,7 +40,6 @@ docs/
 │   └── api.html                  # REST API reference
 └── help/
     ├── faq.html                  # Frequently asked questions and troubleshooting
-    └── community.html            # Discord, Reddit, GitHub links
 ```
 
 ## Development

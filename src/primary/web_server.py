@@ -368,7 +368,7 @@ def _set_response_headers(response):
     response.headers['Permissions-Policy'] = 'camera=(), microphone=(), geolocation=()'
     # Content-Security-Policy: allow self + inline scripts/styles (needed for existing code)
     # + TMDB images + CDN for Font Awesome and SortableJS
-    # + GitHub API for version checking, star counts, and sponsors
+    # + GitHub API for version checking
     # + TMDB API for Requestarr/Movie Hunt detail fetches
     response.headers['Content-Security-Policy'] = (
         "default-src 'self'; "

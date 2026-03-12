@@ -668,11 +668,6 @@ textarea::placeholder {
     box-shadow: none;
 }
 
-/* ── App Banners Row (sponsor) — hidden since sponsors moved to sidebar ── */
-.app-banners-row {
-    display: none !important;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .dashboard-grid {

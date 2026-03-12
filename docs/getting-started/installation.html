@@ -92,7 +92,6 @@
                     <div class="nav-group-title">Help</div>
                     <div class="nav-group-items">
                         <a href="../help/faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
-                        <a href="../help/community.html"><i class="fas fa-users"></i> Community</a>
                         
                     </div>
                 </div>
@@ -225,60 +224,8 @@
                 </div>
 
                 <!-- ══════════════════════════════════════════════ -->
-                <h2 id="unraid-installation"><i class="fas fa-server" style="color:#f59e0b;margin-right:8px;"></i>Unraid
-                    Installation</h2>
-                <p>Huntarr is available through <strong>Unraid Community Applications</strong> — just search and click
-                    Install.</p>
-
-                <h3>Steps</h3>
-                <ol>
-                    <li>Open the Unraid web UI and go to the <strong>Apps</strong> tab (Community Applications).</li>
-                    <li>Search for <strong>"Huntarr"</strong>.</li>
-                    <li>Click <strong>Install</strong> on the Huntarr template.</li>
-                    <li>Review and configure the template settings:
-                        <ul>
-                            <li><strong>Port:</strong> <code>9705</code> (change if already in use)</li>
-                            <li><strong>Config path:</strong> <code>/mnt/user/appdata/huntarr</code></li>
-                            <li><strong>Media path (optional):</strong> Map to your media share (e.g.,
-                                <code>/mnt/user/media</code>) — only needed for Movie Hunt / TV Hunt</li>
-                            <li><strong>Downloads path (optional):</strong> Map to your download directory — only needed
-                                for NZB Hunt</li>
-                            <li><strong>PUID:</strong> <code>99</code> (Unraid's nobody user)</li>
-                            <li><strong>PGID:</strong> <code>100</code> (Unraid's users group)</li>
-                            <li><strong>Timezone:</strong> Set to your local timezone (e.g.,
-                                <code>America/New_York</code>)</li>
-                        </ul>
-                    </li>
-                    <li>Click <strong>Apply</strong> to pull the image and start the container.</li>
-                    <li>Access Huntarr at <code>http://your-unraid-ip:9705</code>.</li>
-                </ol>
-
-                <div class="alert alert-info">
-                    Unraid will notify you when a new Huntarr version is available. Click <strong>Update</strong> on the
-                    container to pull the latest image — your config data is preserved in the appdata volume.
-                </div>
-
-                <!-- ══════════════════════════════════════════════ -->
                 <h2 id="windows-installation"><i class="fab fa-windows"
                         style="color:#00a4ef;margin-right:8px;"></i>Windows Installation</h2>
-
-                <h3>Option 1: Docker Desktop (Recommended)</h3>
-                <ol>
-                    <li>Install <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop
-                            for Windows</a>.</li>
-                    <li>Enable WSL 2 backend during installation (recommended by Docker for best performance).</li>
-                    <li>Open PowerShell or Command Prompt and run:</li>
-                </ol>
-                <pre><code>docker run -d ^
-  --name huntarr ^
-  -p 9705:9705 ^
-  -v huntarr-config:/config ^
-  -e TZ=America/New_York ^
-  --restart unless-stopped ^
-  huntarr/huntarr:latest</code></pre>
-                <p>Access Huntarr at <a href="http://localhost:9705">http://localhost:9705</a>.</p>
-                <p>To add media or download paths on Windows, use Windows-style paths with Docker Desktop:</p>
-                <pre><code>-v C:\Users\YourName\Media:/media -v C:\Users\YourName\Downloads:/downloads</code></pre>
 
                 <h3>Option 2: Run from Source</h3>
                 <ol>

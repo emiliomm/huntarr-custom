@@ -822,21 +822,9 @@ input:disabled + .toggle-slider {
     }
 }
 
-@media (max-width: 480px) {
-    .community-links {
-        flex-direction: column;
-    }
-    
-    .community-link-card {
-        width: 100%;
-    }
-    
+@media (max-width: 480px) {    
     .app-stats-grid {
         grid-template-columns: 1fr;
-    }
-    
-    .sponsors-list {
-        grid-template-columns: repeat(2, 1fr);
     }
     
     /* Version info handled in topbar.html component */
@@ -1488,77 +1476,4 @@ label .info-icon ~ text {
 
 .toggle-disabled .toggle-slider {
     cursor: not-allowed !important;
-}
-
-/* Daughter's Sponsor — moved to sidebar; banners hidden on all pages */
-.app-banners-row {
-    display: none !important;
-}
-
-.app-sponsor-banner {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    background: linear-gradient(135deg, var(--ui-surface-slate) 0%, var(--ui-surface-solid) 100%);
-    border: 1px solid var(--ui-border-tint);
-    border-radius: 10px;
-    font-size: 12px;
-    text-decoration: none;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    white-space: nowrap;
-    line-height: 1.3;
-    box-shadow: 0 2px 8px var(--glass-shadow);
-    position: relative;
-    overflow: hidden;
-}
-
-.app-sponsor-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--ui-alpha-white), transparent);
-    opacity: 0.6;
-}
-
-.app-sponsor-banner .sponsor-label {
-    color: var(--import-media-text-1);
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.3px;
-}
-
-.app-sponsor-banner .sponsor-name {
-    font-weight: 600;
-    color: var(--accent-hover);
-    font-size: 12px;
-}
-
-.app-sponsor-banner:hover {
-    background: linear-gradient(135deg, var(--history-section-bg-15) 0%, var(--cycle-countdown-bg-1) 100%);
-    border-color: var(--ui-accent-bg-hover);
-    box-shadow: 0 4px 16px var(--ui-accent-tint);
-    transform: translateY(-1px);
-}
-
-.app-sponsor-banner:hover .sponsor-name {
-    color: var(--home-text-16);
-}
-
-/* Daughter's Sponsor — warm gold accent */
-.app-sponsor-banner {
-    border-left: 3px solid var(--home-border-3);
-}
-
-.app-sponsor-banner:hover {
-    border-left-color: var(--style-border-10);
-}
-
-/* Hide on mobile */
-@media (max-width: 768px) {
-    .app-sponsor-banner,
-    .app-banners-row { display: none !important; }
 }
