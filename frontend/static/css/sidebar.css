@@ -203,7 +203,7 @@
     padding: 0;
 }
 
-/* Static group title (Daughter's Sponsors) */
+/* Static group title*/
 .nav-group-title {
     font-size: 10px;
     font-weight: 700;
@@ -1054,23 +1054,6 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
-/* ===== MOBILE: sidebar hidden — see mobile.css ===== */
-
-/* ===== FOCUSED MODES: hide other sections instantly ===== */
-#nav-group-core-label,
-#homeNav,
-#nav-group-apps-label,
-#nav-group-media-hunt,
-#nzb-hunt-sidebar-group,
-#tor-hunt-sidebar-group,
-#nav-group-apps,
-#nav-group-system,
-#nav-group-requests,
-#main-sidebar-partner-projects-group {
-    max-height: none;
-    opacity: 1;
-}
-
 /* ── Home reorder: move Home directly above the focused group via flex order ── */
 /* Default order (no focus): everything in DOM order */
 .sidebar.requests-focused #homeNav,
@@ -1100,15 +1083,6 @@ input:checked+.slider:before {
 .sidebar.thirdparty-focused #nav-group-apps-label,
 .sidebar.thirdparty-focused #nav-group-apps {
     order: 12;
-}
-
-/* Daughter's Sponsors: hidden in all focused modes EXCEPT requests-focused (non-owners are always requests-focused) */
-.sidebar.system-focused #main-sidebar-partner-projects-group,
-.sidebar.media-focused #main-sidebar-partner-projects-group,
-.sidebar.nzb-focused #main-sidebar-partner-projects-group,
-.sidebar.tor-focused #main-sidebar-partner-projects-group,
-.sidebar.thirdparty-focused #main-sidebar-partner-projects-group {
-    display: none;
 }
 
 /* Requests focused: hide System + all Apps */

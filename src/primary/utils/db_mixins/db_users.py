@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 logger = logging.getLogger(__name__)
 
 class UsersMixin:
-    """Auth users, requestarr users, recovery keys, rate limits, sponsors."""
+    """Auth users, requestarr users, recovery keys, rate limits."""
 
     def user_exists(self) -> bool:
         """Check if any user exists in the database"""

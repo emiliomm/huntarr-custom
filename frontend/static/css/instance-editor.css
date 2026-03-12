@@ -68,11 +68,6 @@
     gap: 8px;
 }
 
-/* Sponsor inside header bar — hidden (sponsors in sidebar only) */
-.page-header-bar .app-banners-row {
-    display: none !important;
-}
-
 a.reqset-back-btn {
     display: inline-flex;
     align-items: center;
