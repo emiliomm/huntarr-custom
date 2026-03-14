@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Path configuration for Huntarr
-Handles cross-platform path resolution for Docker, Windows, and macOS
+Handles cross-platform path resolution for Windows, Linux, and macOS
 """
 
 import os

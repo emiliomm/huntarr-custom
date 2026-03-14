@@ -27,7 +27,7 @@
                 <img src="../images/huntarr-logo.png" alt="Huntarr"><span>Huntarr</span>
             </a>
             <div class="sidebar-scroll">
-                
+
                 <div class="nav-group">
                     <div class="nav-group-title">Getting Started</div>
                     <div class="nav-group-items">
@@ -43,25 +43,8 @@
                         <a href="../apps/index.html"><i class="fas fa-plug"></i> 3rd Party Apps</a>
                     </div>
                 </div>
-                <div class="nav-group">
-                    <div class="nav-group-title">Media Hunt</div>
-                    <div class="nav-group-items">
-                        <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span
-                                class="nav-badge nav-badge-beta">Beta</span></a>
-                        <a href="../movie-hunt/media-collection.html"><i class="fas fa-photo-film"></i> Media
-                            Collection</a>
-                        <a href="../movie-hunt/indexers-clients.html"><i class="fas fa-server"></i> Indexers &amp;
-                            Clients</a>
-                        <a href="../movie-hunt/profiles.html"><i class="fas fa-sliders"></i> Profiles</a>
-                    </div>
-                </div>
-                <div class="nav-group">
-                    <div class="nav-group-title">NZB Hunt</div>
-                    <div class="nav-group-items">
-                        <a href="../nzb-hunt/index.html"><i class="fas fa-newspaper"></i> Overview <span
-                                class="nav-badge nav-badge-beta">Beta</span></a>
-                    </div>
-                </div>
+
+
                 <div class="nav-group">
                     <div class="nav-group-title">Requests</div>
                     <div class="nav-group-items">
@@ -93,16 +76,16 @@
                     <div class="nav-group-items">
                         <a href="../help/faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
                         <a href="../help/community.html"><i class="fas fa-users"></i> Community</a>
-                        
+
                     </div>
                 </div>
             </div>
             <div class="sidebar-footer">
-                
-                
+
+
                 <a href="https://github.com/emiliomm/huntarr-custom" target="_blank" class="sf-github" title="GitHub"><i
                         class="fab fa-github"></i></a>
-                
+
             </div>
         </nav>
 
@@ -117,7 +100,7 @@
                 <p>Requestarr is Huntarr's built-in media request platform. Users (including other people you invite)
                     can discover and request movies and TV shows. Those requests flow through an approval queue that you
                     control as the owner. Approved requests are automatically sent to whatever library instances you
-                    configure — Movie Hunt, TV Hunt, Sonarr, Radarr, or a Bundle that hits multiple instances at once.
+                    configure — Sonarr, Radarr, or a Bundle that hits multiple instances at once.
                 </p>
                 <p>Think of it like Overseerr or Jellyseerr, but built directly into Huntarr with no extra container
                     required.</p>
@@ -153,8 +136,8 @@
                     <div class="feature-card">
                         <div class="fc-icon icon-red"><i class="fas fa-film"></i></div>
                         <h3>Movies &amp; TV Shows</h3>
-                        <p>Request both movies and TV series. Movie requests route to Movie Hunt or Radarr instances. TV
-                            requests route to TV Hunt or Sonarr instances. All in the same interface.</p>
+                        <p>Request both movies and TV series. Movie requests route to Radarr instances. TV
+                            requests route to Sonarr instances. All in the same interface.</p>
                     </div>
                     <div class="feature-card">
                         <div class="fc-icon icon-cyan"><i class="fas fa-hdd"></i></div>
@@ -190,7 +173,7 @@
                     <li>The owner <strong>approves or denies</strong> the request in the Requestarr admin view.</li>
                     <li>On approval:
                         <ul>
-                            <li>For a single instance: the request is sent to that specific Movie Hunt, TV Hunt, Sonarr,
+                            <li>For a single instance: the request is sent to that specific Sonarr,
                                 or Radarr instance.</li>
                             <li>For a bundle: the request is sent to the primary instance, then cascades to every other
                                 bundle member. Members that fail (misconfigured, offline, etc.) are skipped — the
@@ -204,8 +187,8 @@
                 <p>Bundles let a single request reach multiple instances at once. This is useful when you maintain
                     separate libraries — for example, a 1080p Radarr and a 4K Radarr — and want a request to go to both
                     simultaneously.</p>
-                <p>Bundles support <strong>mixed app types</strong>. A single movie bundle can include a Movie Hunt
-                    instance and a Radarr instance together. A TV bundle can include TV Hunt and Sonarr. Each member is
+                <p>Bundles support <strong>mixed app types</strong>. A TV bundle can include multiple Sonarr instances.
+                    Each member is
                     requested independently using its own app type and API.</p>
 
                 <table>
@@ -223,14 +206,9 @@
                             <td>Both Radarr instances receive the movie request</td>
                         </tr>
                         <tr>
-                            <td>Movie Hunt + Radarr fallback</td>
-                            <td>Primary: Movie Hunt, Member: Radarr</td>
-                            <td>Movie Hunt gets the request first, Radarr also receives it</td>
-                        </tr>
-                        <tr>
-                            <td>TV Hunt + Sonarr</td>
-                            <td>Primary: TV Hunt, Member: Sonarr</td>
-                            <td>Both instances receive the TV show request</td>
+                            <td>Movie fallback</td>
+                            <td>Primary: Radarr 1, Member: Radarr 2</td>
+                            <td>Radarr 1 gets the request first, Radarr 2 also receives it</td>
                         </tr>
                         <tr>
                             <td>Member fails (offline)</td>
@@ -280,10 +258,11 @@
                 <ol>
                     <li>Navigate to <strong>Requests</strong> in the sidebar.</li>
                     <li>Go to <strong>Requestarr Settings</strong> and ensure Requestarr is enabled.</li>
-                    <li>Configure which instances are available for requests — select Movie Hunt, TV Hunt, Sonarr, or
+                    <li>Configure which instances are available for requests — select Sonarr, or
                         Radarr instances you've already added under Apps.</li>
                     <li>Optionally <strong>create bundles</strong>: navigate to <strong>Bundles</strong>, click
-                        <strong>Add Bundle</strong>, select a primary instance and add members.</li>
+                        <strong>Add Bundle</strong>, select a primary instance and add members.
+                    </li>
                     <li>To invite other users, go to <strong>Settings → User Account → Users</strong> and create
                         accounts. Decide whether each user gets auto-approve.</li>
                     <li>Share the Huntarr URL with invited users — they log in with their own credentials or Plex SSO
@@ -310,7 +289,8 @@
                         <tr>
                             <td><strong>TMDB Language</strong></td>
                             <td>Language for metadata, titles, and overviews (e.g., <code>en</code>, <code>de</code>,
-                                <code>fr</code>).</td>
+                                <code>fr</code>).
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Auto-Approve (per user)</strong></td>
@@ -342,7 +322,8 @@
             </div><!-- /docs-content -->
 
             <footer class="docs-footer">
-                <p>Huntarr is open source. <a href="https://github.com/emiliomm/huntarr-custom" target="_blank">GitHub</a></p>
+                <p>Huntarr is open source. <a href="https://github.com/emiliomm/huntarr-custom"
+                        target="_blank">GitHub</a></p>
             </footer>
         </main>
     </div><!-- /docs-layout -->

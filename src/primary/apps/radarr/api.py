@@ -145,7 +145,7 @@ def get_disk_space(api_url: str, api_key: str, api_timeout: int) -> Optional[Lis
 
 def get_queue(api_url: str, api_key: str, api_timeout: int, page: int = 1, page_size: int = 100) -> Dict[str, Any]:
     """
-    Get the download queue from Radarr (for Movie Hunt Activity).
+    Get the download queue from Radarr.
 
     Args:
         api_url: Base URL of the Radarr API

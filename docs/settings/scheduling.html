@@ -52,28 +52,9 @@
                     </div>
                 </div>
 
-                <!-- Movie Hunt -->
-                <div class="nav-group">
-                    <div class="nav-group-title">Media Hunt</div>
-                    <div class="nav-group-items">
-                        <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span
-                                class="nav-badge nav-badge-beta">Beta</span></a>
-                        <a href="../movie-hunt/media-collection.html"><i class="fas fa-photo-film"></i> Media
-                            Collection</a>
-                        <a href="../movie-hunt/indexers-clients.html"><i class="fas fa-server"></i> Indexers &amp;
-                            Clients</a>
-                        <a href="../movie-hunt/profiles.html"><i class="fas fa-sliders"></i> Profiles</a>
-                    </div>
-                </div>
 
-                <!-- NZB Hunt -->
-                <div class="nav-group">
-                    <div class="nav-group-title">NZB Hunt</div>
-                    <div class="nav-group-items">
-                        <a href="../nzb-hunt/index.html"><i class="fas fa-newspaper"></i> Overview <span
-                                class="nav-badge nav-badge-beta">Beta</span></a>
-                    </div>
-                </div>
+
+
 
                 <!-- Requestarr -->
                 <div class="nav-group">
@@ -112,18 +93,18 @@
                     <div class="nav-group-items">
                         <a href="../help/faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
                         <a href="../help/community.html"><i class="fas fa-users"></i> Community</a>
-                        
+
                     </div>
                 </div>
 
             </div><!-- /sidebar-scroll -->
 
             <div class="sidebar-footer">
-                
-                
+
+
                 <a href="https://github.com/emiliomm/huntarr-custom" target="_blank" class="sf-github" title="GitHub"><i
                         class="fab fa-github"></i></a>
-                
+
             </div>
         </nav>
 
@@ -137,7 +118,7 @@
 
                 <h2>Overview</h2>
                 <p>Scheduling is the heart of Huntarr. Each supported app type (Sonarr, Radarr, Lidarr, Readarr,
-                    Whisparr, and the built-in Movie Hunt) has its own independent schedule. You can configure:</p>
+                    and Whisparr) has its own independent schedule. You can configure:</p>
                 <ul>
                     <li><strong>How often</strong> each app hunts (interval in minutes)</li>
                     <li><strong>How many items</strong> it searches per cycle (missing cap and upgrade cap)</li>
@@ -172,8 +153,8 @@
                 <h2>Creating a Schedule</h2>
                 <p>Navigate to <strong>Settings → Scheduling</strong> from the sidebar:</p>
                 <ol>
-                    <li>Select an <strong>App Type</strong> from the dropdown (Sonarr, Radarr, Lidarr, Readarr,
-                        Whisparr, or Movie Hunt)</li>
+                    <li>Select an <strong>App Type</strong> from the dropdown (Sonarr, Radarr, Lidarr, Readarr, or
+                        Whisparr)</li>
                     <li>Choose a <strong>specific instance</strong> or select <strong>Global</strong> to apply the
                         schedule to all instances of that type</li>
                     <li>Set the <strong>Interval</strong> — how many minutes between each hunt cycle</li>
@@ -275,14 +256,6 @@
                             <td>2</td>
                             <td>Similar to Radarr in terms of search load</td>
                         </tr>
-                        <tr>
-                            <td><strong>Movie Hunt</strong></td>
-                            <td>30 min</td>
-                            <td>5</td>
-                            <td>3</td>
-                            <td>Uses Huntarr's own indexers (Index Master), so won't conflict with *arr indexer limits
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
 
@@ -363,7 +336,8 @@
             </div><!-- /docs-content -->
 
             <footer class="docs-footer">
-                <p>Huntarr is open source. <a href="https://github.com/emiliomm/huntarr-custom" target="_blank">GitHub</a></p>
+                <p>Huntarr is open source. <a href="https://github.com/emiliomm/huntarr-custom"
+                        target="_blank">GitHub</a></p>
             </footer>
         </main>
 

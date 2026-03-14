@@ -22,13 +22,7 @@ routes = [
     ("/api/indexers/presets", ["presets", "all_categories"]),
     ("/api/clients", ["clients"]),
     ("/api/custom-formats", ["custom_formats"]),
-    ("/api/tv-hunt/indexers", ["indexers"]),
-    ("/api/tv-hunt/indexers/presets", ["presets"]),
-    ("/api/tv-hunt/clients", ["clients"]),
-    ("/api/tv-hunt/custom-formats", ["custom_formats"]),
-    ("/api/tv-hunt/queue", ["queue"]),
-    ("/api/tv-hunt/history", ["history"]),
-    ("/api/tv-hunt/blocklist", ["items"]),
+    ("/api/custom-formats", ["custom_formats"]),
 ]
 
 errs = []

@@ -58,10 +58,7 @@ def _convert_timestamp_to_user_timezone(timestamp_val) -> str:
 
 @log_routes_bp.route('/api/logs/<app_type>')
 def get_logs(app_type):
-    """Get logs for a specific app type from database.
-    - Main Huntarr Logs page uses app_type=all (includes movie_hunt; user can filter by Movie Hunt in dropdown).
-    - Movie Hunt sidebar Logs link opens main Logs with dropdown defaulting to Movie Hunt.
-    """
+    """Get logs for a specific app type from database."""
     try:
         logs_db = get_logs_database()
 
@@ -77,7 +74,7 @@ def get_logs(app_type):
             offset = 0
         search = request.args.get('search')
 
-        # When app_type is 'all': include all app types (including movie_hunt)
+        # When app_type is 'all': include all app types
         if app_type == 'all':
             logs = logs_db.get_logs(
                 app_type=None,
@@ -171,13 +168,13 @@ def get_log_usage():
 
 @log_routes_bp.route('/api/logs/<app_type>/clear', methods=['POST'])
 def clear_logs(app_type):
-    """Clear logs for a specific app type. movie_hunt clear is used by Movie Hunt → Logs; 'all' clears only main apps."""
+    """Clear logs for a specific app type."""
     try:
         logs_db = get_logs_database()
 
-        # When clearing 'all' (main Logs page): clear only main app logs, never movie_hunt or tv_hunt
+        # When clearing 'all' (main Logs page): clear all app logs
         if app_type == 'all':
-            deleted_count = logs_db.clear_logs(app_type=None, exclude_app_types=['movie_hunt', 'tv_hunt'])
+            deleted_count = logs_db.clear_logs(app_type=None)
         else:
             # Map 'system' to actual app type in database
             db_app_type = 'system' if app_type == 'system' else app_type

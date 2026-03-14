@@ -99,92 +99,6 @@ def get_default_instance_config(app_type: str) -> Dict[str, Any]:
     return base_instance
 
 
-def get_movie_hunt_instance_settings_defaults() -> Dict[str, Any]:
-    """
-    Default per-instance settings for Movie Hunt (same as Radarr instance minus connection).
-    Used for hunt/upgrade/state/cycle; no api_url, api_key, enabled, name (those come from movie_hunt_instances).
-    """
-    base = get_default_instance_config("radarr")
-    # Drop connection-related keys; keep search, stateful, additional.
-    # Movie Hunt instances default to enabled.
-    out = {
-        "enabled": True,
-        "hunt_missing_movies": base.get("hunt_missing_movies", 1),
-        "hunt_upgrade_movies": base.get("hunt_upgrade_movies", 0),
-        "upgrade_selection_method": (base.get("upgrade_selection_method") or "cutoff").strip().lower(),
-        "upgrade_tag": (base.get("upgrade_tag") or "").strip(),
-        "release_date_delay_days": base.get("release_date_delay_days", 0),
-        "state_management_mode": base.get("state_management_mode", "custom"),
-        "state_management_hours": base.get("state_management_hours", 72),
-        "sleep_duration": base.get("sleep_duration", 900),
-        "hourly_cap": base.get("hourly_cap", 20),
-        "exempt_tags": base.get("exempt_tags") or [],
-        "api_timeout": base.get("api_timeout", 120),
-        "command_wait_delay": base.get("command_wait_delay", 1),
-        "command_wait_attempts": base.get("command_wait_attempts", 600),
-        "max_download_queue_size": base.get("max_download_queue_size", -1),
-        "max_seed_queue_size": base.get("max_seed_queue_size", -1),
-        "seed_check_torrent_client": base.get("seed_check_torrent_client"),
-        "monitored_only": base.get("monitored_only", True),
-        "tag_processed_items": base.get("tag_processed_items", True),
-        "tag_enable_missing": base.get("tag_enable_missing", True),
-        "tag_enable_upgrade": base.get("tag_enable_upgrade", True),
-        "tag_enable_upgraded": base.get("tag_enable_upgraded", True),
-        "custom_tags": dict(base.get("custom_tags") or {}),
-        "analyze_video_files": True,
-        "video_scan_profile": "default",
-    }
-    return out
-
-
-def get_tv_hunt_instance_settings_defaults() -> Dict[str, Any]:
-    """
-    Default per-instance settings for TV Hunt (based on Sonarr instance minus connection).
-    Used for hunt/upgrade/state/cycle; no api_url, api_key, enabled, name.
-    """
-    base = get_default_instance_config("sonarr")
-    out = {
-        "enabled": True,
-        "hunt_missing_episodes": base.get("hunt_missing_items", 1),
-        "hunt_upgrade_episodes": base.get("hunt_upgrade_items", 0),
-        "hunt_missing_mode": base.get("hunt_missing_mode", "seasons_packs"),
-        "upgrade_mode": base.get("upgrade_mode", "seasons_packs"),
-        "upgrade_selection_method": (base.get("upgrade_selection_method") or "cutoff").strip().lower(),
-        "upgrade_tag": (base.get("upgrade_tag") or "").strip(),
-        "skip_future_episodes": base.get("skip_future_episodes", True),
-        "state_management_mode": base.get("state_management_mode", "custom"),
-        "state_management_hours": base.get("state_management_hours", 72),
-        "sleep_duration": base.get("sleep_duration", 900),
-        "hourly_cap": base.get("hourly_cap", 20),
-        "exempt_tags": base.get("exempt_tags") or [],
-        "api_timeout": base.get("api_timeout", 120),
-        "command_wait_delay": base.get("command_wait_delay", 1),
-        "command_wait_attempts": base.get("command_wait_attempts", 600),
-        "max_download_queue_size": base.get("max_download_queue_size", -1),
-        "max_seed_queue_size": base.get("max_seed_queue_size", -1),
-        "seed_check_torrent_client": base.get("seed_check_torrent_client"),
-        "monitored_only": base.get("monitored_only", True),
-        "tag_processed_items": base.get("tag_processed_items", True),
-        "tag_enable_missing": base.get("tag_enable_missing", True),
-        "tag_enable_upgrade": base.get("tag_enable_upgrade", True),
-        "tag_enable_upgraded": base.get("tag_enable_upgraded", True),
-        "custom_tags": dict(base.get("custom_tags") or {}),
-    }
-    return out
-
-
-# Movie Hunt default configuration (no instances list; uses movie_hunt_instances table)
-MOVIE_HUNT_DEFAULTS = {
-    "sleep_duration": 900,
-    "hourly_cap": 20
-}
-
-# TV Hunt default configuration (no instances list; uses tv_hunt_instances table)
-TV_HUNT_DEFAULTS = {
-    "sleep_duration": 900,
-    "hourly_cap": 20
-}
-
 # Sonarr default configuration
 SONARR_DEFAULTS = {
     "instances": [],  # No default instances - user creates first instance
@@ -340,8 +254,6 @@ def get_default_config(app_type: str) -> Dict[str, Any]:
         'eros': EROS_DEFAULTS,
         'prowlarr': PROWLARR_DEFAULTS,
         'swaparr': SWAPARR_DEFAULTS,
-        'movie_hunt': MOVIE_HUNT_DEFAULTS,
-        'tv_hunt': TV_HUNT_DEFAULTS,
         'general': GENERAL_DEFAULTS
     }
     
@@ -353,42 +265,6 @@ def get_default_config(app_type: str) -> Dict[str, Any]:
     return copy.deepcopy(defaults_map[app_type])
 
 
-def get_tv_hunt_instance_settings_defaults() -> Dict[str, Any]:
-    """
-    Default per-instance settings for TV Hunt (similar to Sonarr instance minus connection).
-    Used for hunt/upgrade/state/cycle; no api_url, api_key, enabled, name (those come from tv_hunt_instances).
-    """
-    base = get_default_instance_config("sonarr")
-    out = {
-        "enabled": True,
-        "hunt_missing_episodes": base.get("hunt_missing_items", 1),
-        "hunt_upgrade_episodes": base.get("hunt_upgrade_items", 0),
-        "hunt_missing_mode": base.get("hunt_missing_mode", "seasons_packs"),
-        "upgrade_mode": base.get("upgrade_mode", "seasons_packs"),
-        "upgrade_selection_method": (base.get("upgrade_selection_method") or "cutoff").strip().lower(),
-        "upgrade_tag": (base.get("upgrade_tag") or "").strip(),
-        "skip_future_episodes": base.get("skip_future_episodes", True),
-        "state_management_mode": base.get("state_management_mode", "custom"),
-        "state_management_hours": base.get("state_management_hours", 72),
-        "sleep_duration": base.get("sleep_duration", 900),
-        "hourly_cap": base.get("hourly_cap", 20),
-        "exempt_tags": base.get("exempt_tags") or [],
-        "api_timeout": base.get("api_timeout", 120),
-        "command_wait_delay": base.get("command_wait_delay", 1),
-        "command_wait_attempts": base.get("command_wait_attempts", 600),
-        "max_download_queue_size": base.get("max_download_queue_size", -1),
-        "max_seed_queue_size": base.get("max_seed_queue_size", -1),
-        "seed_check_torrent_client": base.get("seed_check_torrent_client"),
-        "monitored_only": base.get("monitored_only", True),
-        "tag_processed_items": base.get("tag_processed_items", True),
-        "tag_enable_missing": base.get("tag_enable_missing", True),
-        "tag_enable_upgrade": base.get("tag_enable_upgrade", True),
-        "tag_enable_upgraded": base.get("tag_enable_upgraded", True),
-        "custom_tags": dict(base.get("custom_tags") or {}),
-    }
-    return out
-
-
-def get_all_app_types() -> list:
+def get_all_app_types() -\u003e list:
     """Get list of all supported app types."""
     return ['sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros', 'swaparr', 'prowlarr', 'general']

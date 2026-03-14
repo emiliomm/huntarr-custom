@@ -1,6 +1,6 @@
 """
 Media Rename Engine
-Shared format-token engine for Movie Hunt and TV Hunt file/folder renaming.
+Shared format-token engine for file/folder renaming.
 Parses release names for quality/codec/group info and applies user-configured
 format strings with token replacement — matching Radarr/Sonarr behaviour.
 """

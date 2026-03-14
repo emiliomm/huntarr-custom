@@ -313,37 +313,13 @@ def approve_request(request_id):
         default_quality_profile = None
         default_root_folder = None
         try:
-            if app_type in ('movie_hunt', 'tv_hunt'):
-                # Resolve instance ID for Hunt apps
-                if app_type == 'movie_hunt':
-                    inst_id = requestarr_api._resolve_movie_hunt_instance_id(instance_name)
-                else:
-                    inst_id = requestarr_api._resolve_tv_hunt_instance_id(instance_name)
-
-                if inst_id is not None:
-                    # Get default quality profile
-                    profiles = requestarr_api.get_quality_profiles(app_type, instance_name)
-                    default_prof = next((p for p in profiles if p.get('is_default')), None)
-                    if default_prof:
-                        default_quality_profile = default_prof.get('name') or default_prof.get('id')
-                    elif profiles:
-                        default_quality_profile = profiles[0].get('name') or profiles[0].get('id')
-
-                    # Get default root folder
-                    root_folders = requestarr_api.get_root_folders(app_type, instance_name)
-                    default_rf = next((rf for rf in root_folders if rf.get('is_default')), None)
-                    if default_rf:
-                        default_root_folder = default_rf.get('path')
-                    elif root_folders:
-                        default_root_folder = root_folders[0].get('path')
-            else:
-                # Radarr/Sonarr: get root folders and quality profiles from the instance
-                root_folders = requestarr_api.get_root_folders(app_type, instance_name)
-                if root_folders:
-                    default_root_folder = root_folders[0].get('path')
-                profiles = requestarr_api.get_quality_profiles(app_type, instance_name)
-                if profiles:
-                    default_quality_profile = profiles[0].get('id')
+            # Radarr/Sonarr: get root folders and quality profiles from the instance
+            root_folders = requestarr_api.get_root_folders(app_type, instance_name)
+            if root_folders:
+                default_root_folder = root_folders[0].get('path')
+            profiles = requestarr_api.get_quality_profiles(app_type, instance_name)
+            if profiles:
+                default_quality_profile = profiles[0].get('id')
         except Exception as defaults_err:
             logger.warning(f"[Requestarr] Could not resolve defaults for {app_type}/{instance_name}: {defaults_err}")
 
@@ -363,12 +339,8 @@ def approve_request(request_id):
                 minimum_availability='released',
                 root_folder_path=default_root_folder,
                 skip_tracking=True,
+                quality_profile_id=default_quality_profile,
             )
-
-            if app_type in ('movie_hunt', 'tv_hunt'):
-                request_kwargs['quality_profile_name'] = default_quality_profile
-            else:
-                request_kwargs['quality_profile_id'] = default_quality_profile
 
             # Set monitor defaults per media type
             if media_type == 'tv':

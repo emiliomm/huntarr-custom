@@ -1,6 +1,6 @@
 """
 Requestarr Services Routes
-Manages which instances (Radarr, Sonarr, Movie Hunt, TV Hunt) are available for requests.
+Manages which instances (Radarr, Sonarr) are available for requests.
 Owner-only endpoints.
 """
 
@@ -93,7 +93,7 @@ def get_default_services():
 @requestarr_services_bp.route('/available', methods=['GET'])
 def get_available_instances():
     """Get all available instances that can be added as services.
-    Returns Radarr + Movie Hunt instances for movies, Sonarr + TV Hunt for TV.
+    Returns Radarr instances for movies, Sonarr for TV.
     """
     _, err = _require_owner()
     if err:
@@ -118,15 +118,6 @@ def get_available_instances():
         except Exception:
             pass
 
-        # Movie Hunt instances
-        for inst in (db.get_movie_hunt_instances() or []):
-            result['movies'].append({
-                'app_type': 'movie_hunt',
-                'instance_name': inst.get('name', ''),
-                'instance_id': inst.get('id'),
-                'label': f'Movie Hunt – {inst.get("name", "")}',
-            })
-
         # Sonarr instances
         try:
             sonarr_config = load_settings('sonarr')
@@ -140,15 +131,6 @@ def get_available_instances():
                     })
         except Exception:
             pass
-
-        # TV Hunt instances
-        for inst in (db.get_tv_hunt_instances() or []):
-            result['tv'].append({
-                'app_type': 'tv_hunt',
-                'instance_name': inst.get('name', ''),
-                'instance_id': inst.get('id'),
-                'label': f'TV Hunt – {inst.get("name", "")}',
-            })
 
         return jsonify(result)
     except Exception as e:

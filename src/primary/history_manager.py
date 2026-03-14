@@ -24,9 +24,7 @@ history_locks = {
     "readarr": threading.Lock(),
     "whisparr": threading.Lock(),
     "eros": threading.Lock(),
-    "swaparr": threading.Lock(),
-    "movie_hunt": threading.Lock(),
-    "tv_hunt": threading.Lock()
+    "swaparr": threading.Lock()
 }
 
 def add_history_entry(app_type, entry_data):
@@ -91,7 +89,7 @@ def get_history(app_type, search_query=None, page=1, page_size=20, instance_name
     - search_query: str - Optional search query to filter results
     - page: int - Page number (1-based)
     - page_size: int - Number of entries per page
-    - instance_name: str - Optional instance name to filter (e.g. instance_id as string for movie_hunt/tv_hunt)
+    - instance_name: str - Optional instance name to filter
     
     Returns:
     - dict with entries, total_entries, and total_pages

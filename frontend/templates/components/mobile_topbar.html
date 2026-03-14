@@ -45,10 +45,10 @@
             if (next && next.classList.contains('nav-sub-group')) {
                 return;
             }
-            /* Major category: link switches to sidebar with more nav (Requests, Media Hunt, Apps, NZB Hunt): keep open */
+            /* Major category: link switches to sidebar with more nav (Requests, Apps): keep open */
             var href = link.getAttribute('href') || '';
             var hash = href.indexOf('#') >= 0 ? href.substring(href.indexOf('#')) : '';
-            var categoryHashes = ['#requestarr', '#media-hunt-collection', '#apps', '#nzb-hunt-home'];
+            var categoryHashes = ['#requestarr', '#apps'];
             if (hash && categoryHashes.indexOf(hash) >= 0) return;
             /* Leaf item: close */
             shut();

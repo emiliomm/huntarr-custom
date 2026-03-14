@@ -633,47 +633,6 @@ class SmartHuntEngine:
             except Exception:
                 pass
 
-        # Gather from Movie Hunt instances
-        for inst in instances.get("movie_hunt", []):
-            try:
-                mh_id = inst.get("id")
-                if mh_id is None:
-                    continue
-                from src.primary.routes.media_hunt.discovery_movie import _get_collection_config
-                collection = _get_collection_config(mh_id)
-                for ci in collection:
-                    tmdb_id = ci.get("tmdb_id")
-                    status = (ci.get("status") or "").lower()
-                    if tmdb_id and status == "available":
-                        library_items.append({
-                            "tmdb_id": tmdb_id,
-                            "media_type": "movie",
-                            "vote_average": 0,
-                            "added": "",
-                        })
-            except Exception:
-                pass
-
-        # Gather from TV Hunt instances
-        for inst in instances.get("tv_hunt", []):
-            try:
-                th_id = inst.get("id")
-                if th_id is None:
-                    continue
-                from src.primary.routes.media_hunt.discovery_tv import _get_collection_config as _get_tv_collection
-                collection = _get_tv_collection(th_id)
-                for si in collection:
-                    tmdb_id = si.get("tmdb_id")
-                    status = (si.get("status") or "").lower()
-                    if tmdb_id and status in ("available", "continuing", "ended"):
-                        library_items.append({
-                            "tmdb_id": tmdb_id,
-                            "media_type": "tv",
-                            "vote_average": 0,
-                            "added": "",
-                        })
-            except Exception:
-                pass
 
         if not library_items:
             return []

@@ -7,7 +7,7 @@
  *            User picks preset -> URL/categories/name auto-populate, dropdown locks
  * Edit flow: Editor opens with preset already locked
  */
-(function() {
+(function () {
     'use strict';
     if (typeof window.SettingsForms === 'undefined') return;
 
@@ -17,16 +17,16 @@
     // Default movie cats: [2000,2010,2020,2030,2040,2045,2050,2060]
     // Only NZBFinder has custom categories.
     var PRESET_META = {
-        dognzb:        { name: 'DOGnzb',         url: 'https://api.dognzb.cr',            api_path: '/api', categories: [2000,2010,2020,2030,2040,2045,2050,2060] },
-        drunkenslug:   { name: 'DrunkenSlug',     url: 'https://drunkenslug.com',           api_path: '/api', categories: [2000,2010,2020,2030,2040,2045,2050,2060] },
-        'nzb.su':      { name: 'Nzb.su',          url: 'https://api.nzb.su',                api_path: '/api', categories: [2000,2010,2020,2030,2040,2045,2050,2060] },
-        nzbcat:        { name: 'NZBCat',          url: 'https://nzb.cat',                   api_path: '/api', categories: [2000,2010,2020,2030,2040,2045,2050,2060] },
-        'nzbfinder.ws':{ name: 'NZBFinder.ws',    url: 'https://nzbfinder.ws',              api_path: '/api', categories: [2030,2040,2045,2050,2060,2070] },
-        nzbgeek:       { name: 'NZBgeek',         url: 'https://api.nzbgeek.info',          api_path: '/api', categories: [2000,2010,2020,2030,2040,2045,2050,2060] },
-        'nzbplanet.net':{ name: 'nzbplanet.net',  url: 'https://api.nzbplanet.net',         api_path: '/api', categories: [2000,2010,2020,2030,2040,2045,2050,2060] },
-        simplynzbs:    { name: 'SimplyNZBs',      url: 'https://simplynzbs.com',            api_path: '/api', categories: [2000,2010,2020,2030,2040,2045,2050,2060] },
-        tabularasa:    { name: 'Tabula Rasa',     url: 'https://www.tabula-rasa.pw',        api_path: '/api/v1/api', categories: [2000,2010,2020,2030,2040,2045,2050,2060] },
-        usenetcrawler: { name: 'Usenet Crawler',  url: 'https://www.usenet-crawler.com',    api_path: '/api', categories: [2000,2010,2020,2030,2040,2045,2050,2060] },
+        dognzb: { name: 'DOGnzb', url: 'https://api.dognzb.cr', api_path: '/api', categories: [2000, 2010, 2020, 2030, 2040, 2045, 2050, 2060] },
+        drunkenslug: { name: 'DrunkenSlug', url: 'https://drunkenslug.com', api_path: '/api', categories: [2000, 2010, 2020, 2030, 2040, 2045, 2050, 2060] },
+        'nzb.su': { name: 'Nzb.su', url: 'https://api.nzb.su', api_path: '/api', categories: [2000, 2010, 2020, 2030, 2040, 2045, 2050, 2060] },
+        nzbcat: { name: 'NZBCat', url: 'https://nzb.cat', api_path: '/api', categories: [2000, 2010, 2020, 2030, 2040, 2045, 2050, 2060] },
+        'nzbfinder.ws': { name: 'NZBFinder.ws', url: 'https://nzbfinder.ws', api_path: '/api', categories: [2030, 2040, 2045, 2050, 2060, 2070] },
+        nzbgeek: { name: 'NZBgeek', url: 'https://api.nzbgeek.info', api_path: '/api', categories: [2000, 2010, 2020, 2030, 2040, 2045, 2050, 2060] },
+        'nzbplanet.net': { name: 'nzbplanet.net', url: 'https://api.nzbplanet.net', api_path: '/api', categories: [2000, 2010, 2020, 2030, 2040, 2045, 2050, 2060] },
+        simplynzbs: { name: 'SimplyNZBs', url: 'https://simplynzbs.com', api_path: '/api', categories: [2000, 2010, 2020, 2030, 2040, 2045, 2050, 2060] },
+        tabularasa: { name: 'Tabula Rasa', url: 'https://www.tabula-rasa.pw', api_path: '/api/v1/api', categories: [2000, 2010, 2020, 2030, 2040, 2045, 2050, 2060] },
+        usenetcrawler: { name: 'Usenet Crawler', url: 'https://www.usenet-crawler.com', api_path: '/api', categories: [2000, 2010, 2020, 2030, 2040, 2045, 2050, 2060] },
     };
     window.INDEXER_PRESET_META = PRESET_META;
 
@@ -95,16 +95,16 @@
     // ── TV preset metadata (Newznab standard) ──────────────────────────
     // Default TV cats: [5010,5030,5040,5045] (WEB-DL + SD + HD + UHD).
     var TV_PRESET_META = {
-        dognzb:        { name: 'DOGnzb',         categories: [5010, 5030, 5040, 5045] },
-        drunkenslug:   { name: 'DrunkenSlug',     categories: [5010, 5030, 5040, 5045] },
-        'nzb.su':      { name: 'Nzb.su',          categories: [5010, 5030, 5040, 5045] },
-        nzbcat:        { name: 'NZBCat',          categories: [5010, 5030, 5040, 5045] },
-        'nzbfinder.ws':{ name: 'NZBFinder.ws',    categories: [5010, 5030, 5040, 5045] },
-        nzbgeek:       { name: 'NZBgeek',         categories: [5010, 5030, 5040, 5045] },
-        'nzbplanet.net':{ name: 'nzbplanet.net',  categories: [5010, 5030, 5040, 5045] },
-        simplynzbs:    { name: 'SimplyNZBs',      categories: [5010, 5030, 5040, 5045] },
-        tabularasa:    { name: 'Tabula Rasa',     categories: [5010, 5030, 5040, 5045] },
-        usenetcrawler: { name: 'Usenet Crawler',  categories: [5010, 5030, 5040, 5045] },
+        dognzb: { name: 'DOGnzb', categories: [5010, 5030, 5040, 5045] },
+        drunkenslug: { name: 'DrunkenSlug', categories: [5010, 5030, 5040, 5045] },
+        'nzb.su': { name: 'Nzb.su', categories: [5010, 5030, 5040, 5045] },
+        nzbcat: { name: 'NZBCat', categories: [5010, 5030, 5040, 5045] },
+        'nzbfinder.ws': { name: 'NZBFinder.ws', categories: [5010, 5030, 5040, 5045] },
+        nzbgeek: { name: 'NZBgeek', categories: [5010, 5030, 5040, 5045] },
+        'nzbplanet.net': { name: 'nzbplanet.net', categories: [5010, 5030, 5040, 5045] },
+        simplynzbs: { name: 'SimplyNZBs', categories: [5010, 5030, 5040, 5045] },
+        tabularasa: { name: 'Tabula Rasa', categories: [5010, 5030, 5040, 5045] },
+        usenetcrawler: { name: 'Usenet Crawler', categories: [5010, 5030, 5040, 5045] },
     };
 
     // ── TV categories (5000 series only; never mix with 2000 movie series) ───
@@ -116,14 +116,14 @@
     var DEFAULT_TV_CATEGORIES = [5000, 5010, 5020, 5030, 5040, 5045, 5050, 5060, 5070];
 
     // ── Helpers ────────────────────────────────────────────────────────
-    Forms.getIndexerPresetLabel = function(preset) {
+    Forms.getIndexerPresetLabel = function (preset) {
         var p = (preset || 'manual').toLowerCase().trim();
         if (PRESET_META[p]) return PRESET_META[p].name;
         if (TV_PRESET_META[p]) return TV_PRESET_META[p].name;
         if (p === 'manual') return 'Custom (Manual)';
         return p;
     };
-    Forms.getIndexerCategoriesForPreset = function(preset) {
+    Forms.getIndexerCategoriesForPreset = function (preset) {
         var isTV = (Forms._indexersMode === 'tv');
         if (isTV) return ALL_TV_CATEGORIES;  // TV: 5000 series only
         var p = (preset || '').toLowerCase().trim();
@@ -138,7 +138,7 @@
         if (p === 'usenetcrawler') return USENETCRAWLER_CATEGORIES;
         return ALL_MOVIE_CATEGORIES;  // Movie: 2000 series only
     };
-    Forms.getIndexerDefaultIdsForPreset = function(preset) {
+    Forms.getIndexerDefaultIdsForPreset = function (preset) {
         var isTV = (Forms._indexersMode === 'tv');
         var p = (preset || 'manual').toLowerCase().trim();
         if (isTV) {
@@ -156,7 +156,7 @@
     // ── Open editor ────────────────────────────────────────────────────
     // isAdd=true: new indexer (preset dropdown unlocked, no preset chosen yet)
     // isAdd=false: editing existing (preset locked)
-    Forms.openIndexerEditor = function(isAdd, index, instance) {
+    Forms.openIndexerEditor = function (isAdd, index, instance) {
         var inst = instance || {};
         this._currentEditing = {
             appType: 'indexer',
@@ -207,12 +207,12 @@
     };
 
     // ── Wire up the preset selector (Add mode only) ───────────────────
-    Forms._wirePresetSelector = function() {
+    Forms._wirePresetSelector = function () {
         var self = this;
         var presetSelect = document.getElementById('editor-preset-select');
         if (!presetSelect) return;
 
-        presetSelect.addEventListener('change', function() {
+        presetSelect.addEventListener('change', function () {
             var val = (presetSelect.value || '').trim();
             if (!val) return;
 
@@ -289,8 +289,8 @@
             if (pillsEl) {
                 pillsEl.innerHTML = '';
                 var allCats = Forms.getIndexerCategoriesForPreset(val);
-                defaultCats.forEach(function(id) {
-                    var c = allCats.find(function(x) { return x.id === id; });
+                defaultCats.forEach(function (id) {
+                    var c = allCats.find(function (x) { return x.id === id; });
                     var label = c ? (c.name + ' (' + c.id + ')') : String(id);
                     var span = document.createElement('span');
                     span.className = 'indexer-category-pill';
@@ -318,7 +318,7 @@
     };
 
     // ── Import from Index Master ─────────────────────────────────────────
-    Forms._loadIndexerHuntAvailable = function() {
+    Forms._loadIndexerHuntAvailable = function () {
         var self = this;
         // Read instance ID and mode from the instance select dropdown (value format: "movie:1" or "tv:2")
         var instanceId = 1;
@@ -333,12 +333,12 @@
             }
         }
         fetch('./api/indexer-hunt/available/' + instanceId + '?mode=' + mode)
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
                 var sel = document.getElementById('editor-ih-select');
                 if (!sel) return;
                 sel.innerHTML = '<option value="">Select an indexer from Index Master...</option>';
-                (data.available || []).forEach(function(idx) {
+                (data.available || []).forEach(function (idx) {
                     var opt = document.createElement('option');
                     opt.value = idx.id;
                     opt.textContent = idx.name + ' (Priority: ' + idx.priority + ', ' + (idx.api_key_last4 ? '****' + idx.api_key_last4 : 'no key') + ')';
@@ -352,16 +352,16 @@
                     sel.innerHTML = '<option value="">No available indexers in Index Master</option>';
                 }
                 // Wire change handler
-                sel.addEventListener('change', function() {
+                sel.addEventListener('change', function () {
                     self._onIndexerHuntImportSelect(sel);
                 });
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.error('[IndexerEditor] Failed to load Indexer Hunt available:', err);
             });
     };
 
-    Forms._onIndexerHuntImportSelect = function(sel) {
+    Forms._onIndexerHuntImportSelect = function (sel) {
         var ihId = sel.value;
         if (!ihId) return;
         var opt = sel.options[sel.selectedIndex];
@@ -390,35 +390,35 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ instance_id: instanceId, mode: mode, indexer_ids: [ihId] }),
         })
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-            if (data.success && data.added > 0) {
-                if (window.huntarrUI && window.huntarrUI.showNotification) {
-                    window.huntarrUI.showNotification('Imported "' + name + '" from Index Master.', 'success');
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (data.success && data.added > 0) {
+                    if (window.huntarrUI && window.huntarrUI.showNotification) {
+                        window.huntarrUI.showNotification('Imported "' + name + '" from Index Master.', 'success');
+                    }
+                    if (window.SettingsForms && window.SettingsForms.refreshIndexersList) {
+                        window.SettingsForms.refreshIndexersList();
+                    }
+                    if (window.IndexerHunt && window.IndexerHunt._refreshIndexerInstanceStatus) {
+                        window.IndexerHunt._refreshIndexerInstanceStatus();
+                    }
+                    // Go back to indexer list
+                    if (window.SettingsForms && window.SettingsForms.cancelInstanceEditor) {
+                        window.SettingsForms.cancelInstanceEditor();
+                    }
+                } else if (data.success && data.added === 0) {
+                    if (window.huntarrUI) window.huntarrUI.showNotification('This indexer is already synced to this instance.', 'info');
+                } else {
+                    if (window.huntarrUI) window.huntarrUI.showNotification(data.error || 'Import failed.', 'error');
                 }
-                if (window.SettingsForms && window.SettingsForms.refreshIndexersList) {
-                    window.SettingsForms.refreshIndexersList();
-                }
-                if (window.IndexerHunt && window.IndexerHunt._refreshIndexerInstanceStatus) {
-                    window.IndexerHunt._refreshIndexerInstanceStatus();
-                }
-                // Go back to indexer list
-                if (window.SettingsForms && window.SettingsForms.cancelInstanceEditor) {
-                    window.SettingsForms.cancelInstanceEditor();
-                }
-            } else if (data.success && data.added === 0) {
-                if (window.huntarrUI) window.huntarrUI.showNotification('This indexer is already synced to this instance.', 'info');
-            } else {
-                if (window.huntarrUI) window.huntarrUI.showNotification(data.error || 'Import failed.', 'error');
-            }
-        })
-        .catch(function(err) {
-            if (window.huntarrUI) window.huntarrUI.showNotification('Import error: ' + err, 'error');
-        });
+            })
+            .catch(function (err) {
+                if (window.huntarrUI) window.huntarrUI.showNotification('Import error: ' + err, 'error');
+            });
     };
 
     // ── Wire up category pills, API key validation, enable toggle ─────
-    Forms._wireEditorFields = function() {
+    Forms._wireEditorFields = function () {
         var self = this;
 
         // Categories
@@ -427,20 +427,20 @@
         var catPills = document.getElementById('indexer-categories-pills');
         var presetElForCat = document.getElementById('editor-preset');
         if (catSelect) {
-            catSelect.addEventListener('change', function() {
+            catSelect.addEventListener('change', function () {
                 var id = parseInt(catSelect.value, 10);
                 if (!id) return;
                 var pill = catPills ? catPills.querySelector('.indexer-category-pill[data-category-id="' + id + '"]') : null;
                 if (pill) return;
                 var preset = presetElForCat ? presetElForCat.value : '';
                 var cats = Forms.getIndexerCategoriesForPreset(preset);
-                var c = cats.find(function(x) { return x.id === id; });
+                var c = cats.find(function (x) { return x.id === id; });
                 var label = c ? (c.name + ' (' + c.id + ')') : String(id);
                 var span = document.createElement('span');
                 span.className = 'indexer-category-pill';
                 span.setAttribute('data-category-id', id);
                 span.innerHTML = '<span class="indexer-category-remove" aria-label="Remove">\u00d7</span><span>' + String(label).replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</span>';
-                span.querySelector('.indexer-category-remove').addEventListener('click', function() {
+                span.querySelector('.indexer-category-remove').addEventListener('click', function () {
                     span.remove();
                     Forms.populateIndexerCategoriesDropdown();
                 });
@@ -450,7 +450,7 @@
             });
         }
         if (catPills) {
-            catPills.addEventListener('click', function(e) {
+            catPills.addEventListener('click', function (e) {
                 var remove = e.target.classList.contains('indexer-category-remove') ? e.target : e.target.closest('.indexer-category-remove');
                 if (remove) {
                     var pill = remove.closest('.indexer-category-pill');
@@ -466,9 +466,9 @@
         var apiPathInput = document.getElementById('editor-api-path');
         if (keyInput) {
             var validationTimeout;
-            var runCheck = function() {
+            var runCheck = function () {
                 clearTimeout(validationTimeout);
-                validationTimeout = setTimeout(function() { self.checkIndexerConnection(); }, 500);
+                validationTimeout = setTimeout(function () { self.checkIndexerConnection(); }, 500);
             };
             keyInput.addEventListener('input', runCheck);
             keyInput.addEventListener('change', runCheck);
@@ -487,7 +487,7 @@
         var enabledSelect = document.getElementById('editor-enabled');
         var enableIcon = document.getElementById('indexer-enable-status-icon');
         if (enabledSelect && enableIcon) {
-            enabledSelect.addEventListener('change', function() {
+            enabledSelect.addEventListener('change', function () {
                 var isEnabled = enabledSelect.value === 'true';
                 enableIcon.className = isEnabled ? 'fas fa-check-circle' : 'fas fa-minus-circle';
                 enableIcon.style.color = isEnabled ? '#10b981' : '#ef4444';
@@ -498,7 +498,7 @@
         var enableRssSelect = document.getElementById('editor-enable-rss');
         var rssIcon = document.getElementById('indexer-rss-status-icon');
         if (enableRssSelect && rssIcon) {
-            enableRssSelect.addEventListener('change', function() {
+            enableRssSelect.addEventListener('change', function () {
                 var isRssEnabled = enableRssSelect.value === 'true';
                 rssIcon.className = isRssEnabled ? 'fas fa-rss' : 'fas fa-minus-circle';
                 rssIcon.style.color = isRssEnabled ? '#f59e0b' : '#ef4444';
@@ -507,7 +507,7 @@
     };
 
     // ── Generate HTML ──────────────────────────────────────────────────
-    Forms.generateIndexerEditorHtml = function(instance, isAdd) {
+    Forms.generateIndexerEditorHtml = function (instance, isAdd) {
         var name = (instance.name || '').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         var rawPreset = (instance.preset || '').toLowerCase().replace(/[^a-z0-9.-]/g, '');
         var hasPreset = !!(rawPreset && (PRESET_META[rawPreset] || TV_PRESET_META[rawPreset] || rawPreset === 'manual'));
@@ -533,11 +533,11 @@
         var allCats = Forms.getIndexerCategoriesForPreset(preset);
         var defaultIds = hasPreset ? Forms.getIndexerDefaultIdsForPreset(preset) : [];
         var categoryIds = Array.isArray(instance.categories) ? instance.categories : defaultIds;
-        var validIds = allCats.map(function(x) { return x.id; });
-        categoryIds = categoryIds.filter(function(id) { return validIds.indexOf(id) !== -1; });
+        var validIds = allCats.map(function (x) { return x.id; });
+        categoryIds = categoryIds.filter(function (id) { return validIds.indexOf(id) !== -1; });
         if (categoryIds.length === 0) categoryIds = defaultIds;
-        var categoryChipsHtml = categoryIds.map(function(id) {
-            var c = allCats.find(function(x) { return x.id === id; });
+        var categoryChipsHtml = categoryIds.map(function (id) {
+            var c = allCats.find(function (x) { return x.id === id; });
             var label = c ? (c.name + ' (' + c.id + ')') : String(id);
             return '<span class="indexer-category-pill" data-category-id="' + id + '"><span class="indexer-category-remove" aria-label="Remove">\u00d7</span><span>' + String(label).replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</span></span>';
         }).join('');
@@ -568,11 +568,11 @@
                 '<p class="editor-help-text">Choose a preset, import from Index Master, or configure manually.</p>' +
                 '</div>' +
                 '<div class="editor-field-group" id="editor-ih-import-panel" style="display: none;">' +
-                    '<label>Available from Index Master</label>' +
-                    '<select id="editor-ih-select" class="settings-select" style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #e2e8f0;">' +
-                        '<option value="">Select an indexer from Index Master...</option>' +
-                    '</select>' +
-                    '<p class="editor-help-text">Select an indexer configured in Index Master to import it to this instance.</p>' +
+                '<label>Available from Index Master</label>' +
+                '<select id="editor-ih-select" class="settings-select" style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #e2e8f0;">' +
+                '<option value="">Select an indexer from Index Master...</option>' +
+                '</select>' +
+                '<p class="editor-help-text">Select an indexer configured in Index Master to import it to this instance.</p>' +
                 '</div>';
         } else {
             // Edit mode or Add with preset already selected: locked display
@@ -599,92 +599,91 @@
         return '<input type="hidden" id="editor-preset" value="' + (preset || '') + '">' +
             '<input type="hidden" id="editor-indexer-hunt-id" value="' + indexerHuntId + '">' +
             '<div class="editor-grid">' +
-                '<div class="editor-section">' +
-                    '<div class="editor-section-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">' +
-                        '<span>Connection Settings</span>' +
-                        '<div id="indexer-connection-status-container" style="display: flex; justify-content: flex-end; flex: 1;"></div>' +
-                    '</div>' +
-                    presetHtml +
-                    '<div class="editor-field-group" id="editor-enable-group"' + hideStyle + '>' +
-                        '<div class="editor-setting-item">' +
-                            '<label style="display: flex; align-items: center;">' +
-                                '<span>Enable Status</span>' +
-                                '<i id="indexer-enable-status-icon" class="fas ' + (enabled ? 'fa-check-circle' : 'fa-minus-circle') + '" style="color: ' + (enabled ? '#10b981' : '#ef4444') + '; font-size: 1.1rem; margin-left: 8px;"></i>' +
-                            '</label>' +
-                            '<select id="editor-enabled">' +
-                                '<option value="true"' + (enabled ? ' selected' : '') + '>Enabled</option>' +
-                                '<option value="false"' + (!enabled ? ' selected' : '') + '>Disabled</option>' +
-                            '</select>' +
-                        '</div>' +
-                        '<p class="editor-help-text">Enable or disable this indexer</p>' +
-                    '</div>' +
-                    '<div class="editor-field-group" id="editor-enable-rss-group"' + hideStyle + '>' +
-                        '<div class="editor-setting-item">' +
-                            '<label style="display: flex; align-items: center;">' +
-                                '<span>Enable RSS</span>' +
-                                '<i id="indexer-rss-status-icon" class="fas ' + (enableRss ? 'fa-rss' : 'fa-minus-circle') + '" style="color: ' + (enableRss ? '#f59e0b' : '#ef4444') + '; font-size: 1.1rem; margin-left: 8px;"></i>' +
-                            '</label>' +
-                            '<select id="editor-enable-rss">' +
-                                '<option value="true"' + (enableRss ? ' selected' : '') + '>Enabled</option>' +
-                                '<option value="false"' + (!enableRss ? ' selected' : '') + '>Disabled</option>' +
-                            '</select>' +
-                        '</div>' +
-                        '<p class="editor-help-text">Will be used when Media Hunt periodically looks for releases via RSS Sync</p>' +
-                    '</div>' +
-                    '<div class="editor-field-group"' + hideStyle + '>' +
-                        '<label for="editor-name">Name</label>' +
-                        '<input type="text" id="editor-name" value="' + name + '" placeholder="e.g. My Indexer">' +
-                        '<p class="editor-help-text">A friendly name to identify this indexer.</p>' +
-                    '</div>' +
-                    '<div class="editor-field-group" id="editor-key-group"' + hideStyle + '>' +
-                        '<label for="editor-key">API Key</label>' +
-                        (isSynced
-                            ? '<input type="text" id="editor-key" value="' + keyMasked.replace(/"/g, '&quot;') + '" readonly class="editor-readonly">' +
-                              '<p class="editor-help-text">API key is managed by Index Master and cannot be changed here.</p>'
-                            : '<input type="text" id="editor-key" placeholder="' + keyPlaceholder.replace(/"/g, '&quot;') + '">' +
-                              '<p class="editor-help-text">Only the last 4 characters will be shown on the card after saving.</p>') +
-                    '</div>' +
-                    '<div class="editor-field-group" id="editor-priority-group"' + hideStyle + '>' +
-                        '<label for="editor-priority">Indexer Priority</label>' +
-                        '<input type="number" id="editor-priority" value="' + priority + '" min="1" max="99" style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #e2e8f0;">' +
-                        '<p class="editor-help-text">Lower number = higher priority (1-99, default 50). When multiple indexers find a match, results from higher-priority indexers are preferred.</p>' +
-                    '</div>' +
-                    '<div class="editor-field-group" id="editor-url-group"' + hideStyle + '>' +
-                        '<label for="editor-url">URL</label>' +
-                        '<input type="text" id="editor-url" value="' + url + '" placeholder="https://my-indexer.com"' + (urlReadonly ? ' readonly class="editor-readonly"' : '') + '>' +
-                        '<p class="editor-help-text" id="editor-url-help">' + (urlReadonly ? 'Pre-configured for this indexer preset.' : 'The base URL of your indexer.') + '</p>' +
-                    '</div>' +
-                    '<div class="editor-field-group" id="editor-api-path-group"' + hideStyle + '>' +
-                        '<label for="editor-api-path">API Path</label>' +
-                        '<input type="text" id="editor-api-path" value="' + apiPath + '" placeholder="/api"' + (urlReadonly ? ' readonly class="editor-readonly"' : '') + '>' +
-                        '<p class="editor-help-text" id="editor-api-path-help">Path to the API, usually /api</p>' +
-                    '</div>' +
-                '</div>' +
-                '<div class="editor-section" id="editor-categories-section"' + hideStyle + '>' +
-                    '<div class="editor-section-title">Additional Configurations</div>' +
-                    '<div class="editor-field-group">' +
-                        '<label for="editor-categories-select">Categories</label>' +
-                        '<select id="editor-categories-select" class="settings-select" style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #e2e8f0;">' +
-                            '<option value="">Select additional categories to add...</option>' +
-                        '</select>' +
-                        '<p class="editor-help-text">Categories to use for this indexer.</p>' +
-                        '<div id="indexer-categories-pills" class="indexer-categories-pills" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; min-height: 24px;">' + categoryChipsHtml + '</div>' +
-                    '</div>' +
-                '</div>' +
+            '<div class="editor-section">' +
+            '<div class="editor-section-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">' +
+            '<span>Connection Settings</span>' +
+            '<div id="indexer-connection-status-container" style="display: flex; justify-content: flex-end; flex: 1;"></div>' +
+            '</div>' +
+            presetHtml +
+            '<div class="editor-field-group" id="editor-enable-group"' + hideStyle + '>' +
+            '<div class="editor-setting-item">' +
+            '<label style="display: flex; align-items: center;">' +
+            '<span>Enable Status</span>' +
+            '<i id="indexer-enable-status-icon" class="fas ' + (enabled ? 'fa-check-circle' : 'fa-minus-circle') + '" style="color: ' + (enabled ? '#10b981' : '#ef4444') + '; font-size: 1.1rem; margin-left: 8px;"></i>' +
+            '</label>' +
+            '<select id="editor-enabled">' +
+            '<option value="true"' + (enabled ? ' selected' : '') + '>Enabled</option>' +
+            '<option value="false"' + (!enabled ? ' selected' : '') + '>Disabled</option>' +
+            '</select>' +
+            '</div>' +
+            '<p class="editor-help-text">Enable or disable this indexer</p>' +
+            '</div>' +
+            '<div class="editor-field-group" id="editor-enable-rss-group"' + hideStyle + '>' +
+            '<div class="editor-setting-item">' +
+            '<label style="display: flex; align-items: center;">' +
+            '<span>Enable RSS</span>' +
+            '<i id="indexer-rss-status-icon" class="fas ' + (enableRss ? 'fa-rss' : 'fa-minus-circle') + '" style="color: ' + (enableRss ? '#f59e0b' : '#ef4444') + '; font-size: 1.1rem; margin-left: 8px;"></i>' +
+            '</label>' +
+            '<select id="editor-enable-rss">' +
+            '<option value="true"' + (enableRss ? ' selected' : '') + '>Enabled</option>' +
+            '<option value="false"' + (!enableRss ? ' selected' : '') + '>Disabled</option>' +
+            '</select>' +
+            '</div>' +
+            '</div>' +
+            '<div class="editor-field-group"' + hideStyle + '>' +
+            '<label for="editor-name">Name</label>' +
+            '<input type="text" id="editor-name" value="' + name + '" placeholder="e.g. My Indexer">' +
+            '<p class="editor-help-text">A friendly name to identify this indexer.</p>' +
+            '</div>' +
+            '<div class="editor-field-group" id="editor-key-group"' + hideStyle + '>' +
+            '<label for="editor-key">API Key</label>' +
+            (isSynced
+                ? '<input type="text" id="editor-key" value="' + keyMasked.replace(/"/g, '&quot;') + '" readonly class="editor-readonly">' +
+                '<p class="editor-help-text">API key is managed by Index Master and cannot be changed here.</p>'
+                : '<input type="text" id="editor-key" placeholder="' + keyPlaceholder.replace(/"/g, '&quot;') + '">' +
+                '<p class="editor-help-text">Only the last 4 characters will be shown on the card after saving.</p>') +
+            '</div>' +
+            '<div class="editor-field-group" id="editor-priority-group"' + hideStyle + '>' +
+            '<label for="editor-priority">Indexer Priority</label>' +
+            '<input type="number" id="editor-priority" value="' + priority + '" min="1" max="99" style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #e2e8f0;">' +
+            '<p class="editor-help-text">Lower number = higher priority (1-99, default 50). When multiple indexers find a match, results from higher-priority indexers are preferred.</p>' +
+            '</div>' +
+            '<div class="editor-field-group" id="editor-url-group"' + hideStyle + '>' +
+            '<label for="editor-url">URL</label>' +
+            '<input type="text" id="editor-url" value="' + url + '" placeholder="https://my-indexer.com"' + (urlReadonly ? ' readonly class="editor-readonly"' : '') + '>' +
+            '<p class="editor-help-text" id="editor-url-help">' + (urlReadonly ? 'Pre-configured for this indexer preset.' : 'The base URL of your indexer.') + '</p>' +
+            '</div>' +
+            '<div class="editor-field-group" id="editor-api-path-group"' + hideStyle + '>' +
+            '<label for="editor-api-path">API Path</label>' +
+            '<input type="text" id="editor-api-path" value="' + apiPath + '" placeholder="/api"' + (urlReadonly ? ' readonly class="editor-readonly"' : '') + '>' +
+            '<p class="editor-help-text" id="editor-api-path-help">Path to the API, usually /api</p>' +
+            '</div>' +
+            '</div>' +
+            '<div class="editor-section" id="editor-categories-section"' + hideStyle + '>' +
+            '<div class="editor-section-title">Additional Configurations</div>' +
+            '<div class="editor-field-group">' +
+            '<label for="editor-categories-select">Categories</label>' +
+            '<select id="editor-categories-select" class="settings-select" style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #e2e8f0;">' +
+            '<option value="">Select additional categories to add...</option>' +
+            '</select>' +
+            '<p class="editor-help-text">Categories to use for this indexer.</p>' +
+            '<div id="indexer-categories-pills" class="indexer-categories-pills" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; min-height: 24px;">' + categoryChipsHtml + '</div>' +
+            '</div>' +
+            '</div>' +
             '</div>';
     };
 
     // ── Populate categories dropdown ───────────────────────────────────
-    Forms.populateIndexerCategoriesDropdown = function() {
+    Forms.populateIndexerCategoriesDropdown = function () {
         var select = document.getElementById('editor-categories-select');
         var pills = document.getElementById('indexer-categories-pills');
         var presetEl = document.getElementById('editor-preset');
         if (!select || !pills) return;
         var preset = presetEl ? presetEl.value : '';
         var categories = Forms.getIndexerCategoriesForPreset(preset);
-        var selectedIds = Array.from(pills.querySelectorAll('.indexer-category-pill')).map(function(el) { return parseInt(el.getAttribute('data-category-id'), 10); }).filter(function(id) { return !isNaN(id); });
+        var selectedIds = Array.from(pills.querySelectorAll('.indexer-category-pill')).map(function (el) { return parseInt(el.getAttribute('data-category-id'), 10); }).filter(function (id) { return !isNaN(id); });
         select.innerHTML = '<option value="">Select additional categories to add...</option>';
-        categories.forEach(function(c) {
+        categories.forEach(function (c) {
             if (selectedIds.indexOf(c.id) === -1) {
                 var opt = document.createElement('option');
                 opt.value = c.id;
@@ -695,7 +694,7 @@
     };
 
     // ── Connection validation ──────────────────────────────────────────
-    Forms.checkIndexerConnection = function() {
+    Forms.checkIndexerConnection = function () {
         var container = document.getElementById('indexer-connection-status-container');
         var presetEl = document.getElementById('editor-preset');
         var keyEl = document.getElementById('editor-key');
@@ -737,14 +736,14 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ preset: 'manual', api_key: apiKey, url: customUrl, api_path: customApiPath })
             })
-                .then(function(r) { return r.json().then(function(data) { return { ok: r.ok, data: data }; }); })
-                .then(function(result) {
+                .then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+                .then(function (result) {
                     var data = result.data || {};
                     container.innerHTML = data.valid === true
                         ? '<span class="connection-status success"><i class="fas fa-check-circle"></i><span>Connected</span></span>'
                         : '<span class="connection-status error"><i class="fas fa-times-circle"></i><span>' + (data.message || 'Validation failed') + '</span></span>';
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     container.innerHTML = '<span class="connection-status error"><i class="fas fa-times-circle"></i><span>' + (err.message || 'Connection failed') + '</span></span>';
                 });
             return;
@@ -765,24 +764,24 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ preset: preset, api_key: apiKey })
         })
-            .then(function(r) { return r.json().then(function(data) { return { ok: r.ok, data: data }; }); })
-            .then(function(result) {
+            .then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+            .then(function (result) {
                 var data = result.data || {};
                 container.innerHTML = data.valid === true
                     ? '<span class="connection-status success"><i class="fas fa-check-circle"></i><span>Connected</span></span>'
                     : '<span class="connection-status error"><i class="fas fa-times-circle"></i><span>' + (data.message || 'Invalid API key') + '</span></span>';
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 container.innerHTML = '<span class="connection-status error"><i class="fas fa-times-circle"></i><span>' + (err.message || 'Connection failed') + '</span></span>';
             });
     };
 
-    Forms.validateIndexerApiKey = function() {
+    Forms.validateIndexerApiKey = function () {
         this.checkIndexerConnection();
     };
 
     // ── Save ───────────────────────────────────────────────────────────
-    Forms.saveIndexerFromEditor = function() {
+    Forms.saveIndexerFromEditor = function () {
         if (!this._currentEditing || this._currentEditing.appType !== 'indexer') return;
         var enabledEl = document.getElementById('editor-enabled');
         var presetEl = document.getElementById('editor-preset');
@@ -799,7 +798,7 @@
         var isAdd = this._currentEditing.isAdd;
         var index = this._currentEditing.index;
         var pillsEl = document.getElementById('indexer-categories-pills');
-        var categories = pillsEl ? Array.from(pillsEl.querySelectorAll('.indexer-category-pill')).map(function(el) { return parseInt(el.getAttribute('data-category-id'), 10); }).filter(function(id) { return !isNaN(id); }) : [];
+        var categories = pillsEl ? Array.from(pillsEl.querySelectorAll('.indexer-category-pill')).map(function (el) { return parseInt(el.getAttribute('data-category-id'), 10); }).filter(function (id) { return !isNaN(id); }) : [];
         if (categories.length === 0) categories = Forms.getIndexerDefaultIdsForPreset(preset);
 
         var priorityEl = document.getElementById('editor-priority');
@@ -822,8 +821,8 @@
         var endpoint = isAdd ? apiBase : apiBase + '/' + editId;
         var method = isAdd ? 'POST' : 'PUT';
         fetch(endpoint, { method: method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
                 if (window.SettingsForms && window.SettingsForms.refreshIndexersList) {
                     window.SettingsForms.refreshIndexersList();
                 }
@@ -841,7 +840,7 @@
                     }
                 }
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 if (window.huntarrUI && window.huntarrUI.showNotification) {
                     window.huntarrUI.showNotification(err.message || 'Failed to save indexer', 'error');
                 }

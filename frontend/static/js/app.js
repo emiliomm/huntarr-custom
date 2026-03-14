@@ -4,29 +4,6 @@
  * Coordinates between modular components and handles global application state.
  */
 
-function _checkLogsMediaHuntInstances(cb) {
-    Promise.all([
-        fetch('./api/movie-hunt/instances', { cache: 'no-store' }).then(function (r) { return r.json(); }),
-        fetch('./api/tv-hunt/instances', { cache: 'no-store' }).then(function (r) { return r.json(); }),
-        fetch('./api/indexer-hunt/indexers', { cache: 'no-store' }).then(function (r) { return r.json(); }),
-        fetch('./api/movie-hunt/has-clients', { cache: 'no-store' }).then(function (r) { return r.json(); })
-    ]).then(function (results) {
-        var movieCount = (results[0].instances || []).length;
-        var tvCount = (results[1].instances || []).length;
-        var indexerCount = (results[2].indexers || []).length;
-        var hasClients = results[3].has_clients === true;
-        var hasInstances = movieCount > 0 || tvCount > 0;
-        if (!hasInstances) {
-            cb('no-instances');
-        } else if (indexerCount === 0) {
-            cb('no-indexers');
-        } else if (!hasClients) {
-            cb('no-clients');
-        } else {
-            cb('ok');
-        }
-    }).catch(function () { cb('no-instances'); });
-}
 
 let huntarrUI = {
     // Current state
@@ -80,8 +57,6 @@ let huntarrUI = {
         this.cacheElements();
 
         this._enableRequestarr = true;
-        this._enableNzbHunt = true;
-        this._enableMediaHunt = true;
         this._enableThirdPartyApps = true;
         this._settingsLoaded = false;
         fetch('./api/settings')
@@ -89,7 +64,6 @@ let huntarrUI = {
             .then(all => {
                 var generalSettings = (all && all.general) || {};
                 this._enableRequestarr = generalSettings.enable_requestarr !== false;
-                this._enableNzbHunt = true;
                 this._enableMediaHunt = generalSettings.enable_media_hunt !== false;
                 this._enableThirdPartyApps = generalSettings.enable_third_party_apps !== false;
                 this._settingsLoaded = true;
@@ -98,17 +72,11 @@ let huntarrUI = {
                 var isNonOwner = document.body.classList.contains('non-owner-mode');
                 if (!isNonOwner) {
                     var requestsGroup = document.getElementById('nav-group-requests');
-                    var mediaHuntGroup = document.getElementById('nav-group-media-hunt');
-                    var nzbHuntGroup = document.getElementById('nzb-hunt-sidebar-group');
                     var appsGroup = document.getElementById('nav-group-apps');
                     var appsLabel = document.getElementById('nav-group-apps-label');
                     if (requestsGroup) requestsGroup.style.display = (generalSettings.enable_requestarr === false) ? 'none' : '';
-                    if (mediaHuntGroup) mediaHuntGroup.style.display = (generalSettings.enable_media_hunt === false) ? 'none' : '';
-                    if (nzbHuntGroup) nzbHuntGroup.style.display = (generalSettings.enable_media_hunt === false) ? 'none' : '';
-                    var torHuntGroup = document.getElementById('tor-hunt-sidebar-group');
-                    if (torHuntGroup) torHuntGroup.style.display = (generalSettings.enable_media_hunt === false || generalSettings.dev_mode !== true) ? 'none' : '';
                     if (appsGroup) appsGroup.style.display = (generalSettings.enable_third_party_apps === false) ? 'none' : '';
-                    if (appsLabel) appsLabel.style.display = (generalSettings.enable_media_hunt === false && generalSettings.enable_third_party_apps === false) ? 'none' : '';
+                    if (appsLabel) appsLabel.style.display = (generalSettings.enable_third_party_apps === false) ? 'none' : '';
                 }
                 if (typeof window.applyFeatureFlags === 'function') window.applyFeatureFlags();
 
@@ -129,13 +97,6 @@ let huntarrUI = {
                 }
 
                 // Settings are now loaded — re-initialize view toggle with correct preference
-                if (window.HuntarrStats && (this.currentSection === 'home' || !this.currentSection)) {
-                    window.HuntarrStats.initViewToggle();
-                    window.HuntarrStats.loadMediaStats(true);
-                }
-                if ((this.currentSection === 'home' || !this.currentSection) && window.HuntarrIndexerHuntHome && typeof window.HuntarrIndexerHuntHome.setup === 'function') {
-                    window.HuntarrIndexerHuntHome.setup();
-                }
 
                 // Settings are loaded — now safe to check welcome preference
                 if (this.currentSection === 'home' || !this.currentSection) {
@@ -170,30 +131,12 @@ let huntarrUI = {
 
         // Check which sidebar should be shown based on current section
         console.log(`[huntarrUI] Initialization - current section: ${this.currentSection}`);
-        if (this.currentSection === 'settings' || this.currentSection === 'scheduling' || this.currentSection === 'notifications' || this.currentSection === 'backup-restore' || this.currentSection === 'user' || this.currentSection === 'settings-logs') {
+        if (this.currentSection === 'settings' || this.currentSection === 'scheduling' || this.currentSection === 'notifications' || this.currentSection === 'backup-restore' || this.currentSection === 'user' || this.currentSection === 'settings-logs' || this.currentSection === 'settings-clients') {
             console.log('[huntarrUI] Initialization - showing settings group');
             this.showSettingsSidebar();
         } else if (this.currentSection === 'system' || this.currentSection === 'hunt-manager' || this.currentSection === 'logs') {
             console.log('[huntarrUI] Initialization - showing system group');
             this.showMainSidebar();
-        } else if (this.currentSection === 'nzb-hunt-home' || this.currentSection === 'nzb-hunt-activity' || this.currentSection === 'nzb-hunt-server-editor' || this.currentSection === 'nzb-hunt-folders' || this.currentSection === 'nzb-hunt-servers' || this.currentSection === 'nzb-hunt-advanced' || (this.currentSection && this.currentSection.startsWith('nzb-hunt-settings'))) {
-            console.log('[huntarrUI] Initialization - showing NZB Hunt sidebar');
-            this.showNzbHuntSidebar();
-        } else if (this.currentSection === 'tor-hunt-home' || this.currentSection === 'tor-hunt-settings' || (this.currentSection && this.currentSection.startsWith('tor-hunt'))) {
-            console.log('[huntarrUI] Initialization - showing Tor Hunt sidebar');
-            this.showTorHuntSidebar();
-        } else if (this.currentSection === 'indexer-hunt' || this.currentSection === 'indexer-hunt-stats' || this.currentSection === 'indexer-hunt-history') {
-            console.log('[huntarrUI] Initialization - showing Media Config sidebar for Index Master');
-            this.showMovieHuntSidebar();
-        } else if ((this.currentSection && this.currentSection.startsWith('tv-hunt')) || this.currentSection === 'logs-tv-hunt') {
-            console.log('[huntarrUI] Initialization - showing media hunt sidebar (tv-hunt redirect)');
-            this.showMovieHuntSidebar();
-        } else if (this.currentSection === 'media-hunt-settings' || this.currentSection === 'media-hunt-instances' || this.currentSection === 'settings-instance-management' || this.currentSection === 'settings-media-management' || this.currentSection === 'settings-profiles' || this.currentSection === 'settings-sizes' || this.currentSection === 'profile-editor' || this.currentSection === 'settings-custom-formats' || this.currentSection === 'settings-indexers' || this.currentSection === 'settings-import-media' || this.currentSection === 'settings-import-lists' || this.currentSection === 'settings-root-folders') {
-            console.log('[huntarrUI] Initialization - showing movie hunt sidebar (config)');
-            this.showMovieHuntSidebar();
-        } else if (this.currentSection === 'movie-hunt-home' || this.currentSection === 'movie-hunt-collection' || this.currentSection === 'media-hunt-collection' || this.currentSection === 'activity-queue' || this.currentSection === 'activity-history' || this.currentSection === 'activity-blocklist' || this.currentSection === 'activity-logs' || this.currentSection === 'logs-media-hunt' || this.currentSection === 'settings-clients' || this.currentSection === 'movie-hunt-instance-editor') {
-            console.log('[huntarrUI] Initialization - showing movie hunt sidebar');
-            this.showMovieHuntSidebar();
         } else if (this.currentSection === 'requestarr' || this.currentSection === 'requestarr-discover' || this.currentSection === 'requestarr-movies' || this.currentSection === 'requestarr-tv' || this.currentSection === 'requestarr-smarthunt' || this.currentSection === 'requestarr-hidden' || this.currentSection === 'requestarr-personal-blacklist' || this.currentSection === 'requestarr-options' || this.currentSection === 'requestarr-filters' || this.currentSection === 'requestarr-settings' || this.currentSection === 'requestarr-smarthunt-settings' || this.currentSection === 'requestarr-users' || this.currentSection === 'requestarr-bundles' || this.currentSection === 'requestarr-requests' || this.currentSection === 'requestarr-global-blacklist') {
             if (this._enableRequestarr === false) {
                 console.log('[huntarrUI] Requestarr disabled - redirecting to home');
@@ -228,9 +171,6 @@ let huntarrUI = {
 
         // Setup navigation for sidebars
         this.setupRequestarrNavigation();
-        this.setupMovieHuntNavigation();
-        this.setupTVHuntNavigation();
-        this.setupNzbHuntNavigation();
         this.setupAppsNavigation();
         this.setupSettingsNavigation();
         this.setupSystemNavigation();
@@ -456,7 +396,7 @@ let huntarrUI = {
                     const normalizedHash = (hash || '').replace(/^#+/, '');
                     if (window.location.hash !== hash) {
                         window.location.hash = hash;
-                    } else if (normalizedHash === 'media-hunt-collection' && window.TVHuntCollection && typeof window.TVHuntCollection.showMainView === 'function') {
+                        // Media Hunt collections removed
                         window.TVHuntCollection.showMainView();
                     }
                     if (typeof setActiveNavItem === 'function') setActiveNavItem();
@@ -749,53 +689,6 @@ let huntarrUI = {
         if (typeof setActiveNavItem === 'function') setActiveNavItem();
     },
 
-    showTVHuntSidebar: function () {
-        this.showMovieHuntSidebar();
-    },
-
-    showMovieHuntSidebar: function () {
-        if (typeof expandSidebarGroup === 'function') expandSidebarGroup('sidebar-group-media-hunt');
-        if (window.HuntarrNavigation && typeof window.HuntarrNavigation.updateMovieHuntSidebarActive === 'function') {
-            window.HuntarrNavigation.updateMovieHuntSidebarActive();
-        }
-    },
-
-    showNzbHuntSidebar: function () {
-        if (typeof expandSidebarGroup === 'function') expandSidebarGroup('sidebar-group-nzb-hunt');
-        if (typeof setActiveNavItem === 'function') setActiveNavItem();
-    },
-
-    showTorHuntSidebar: function () {
-        if (typeof expandSidebarGroup === 'function') expandSidebarGroup('sidebar-group-tor-hunt');
-        if (typeof setActiveNavItem === 'function') setActiveNavItem();
-    },
-
-    /** NZB Hunt sidebar is now always visible (controlled by applyFeatureFlags / enable_media_hunt).
-     *  Kept as no-op for backward compatibility with callers. */
-    _refreshNzbHuntSidebarGroup: function () {
-        // No-op: sidebar visibility is handled by applyFeatureFlags()
-    },
-
-    /** Keep all Movie Hunt sidebar icons visible - no hiding when navigating between sections. */
-    _updateMovieHuntSidebarSettingsOnlyVisibility: function () {
-        // All navigation items remain visible for easier navigation
-    },
-
-    /** When in instance-editor for indexer/client, keep Index Master or Clients nav item highlighted. */
-    _highlightMovieHuntNavForEditor: function (appType) {
-        var subGroup = document.getElementById('index-master-sub');
-        if (subGroup) subGroup.classList.add('expanded');
-        // Query from unified sidebar
-        var items = document.querySelectorAll('#sidebar-group-media-hunt .nav-item');
-        for (var i = 0; i < items.length; i++) items[i].classList.remove('active');
-        var nav = appType === 'indexer' ? document.getElementById('movieHuntIndexMasterNav') : document.getElementById('movieHuntIndexMasterClientsNav');
-        if (nav) nav.classList.add('active');
-    },
-
-    /** Legacy: was used to show/hide Movie Hunt in Core by dev_mode. Movie Hunt is now in Beta and always visible. */
-    updateMovieHuntNavVisibility: function () {
-        // No-op in unified sidebar
-    },
 
     // Simple event source disconnection for compatibility
     disconnectAllEventSources: function () {
@@ -1571,22 +1464,13 @@ let huntarrUI = {
         }
     },
 
-    setupMovieHuntNavigation: function () {
-        if (window.HuntarrNavigation && window.HuntarrNavigation.setupMovieHuntNavigation) {
-            window.HuntarrNavigation.setupMovieHuntNavigation();
-        }
-    },
 
     setupTVHuntNavigation: function () {
-        if (window.HuntarrNavigation && window.HuntarrNavigation.setupTVHuntNavigation) {
-            window.HuntarrNavigation.setupTVHuntNavigation();
-        }
+        // No-op
     },
 
     setupNzbHuntNavigation: function () {
-        if (window.HuntarrNavigation && window.HuntarrNavigation.setupNzbHuntNavigation) {
-            window.HuntarrNavigation.setupNzbHuntNavigation();
-        }
+        // No-op
     },
 
     updateAppsSidebarActive: function () {
@@ -1668,7 +1552,6 @@ let huntarrUI = {
     },
 
     setupProwlarrStatusPolling: function () { if (window.HuntarrProwlarr) window.HuntarrProwlarr.setupProwlarrStatusPolling(); },
-    setupIndexerHuntHome: function () { if (window.HuntarrIndexerHuntHome) window.HuntarrIndexerHuntHome.setup(); },
 
 
 };

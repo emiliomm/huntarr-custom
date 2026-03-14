@@ -12,8 +12,7 @@
   <img src="frontend/static/logo/128.png" alt="Huntarr Logo" width="100" height="100">
 </p>
 
-<p align="center">
-  A media automation platform that goes beyond the *arr ecosystem. Huntarr hunts for missing content and quality upgrades across your existing Sonarr, Radarr, Lidarr, Readarr, and Whisparr instances — while also providing its own built-in Movie Hunt, TV Hunt, Index Master, NZB Hunt, and Requestarr modules that can replace or complement your existing stack.
+  A media automation platform that goes beyond the *arr ecosystem. Huntarr hunts for missing content and quality upgrades across your existing Sonarr, Radarr, Lidarr, Readarr, and Whisparr instances.
 </p>
 
 ---
@@ -22,9 +21,7 @@
 
 - [What Huntarr Does](#what-huntarr-does)
 - [Third-Party *arr Support](#third-party-arr-support)
-- [Movie Hunt & TV Hunt](#movie-hunt--tv-hunt)
-- [Index Master](#index-master)
-- [NZB Hunt](#nzb-hunt)
+- [Prowlarr Integration](#prowlarr-integration)
 - [Requestarr](#requestarr)
 - [Add to Library](#add-to-library)
 - [How It Works](#how-it-works)
@@ -44,14 +41,11 @@ Your *arr apps monitor RSS feeds for new releases — but they don't go back and
 
 **Huntarr does.** It systematically scans your entire library, identifies all missing content, and searches for it in small, indexer-safe batches that won't get you rate-limited or banned. It also finds content below your quality cutoff and triggers upgrades automatically — completely hands-off.
 
-Beyond missing-content hunting, Huntarr now includes a full suite of built-in modules that can replace parts of your stack entirely or run alongside what you already have:
+Beyond missing-content hunting, Huntarr includes built-in modules that complement your existing stack:
 
 | Module | What It Does |
 |--------|-------------|
-| **Movie Hunt** | A built-in movie management system with its own indexers, download clients, and discovery UI — no Radarr required |
-| **TV Hunt** | A built-in TV show management system — track series, seasons, and episodes without needing Sonarr |
-| **Index Master** | Manage and search your Usenet and torrent indexers directly inside Huntarr — a full Prowlarr alternative |
-| **NZB Hunt** | A complete Usenet download client with multi-server support, speed limiting, direct unpack, and a full queue UI |
+| **Prowlarr** | Huntarr connects to your external Prowlarr instance for centralized indexer management |
 | **Requestarr** | A media request system with user accounts, approval queues, bundles, and per-user permissions |
 
 The core philosophy: **third-party *arr support is always first-class.** You can use Huntarr's built-in modules, your existing *arr apps, or both simultaneously. Nothing is forced — every module is optional and independently configurable.
@@ -78,56 +72,15 @@ Each app connection supports:
 
 ---
 
-## Movie Hunt & TV Hunt
+## Prowlarr Integration
 
-Browse, discover, and manage your media collection with a full visual interface. Movie Hunt and TV Hunt are built-in alternatives to Radarr and Sonarr — see what's in your library, what's missing, and what needs upgrading, all in one place.
+Huntarr integrates seamlessly with external **Prowlarr** instances. Prowlarr is the recommended tool for managing your indexers across the *arr ecosystem.
 
-**Key capabilities:**
-- Visual discovery interface — browse trending, popular, and upcoming titles
-- Library management — add, track, and monitor your collection
-- Quality profiles — define your preferred formats, resolutions, and cutoffs
-- Root folder management — configure where media lands on disk
-- Direct import — detect files already on disk and import them without re-downloading
-- Requestarr integration — users can request content that flows through your approval queue
-
-Use Movie Hunt and TV Hunt standalone, or alongside your existing Radarr/Sonarr instances. They share indexer and download client configuration through Index Master and NZB Hunt.
-
-<p align="center">
-  <img src="docs/readme/MediaHunt.jpg" alt="Movie Hunt & TV Hunt" width="800">
-</p>
-
----
-
-## Index Master
-
-Manage your indexers directly inside Huntarr. Add Usenet and torrent indexers, test connections, configure API keys, and search across all of them — no separate Prowlarr instance required. Index Master feeds into both the built-in Movie Hunt / TV Hunt modules and the third-party *arr hunting engine.
-
-**Supports:**
-- Newznab-compatible Usenet indexers
-- Torznab-compatible torrent indexers
-- Per-indexer API key and rate limit management
-- Connection testing and health status
-
----
-
-## NZB Hunt
-
-A full Usenet download client built directly into Huntarr. Connect your NNTP servers and download NZBs without installing SABnzbd, NZBGet, or any other download manager.
-
-**Features:**
-- Multi-server NNTP connections with up to 120 simultaneous threads
-- Direct unpack — extracts RAR archives while downloading, not after
-- PAR2 verification and repair for corrupted downloads
-- Encrypted RAR detection with configurable action (abort by default on new installs)
-- Speed limiting with per-server bandwidth tracking
-- Full queue management — pause, resume, prioritize, remove
-- Categories — automatic folder organization by movie/TV instance
-- Duplicate detection — smart and identical download prevention
-- Download history with per-server bandwidth statistics
-
-<p align="center">
-  <img src="docs/readme/NZBHunt.jpg" alt="NZB Hunt" width="800">
-</p>
+**Key benefits:**
+- Centralized management of Usenet and torrent indexers
+- Automatic syncing of indexers to all your *arr instances
+- Proxy support and advanced filtering
+- Connection testing and health monitoring
 
 ---
 
@@ -140,7 +93,7 @@ A complete media request platform built into Huntarr. Users can discover and req
 - **Approval queue** — owners review and approve or deny requests before anything is added
 - **Auto-approve** — grant trusted users instant approval so requests go straight through
 - **Bundles** — group multiple instances together so a single request sends to all of them simultaneously; member failures are non-fatal and the system moves on automatically
-- **Requestarr works with everything** — Movie Hunt, TV Hunt, Sonarr, Radarr, or any combination
+- **Requestarr works with everything** — Sonarr, Radarr, or any combination
 - **Plex integration** — optional Plex SSO lets users log in with their Plex accounts
 
 <p align="center">
@@ -151,9 +104,7 @@ A complete media request platform built into Huntarr. Users can discover and req
 
 ## Add to Library
 
-Add new movies and TV shows in seconds. Search by title, pick your instance and quality profile, choose a root folder, and send it straight to your library — whether that's through Movie Hunt, TV Hunt, Sonarr, Radarr, or a bundle that hits all of them at once.
-
-Huntarr even detects if files are already sitting on disk and lets you import them directly without re-downloading.
+Add new movies and TV shows in seconds. Search by title, pick your instance and quality profile, choose a root folder, and send it straight to your library — whether that's through Sonarr, Radarr, or a bundle that hits all of them at once.
 
 <p align="center">
   <img src="docs/readme/AddToLibrary.jpg" alt="Add to Library" width="800">
@@ -163,7 +114,7 @@ Huntarr even detects if files are already sitting on disk and lets you import th
 
 ## How It Works
 
-1. **Connect** — Point Huntarr at your Sonarr, Radarr, Lidarr, Readarr, or Whisparr instances (or configure the built-in Movie Hunt / TV Hunt modules)
+1. **Connect** — Point Huntarr at your Sonarr, Radarr, Lidarr, Readarr, or Whisparr instances
 2. **Hunt Missing** — Scans your entire library for content that's monitored but not downloaded, then searches your indexers in small, safe batches
 3. **Hunt Upgrades** — Identifies items that exist but fall below your quality cutoff, then triggers upgrade searches automatically
 4. **Smart Rate Management** — Configurable per-instance hourly search caps, automatic pause when download queues are full, and restart delay management to avoid indexer bans
@@ -174,59 +125,40 @@ Huntarr even detects if files are already sitting on disk and lets you import th
 
 ## Installation
 
-### Docker (Recommended)
+Huntarr is built with Python and can be run from source on Windows, Linux, and macOS.
 
-```bash
-docker run -d \
-  --name huntarr \
-  --restart unless-stopped \
-  -p 9705:9705 \
-  -v /path/to/config:/config \
-  -v /path/to/media:/media       # Optional — for Movie Hunt / TV Hunt library access \
-  -v /path/to/downloads:/downloads # Optional — for NZB Hunt download output \
-  -e TZ=America/New_York \
-  huntarr/huntarr:latest
-```
+### Prerequisites
 
-### Docker Compose
+- Python 3.10 or higher
+- pip (Python package manager)
 
-```yaml
-services:
-  huntarr:
-    image: huntarr/huntarr:latest
-    container_name: huntarr
-    restart: unless-stopped
-    ports:
-      - "9705:9705"
-    volumes:
-      - /path/to/config:/config
-      - /path/to/media:/media           # Optional — for Movie Hunt / TV Hunt library access
-      - /path/to/downloads:/downloads   # Optional — for NZB Hunt download output
-    environment:
-      - TZ=America/New_York
-      - PUID=1000    # Optional — run as specific user ID (default: 0 = root)
-      - PGID=1000    # Optional — run as specific group ID (default: 0 = root)
-```
+### Installation from Source
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/emiliomm/huntarr-custom.git
+   cd huntarr-custom
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run Huntarr:**
+   ```bash
+   python main.py
+   ```
 
 ### Volume & Environment Reference
 
-| Path / Variable | Required | Purpose |
-|----------------|----------|---------|
-| `/config` | **Yes** | Persistent config, database, logs, and settings |
-| `/media` | No | Media library root — required for Movie Hunt / TV Hunt root folders |
-| `/downloads` | No | Download directory — required for NZB Hunt (temp and complete folders live here) |
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `HUNTARR_CONFIG_DIR` | No | Persistent config, database, and settings (default: `%APPDATA%/Huntarr` on Windows, `~/.config/Huntarr` on Linux) |
 | `TZ` | No | Timezone for scheduling and logs (e.g. `America/New_York`, default: `UTC`) |
-| `PUID` | No | User ID to run as. Unraid: `99`, Linux: `1000`, default: `0` (root) |
-| `PGID` | No | Group ID to run as. Unraid: `100`, Linux: `1000`, default: `0` (root) |
+| `HUNTARR_PORT` | No | Port to run the web server on (default: `9705`) |
 
-### More Installation Methods
-
-- [Unraid Installation](https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#unraid-installation)
-- [Windows Installation](https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#windows-installation)
-- [macOS Installation](https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#macos-installation)
-- [Linux Installation](https://emiliomm.github.io/huntarr-custom/getting-started/installation.html#linux-installation)
-
-Once running, open your browser to `http://<your-server-ip>:9705`.
+Once running, open your browser to `http://localhost:9705`.
 
 For full documentation, visit the [Huntarr Docs](https://emiliomm.github.io/huntarr-custom/).
 

@@ -749,12 +749,7 @@ def _build_title(base_title: str, conn: dict, extra_data: Optional[dict] = None)
     if extra_data:
         if include_app and extra_data.get("app_type"):
             app_name = extra_data["app_type"]
-            if app_name == "movie_hunt":
-                app_name = "Movie Hunt"
-            elif app_name == "tv_hunt":
-                app_name = "TV Hunt"
-            else:
-                app_name = app_name.capitalize()
+            app_name = app_name.capitalize()
             parts.append(app_name)
 
         if include_instance and extra_data.get("instance_name"):

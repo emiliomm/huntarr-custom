@@ -52,28 +52,9 @@
                     </div>
                 </div>
 
-                <!-- Movie Hunt -->
-                <div class="nav-group">
-                    <div class="nav-group-title">Media Hunt</div>
-                    <div class="nav-group-items">
-                        <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span
-                                class="nav-badge nav-badge-beta">Beta</span></a>
-                        <a href="../movie-hunt/media-collection.html"><i class="fas fa-photo-film"></i> Media
-                            Collection</a>
-                        <a href="../movie-hunt/indexers-clients.html"><i class="fas fa-server"></i> Indexers &amp;
-                            Clients</a>
-                        <a href="../movie-hunt/profiles.html"><i class="fas fa-sliders"></i> Profiles</a>
-                    </div>
-                </div>
 
-                <!-- NZB Hunt -->
-                <div class="nav-group">
-                    <div class="nav-group-title">NZB Hunt</div>
-                    <div class="nav-group-items">
-                        <a href="../nzb-hunt/index.html"><i class="fas fa-newspaper"></i> Overview <span
-                                class="nav-badge nav-badge-beta">Beta</span></a>
-                    </div>
-                </div>
+
+
 
                 <!-- Requestarr -->
                 <div class="nav-group">
@@ -138,11 +119,8 @@
                 <h2>General</h2>
 
                 <h3>What is Huntarr?</h3>
-                <p>Huntarr is an automated media automation platform that works alongside your existing <strong>Sonarr,
-                        Radarr, Lidarr, Readarr, and Whisparr</strong> instances to hunt for missing content and quality
-                    upgrades — automatically and on a schedule you control. It also includes its own built-in modules:
-                    Movie Hunt (movie management), TV Hunt (TV management), Index Master (indexer manager), NZB Hunt
-                    (Usenet downloader), and Requestarr (media request system with multi-user support).</p>
+                upgrades — automatically and on a schedule you control. It also includes its own built-in module:
+                Requestarr (media request system with multi-user support).</p>
 
                 <h3>How does Huntarr differ from the built-in search in Sonarr/Radarr?</h3>
                 <p>The *arr apps search when you manually trigger it or when new items are added. They don't
@@ -153,56 +131,28 @@
 
                 <h3>Does Huntarr replace Sonarr/Radarr?</h3>
                 <p>Not necessarily — Huntarr works alongside them just as well as it can replace them. The third-party
-                    hunt engine uses their APIs to trigger searches. For users who want a fully self-contained setup,
-                    Movie Hunt and TV Hunt are built-in alternatives. But if you already have a working Sonarr/Radarr
+                    hunt engine uses their APIs to trigger searches. If you already have a working Sonarr/Radarr
                     stack, Huntarr enhances it without requiring migration.</p>
 
-                <h3>What ports does Huntarr use?</h3>
-                <p>Huntarr's web UI runs on port <strong>9705</strong> by default. Change the host-side mapping in
-                    Docker (e.g., <code>-p 9720:9705</code>) or set the <code>HUNTARR_PORT</code> environment variable
-                    for source installs.</p>
+                <p>Huntarr's web UI runs on port <strong>9705</strong> by default. Set the <code>HUNTARR_PORT</code>
+                    environment variable
+                    for source installs if 9705 is already in use.</p>
 
                 <h3>Is Huntarr free?</h3>
                 <p>Yes. Huntarr is fully open source under the GPL-3.0 license. All features are free. If it's been
                     valuable to you, a toward
                     the developer's daughter's college fund is always appreciated but never required.</p>
 
-                <h3>How do I get the latest version?</h3>
-                <p>Pull the latest Docker image: <code>docker pull huntarr/huntarr:latest</code> then restart your
-                    container. On Unraid, click <strong>Update</strong> on the container in the Docker tab. See the <a
-                        href="../getting-started/installation.html#updating">Updating</a> section for full details.</p>
+                <p>On Windows, the application typically auto-updates if the service is configured to do so, or you can
+                    manually update by running <code>git pull</code> in the application directory followed by
+                    <code>pip install -r requirements.txt</code>.
+                    See the <a href="../getting-started/installation.html#updating">Updating</a> section for full
+                    details.</p>
 
-                <h2>Installation</h2>
-
-                <h3>Docker container won't start</h3>
-                <ul>
-                    <li>Check that port 9705 isn't already in use on the host</li>
-                    <li>Verify your volume mount paths exist on the host and are writable</li>
-                    <li>Check container logs: <code>docker logs huntarr</code></li>
-                    <li>Ensure the image pulled cleanly: <code>docker pull huntarr/huntarr:latest</code></li>
-                    <li>Check for invalid timezone string in the <code>TZ</code> environment variable</li>
-                </ul>
-
-                <h3>"Permission denied" errors on /config or /downloads</h3>
-                <ul>
-                    <li>Set <code>PUID</code> and <code>PGID</code> to match the user who owns those directories</li>
-                    <li>On Linux: <code>sudo chown -R 1000:1000 /path/to/config</code> then set
-                        <code>PUID=1000 PGID=1000</code>
-                    </li>
-                    <li>On Unraid: set <code>PUID=99</code> and <code>PGID=100</code></li>
-                    <li>Ensure no other process has the directory locked</li>
-                </ul>
-
-                <h3>Huntarr is unreachable in the browser</h3>
-                <ul>
-                    <li>Verify the container is running: <code>docker ps | grep huntarr</code></li>
-                    <li>Check that the host port mapping matches (e.g., <code>0.0.0.0:9705->9705</code> in
-                        <code>docker ps</code> output)
-                    </li>
-                    <li>Try accessing directly by IP: <code>http://your-server-ip:9705</code></li>
-                    <li>Check firewall rules — ensure port 9705 (or your custom port) is allowed inbound</li>
-                    <li>On Unraid, verify the Docker network isn't set to "none"</li>
-                </ul>
+                <p>Ensure the application is running and accessible at <code>http://localhost:9705</code> (or your
+                    server's IP).
+                    Check firewall rules to ensure the port is allowed. Check the application logs for any errors on
+                    startup.</p>
 
                 <h2>App Connections</h2>
 
@@ -215,17 +165,8 @@
                     <li>Test the URL directly in your browser — it should load the *arr web UI</li>
                 </ul>
 
-                <h3>Can't connect to a *arr app</h3>
-                <ul>
-                    <li>If both Huntarr and your *arr app are in Docker on the same network, use the container name as
-                        hostname: <code>http://sonarr:8989</code></li>
-                    <li>If they're on different networks or the host, use the server's LAN IP — never use
-                        <code>localhost</code> (that points inside Huntarr's own container)
-                    </li>
-                    <li>Make sure the *arr app has no Base URL set, or include it in the URL:
-                        <code>http://192.168.1.100:8989/sonarr</code>
-                    </li>
-                    <li>Try the Test Connection button — the error message usually indicates exactly what's wrong</li>
+                <li>Verify the URL is correct and includes the full port</li>
+                <li>Test the URL directly in your browser — it should load the *arr web UI</li>
                 </ul>
 
                 <h3>Can I connect multiple instances of the same app?</h3>
@@ -257,76 +198,10 @@
                     <li>Check your indexer's rate limit policy — most allow 100–200 API calls/day per account</li>
                 </ul>
 
-                <h3>Hunt schedules aren't running</h3>
-                <ul>
-                    <li>Verify the schedule is <strong>enabled</strong> in Settings → Scheduling</li>
-                    <li>Check that the app instance is connected and enabled under Apps</li>
-                    <li>Review System → Logs for any error messages from the scheduler</li>
-                    <li>Restart Huntarr if schedules appear stuck: <code>docker restart huntarr</code></li>
+                <li>Restart Huntarr if schedules appear stuck.</li>
                 </ul>
 
-                <h2>Movie Hunt &amp; TV Hunt</h2>
 
-                <h3>Movie Hunt/TV Hunt is not finding releases</h3>
-                <ul>
-                    <li>Verify you have at least one indexer configured and passing its connection test</li>
-                    <li>Check that a download client is configured and reachable</li>
-                    <li>Ensure the movie/show's minimum availability allows searching (avoid "Announced" for Usenet —
-                        content may not exist yet)</li>
-                    <li>Check that a quality profile is assigned — without one, Movie Hunt won't know what to grab</li>
-                    <li>Review System → Logs for search activity and errors</li>
-                </ul>
-
-                <h3>Downloads aren't completing / items stuck as "Requested"</h3>
-                <ul>
-                    <li>Verify your download client (SABnzbd, NZBGet, NZB Hunt, etc.) is running and accessible</li>
-                    <li>Check the download client's own queue/logs for error messages</li>
-                    <li>Ensure the download category configured in Movie Hunt exists in your download client</li>
-                    <li>Check available disk space on the download volume</li>
-                </ul>
-
-                <h2>NZB Hunt</h2>
-
-                <h3>NZB Hunt downloads fail immediately</h3>
-                <ul>
-                    <li>Test your NNTP server connection: go to NZB Hunt → Settings → Servers and click
-                        <strong>Test</strong>
-                    </li>
-                    <li>Verify credentials (username, password, host, port) are correct</li>
-                    <li>Try reducing the connection count to 5 to rule out a server connection limit</li>
-                    <li>Check that SSL is enabled and port 563 is used (or 119 for plain — not recommended)</li>
-                </ul>
-
-                <h3>Downloads fail with "too many missing articles"</h3>
-                <p>This means the NZB file references Usenet posts that no longer exist on your provider's servers — a
-                    <strong>retention</strong> issue. The content is older than your provider's retention window or your
-                    provider has incomplete coverage. Solutions:
-                </p>
-                <ul>
-                    <li>Switch to a provider with longer retention (some offer 4,000+ days)</li>
-                    <li>Add a second provider as a backup server in NZB Hunt — gaps from the primary are filled from the
-                        backup</li>
-                    <li>Use a different indexer to find a fresher NZB for the same release</li>
-                </ul>
-
-                <h3>NZB Hunt aborted a download — "encrypted RAR"</h3>
-                <p>This is expected. By default (new installs), NZB Hunt aborts password-protected RAR archives.
-                    Password-protected releases are generally poor-quality or scam releases on Usenet. To change this:
-                </p>
-                <ul>
-                    <li>Go to NZB Hunt → Settings → Processing</li>
-                    <li>Change <strong>Encrypted RAR Action</strong> from "Abort" to "Pause"</li>
-                    <li>Pausing lets you inspect and decide manually; aborting removes it automatically</li>
-                </ul>
-
-                <h3>/downloads isn't created or NZB Hunt can't write files</h3>
-                <ul>
-                    <li>Ensure <code>/downloads</code> is mapped in your Docker configuration — it will not be
-                        auto-created otherwise</li>
-                    <li>Verify the host path is writable by the PUID/PGID set in the container</li>
-                    <li>NZB Hunt creates <code>/downloads/incomplete</code> and <code>/downloads/complete</code> itself
-                        on first use — you just need the parent path to exist and be writable</li>
-                </ul>
 
                 <h2>Requestarr</h2>
 
@@ -353,10 +228,8 @@
 
                 <h3>Huntarr lost my settings after restart</h3>
                 <ul>
-                    <li>Ensure the <code>/config</code> volume is mapped to a persistent host path — not an anonymous
-                        Docker volume</li>
-                    <li>Update to the latest version (this was fixed in earlier builds)</li>
-                    <li>Enable automatic backups in Settings → Backup &amp; Restore as insurance going forward</li>
+                    <li>Ensure the configuration directory is persistent and not being wiped by a cleanup script.</li>
+                    <li>Enable automatic backups in Settings → Backup &amp; Restore as insurance going forward.</li>
                 </ul>
 
                 <h3>How do I migrate to a new server?</h3>

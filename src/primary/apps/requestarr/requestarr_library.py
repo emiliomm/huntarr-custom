@@ -310,98 +310,6 @@ class LibraryMixin:
             logger.error(f"Sonarr episode search error: {e}")
             return {'success': False, 'message': str(e) or 'Request failed'}
 
-    def get_series_status_from_tv_hunt(self, tmdb_id: int, instance_name: str) -> Dict[str, Any]:
-        """Get series status from TV Hunt collection - exists, missing episodes, etc.
-        Merges with filesystem scan (get_detected_episodes) so imported episodes show as available
-        even before the importer has updated the collection."""
-        try:
-            import re
-            import os
-            already_requested_in_db = self.db.is_already_requested(tmdb_id, 'tv', 'tv_hunt', instance_name)
-
-            instance_id = self._resolve_tv_hunt_instance_id(instance_name)
-            if instance_id is None:
-                return {'exists': False, 'previously_requested': already_requested_in_db}
-
-            from src.primary.routes.media_hunt.discovery_tv import _get_collection_config, _save_collection_config
-            from src.primary.routes.media_hunt.helpers import _extract_quality_from_filename
-            from src.primary.routes.media_hunt.storage import get_detected_episodes_from_all_roots
-
-            def _normalize_series_for_match(title):
-                """Strip (YYYY) from folder name for matching."""
-                s = (title or '').strip()
-                s = re.sub(r'\s*\(\d{4}\)\s*$', '', s).strip()
-                return s.lower()
-
-            collection = _get_collection_config(instance_id)
-            detected = get_detected_episodes_from_all_roots(instance_id)
-            detected_by_series = {}
-            for d in detected:
-                folder_norm = _normalize_series_for_match(d.get('series_title') or '')
-                if not folder_norm:
-                    continue
-                key = (int(d.get('season_number') or 0), int(d.get('episode_number') or 0))
-                if folder_norm not in detected_by_series:
-                    detected_by_series[folder_norm] = {}
-                detected_by_series[folder_norm][key] = d.get('file_path') or ''
-
-            for s in collection:
-                if s.get('tmdb_id') == tmdb_id:
-                    series_title = (s.get('title') or '').strip()
-                    series_norm = _normalize_series_for_match(series_title)
-                    detected_eps = detected_by_series.get(series_norm) or {}
-
-                    seasons_raw = s.get('seasons') or []
-                    total_eps = 0
-                    available_eps = 0
-                    seasons = []
-                    collection_updated = False
-                    for sec in seasons_raw:
-                        eps = sec.get('episodes') or []
-                        total_eps += len(eps)
-                        eps_enriched = []
-                        for ep in eps:
-                            has_file = (ep.get('status') or '').lower() == 'available' or ep.get('file_path')
-                            if not has_file:
-                                season_num = int(sec.get('season_number') or 0)
-                                ep_num = int(ep.get('episode_number') or 0)
-                                detected_path = detected_eps.get((season_num, ep_num))
-                                if detected_path:
-                                    ep['status'] = 'available'
-                                    ep['file_path'] = detected_path
-                                    has_file = True
-                                    collection_updated = True
-                            if has_file:
-                                available_eps += 1
-                            ep_copy = dict(ep)
-                            file_path = ep.get('file_path')
-                            if file_path:
-                                fname = os.path.basename(file_path)
-                                q = _extract_quality_from_filename(fname)
-                                if q and q != '-':
-                                    ep_copy['quality'] = q
-                            eps_enriched.append(ep_copy)
-                        seasons.append(dict(sec, episodes=eps_enriched))
-                    if collection_updated:
-                        _save_collection_config(collection, instance_id)
-                    missing_eps = total_eps - available_eps
-                    previously_requested = already_requested_in_db or (total_eps > 0 and available_eps == 0)
-                    return {
-                        'exists': True,
-                        'total_episodes': total_eps,
-                        'available_episodes': available_eps,
-                        'missing_episodes': missing_eps,
-                        'previously_requested': previously_requested,
-                        'seasons': seasons,
-                        'monitored': s.get('monitored', True),
-                        'path': s.get('root_folder', ''),
-                        'root_folder_path': s.get('root_folder', ''),
-                        'quality_profile': s.get('quality_profile', ''),
-                    }
-            return {'exists': False, 'previously_requested': already_requested_in_db}
-        except Exception as e:
-            logger.error(f"Error getting series status from TV Hunt: {e}")
-            return {'exists': False, 'previously_requested': False}
 
     def check_seasons_in_sonarr(self, tmdb_id: int, instance_name: str) -> List[int]:
         """Check which seasons of a TV show are already in Sonarr"""
@@ -485,7 +393,7 @@ class LibraryMixin:
             }
 
     def get_radarr_movie_detail_status(self, tmdb_id: int, instance_name: str) -> Dict[str, Any]:
-        """Get movie detail for Requestarr info bar: path, status, quality_profile, file_size (same shape as Movie Hunt movie-status)."""
+        """Get movie detail for Requestarr info bar: path, status, quality_profile, file_size."""
         try:
             app_config = self.db.get_app_config('radarr')
             if not app_config or not app_config.get('instances'):
@@ -547,82 +455,6 @@ class LibraryMixin:
             logger.error("Error getting Radarr movie detail: %s", e)
             return {'success': False, 'found': False}
 
-    def get_movie_status_from_movie_hunt(self, tmdb_id: int, instance_name: str) -> Dict[str, Any]:
-        """Get movie status from Movie Hunt's collection - in library, previously requested, etc."""
-        try:
-            already_requested_in_db = self.db.is_already_requested(tmdb_id, 'movie', 'movie_hunt', instance_name)
-            
-            # Resolve Movie Hunt instance ID
-            instance_id = self._resolve_movie_hunt_instance_id(instance_name)
-            if instance_id is None:
-                return {
-                    'in_library': False,
-                    'previously_requested': already_requested_in_db,
-                }
-            
-            # Check Movie Hunt's collection for this movie
-            from src.primary.routes.media_hunt.discovery_movie import _get_collection_config
-            items = _get_collection_config(instance_id)
-            
-            movie = None
-            for item in items:
-                if item.get('tmdb_id') == tmdb_id:
-                    movie = item
-                    break
-            
-            if not movie:
-                # Also check detected movies from root folders
-                try:
-                    from src.primary.routes.media_hunt.storage import get_detected_movies_from_all_roots
-                    detected = get_detected_movies_from_all_roots(instance_id)
-                    for d in detected:
-                        if d.get('tmdb_id') == tmdb_id:
-                            movie = d
-                            break
-                except Exception:
-                    pass
-            
-            if not movie:
-                return {
-                    'in_library': False,
-                    'previously_requested': already_requested_in_db,
-                }
-            
-            # Determine status
-            import os
-            status_raw = (movie.get('status') or '').lower()
-            file_path = (movie.get('file_path') or '').strip()
-            has_file = False
-
-            if file_path and os.path.isfile(file_path):
-                has_file = True
-            elif status_raw == 'available':
-                has_file = True
-            else:
-                # Refresh scan: check if movie is on disk via filesystem scan
-                try:
-                    from src.primary.routes.media_hunt.storage import get_detected_movies_from_all_roots
-                    from src.primary.routes.media_hunt.discovery_movie import _normalize_title_for_key
-                    detected = get_detected_movies_from_all_roots(instance_id)
-                    movie_key = (_normalize_title_for_key(movie.get('title')), str(movie.get('year') or '').strip())
-                    detected_keys = {(_normalize_title_for_key(d.get('title')), str(d.get('year') or '').strip()) for d in detected}
-                    if movie_key in detected_keys:
-                        has_file = True
-                except Exception:
-                    pass
-
-            return {
-                'in_library': has_file,
-                'previously_requested': already_requested_in_db or status_raw == 'requested',
-                'monitored': True,
-            }
-            
-        except Exception as e:
-            logger.error(f"Error getting movie status from Movie Hunt: {e}")
-            return {
-                'in_library': False,
-                'previously_requested': False,
-            }
     
     def check_library_status_batch(self, items: List[Dict[str, Any]], app_type: str = None, instance_name: str = None) -> List[Dict[str, Any]]:
         """
@@ -634,7 +466,7 @@ class LibraryMixin:
         
         Args:
             items: List of media items to check
-            app_type: Optional app type to check (radarr/sonarr/movie_hunt). If None, checks all instances.
+            app_type: Optional app type to check (radarr/sonarr). If None, checks all instances.
             instance_name: Optional instance name to check. If None, checks all instances.
         """
         try:
@@ -661,7 +493,7 @@ class LibraryMixin:
             # Get enabled instances
             instances = self.get_enabled_instances()
             
-            if not instances['radarr'] and not instances['sonarr'] and not instances.get('movie_hunt') and not instances.get('tv_hunt'):
+            if not instances['radarr'] and not instances['sonarr']:
                 # No instances configured, mark all as not in library
                 for item in items:
                     item['in_library'] = False
@@ -672,87 +504,16 @@ class LibraryMixin:
             # Filter instances based on app_type and instance_name if provided
             radarr_instances = instances['radarr']
             sonarr_instances = instances['sonarr']
-            movie_hunt_instances = instances.get('movie_hunt', [])
-            tv_hunt_instances = instances.get('tv_hunt', [])
-            use_movie_hunt = False
-            use_tv_hunt = False
             
             if app_type and instance_name:
-                if app_type == 'movie_hunt':
-                    # Movie Hunt handles movies — skip Radarr, Sonarr, TV Hunt
-                    movie_hunt_instances = [inst for inst in movie_hunt_instances if inst['name'] == instance_name]
-                    radarr_instances = []
-                    sonarr_instances = []
-                    tv_hunt_instances = []
-                    use_movie_hunt = True
-                elif app_type == 'tv_hunt':
-                    # TV Hunt handles TV — skip Sonarr, Radarr
-                    tv_hunt_instances = [inst for inst in tv_hunt_instances if inst['name'] == instance_name]
-                    sonarr_instances = []
-                    radarr_instances = []
-                    movie_hunt_instances = []
-                    use_tv_hunt = True
-                elif app_type == 'radarr':
+                if app_type == 'radarr':
                     radarr_instances = [inst for inst in radarr_instances if inst['name'] == instance_name]
                     sonarr_instances = []
-                    tv_hunt_instances = []
-                    movie_hunt_instances = []
                 elif app_type == 'sonarr':
                     sonarr_instances = [inst for inst in sonarr_instances if inst['name'] == instance_name]
                     radarr_instances = []
-                    tv_hunt_instances = []
-                    movie_hunt_instances = []
             else:
-                logger.debug(f"No instance filtering - checking all instances (Radarr: {len(radarr_instances)}, Sonarr: {len(sonarr_instances)}, Movie Hunt: {len(movie_hunt_instances)}, TV Hunt: {len(tv_hunt_instances)})")
-            
-            # Get all movies from Movie Hunt instances (batch check)
-            movie_hunt_tmdb_ids = set()
-            movie_hunt_monitored_tmdb_ids = set()  # In collection but no file yet
-            if use_movie_hunt or (not app_type and movie_hunt_instances):
-                import os as _os
-                for mh_inst in movie_hunt_instances:
-                    try:
-                        mh_instance_id = mh_inst.get('id')
-                        if mh_instance_id is None:
-                            mh_instance_id = self._resolve_movie_hunt_instance_id(mh_inst['name'])
-                        if mh_instance_id is None:
-                            continue
-                        from src.primary.routes.media_hunt.discovery_movie import _get_collection_config
-                        collection_items = _get_collection_config(mh_instance_id)
-                        for ci in collection_items:
-                            tmdb_id = ci.get('tmdb_id')
-                            if not tmdb_id:
-                                continue
-                            # Normalize to int for consistent set lookups
-                            try:
-                                tmdb_id = int(tmdb_id)
-                            except (TypeError, ValueError):
-                                continue
-                            status_raw = (ci.get('status') or '').lower()
-                            file_path = (ci.get('file_path') or '').strip()
-                            has_file = False
-                            if file_path and _os.path.isfile(file_path):
-                                has_file = True
-                            elif status_raw == 'available':
-                                has_file = True
-                            if has_file:
-                                movie_hunt_tmdb_ids.add(tmdb_id)
-                            else:
-                                # In collection but no file yet — treat as partial (like TV shows)
-                                movie_hunt_monitored_tmdb_ids.add(tmdb_id)
-                        # Also check detected movies from root folders
-                        try:
-                            from src.primary.routes.media_hunt.storage import get_detected_movies_from_all_roots
-                            detected = get_detected_movies_from_all_roots(mh_instance_id)
-                            for d in detected:
-                                dtmdb = d.get('tmdb_id')
-                                if dtmdb:
-                                    movie_hunt_tmdb_ids.add(dtmdb)
-                        except Exception:
-                            pass
-                        logger.debug(f"Found {len(movie_hunt_tmdb_ids)} movies with files + {len(movie_hunt_monitored_tmdb_ids)} monitored in Movie Hunt instance {mh_inst['name']}")
-                    except Exception as e:
-                        logger.error(f"Error checking Movie Hunt instance {mh_inst.get('name', '?')}: {e}")
+                logger.debug(f"No instance filtering - checking all instances (Radarr: {len(radarr_instances)}, Sonarr: {len(sonarr_instances)})")
             
             # Get all movies from filtered Radarr instances
             radarr_tmdb_ids = set()
@@ -776,51 +537,6 @@ class LibraryMixin:
                         logger.debug(f"Found {len(radarr_tmdb_ids)} movies with files + {len(radarr_monitored_tmdb_ids)} monitored in Radarr instance {instance['name']}")
                 except Exception as e:
                     logger.error(f"Error checking Radarr instance {instance['name']}: {e}")
-            
-            # Get all series from filtered TV Hunt instances
-            tv_hunt_tmdb_ids = set()
-            tv_hunt_partial_tmdb_ids = set()
-            if use_tv_hunt or (not app_type and tv_hunt_instances):
-                for th_inst in tv_hunt_instances:
-                    try:
-                        th_instance_id = th_inst.get('id')
-                        if th_instance_id is None:
-                            th_instance_id = self._resolve_tv_hunt_instance_id(th_inst['name'])
-                        if th_instance_id is None:
-                            continue
-                        from src.primary.routes.media_hunt.discovery_tv import _get_collection_config
-                        collection = _get_collection_config(th_instance_id)
-                        for s in collection:
-                            tmdb_id = s.get('tmdb_id')
-                            if not tmdb_id:
-                                continue
-                            # Normalize to int for consistent set lookups
-                            try:
-                                tmdb_id = int(tmdb_id)
-                            except (TypeError, ValueError):
-                                continue
-                            # In collection = at minimum partial (exists in library)
-                            # Check if complete (all episodes available) or partial
-                            seasons = s.get('seasons') or []
-                            total_eps = 0
-                            available_eps = 0
-                            for sec in seasons:
-                                eps = (sec.get('episodes') or [])
-                                total_eps += len(eps)
-                                for ep in eps:
-                                    if (ep.get('status') or '').lower() == 'available' or ep.get('file_path'):
-                                        available_eps += 1
-                            if total_eps > 0 and available_eps == total_eps:
-                                tv_hunt_tmdb_ids.add(tmdb_id)
-                            elif available_eps > 0:
-                                tv_hunt_partial_tmdb_ids.add(tmdb_id)
-                            else:
-                                # In collection but no episodes downloaded yet — mark as partial
-                                # so the card shows the bookmark icon (not download)
-                                tv_hunt_partial_tmdb_ids.add(tmdb_id)
-                        logger.debug(f"Found {len(tv_hunt_tmdb_ids)} complete + {len(tv_hunt_partial_tmdb_ids)} partial series in TV Hunt instance {th_inst['name']} (IDs: complete={tv_hunt_tmdb_ids}, partial={tv_hunt_partial_tmdb_ids})")
-                    except Exception as e:
-                        logger.error(f"Error checking TV Hunt instance {th_inst.get('name', '?')}: {e}")
             
             # Get all series from filtered Sonarr instances
             sonarr_tmdb_ids = set()
@@ -854,54 +570,6 @@ class LibraryMixin:
                 except Exception as e:
                     logger.error(f"Error checking Sonarr instance {instance['name']}: {e}")
             
-            # Build importable TMDB ID sets from cached import-media scans
-            # (no filesystem access — reads from DB only)
-            importable_movie_ids = set()
-            importable_tv_ids = set()
-            try:
-                from src.primary.utils.database import get_database as _get_db
-                _db = _get_db()
-                # Movie Hunt importable items
-                for mh_inst in (movie_hunt_instances or []):
-                    try:
-                        mh_id = mh_inst.get('id') or self._resolve_movie_hunt_instance_id(mh_inst['name'])
-                        if not mh_id:
-                            continue
-                        cfg = _db.get_app_config_for_instance('movie_hunt_import_media', mh_id)
-                        if cfg and isinstance(cfg, dict):
-                            for itm in (cfg.get('items') or []):
-                                if itm.get('status') in ('matched', 'pending', 'no_match'):
-                                    best = itm.get('best_match') or {}
-                                    tid = best.get('tmdb_id')
-                                    if tid:
-                                        try:
-                                            importable_movie_ids.add(int(tid))
-                                        except (TypeError, ValueError):
-                                            pass
-                    except Exception:
-                        pass
-                # TV Hunt importable items
-                for th_inst in (tv_hunt_instances or []):
-                    try:
-                        th_id = th_inst.get('id') or self._resolve_tv_hunt_instance_id(th_inst['name'])
-                        if not th_id:
-                            continue
-                        cfg = _db.get_app_config_for_instance('tv_hunt_import_media', th_id)
-                        if cfg and isinstance(cfg, dict):
-                            for itm in (cfg.get('items') or []):
-                                if itm.get('status') in ('matched', 'pending', 'no_match'):
-                                    best = itm.get('best_match') or {}
-                                    tid = best.get('tmdb_id')
-                                    if tid:
-                                        try:
-                                            importable_tv_ids.add(int(tid))
-                                        except (TypeError, ValueError):
-                                            pass
-                    except Exception:
-                        pass
-            except Exception:
-                pass
-
             # Mark each item with status
             for item in items:
                 tmdb_id = item.get('tmdb_id')
@@ -914,21 +582,21 @@ class LibraryMixin:
                 
                 # Set library status
                 if media_type == 'movie':
-                    # Check Movie Hunt first (if applicable), then Radarr
-                    item['in_library'] = tmdb_id in movie_hunt_tmdb_ids or tmdb_id in radarr_tmdb_ids
+                    # Check Radarr
+                    item['in_library'] = tmdb_id in radarr_tmdb_ids
                     # Movies in collection but without files yet → partial (shows bookmark, not download icon)
-                    item['partial'] = (not item['in_library']) and (tmdb_id in movie_hunt_monitored_tmdb_ids or tmdb_id in radarr_monitored_tmdb_ids)
+                    item['partial'] = (not item['in_library']) and (tmdb_id in radarr_monitored_tmdb_ids)
                     # Fallback: approved in DB but not yet in any collection → still partial
                     if not item['in_library'] and not item['partial'] and tmdb_id in approved_tmdb_ids:
                         item['partial'] = True
-                    item['importable'] = tmdb_id in importable_movie_ids and not item['in_library'] and not item['partial']
+                    item['importable'] = False
                 elif media_type == 'tv':
-                    item['in_library'] = tmdb_id in sonarr_tmdb_ids or tmdb_id in tv_hunt_tmdb_ids
-                    item['partial'] = tmdb_id in sonarr_partial_tmdb_ids or tmdb_id in tv_hunt_partial_tmdb_ids
+                    item['in_library'] = tmdb_id in sonarr_tmdb_ids
+                    item['partial'] = tmdb_id in sonarr_partial_tmdb_ids
                     # Fallback: approved in DB but not yet in any collection → still partial
                     if not item['in_library'] and not item['partial'] and tmdb_id in approved_tmdb_ids:
                         item['partial'] = True
-                    item['importable'] = tmdb_id in importable_tv_ids and not item['in_library'] and not item['partial']
+                    item['importable'] = False
                 else:
                     item['in_library'] = False
                     item['partial'] = False
@@ -1106,9 +774,9 @@ class LibraryMixin:
             }
     
     def get_enabled_instances(self) -> Dict[str, List[Dict[str, str]]]:
-        """Get enabled and properly configured Sonarr, Radarr, Movie Hunt, and TV Hunt instances"""
-        instances = {'sonarr': [], 'radarr': [], 'movie_hunt': [], 'tv_hunt': []}
-        seen_names = {'sonarr': set(), 'radarr': set(), 'movie_hunt': set(), 'tv_hunt': set()}
+        """Get enabled and properly configured Sonarr and Radarr instances"""
+        instances = {'sonarr': [], 'radarr': []}
+        seen_names = {'sonarr': set(), 'radarr': set()}
         
         try:
             # Get Sonarr instances
@@ -1157,44 +825,8 @@ class LibraryMixin:
                         })
                         seen_names['radarr'].add(name_lower)
             
-            # Get Movie Hunt instances (from dedicated database table)
-            try:
-                mh_instances = self.db.get_movie_hunt_instances()
-                for inst in mh_instances:
-                    name = (inst.get('name') or '').strip()
-                    if not name:
-                        continue
-                    name_lower = name.lower()
-                    if name_lower not in seen_names['movie_hunt']:
-                        instances['movie_hunt'].append({
-                            'name': name,
-                            'id': inst.get('id'),
-                            'url': 'internal'
-                        })
-                        seen_names['movie_hunt'].add(name_lower)
-            except Exception as e:
-                logger.warning(f"Error loading Movie Hunt instances: {e}")
-            
-            # Get TV Hunt instances (from dedicated database table)
-            try:
-                th_instances = self.db.get_tv_hunt_instances()
-                for inst in th_instances:
-                    name = (inst.get('name') or '').strip()
-                    if not name:
-                        continue
-                    name_lower = name.lower()
-                    if name_lower not in seen_names['tv_hunt']:
-                        instances['tv_hunt'].append({
-                            'name': name,
-                            'id': inst.get('id'),
-                            'url': 'internal'
-                        })
-                        seen_names['tv_hunt'].add(name_lower)
-            except Exception as e:
-                logger.warning(f"Error loading TV Hunt instances: {e}")
-            
             return instances
             
         except Exception as e:
             logger.error(f"Error getting enabled instances: {e}")
-            return {'sonarr': [], 'radarr': [], 'movie_hunt': [], 'tv_hunt': []}
+            return {'sonarr': [], 'radarr': []}

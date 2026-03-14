@@ -701,7 +701,7 @@ class StateMixin:
                 schedules[row['app_type']].append(schedule_data)
             
             # Ensure all app types are present even if empty
-            for app in ['global', 'sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros', 'movie_hunt', 'tv_hunt']:
+            for app in ['global', 'sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros']:
                 if app not in schedules:
                     schedules[app] = []
             

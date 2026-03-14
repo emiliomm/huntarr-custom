@@ -1,5 +1,5 @@
 /**
- * MediaUtils — Shared utility functions for media cards across Movie Hunt and Requestarr.
+ * MediaUtils — Shared utility functions for media cards.
  * Consolidates duplicated logic into a single source of truth.
  *
  * Provides:
@@ -75,7 +75,7 @@
 
     /* ── Decode compound instance value ── */
     /**
-     * Decode a compound instance value like "movie_hunt:MyInstance" or "radarr:MyRadarr".
+     * Decode a compound instance value like "radarr:MyRadarr".
      * @param {string} value - Compound value
      * @returns {{appType: string, name: string}}
      */
@@ -94,7 +94,7 @@
      *   - mediaType {string}         - 'movie' or 'tv'
      *   - title {string}             - Display title
      *   - posterPath {string|null}   - Poster URL
-     *   - appType {string}           - 'movie_hunt', 'radarr', or 'sonarr'
+     *   - appType {string}           - 'radarr', or 'sonarr'
      *   - instanceName {string}      - Instance display name
      *   - cardElement {HTMLElement}   - Card DOM element (for animation)
      *   - hiddenMediaSet {Set|null}  - Optional Set to add the hidden key to
@@ -190,17 +190,6 @@
         }
     }
 
-    /* ── Resolve movie instance info from various DOM/data sources ── */
-    /**
-     * Resolve instance details for a movie, trying multiple sources.
-     * @param {Object} options
-     *   - selectElementId {string}       - DOM select element ID to read from
-     *   - compoundValue {string|null}    - Compound value like "movie_hunt:Name"
-     *   - instancePool {Array|null}      - Array of {name, id} objects to search
-     *   - movieHuntInstances {Array|null} - Fallback Movie Hunt instances
-     *   - radarrInstances {Array|null}    - Fallback Radarr instances
-     * @returns {{appType: string, instanceName: string, instanceId: string|number}}
-     */
     function resolveMovieInstance(options) {
         options = options || {};
 
@@ -216,24 +205,11 @@
             return result;
         }
 
-        // Try DOM select element (Movie Hunt pattern)
-        if (options.selectElementId) {
-            var select = document.getElementById(options.selectElementId);
-            if (select && select.value) {
-                var name = select.options && select.options[select.selectedIndex]
-                    ? select.options[select.selectedIndex].textContent
-                    : select.value;
-                return { appType: 'movie_hunt', instanceName: name, instanceId: select.value };
-            }
-        }
-
-        // Fallback: first available instance
-        var mh = options.movieHuntInstances || [];
+        // Fallback: first available radarr instance
         var rr = options.radarrInstances || [];
-        if (mh.length > 0) return { appType: 'movie_hunt', instanceName: mh[0].name || '', instanceId: mh[0].id || '' };
         if (rr.length > 0) return { appType: 'radarr', instanceName: rr[0].name || '', instanceId: rr[0].id || '' };
 
-        return { appType: 'movie_hunt', instanceName: '', instanceId: '' };
+        return { appType: 'radarr', instanceName: '', instanceId: '' };
     }
 
     /* ── Detail page refresh-after-action event system ── */
@@ -244,7 +220,7 @@
      *   - Dispatching status-changed events
      *   - Delayed re-fetch pattern (immediate + 3s + 8s for fast downloads)
      *
-     * Both Movie Hunt detail and Requestarr detail call setupDetailRefreshListeners()
+     * Both Smart Hunt detail and Requestarr detail call setupDetailRefreshListeners()
      * with their own refreshCallback. The logic lives here once.
      */
 

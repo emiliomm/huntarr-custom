@@ -1,6 +1,5 @@
 """
 Unified Calendar API – Radarr, Sonarr (movie/tv from *arr).
-Movie Hunt and TV Hunt use existing /api/movie-hunt/calendar and /api/tv-hunt/collection.
 GET /api/calendar?app_type=radarr|sonarr&instance=Name&days_past=&days_future=
 """
 import requests
@@ -150,7 +149,7 @@ def register_calendar_routes(bp):
 
     @bp.route('/api/calendar', methods=['GET'])
     def api_calendar():
-        """Unified calendar for Radarr and Sonarr. Movie Hunt/TV Hunt use their existing APIs."""
+        """Unified calendar for Radarr and Sonarr."""
         app_type = (request.args.get('app_type') or '').strip().lower()
         instance_name = (request.args.get('instance') or '').strip()
         days_past = request.args.get('days_past', 14, type=int)

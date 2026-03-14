@@ -503,55 +503,13 @@
     padding-left: 24px !important;
 }
 
-/* Sub-group hidden by default, shown when expanded */
-#movie-hunt-collection-sub,
-#movie-hunt-activity-sub,
-#index-master-sub,
-#index-master-view-sub {
-    display: none;
-    margin-top: 0;
-}
-
-#movie-hunt-collection-sub.expanded,
-#movie-hunt-activity-sub.expanded,
-#index-master-sub.expanded,
-#index-master-view-sub.expanded {
-    display: block;
-}
-
-#movie-hunt-collection-sub .nav-item-sub,
-#movie-hunt-activity-sub .nav-item-sub,
-#index-master-sub .nav-item-sub,
-#index-master-view-sub .nav-item-sub {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-/* When activity sub-group is expanded, hide main Media Hunt items + other toggles */
-#sidebar-group-media-hunt.activity-view>#movieHuntCollectionNav,
-#sidebar-group-media-hunt.activity-view>#movie-hunt-collection-sub,
-#sidebar-group-media-hunt.activity-view>#movieHuntActivityToggle,
-#sidebar-group-media-hunt.activity-view>#mediaHuntConfigLabel,
-#sidebar-group-media-hunt.activity-view>#movieHuntIndexMasterNav,
-#sidebar-group-media-hunt.activity-view>#movieHuntClientsMainNav,
-#sidebar-group-media-hunt.activity-view>#movieHuntSettingsRootFoldersNav,
-#sidebar-group-media-hunt.activity-view>#movieHuntImportMediaNav,
-#sidebar-group-media-hunt.activity-view>#movieHuntSettingsImportListsNav,
-#sidebar-group-media-hunt.activity-view>#mediaHuntAdvancedLabel,
-#sidebar-group-media-hunt.activity-view>#movieHuntSettingsMovieManagementNav,
-#sidebar-group-media-hunt.activity-view>#movieHuntSettingsProfilesNav,
-#sidebar-group-media-hunt.activity-view>#movieHuntSettingsSizesNav,
-#sidebar-group-media-hunt.activity-view>#movieHuntSettingsCustomFormatsNav {
-    display: none !important;
-}
-
-/* Back button styling in activity sub-group */
-.media-hunt-config-back {
+/* Back button styling - kept for general use */
+.config-back {
     opacity: 0.7;
     font-size: 0.85em;
 }
 
-.media-hunt-config-back:hover {
+.config-back:hover {
     opacity: 1;
 }
 
@@ -1097,9 +1055,6 @@ input:checked+.slider:before {
 #nav-group-core-label,
 #homeNav,
 #nav-group-apps-label,
-#nav-group-media-hunt,
-#nzb-hunt-sidebar-group,
-#tor-hunt-sidebar-group,
 #nav-group-apps,
 #nav-group-system,
 #nav-group-requests,
@@ -1112,9 +1067,6 @@ input:checked+.slider:before {
 /* Default order (no focus): everything in DOM order */
 .sidebar.requests-focused #homeNav,
 .sidebar.system-focused #homeNav,
-.sidebar.media-focused #homeNav,
-.sidebar.nzb-focused #homeNav,
-.sidebar.tor-focused #homeNav,
 .sidebar.thirdparty-focused #homeNav {
     order: 10;
 }
@@ -1128,12 +1080,6 @@ input:checked+.slider:before {
 /* Apps label and app groups get higher order so Home sits above them */
 .sidebar.requests-focused #nav-group-requests,
 .sidebar.system-focused #nav-group-system,
-.sidebar.media-focused #nav-group-apps-label,
-.sidebar.media-focused #nav-group-media-hunt,
-.sidebar.nzb-focused #nav-group-apps-label,
-.sidebar.nzb-focused #nzb-hunt-sidebar-group,
-.sidebar.tor-focused #nav-group-apps-label,
-.sidebar.tor-focused #tor-hunt-sidebar-group,
 .sidebar.thirdparty-focused #nav-group-apps-label,
 .sidebar.thirdparty-focused #nav-group-apps {
     order: 12;
@@ -1141,54 +1087,21 @@ input:checked+.slider:before {
 
 /* Daughter's Sponsors: hidden in all focused modes EXCEPT requests-focused (non-owners are always requests-focused) */
 .sidebar.system-focused #main-sidebar-partner-projects-group,
-.sidebar.media-focused #main-sidebar-partner-projects-group,
-.sidebar.nzb-focused #main-sidebar-partner-projects-group,
-.sidebar.tor-focused #main-sidebar-partner-projects-group,
 .sidebar.thirdparty-focused #main-sidebar-partner-projects-group {
     display: none;
 }
 
 /* Requests focused: hide System + all Apps */
 .sidebar.requests-focused #nav-group-apps-label,
-.sidebar.requests-focused #nav-group-media-hunt,
-.sidebar.requests-focused #nzb-hunt-sidebar-group,
-.sidebar.requests-focused #tor-hunt-sidebar-group,
 .sidebar.requests-focused #nav-group-apps,
 .sidebar.requests-focused #nav-group-system,
 /* System focused: hide Requests + all Apps */
 .sidebar.system-focused #nav-group-apps-label,
-.sidebar.system-focused #nav-group-media-hunt,
-.sidebar.system-focused #nzb-hunt-sidebar-group,
-.sidebar.system-focused #tor-hunt-sidebar-group,
 .sidebar.system-focused #nav-group-apps,
 .sidebar.system-focused #nav-group-requests,
-/* Media Hunt focused: hide Core + Requests + System + NZB + Tor + 3rd Party */
-.sidebar.media-focused #nav-group-core-label,
-.sidebar.media-focused #nav-group-requests,
-.sidebar.media-focused #nav-group-system,
-.sidebar.media-focused #nzb-hunt-sidebar-group,
-.sidebar.media-focused #tor-hunt-sidebar-group,
-.sidebar.media-focused #nav-group-apps,
-/* NZB Hunt focused: hide Core + Requests + System + Media Hunt + Tor + 3rd Party */
-.sidebar.nzb-focused #nav-group-core-label,
-.sidebar.nzb-focused #nav-group-requests,
-.sidebar.nzb-focused #nav-group-system,
-.sidebar.nzb-focused #nav-group-media-hunt,
-.sidebar.nzb-focused #tor-hunt-sidebar-group,
-.sidebar.nzb-focused #nav-group-apps,
-/* Tor Hunt focused: hide Core + Requests + System + Media Hunt + NZB + 3rd Party */
-.sidebar.tor-focused #nav-group-core-label,
-.sidebar.tor-focused #nav-group-requests,
-.sidebar.tor-focused #nav-group-system,
-.sidebar.tor-focused #nav-group-media-hunt,
-.sidebar.tor-focused #nzb-hunt-sidebar-group,
-.sidebar.tor-focused #nav-group-apps,
-/* 3rd Party focused: hide Core + Requests + System + Media Hunt + NZB + Tor */
+/* 3rd Party focused: hide Core + Requests + System */
 .sidebar.thirdparty-focused #nav-group-core-label,
 .sidebar.thirdparty-focused #nav-group-requests,
-.sidebar.thirdparty-focused #nav-group-system,
-.sidebar.thirdparty-focused #nav-group-media-hunt,
-.sidebar.thirdparty-focused #nzb-hunt-sidebar-group,
-.sidebar.thirdparty-focused #tor-hunt-sidebar-group {
+.sidebar.thirdparty-focused #nav-group-system {
     display: none;
 }

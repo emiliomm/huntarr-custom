@@ -16,12 +16,10 @@ window.huntarrSchedules = window.huntarrSchedules || {
     lidarr: [],
     readarr: [],
     whisparr: [],
-    eros: [],
-    movie_hunt: [],
-    tv_hunt: []
+    eros: []
 };
 
-(function() {
+(function () {
     const schedules = window.huntarrSchedules;
 
     function capitalizeFirst(s) {
@@ -32,7 +30,7 @@ window.huntarrSchedules = window.huntarrSchedules || {
     // Initialization
     // ---------------------------------------------------------------
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         initScheduler();
     });
 
@@ -53,7 +51,7 @@ window.huntarrSchedules = window.huntarrSchedules || {
             addBtn.addEventListener('click', addSchedule);
         }
 
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             const deleteBtn = e.target.closest('.delete-schedule');
             if (deleteBtn) {
                 e.preventDefault();
@@ -66,7 +64,7 @@ window.huntarrSchedules = window.huntarrSchedules || {
                         title: 'Delete Schedule',
                         message: 'Are you sure you want to delete this schedule?',
                         confirmLabel: 'Delete',
-                        onConfirm: function() { deleteSchedule(scheduleId, appType); }
+                        onConfirm: function () { deleteSchedule(scheduleId, appType); }
                     });
                 } else {
                     if (confirm('Are you sure you want to delete this schedule?')) {
@@ -89,53 +87,11 @@ window.huntarrSchedules = window.huntarrSchedules || {
         if (!appTypeSelect || !instanceSelect) return;
 
         try {
-            // Fetch standard app settings, Movie Hunt instances, and TV Hunt instances in parallel (cache-bust for fresh data)
-            const _ts = Date.now();
-            const [settingsResp, movieHuntResp, tvHuntResp] = await Promise.all([
-                HuntarrUtils.fetchWithTimeout(`./api/settings?t=${_ts}`),
-                HuntarrUtils.fetchWithTimeout(`./api/movie-hunt/instances?t=${_ts}`).catch(function() { return null; }),
-                HuntarrUtils.fetchWithTimeout(`./api/tv-hunt/instances?t=${_ts}`).catch(function() { return null; })
-            ]);
-
-            if (settingsResp.ok) {
-                const settings = await settingsResp.json();
-                if (window.huntarrUI) {
-                    window.huntarrUI.originalSettings = window.huntarrUI.originalSettings || {};
-                    const appTypes = ['sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros'];
-                    appTypes.forEach(function(at) {
-                        if (settings[at]) {
-                            window.huntarrUI.originalSettings[at] = window.huntarrUI.originalSettings[at] || {};
-                            window.huntarrUI.originalSettings[at].instances = settings[at].instances || [];
-                        }
-                    });
-                }
-            }
-
-            // Cache Movie Hunt instances separately (they come from a different API)
-            if (movieHuntResp && movieHuntResp.ok) {
-                const mhData = await movieHuntResp.json();
-                window._movieHuntInstances = Array.isArray(mhData.instances) ? mhData.instances : [];
-                console.debug('[Scheduler] Movie Hunt instances loaded:', window._movieHuntInstances.length);
-            } else {
-                window._movieHuntInstances = [];
-            }
-
-            // Cache TV Hunt instances separately (they come from a different API)
-            if (tvHuntResp && tvHuntResp.ok) {
-                const thData = await tvHuntResp.json();
-                window._tvHuntInstances = Array.isArray(thData.instances) ? thData.instances : [];
-                console.debug('[Scheduler] TV Hunt instances loaded:', window._tvHuntInstances.length);
-            } else {
-                window._tvHuntInstances = [];
-            }
-
             // Trigger instance dropdown population based on current app selection
             populateInstanceDropdown();
             console.debug('[Scheduler] Instance dropdowns populated from API');
         } catch (err) {
             console.warn('[Scheduler] Could not fetch settings for instances', err);
-            window._movieHuntInstances = window._movieHuntInstances || [];
-            window._tvHuntInstances = window._tvHuntInstances || [];
             populateInstanceDropdown();
         }
     }
@@ -162,40 +118,13 @@ window.huntarrSchedules = window.huntarrSchedules || {
         allOpt.textContent = 'All Instances';
         instanceSelect.appendChild(allOpt);
 
-        // Movie Hunt uses a dedicated instance list (numeric IDs from DB)
-        if (appType === 'movie_hunt') {
-            var mhInstances = window._movieHuntInstances || [];
-            mhInstances.forEach(function(inst) {
-                if (!inst || typeof inst !== 'object') return;
-                var opt = document.createElement('option');
-                opt.value = String(inst.id);
-                opt.textContent = inst.name || ('Instance ' + inst.id);
-                instanceSelect.appendChild(opt);
-            });
-            updateHiddenApp();
-            return;
-        }
-
-        // TV Hunt uses a dedicated instance list (numeric IDs from DB)
-        if (appType === 'tv_hunt') {
-            var thInstances = window._tvHuntInstances || [];
-            thInstances.forEach(function(inst) {
-                if (!inst || typeof inst !== 'object') return;
-                var opt = document.createElement('option');
-                opt.value = String(inst.id);
-                opt.textContent = inst.name || ('Instance ' + inst.id);
-                instanceSelect.appendChild(opt);
-            });
-            updateHiddenApp();
-            return;
-        }
 
         // Standard apps: get instances from settings cache
         const settings = (window.huntarrUI && window.huntarrUI.originalSettings) ? window.huntarrUI.originalSettings : {};
         const appSettings = settings[appType] || {};
         const instances = Array.isArray(appSettings.instances) ? appSettings.instances : [];
 
-        instances.forEach(function(inst, idx) {
+        instances.forEach(function (inst, idx) {
             if (!inst || typeof inst !== 'object') return;
             const opt = document.createElement('option');
             opt.value = inst.instance_id || String(idx);
@@ -225,7 +154,7 @@ window.huntarrSchedules = window.huntarrSchedules || {
     }
 
     // Wire up cascading dropdowns (backup for if inline script doesn't run)
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const appTypeSelect = document.getElementById('scheduleAppType');
         const instanceSelect = document.getElementById('scheduleInstance');
         if (appTypeSelect) {
@@ -244,14 +173,14 @@ window.huntarrSchedules = window.huntarrSchedules || {
 
     function loadSchedules() {
         HuntarrUtils.fetchWithTimeout('./api/scheduler/load')
-            .then(function(response) {
+            .then(function (response) {
                 if (!response.ok) throw new Error('Failed to load schedules');
                 return response.json();
             })
-            .then(function(data) {
-                Object.keys(schedules).forEach(function(key) {
+            .then(function (data) {
+                Object.keys(schedules).forEach(function (key) {
                     if (Array.isArray(data[key])) {
-                        schedules[key] = data[key].map(function(s) {
+                        schedules[key] = data[key].map(function (s) {
                             var timeObj = s.time;
                             if (typeof s.time === 'string') {
                                 var parts = s.time.split(':').map(Number);
@@ -275,26 +204,26 @@ window.huntarrSchedules = window.huntarrSchedules || {
                 });
                 renderSchedules();
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.error('[Scheduler] Error loading schedules:', error);
-                Object.keys(schedules).forEach(function(key) { schedules[key] = []; });
+                Object.keys(schedules).forEach(function (key) { schedules[key] = []; });
                 renderSchedules();
             });
     }
 
     function saveSchedules() {
         var payload = {};
-        Object.keys(schedules).forEach(function(key) { payload[key] = []; });
+        Object.keys(schedules).forEach(function (key) { payload[key] = []; });
 
-        Object.entries(schedules).forEach(function(entry) {
+        Object.entries(schedules).forEach(function (entry) {
             var appType = entry[0], list = entry[1];
             if (!Array.isArray(list)) return;
-            payload[appType] = list.map(function(s) {
+            payload[appType] = list.map(function (s) {
                 var daysArr = [];
                 if (Array.isArray(s.days)) {
                     daysArr = s.days;
                 } else if (s.days && typeof s.days === 'object') {
-                    Object.entries(s.days).forEach(function(d) {
+                    Object.entries(s.days).forEach(function (d) {
                         if (d[1] === true) daysArr.push(d[0]);
                     });
                 }
@@ -315,24 +244,24 @@ window.huntarrSchedules = window.huntarrSchedules || {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         })
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-            if (data.success) {
-                if (window.huntarrUI && window.huntarrUI.showNotification) {
-                    window.huntarrUI.showNotification('Schedule saved successfully', 'success');
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (data.success) {
+                    if (window.huntarrUI && window.huntarrUI.showNotification) {
+                        window.huntarrUI.showNotification('Schedule saved successfully', 'success');
+                    }
+                } else {
+                    if (window.huntarrUI && window.huntarrUI.showNotification) {
+                        window.huntarrUI.showNotification('Failed to save schedule', 'error');
+                    }
                 }
-            } else {
+            })
+            .catch(function (err) {
+                console.error('[Scheduler] Save error:', err);
                 if (window.huntarrUI && window.huntarrUI.showNotification) {
                     window.huntarrUI.showNotification('Failed to save schedule', 'error');
                 }
-            }
-        })
-        .catch(function(err) {
-            console.error('[Scheduler] Save error:', err);
-            if (window.huntarrUI && window.huntarrUI.showNotification) {
-                window.huntarrUI.showNotification('Failed to save schedule', 'error');
-            }
-        });
+            });
     }
 
     // ---------------------------------------------------------------
@@ -344,9 +273,9 @@ window.huntarrSchedules = window.huntarrSchedules || {
         var minute = parseInt(document.getElementById('scheduleMinute').value);
         var action = document.getElementById('scheduleAction').value;
 
-        var dayIds = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+        var dayIds = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         var daysArr = [];
-        dayIds.forEach(function(d) {
+        dayIds.forEach(function (d) {
             if (document.getElementById('day-' + d).checked) daysArr.push(d);
         });
 
@@ -390,7 +319,7 @@ window.huntarrSchedules = window.huntarrSchedules || {
 
     function deleteSchedule(scheduleId, appType) {
         if (!schedules[appType]) return;
-        var idx = schedules[appType].findIndex(function(s) { return s.id === scheduleId; });
+        var idx = schedules[appType].findIndex(function (s) { return s.id === scheduleId; });
         if (idx === -1) return;
         schedules[appType].splice(idx, 1);
         saveSchedules();
@@ -409,10 +338,10 @@ window.huntarrSchedules = window.huntarrSchedules || {
         container.innerHTML = '';
 
         var all = [];
-        Object.entries(schedules).forEach(function(entry) {
+        Object.entries(schedules).forEach(function (entry) {
             var appType = entry[0], list = entry[1];
             if (!Array.isArray(list)) return;
-            list.forEach(function(s) {
+            list.forEach(function (s) {
                 all.push(Object.assign({}, s, { appType: s.appType || appType }));
             });
         });
@@ -426,13 +355,13 @@ window.huntarrSchedules = window.huntarrSchedules || {
         container.style.display = 'block';
         emptyMsg.style.display = 'none';
 
-        all.sort(function(a, b) {
+        all.sort(function (a, b) {
             var at = (a.time.hour || 0) * 60 + (a.time.minute || 0);
             var bt = (b.time.hour || 0) * 60 + (b.time.minute || 0);
             return at - bt;
         });
 
-        all.forEach(function(s) {
+        all.forEach(function (s) {
             var el = document.createElement('div');
             el.className = 'schedule-item';
 
@@ -443,7 +372,7 @@ window.huntarrSchedules = window.huntarrSchedules || {
             if (Array.isArray(s.days)) {
                 if (s.days.length === 7) { daysText = 'Daily'; }
                 else if (s.days.length === 0) { daysText = 'None'; }
-                else { daysText = s.days.map(function(d) { return d.substring(0,1).toUpperCase() + d.substring(1,3); }).join(', '); }
+                else { daysText = s.days.map(function (d) { return d.substring(0, 1).toUpperCase() + d.substring(1, 3); }).join(', '); }
             }
 
             // Action
@@ -462,7 +391,7 @@ window.huntarrSchedules = window.huntarrSchedules || {
                 '<div class="schedule-item-action ' + actionClass + '">' + actionText + '</div>' +
                 '<div class="schedule-item-app">' + appText + '</div>' +
                 '<div class="schedule-item-actions">' +
-                    '<button class="delete-schedule" data-id="' + s.id + '" data-app-type="' + s.appType + '"><i class="fas fa-trash"></i></button>' +
+                '<button class="delete-schedule" data-id="' + s.id + '" data-app-type="' + s.appType + '"><i class="fas fa-trash"></i></button>' +
                 '</div>';
 
             container.appendChild(el);
@@ -493,27 +422,6 @@ window.huntarrSchedules = window.huntarrSchedules || {
 
         if (instanceId === 'all') return 'All ' + label + ' Instances';
 
-        // Movie Hunt: resolve from dedicated instance cache
-        if (base === 'movie_hunt') {
-            var mhInstances = window._movieHuntInstances || [];
-            for (var m = 0; m < mhInstances.length; m++) {
-                if (String(mhInstances[m].id) === instanceId) {
-                    return label + ' — ' + (mhInstances[m].name || 'Instance ' + mhInstances[m].id);
-                }
-            }
-            return label + ' — Instance ' + instanceId;
-        }
-
-        // TV Hunt: resolve from dedicated instance cache
-        if (base === 'tv_hunt') {
-            var thInstances = window._tvHuntInstances || [];
-            for (var t = 0; t < thInstances.length; t++) {
-                if (String(thInstances[t].id) === instanceId) {
-                    return label + ' — ' + (thInstances[t].name || 'Instance ' + thInstances[t].id);
-                }
-            }
-            return label + ' — Instance ' + instanceId;
-        }
 
         // Standard apps: try to resolve instance name from settings
         var settings = (window.huntarrUI && window.huntarrUI.originalSettings) ? window.huntarrUI.originalSettings : {};
@@ -522,7 +430,7 @@ window.huntarrSchedules = window.huntarrSchedules || {
         // Search by instance_id first
         for (var i = 0; i < instances.length; i++) {
             if (instances[i] && instances[i].instance_id === instanceId) {
-                return label + ' — ' + (instances[i].name || instances[i].instance_name || 'Instance ' + (i+1));
+                return label + ' — ' + (instances[i].name || instances[i].instance_name || 'Instance ' + (i + 1));
             }
         }
 
@@ -530,7 +438,7 @@ window.huntarrSchedules = window.huntarrSchedules || {
         if (/^\d+$/.test(instanceId)) {
             var idx = parseInt(instanceId, 10);
             if (instances[idx]) {
-                return label + ' — ' + (instances[idx].name || instances[idx].instance_name || 'Instance ' + (idx+1));
+                return label + ' — ' + (instances[idx].name || instances[idx].instance_name || 'Instance ' + (idx + 1));
             }
         }
 
@@ -538,8 +446,6 @@ window.huntarrSchedules = window.huntarrSchedules || {
     }
 
     function formatAppLabel(appName) {
-        if (appName === 'movie_hunt') return 'Movie Hunt';
-        if (appName === 'tv_hunt') return 'TV Hunt';
         return capitalizeFirst(appName);
     }
 
@@ -551,8 +457,8 @@ window.huntarrSchedules = window.huntarrSchedules || {
 
     function loadServerTimezone() {
         HuntarrUtils.fetchWithTimeout('./api/settings')
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
                 var tz = (data.general && (data.general.effective_timezone || data.general.timezone)) || 'UTC';
 
                 if (serverTimeInterval) clearInterval(serverTimeInterval);
@@ -563,9 +469,9 @@ window.huntarrSchedules = window.huntarrSchedules || {
                 updateServerTime(tz);
                 updateTimeInputsWithServerTime(tz);
 
-                serverTimeInterval = setInterval(function() { updateServerTime(tz); }, 60000);
+                serverTimeInterval = setInterval(function () { updateServerTime(tz); }, 60000);
             })
-            .catch(function() {
+            .catch(function () {
                 updateServerTime('UTC');
             });
     }
@@ -608,7 +514,7 @@ window.huntarrSchedules = window.huntarrSchedules || {
     window.refreshSchedulingInstances = loadAppInstances;
 
     // Auto-refresh scheduling instances when any instance changes anywhere in the app
-    document.addEventListener('huntarr:instances-changed', function() {
+    document.addEventListener('huntarr:instances-changed', function () {
         loadAppInstances();
     });
 

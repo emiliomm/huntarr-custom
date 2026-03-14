@@ -81,8 +81,7 @@ def get_default_stats() -> Dict[str, Dict[str, int]]:
         "readarr": {"hunted": 0, "upgraded": 0},
         "whisparr": {"hunted": 0, "upgraded": 0},
         "eros": {"hunted": 0, "upgraded": 0},
-        "movie_hunt": {"hunted": 0, "upgraded": 0, "found": 0, "found_upgrade": 0},
-        "tv_hunt": {"hunted": 0, "upgraded": 0, "found": 0, "found_upgrade": 0},
+
     }
 
 def get_default_hourly_caps() -> Dict[str, Dict[str, int]]:
@@ -94,8 +93,7 @@ def get_default_hourly_caps() -> Dict[str, Dict[str, int]]:
         "readarr": {"api_hits": 0},
         "whisparr": {"api_hits": 0},
         "eros": {"api_hits": 0},
-        "movie_hunt": {"api_hits": 0},
-        "tv_hunt": {"api_hits": 0}
+
     }
 
 def load_hourly_caps() -> Dict[str, Dict[str, int]]:
@@ -172,7 +170,7 @@ def increment_hourly_cap(app_type: str, count: int = 1, instance_name: Optional[
     Increment hourly API usage for an app or (app, instance).
     When instance_name is set (or from thread-local in per-instance context), uses per-instance counter.
     """
-    if app_type not in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "movie_hunt", "tv_hunt"]:
+    if app_type not in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros"]:
         logger.error(f"Invalid app_type for hourly cap: {app_type}")
         return False
     if instance_name is None:
@@ -234,7 +232,7 @@ def get_hourly_cap_status(app_type: str, instance_name: Optional[str] = None) ->
     Get current API usage status for an app or (app, instance).
     When instance_name is set, returns that instance's usage and limit.
     """
-    if app_type not in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "movie_hunt", "tv_hunt"]:
+    if app_type not in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros"]:
         return {"error": f"Invalid app_type: {app_type}"}
     with hourly_lock:
         try:
@@ -415,7 +413,7 @@ def increment_stat(app_type: str, stat_type: str, count: int = 1, instance_name:
         count: The amount to increment by (default: 1)
         instance_name: If set, also increment per-instance stat for Home dashboard
     """
-    if app_type not in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "movie_hunt", "tv_hunt"]:
+    if app_type not in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros"]:
         logger.error(f"Invalid app_type: {app_type}")
         return False
         
@@ -447,7 +445,7 @@ def increment_stat_only(app_type: str, stat_type: str, count: int = 1, instance_
     Increment a specific statistic and the hourly API cap (so the API bar matches searches/upgrades).
     Optionally increments per-instance stat for Home dashboard.
     """
-    if app_type not in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "movie_hunt", "tv_hunt"]:
+    if app_type not in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros"]:
         logger.error(f"Invalid app_type: {app_type}")
         return False
         
@@ -495,7 +493,7 @@ def get_stats() -> Dict[str, Any]:
             all_lock_info = db.get_all_instance_lock_info() if hasattr(db, "get_all_instance_lock_info") else {}  # 1 query
             # load_stats() above was 1 query — total: 4 queries
             
-            for app_type in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "movie_hunt", "tv_hunt"]:
+            for app_type in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros"]:
                 if app_type not in stats:
                     stats[app_type] = {"hunted": 0, "upgraded": 0}
                 
@@ -503,37 +501,7 @@ def get_stats() -> Dict[str, Any]:
                 configured = []
                 app_settings = load_settings(app_type)
                 
-                # Movie Hunt stores instances in a separate DB table, not in settings
-                if app_type == "movie_hunt":
-                    try:
-                        from src.primary.apps.movie_hunt.api import get_configured_instances as _mh_get_instances
-                        for inst in _mh_get_instances(quiet=True):
-                            name = _normalize_instance_name(inst.get("instance_name", "Default"))
-                            configured.append({
-                                "instance_name": name,
-                                "instance_id": inst.get("instance_id") or name,
-                                "hourly_cap": _safe_int(inst.get("hourly_cap"), 20),
-                                "state_management_mode": inst.get("state_management_mode", "custom"),
-                                "api_url": None  # Movie Hunt is internal
-                            })
-                    except Exception as e:
-                        logger.debug(f"Could not load Movie Hunt instances for stats: {e}")
-                # TV Hunt stores instances in a separate DB table, not in settings
-                elif app_type == "tv_hunt":
-                    try:
-                        from src.primary.apps.tv_hunt.api import get_configured_instances as _th_get_instances
-                        for inst in _th_get_instances(quiet=True):
-                            name = _normalize_instance_name(inst.get("instance_name", "Default"))
-                            configured.append({
-                                "instance_name": name,
-                                "instance_id": inst.get("instance_id") or name,
-                                "hourly_cap": _safe_int(inst.get("hourly_cap"), 20),
-                                "state_management_mode": inst.get("state_management_mode", "custom"),
-                                "api_url": None  # TV Hunt is internal
-                            })
-                    except Exception as e:
-                        logger.debug(f"Could not load TV Hunt instances for stats: {e}")
-                elif app_settings and isinstance(app_settings.get("instances"), list):
+                if app_settings and isinstance(app_settings.get("instances"), list):
                     for inst in app_settings["instances"]:
                         if inst.get("enabled", True) and inst.get("api_url") and inst.get("api_key"):
                             name = _normalize_instance_name(inst.get("name") or inst.get("instance_name"))
@@ -618,7 +586,7 @@ def load_hourly_caps_for_api() -> tuple:
         default_caps = get_default_hourly_caps()
         caps_out = {}
         limits_out = {}
-        for app in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "movie_hunt", "tv_hunt"]:
+        for app in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros"]:
             try:
                 configured = []
                 try:
@@ -663,7 +631,7 @@ def load_hourly_caps_for_api() -> tuple:
             db._check_and_recover_corruption(e)
         except Exception:
             pass
-        return load_hourly_caps(), {app: _get_app_hourly_cap_limit(app) for app in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "movie_hunt", "tv_hunt"]}
+        return load_hourly_caps(), {app: _get_app_hourly_cap_limit(app) for app in ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros"]}
 
 def reset_stats(app_type: Optional[str] = None) -> bool:
     """

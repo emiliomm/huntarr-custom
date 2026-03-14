@@ -1,7 +1,8 @@
 <section id="schedulingSection" class="content-section" style="display: none;">
     <link rel="stylesheet" href="./static/css/instance-editor.css?v=1.0.2">
     {% from 'components/page_header_partial.html' import page_header %}
-    {{ page_header(back_href='./#settings', parent_icon='fas fa-cog', parent_name='Settings', current_name='Scheduling', sponsor_section_id='scheduling') }}
+    {{ page_header(back_href='./#settings', parent_icon='fas fa-cog', parent_name='Settings', current_name='Scheduling',
+    sponsor_section_id='scheduling') }}
     <div class="sched-container">
 
         <!-- Add New Schedule -->
@@ -31,7 +32,7 @@
                             <select id="scheduleHour" class="sched-time-select">
                                 <script>
                                     for (let h = 0; h < 24; h++) {
-                                        document.write(`<option value="${h}">${String(h).padStart(2,'0')}</option>`);
+                                        document.write(`<option value="${h}">${String(h).padStart(2, '0')}</option>`);
                                     }
                                 </script>
                             </select>
@@ -39,7 +40,7 @@
                             <select id="scheduleMinute" class="sched-time-select">
                                 <script>
                                     for (let m = 0; m < 60; m += 5) {
-                                        document.write(`<option value="${m}">${String(m).padStart(2,'0')}</option>`);
+                                        document.write(`<option value="${m}">${String(m).padStart(2, '0')}</option>`);
                                     }
                                 </script>
                             </select>
@@ -71,8 +72,6 @@
                         <label for="scheduleAppType">App</label>
                         <select id="scheduleAppType">
                             <option value="global">All Apps (Global)</option>
-                            <option value="movie_hunt">Movie Hunt</option>
-                            <option value="tv_hunt">TV Hunt</option>
                             <option value="sonarr">Sonarr</option>
                             <option value="radarr">Radarr</option>
                             <option value="lidarr">Lidarr</option>
@@ -140,126 +139,97 @@
     </div>
 
     <script>
-    // Day checkbox logic
-    (function() {
-        const dailyCb = document.getElementById('day-daily');
-        const dayIds = ['day-monday','day-tuesday','day-wednesday','day-thursday','day-friday','day-saturday','day-sunday'];
-        const addBtn = document.getElementById('addScheduleButton');
+        // Day checkbox logic
+        (function () {
+            const dailyCb = document.getElementById('day-daily');
+            const dayIds = ['day-monday', 'day-tuesday', 'day-wednesday', 'day-thursday', 'day-friday', 'day-saturday', 'day-sunday'];
+            const addBtn = document.getElementById('addScheduleButton');
 
-        function updateAddButton() {
-            const anyChecked = dayIds.some(id => document.getElementById(id).checked);
-            addBtn.disabled = !anyChecked;
-        }
+            function updateAddButton() {
+                const anyChecked = dayIds.some(id => document.getElementById(id).checked);
+                addBtn.disabled = !anyChecked;
+            }
 
-        if (dailyCb) {
-            dailyCb.addEventListener('change', function() {
-                dayIds.forEach(id => { document.getElementById(id).checked = dailyCb.checked; });
-                updateAddButton();
-            });
-        }
-
-        dayIds.forEach(id => {
-            const cb = document.getElementById(id);
-            if (cb) {
-                cb.addEventListener('change', function() {
-                    const allChecked = dayIds.every(i => document.getElementById(i).checked);
-                    if (dailyCb) dailyCb.checked = allChecked;
+            if (dailyCb) {
+                dailyCb.addEventListener('change', function () {
+                    dayIds.forEach(id => { document.getElementById(id).checked = dailyCb.checked; });
                     updateAddButton();
                 });
             }
-        });
 
-        // Cascading app → instance dropdown
-        const appTypeSelect = document.getElementById('scheduleAppType');
-        const instanceSelect = document.getElementById('scheduleInstance');
-        const hiddenAppSelect = document.getElementById('scheduleApp');
-
-        function updateHiddenApp() {
-            const appType = appTypeSelect.value;
-            const instanceVal = instanceSelect.value;
-            if (appType === 'global') {
-                hiddenAppSelect.value = 'global';
-            } else if (instanceVal === 'all') {
-                hiddenAppSelect.value = appType + '::all';
-            } else {
-                hiddenAppSelect.value = appType + '::' + instanceVal;
-            }
-        }
-
-        function populateInstanceDropdown() {
-            const appType = appTypeSelect.value;
-            instanceSelect.innerHTML = '';
-
-            if (appType === 'global') {
-                instanceSelect.innerHTML = '<option value="all">All Instances</option>';
-                instanceSelect.disabled = true;
-                updateHiddenApp();
-                return;
-            }
-
-            instanceSelect.disabled = false;
-            // Add "All X Instances" option
-            const allOpt = document.createElement('option');
-            allOpt.value = 'all';
-            allOpt.textContent = 'All Instances';
-            instanceSelect.appendChild(allOpt);
-
-            // Movie Hunt: instances come from a dedicated API, not settings cache
-            if (appType === 'movie_hunt') {
-                const cached = window._movieHuntInstances;
-                if (cached && Array.isArray(cached)) {
-                    cached.forEach(function(inst) {
-                        const opt = document.createElement('option');
-                        opt.value = String(inst.id);
-                        opt.textContent = inst.name || ('Instance ' + inst.id);
-                        instanceSelect.appendChild(opt);
+            dayIds.forEach(id => {
+                const cb = document.getElementById(id);
+                if (cb) {
+                    cb.addEventListener('change', function () {
+                        const allChecked = dayIds.every(i => document.getElementById(i).checked);
+                        if (dailyCb) dailyCb.checked = allChecked;
+                        updateAddButton();
                     });
                 }
-                updateHiddenApp();
-                return;
-            }
-
-            // TV Hunt: instances come from a dedicated API, not settings cache
-            if (appType === 'tv_hunt') {
-                const cached = window._tvHuntInstances;
-                if (cached && Array.isArray(cached)) {
-                    cached.forEach(function(inst) {
-                        const opt = document.createElement('option');
-                        opt.value = String(inst.id);
-                        opt.textContent = inst.name || ('Instance ' + inst.id);
-                        instanceSelect.appendChild(opt);
-                    });
-                }
-                updateHiddenApp();
-                return;
-            }
-
-            // Other apps: get instances from settings cache
-            const settings = (window.huntarrUI && window.huntarrUI.originalSettings) ? window.huntarrUI.originalSettings : {};
-            const appSettings = settings[appType] || {};
-            const instances = Array.isArray(appSettings.instances) ? appSettings.instances : [];
-
-            instances.forEach(function(inst, idx) {
-                if (!inst || typeof inst !== 'object') return;
-                const opt = document.createElement('option');
-                opt.value = inst.instance_id || String(idx);
-                opt.textContent = inst.name || inst.instance_name || ('Instance ' + (idx + 1));
-                instanceSelect.appendChild(opt);
             });
 
-            updateHiddenApp();
-        }
+            // Cascading app → instance dropdown
+            const appTypeSelect = document.getElementById('scheduleAppType');
+            const instanceSelect = document.getElementById('scheduleInstance');
+            const hiddenAppSelect = document.getElementById('scheduleApp');
 
-        if (appTypeSelect) {
-            appTypeSelect.addEventListener('change', populateInstanceDropdown);
-        }
-        if (instanceSelect) {
-            instanceSelect.addEventListener('change', updateHiddenApp);
-        }
+            function updateHiddenApp() {
+                const appType = appTypeSelect.value;
+                const instanceVal = instanceSelect.value;
+                if (appType === 'global') {
+                    hiddenAppSelect.value = 'global';
+                } else if (instanceVal === 'all') {
+                    hiddenAppSelect.value = appType + '::all';
+                } else {
+                    hiddenAppSelect.value = appType + '::' + instanceVal;
+                }
+            }
 
-        // Initial population
-        populateInstanceDropdown();
-    })();
+            function populateInstanceDropdown() {
+                const appType = appTypeSelect.value;
+                instanceSelect.innerHTML = '';
+
+                if (appType === 'global') {
+                    instanceSelect.innerHTML = '<option value="all">All Instances</option>';
+                    instanceSelect.disabled = true;
+                    updateHiddenApp();
+                    return;
+                }
+
+                instanceSelect.disabled = false;
+                // Add "All X Instances" option
+                const allOpt = document.createElement('option');
+                allOpt.value = 'all';
+                allOpt.textContent = 'All Instances';
+                instanceSelect.appendChild(allOpt);
+
+
+                // Other apps: get instances from settings cache
+                const settings = (window.huntarrUI && window.huntarrUI.originalSettings) ? window.huntarrUI.originalSettings : {};
+                const appSettings = settings[appType] || {};
+                const instances = Array.isArray(appSettings.instances) ? appSettings.instances : [];
+
+                instances.forEach(function (inst, idx) {
+                    if (!inst || typeof inst !== 'object') return;
+                    const opt = document.createElement('option');
+                    opt.value = inst.instance_id || String(idx);
+                    opt.textContent = inst.name || inst.instance_name || ('Instance ' + (idx + 1));
+                    instanceSelect.appendChild(opt);
+                });
+
+                updateHiddenApp();
+            }
+
+            if (appTypeSelect) {
+                appTypeSelect.addEventListener('change', populateInstanceDropdown);
+            }
+            if (instanceSelect) {
+                instanceSelect.addEventListener('change', updateHiddenApp);
+            }
+
+            // Initial population
+            populateInstanceDropdown();
+        })();
     </script>
 </section>
 

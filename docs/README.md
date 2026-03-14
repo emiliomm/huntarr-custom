@@ -18,13 +18,6 @@ docs/
 │   └── first-steps.html          # Post-install guide — connect apps, schedule, notify
 ├── apps/
 │   └── index.html                # 3rd Party Apps (Sonarr, Radarr, Lidarr, Readarr, Whisparr)
-├── movie-hunt/
-│   ├── index.html                # Movie Hunt overview and getting started
-│   ├── media-collection.html     # Managing your movie library
-│   ├── indexers-clients.html     # Indexer and download client configuration
-│   └── profiles.html             # Quality profiles and format scoring
-├── nzb-hunt/
-│   └── index.html                # NZB Hunt — Usenet client setup, servers, queue
 ├── requestarr/
 │   └── index.html                # Requestarr — user requests, approval queue, bundles
 ├── settings/

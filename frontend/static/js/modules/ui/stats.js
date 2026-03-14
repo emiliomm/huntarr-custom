@@ -931,7 +931,7 @@ window.HuntarrStats = {
         var connectedCount = (statusData && statusData.connected_count) || 0;
         var totalConfigured = (statusData && statusData.total_configured) || 0;
 
-        if (['movie_hunt', 'tv_hunt', 'sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros', 'swaparr'].indexOf(app) !== -1) {
+        if (['sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros', 'swaparr'].indexOf(app) !== -1) {
             isConfigured = totalConfigured > 0;
             isConnected = isConfigured && connectedCount > 0;
         }
@@ -952,7 +952,7 @@ window.HuntarrStats = {
             return;
         }
 
-        if (['movie_hunt', 'tv_hunt', 'sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros', 'swaparr'].indexOf(app) !== -1) {
+        if (['sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros', 'swaparr'].indexOf(app) !== -1) {
             statusElement.innerHTML = '<i class="fas fa-plug"></i> Connected ' + connectedCount + '/' + totalConfigured;
             statusElement.className = 'status-badge ' + (isConnected ? 'connected' : 'error');
         } else {

@@ -31,16 +31,6 @@ def search_media():
             from src.primary.utils.database import get_database
             db = get_database()
             resolved = None
-            if app_type == 'movie_hunt':
-                for inst in (db.get_movie_hunt_instances() or []):
-                    if str(inst.get('id')) == instance_name:
-                        resolved = (inst.get('name') or '').strip()
-                        break
-            elif app_type == 'tv_hunt':
-                for inst in (db.get_tv_hunt_instances() or []):
-                    if str(inst.get('id')) == instance_name:
-                        resolved = (inst.get('name') or '').strip()
-                        break
             if resolved is not None:
                 instance_name = resolved
         
@@ -131,119 +121,10 @@ def get_enabled_instances():
 
 @requestarr_bp.route('/collection', methods=['GET'])
 def get_unified_collection():
-    """Unified collection endpoint: merges Movie Hunt + TV Hunt collections into a single response.
-    Params: movie_instance_id, tv_instance_id (optional), sort (default title.asc), page, page_size, q (search).
-    Returns: { items: [...], total, page, page_size } with media_type on each item.
+    """Unified collection endpoint: merges Sonarr + Radarr (future) collections.
+    Currently returns empty list.
     """
-    try:
-        movie_instance_id = request.args.get('movie_instance_id', '').strip()
-        tv_instance_id = request.args.get('tv_instance_id', '').strip()
-        if not movie_instance_id and not tv_instance_id:
-            return jsonify({'items': [], 'total': 0, 'page': 1, 'page_size': 20}), 200
-
-        sort = request.args.get('sort', 'title.asc').strip()
-        try:
-            page = max(1, int(request.args.get('page', 1)))
-        except (TypeError, ValueError):
-            page = 1
-        try:
-            page_size = max(1, min(10000, int(request.args.get('page_size', 20))))
-        except (TypeError, ValueError):
-            page_size = 20
-        q = request.args.get('q', '').strip()
-
-        movie_items = []
-        tv_items = []
-
-        # Fetch movie collection directly from database (test_client is unreliable)
-        if movie_instance_id:
-            try:
-                from src.primary.routes.media_hunt.discovery_movie import _get_collection_config as _get_movie_collection
-                try:
-                    mv_id_int = int(movie_instance_id)
-                except (TypeError, ValueError):
-                    mv_id_int = 0
-                if mv_id_int:
-                    collection_items = _get_movie_collection(mv_id_int)
-                    for m in collection_items:
-                        m['media_type'] = 'movie'
-                        m['_sortTitle'] = (m.get('title') or '').lower()
-                        m['_year'] = str(m.get('year') or '')
-                        movie_items.append(m)
-            except Exception as e:
-                logger.warning(f"[Requestarr] Movie collection fetch error: {e}")
-
-        # Fetch TV collection directly from database (test_client is unreliable)
-        if tv_instance_id:
-            try:
-                from src.primary.routes.media_hunt.discovery_tv import _get_collection_config, _merge_detected_episodes_into_collection
-                try:
-                    tv_id_int = int(tv_instance_id)
-                except (TypeError, ValueError):
-                    tv_id_int = 0
-                if tv_id_int:
-                    series_list = _get_collection_config(tv_id_int)
-                    # Merge disk-detected episodes so imported files show correct status on hard refresh
-                    _merge_detected_episodes_into_collection(tv_id_int, series_list)
-                    for s in series_list:
-                        title = s.get('title') or s.get('name') or ''
-                        year = (s.get('first_air_date') or '')[:4]
-                        tv_items.append({
-                            'media_type': 'tv',
-                            'tmdb_id': s.get('tmdb_id'),
-                            'title': title,
-                            'name': title,
-                            'year': year,
-                            'first_air_date': s.get('first_air_date'),
-                            'poster_path': s.get('poster_path'),
-                            'status': s.get('status'),
-                            'seasons': s.get('seasons'),
-                            'overview': s.get('overview'),
-                            'vote_average': s.get('vote_average'),
-                            '_sortTitle': title.lower(),
-                            '_year': year,
-                            '_raw': s,
-                        })
-            except Exception as e:
-                logger.warning(f"[Requestarr] TV collection fetch error: {e}")
-
-        combined = movie_items + tv_items
-
-        # Apply search filter for TV (movie API applies q server-side; TV has no q param)
-        if q:
-            ql = q.lower()
-            combined = [
-                x for x in combined
-                if ql in ((x.get('title') or '') + ' ' + str(x.get('year') or '')).lower()
-            ]
-
-        # Sort (title.asc, title.desc, year.desc, year.asc)
-        def sort_key(item):
-            st = item.get('_sortTitle') or ''
-            yr = item.get('_year') or ''
-            return (st, yr)
-
-        combined.sort(key=sort_key)
-        if sort == 'title.desc':
-            combined.reverse()
-        elif sort == 'year.desc':
-            combined.sort(key=lambda x: (x.get('_year') or '', x.get('_sortTitle') or ''), reverse=True)
-        elif sort == 'year.asc':
-            combined.sort(key=lambda x: (x.get('_year') or '', x.get('_sortTitle') or ''))
-
-        total = len(combined)
-        start = (page - 1) * page_size
-        page_items = combined[start : start + page_size]
-
-        return jsonify({
-            'items': page_items,
-            'total': total,
-            'page': page,
-            'page_size': page_size,
-        }), 200
-    except Exception as e:
-        logger.exception("[Requestarr] Unified collection error")
-        return jsonify({'items': [], 'total': 0, 'page': 1, 'page_size': 20, 'error': str(e)}), 200
+    return jsonify({'items': [], 'total': 0, 'page': 1, 'page_size': 20}), 200
 
 
 @requestarr_bp.route('/cascade', methods=['POST'])
@@ -378,15 +259,6 @@ def request_media():
             app_type = 'sonarr' if media_type == 'tv' else 'radarr'
         quality_profile_raw = data.get('quality_profile')
         # If TV + quality_profile looks like a name (not numeric), treat as TV Hunt
-        if media_type == 'tv' and quality_profile_raw and str(quality_profile_raw).strip():
-            try:
-                int(quality_profile_raw)
-            except (TypeError, ValueError):
-                if app_type == 'sonarr':
-                    th_instances = requestarr_api.get_enabled_instances().get('tv_hunt', [])
-                    if any(inst.get('name') == instance_name for inst in th_instances):
-                        app_type = 'tv_hunt'
-                        logger.debug(f"[Requestarr] Inferred app_type=tv_hunt (instance '{instance_name}' in TV Hunt, profile name '{quality_profile_raw}')")
         
         logger.debug(f"[Requestarr] Processing {media_type} request for '{data['title']}' to {app_type} instance '{instance_name}'")
         
@@ -404,9 +276,10 @@ def request_media():
             minimum_availability = (data.get('minimum_availability') or '').strip() or 'released'
         
         # For Movie Hunt and TV Hunt, quality_profile is a name string, not an integer ID
-        if app_type in ('movie_hunt', 'tv_hunt'):
+        # For Sonarr/Radarr quality_profile is an integer ID
+        if True:
             quality_profile_id = None
-            quality_profile_name = quality_profile if quality_profile and quality_profile != '' else None
+            quality_profile_name = None
         else:
             quality_profile_id = None
             quality_profile_name = None
@@ -513,7 +386,7 @@ def get_trending():
         raw_tv = default_instances.get('tv_instance', '')
         
         if not movie_instance_name or not movie_app_type:
-            # Parse compound movie instance value (e.g. "movie_hunt:First" or "radarr:Radarr Test")
+            # Parse compound movie instance value (e.g. "radarr:Radarr Test")
             if raw_movie and ':' in raw_movie:
                 parts = raw_movie.split(':', 1)
                 movie_app_type = movie_app_type or parts[0]
@@ -524,7 +397,7 @@ def get_trending():
                 movie_instance_name = movie_instance_name or raw_movie
         
         if not tv_instance_name or not tv_app_type:
-            # Parse compound TV instance value (e.g. "tv_hunt:Main" or "sonarr:Prime")
+            # Parse compound TV instance value (e.g. "sonarr:Prime")
             tv_instance_name = tv_instance_name or raw_tv
             if raw_tv and ':' in raw_tv:
                 parts = raw_tv.split(':', 1)
@@ -716,10 +589,7 @@ def get_series_status():
         if not tmdb_id or not instance_name:
             return jsonify({'error': 'Missing parameters'}), 400
         
-        if app_type == 'tv_hunt':
-            status = requestarr_api.get_series_status_from_tv_hunt(tmdb_id, instance_name)
-        else:
-            status = requestarr_api.get_series_status_from_sonarr(tmdb_id, instance_name)
+        status = requestarr_api.get_series_status_from_sonarr(tmdb_id, instance_name)
 
         # Enrich with user-specific pending request info
         if not status.get('exists'):
@@ -758,11 +628,7 @@ def get_movie_status():
             return jsonify({'error': 'Missing parameters'}), 400
         
         # Route to Movie Hunt status check if app_type is movie_hunt
-        if app_type == 'movie_hunt':
-            status = requestarr_api.get_movie_status_from_movie_hunt(tmdb_id, instance_name)
-        else:
-            # Default: Get movie status from Radarr
-            status = requestarr_api.get_movie_status_from_radarr(tmdb_id, instance_name)
+        status = requestarr_api.get_movie_status_from_radarr(tmdb_id, instance_name)
 
         # Enrich with user-specific pending request info
         # If the media is not in library, check if THIS user already has a pending request
@@ -947,15 +813,13 @@ def set_modal_preferences():
 
 @requestarr_bp.route('/rootfolders', methods=['GET'])
 def get_root_folders():
-    """Get root folders for a *arr or Movie Hunt instance"""
+    """Get root folders for a *arr instance"""
     try:
         app_type = request.args.get('app_type', '').strip().lower()
         instance_name = request.args.get('instance_name', '').strip()
         instance_id = request.args.get('instance_id', type=int)
-        if app_type not in ('radarr', 'sonarr', 'movie_hunt', 'tv_hunt'):
-            return jsonify({'success': False, 'error': 'app_type (radarr/sonarr/movie_hunt/tv_hunt) required'}), 400
-        if app_type == 'movie_hunt' and instance_id is not None:
-            folders = requestarr_api.get_root_folders_by_id(instance_id)
+        if app_type not in ('radarr', 'sonarr'):
+            return jsonify({'success': False, 'error': 'app_type (radarr/sonarr) required'}), 400
         elif instance_name:
             folders = requestarr_api.get_root_folders(app_type, instance_name)
         else:
@@ -982,11 +846,10 @@ def set_default_root_folders():
         data = request.get_json() or {}
         radarr_path = data.get('default_root_folder_radarr', '')
         sonarr_path = data.get('default_root_folder_sonarr', '')
-        movie_hunt_path = data.get('default_root_folder_movie_hunt', '')
         requestarr_api.set_default_root_folders(
             default_root_folder_radarr=radarr_path,
             default_root_folder_sonarr=sonarr_path,
-            default_root_folder_movie_hunt=movie_hunt_path
+            default_root_folder_sonarr=sonarr_path
         )
         return jsonify({'success': True})
     except Exception as e:
@@ -1247,7 +1110,7 @@ def get_hidden_media():
 
 @requestarr_bp.route('/has-clients', methods=['GET'])
 def has_any_clients():
-    """Return whether any Movie Hunt or TV Hunt instance has at least one download client configured."""
+    """Return whether any instance has at least one download client configured."""
     try:
         from src.primary.utils.database import get_database
         return jsonify({'has_clients': True}), 200
@@ -1295,51 +1158,7 @@ def get_instances(app_type):
                 pass
             return instances_list
 
-        # Movie Hunt instances come from the dedicated database table
-        if app_type == 'movie_hunt':
-            from src.primary.utils.database import get_database
-            db = get_database()
-            mh_instances = db.get_movie_hunt_instances()
-            instances = []
-            seen_names = set()
-            for inst in mh_instances:
-                name = (inst.get('name') or '').strip()
-                if not name:
-                    continue
-                normalized_name = name.lower()
-                if normalized_name in seen_names:
-                    continue
-                seen_names.add(normalized_name)
-                instances.append({
-                    'name': name,
-                    'id': inst.get('id'),
-                    'url': 'internal'  # Movie Hunt is internal, no external URL
-                })
-            instances = _filter_for_non_owner('movie_hunt', instances)
-            return jsonify({'instances': instances, 'app_type': 'movie_hunt'})
         
-        # TV Hunt instances come from the dedicated database table
-        if app_type == 'tv_hunt':
-            from src.primary.utils.database import get_database
-            db = get_database()
-            th_instances = db.get_tv_hunt_instances()
-            instances = []
-            seen_names = set()
-            for inst in th_instances:
-                name = (inst.get('name') or '').strip()
-                if not name:
-                    continue
-                normalized_name = name.lower()
-                if normalized_name in seen_names:
-                    continue
-                seen_names.add(normalized_name)
-                instances.append({
-                    'name': name,
-                    'id': inst.get('id'),
-                    'url': 'internal'  # TV Hunt is internal, no external URL
-                })
-            instances = _filter_for_non_owner('tv_hunt', instances)
-            return jsonify({'instances': instances, 'app_type': 'tv_hunt'})
         
         from src.primary.settings_manager import get_setting
         

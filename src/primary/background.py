@@ -497,8 +497,8 @@ def app_specific_loop(app_type: str) -> None:
             # Initialize API usage tracking (overridden below for *arr apps)
             api_usage_at_start = 0
 
-            # --- Connection Check (skip for Movie Hunt / TV Hunt; no *arr API) --- #
-            if app_type not in ("movie_hunt", "tv_hunt"):
+            # --- Connection Check --- #
+            if True:
                 if not api_url or not api_key:
                     app_logger.warning(f"Missing API URL or Key for instance '{instance_name}'. Skipping.")
                     if end_cycle:
@@ -551,32 +551,6 @@ def app_specific_loop(app_type: str) -> None:
             # --- Check if Hunt Modes are Enabled --- #
             # For per-instance settings, get values from instance details
             # For apps without per-instance settings, fall back to global app settings
-            if app_type == "sonarr":
-                hunt_missing_value = instance_details.get("hunt_missing_items", 1)  # Default to 1
-                hunt_upgrade_value = instance_details.get("hunt_upgrade_items", 0)  # Default to 0
-            elif app_type == "radarr":
-                hunt_missing_value = instance_details.get("hunt_missing_movies", 1)  # Default to 1
-                hunt_upgrade_value = instance_details.get("hunt_upgrade_movies", 0)  # Default to 0
-            elif app_type == "lidarr":
-                hunt_missing_value = instance_details.get("hunt_missing_items", 1)  # Default to 1
-                hunt_upgrade_value = instance_details.get("hunt_upgrade_items", 0)  # Default to 0
-            elif app_type == "readarr":
-                hunt_missing_value = instance_details.get("hunt_missing_books", 1)  # Default to 1
-                hunt_upgrade_value = instance_details.get("hunt_upgrade_books", 0)  # Default to 0
-            elif app_type == "whisparr":
-                hunt_missing_value = instance_details.get("hunt_missing_items", 1)  # Default to 1
-                hunt_upgrade_value = instance_details.get("hunt_upgrade_items", 0)  # Default to 0
-            elif app_type == "eros":
-                hunt_missing_value = instance_details.get("hunt_missing_items", 1)  # Default to 1
-                hunt_upgrade_value = instance_details.get("hunt_upgrade_items", 0)  # Default to 0
-            elif app_type == "movie_hunt":
-                hunt_missing_value = instance_details.get("hunt_missing_movies", 1)  # Default to 1
-                hunt_upgrade_value = instance_details.get("hunt_upgrade_movies", 0)  # Default to 0
-            elif app_type == "tv_hunt":
-                hunt_missing_value = instance_details.get("hunt_missing_episodes", 1)  # Default to 1
-                hunt_upgrade_value = instance_details.get("hunt_upgrade_episodes", 0)  # Default to 0
-            else:
-                # Fall back to global settings for other apps
                 hunt_missing_value = app_settings.get(hunt_missing_setting, 0)
                 hunt_upgrade_value = app_settings.get(hunt_upgrade_setting, 0)
 
@@ -586,8 +560,8 @@ def app_specific_loop(app_type: str) -> None:
             # Debug logging for per-instance hunt values
             app_logger.info(f"Instance '{instance_name}' - Missing: {hunt_missing_value} (enabled: {hunt_missing_enabled}), Upgrade: {hunt_upgrade_value} (enabled: {hunt_upgrade_enabled})")
 
-            # --- Queue Size Check --- # Now using per-instance setting (skip for Movie Hunt / TV Hunt)
-            if app_type not in ("movie_hunt", "tv_hunt"):
+            # --- Queue Size Check --- # Now using per-instance setting
+            if True:
                 max_queue_size = instance_details.get("max_download_queue_size", -1)
                 if max_queue_size == -1:
                     # Fallback to general settings if instance doesn't have it set
@@ -609,7 +583,7 @@ def app_specific_loop(app_type: str) -> None:
                     except Exception as e:
                         app_logger.warning(f"Could not get download queue size for {instance_name}. Proceeding anyway. Error: {e}", exc_info=False) # Log less verbosely
 
-            # --- Max Seed Queue Check (torrents only; skip for Movie Hunt) ---
+            # --- Max Seed Queue Check (torrents only) ---
             # When disabled (max_seed_queue_size < 0): no network calls, no imports, no side effects.
             # When enabled: call torrent client for seeding count; skip this instance's hunt if count >= limit.
             try:
@@ -617,7 +591,7 @@ def app_specific_loop(app_type: str) -> None:
                 max_seed_queue_size = int(raw) if raw is not None and str(raw).strip() != "" else -1
             except (TypeError, ValueError):
                 max_seed_queue_size = -1
-            if app_type not in ("movie_hunt", "tv_hunt") and max_seed_queue_size >= 0:
+            if max_seed_queue_size >= 0:
                 seed_client = instance_details.get("seed_check_torrent_client")
                 if seed_client and isinstance(seed_client, dict) and (seed_client.get("host") or "").strip():
                     try:
@@ -642,8 +616,8 @@ def app_specific_loop(app_type: str) -> None:
                 else:
                     app_logger.debug(f"Max seed queue size set ({max_seed_queue_size}) but no torrent client configured for {instance_name}; skipping seed check.")
 
-            # --- Disk Space Threshold Check (skip for Movie Hunt / TV Hunt) --- #
-            if app_type not in ("movie_hunt", "tv_hunt"):
+            # --- Disk Space Threshold Check --- #
+            if True:
                 try:
                     min_free_space_gb = float(instance_details.get("min_free_space_gb", 0) or 0)
                     if min_free_space_gb > 0:
@@ -1135,25 +1109,6 @@ def shutdown_threads():
         else:
             logger.info("Prowlarr stats refresher stopped")
 
-    # Stop the RSS Sync thread
-    global _rss_sync_thread
-    if _rss_sync_thread and _rss_sync_thread.is_alive():
-        logger.info("Waiting for RSS Sync thread to stop...")
-        _rss_sync_thread.join(timeout=5.0)
-        if _rss_sync_thread.is_alive():
-            logger.warning("RSS Sync thread did not stop gracefully")
-        else:
-            logger.info("RSS Sync thread stopped")
-
-    # Stop the Media Hunt metadata refresh thread
-    global _metadata_refresh_thread
-    if _metadata_refresh_thread and _metadata_refresh_thread.is_alive():
-        logger.info("Waiting for Media Hunt metadata refresh thread to stop...")
-        _metadata_refresh_thread.join(timeout=5.0)
-        if _metadata_refresh_thread.is_alive():
-            logger.warning("Media Hunt metadata refresh thread did not stop gracefully")
-        else:
-            logger.info("Media Hunt metadata refresh thread stopped")
 
     # Stop the Swaparr processing thread
     global swaparr_thread
@@ -1414,403 +1369,7 @@ def start_prowlarr_stats_thread():
     prowlarr_stats_thread.start()
     logger.info(f"Prowlarr stats refresher started. Thread is alive: {prowlarr_stats_thread.is_alive()}")
 
-# ---------------------------------------------------------------------------
-# Import Lists sync thread
-# ---------------------------------------------------------------------------
-_import_list_sync_thread = None
 
-
-def _import_list_sync_loop():
-    """Background loop: check import lists for sync every 5 minutes."""
-    while not stop_event.is_set():
-        try:
-            from src.primary.routes.media_hunt.import_lists_movie import run_import_list_sync_cycle
-            run_import_list_sync_cycle()
-        except Exception as e:
-            logger.error(f"Import list sync cycle error (movie): {e}")
-        try:
-            from src.primary.routes.media_hunt.import_lists_tv import run_tv_import_list_sync_cycle
-            run_tv_import_list_sync_cycle()
-        except Exception as e:
-            logger.error(f"Import list sync cycle error (tv): {e}")
-        # Wait 5 minutes between checks
-        stop_event.wait(300)
-
-
-def _start_import_list_sync_thread():
-    """Start the Import Lists background sync thread."""
-    global _import_list_sync_thread
-    if _import_list_sync_thread and _import_list_sync_thread.is_alive():
-        logger.info("Import Lists sync thread already running")
-        return
-    _import_list_sync_thread = threading.Thread(
-        target=_import_list_sync_loop,
-        name="ImportListSync",
-        daemon=True,
-    )
-    _import_list_sync_thread.start()
-    logger.info("Import Lists sync thread started")
-
-
-# ---------------------------------------------------------------------------
-# Import Media (unmapped folder scan) background thread
-# ---------------------------------------------------------------------------
-_import_media_scan_thread = None
-
-
-def _import_media_scan_loop():
-    """Background loop: daily scan for unmapped folders in Movie Hunt root folders."""
-    # Wait 2 minutes after startup before first check
-    stop_event.wait(120)
-    while not stop_event.is_set():
-        try:
-            from src.primary.routes.media_hunt.import_media_movie import run_import_media_background_cycle
-            run_import_media_background_cycle()
-        except Exception as e:
-            logger.error(f"Import Media scan cycle error: {e}")
-        try:
-            from src.primary.routes.media_hunt.import_media_tv import run_import_media_background_cycle
-            run_import_media_background_cycle()
-        except Exception as e:
-            logger.error(f"TV Import Media scan cycle error: {e}")
-        # Wait 1 hour between checks (actual daily logic is inside the cycle)
-        stop_event.wait(3600)
-
-
-def _start_import_media_scan_thread():
-    """Start the Import Media background scan thread."""
-    global _import_media_scan_thread
-    if _import_media_scan_thread and _import_media_scan_thread.is_alive():
-        logger.info("Import Media scan thread already running")
-        return
-    _import_media_scan_thread = threading.Thread(
-        target=_import_media_scan_loop,
-        name="ImportMediaScan",
-        daemon=True,
-    )
-    _import_media_scan_thread.start()
-    logger.info("Import Media scan thread started")
-
-
-# ---------------------------------------------------------------------------
-# RSS Sync background thread — periodic RSS sync for Movie/TV Hunt instances
-# ---------------------------------------------------------------------------
-_rss_sync_thread = None
-
-
-def _rss_sync_loop():
-    """Background loop: check all Movie/TV Hunt instances for scheduled RSS sync."""
-    rss_logger = get_logger("huntarr")
-    rss_logger.info("RSS Sync background thread started")
-    # Wait 30 seconds after startup before first check
-    stop_event.wait(30)
-    while not stop_event.is_set():
-        try:
-            _run_rss_sync_cycle(rss_logger)
-        except Exception as e:
-            rss_logger.error("RSS Sync cycle error: %s", e)
-        # Check every 60 seconds whether any instance is due
-        stop_event.wait(60)
-    rss_logger.info("RSS Sync background thread stopped")
-
-
-def _run_rss_sync_cycle(rss_logger):
-    """Check all Movie/TV Hunt instances; run RSS sync for those that are due."""
-    from src.primary.utils.database import get_database
-    import datetime as _dt
-
-    db = get_database()
-
-    for hunt_type, instances_func_path, mgmt_key, status_key in [
-        ('movie_hunt', 'src.primary.apps.movie_hunt.api', 'movie_management', 'rss_sync_status'),
-        ('tv_hunt', 'src.primary.apps.tv_hunt.api', 'tv_management', 'tv_rss_sync_status'),
-    ]:
-        try:
-            import importlib
-            app_module = importlib.import_module(instances_func_path)
-            get_instances = getattr(app_module, 'get_configured_instances', None)
-            if not get_instances:
-                continue
-            instances = get_instances(quiet=True)
-        except Exception:
-            continue
-
-        if not instances:
-            continue
-
-        for inst in instances:
-            if stop_event.is_set():
-                return
-
-            try:
-                instance_id = int(inst.get('instance_id') or inst.get('id', 0))
-            except (TypeError, ValueError):
-                continue
-
-            if not instance_id:
-                continue
-
-            # Load management config for this instance
-            mgmt_config = db.get_app_config_for_instance(mgmt_key, instance_id) or {}
-            if not mgmt_config.get('rss_sync_enabled', True):
-                continue
-
-            interval_minutes = mgmt_config.get('rss_sync_interval_minutes', 15)
-            try:
-                interval_minutes = max(15, min(60, int(interval_minutes)))
-            except (TypeError, ValueError):
-                interval_minutes = 15
-
-            # Check if this instance is due
-            status = db.get_app_config_for_instance(status_key, instance_id) or {}
-            next_sync_str = status.get('next_sync_time')
-
-            now = _dt.datetime.utcnow()
-
-            if next_sync_str:
-                try:
-                    next_sync = _dt.datetime.fromisoformat(next_sync_str.replace('Z', '+00:00'))
-                    if next_sync.tzinfo:
-                        next_sync = next_sync.replace(tzinfo=None)
-                    if now < next_sync:
-                        continue  # Not due yet
-                except (ValueError, TypeError):
-                    pass  # If parse fails, run sync
-
-            # Instance is due — run RSS sync
-            try:
-                hunt_logger = get_logger(hunt_type)
-                hunt_logger.info("[RSS Sync] Triggering scheduled RSS sync for %s instance %s",
-                                 "Movie Hunt" if hunt_type == 'movie_hunt' else "TV Hunt", instance_id)
-                from src.primary.apps.media_hunt.rss_decision import process_rss_sync
-                process_rss_sync(instance_id, hunt_type)
-            except Exception as e:
-                hunt_logger = get_logger(hunt_type)
-                hunt_logger.error("[RSS Sync] Error for %s instance %s: %s", hunt_type, instance_id, e)
-                try:
-                    from src.primary.utils.database import get_database
-                    get_database()._check_and_recover_corruption(e)
-                except Exception:
-                    pass
-
-
-def _start_rss_sync_thread():
-    """Start the RSS Sync background thread."""
-    global _rss_sync_thread
-    if _rss_sync_thread and _rss_sync_thread.is_alive():
-        logger.info("RSS Sync thread already running")
-        return
-    _rss_sync_thread = threading.Thread(
-        target=_rss_sync_loop,
-        name="RssSyncLoop",
-        daemon=True,
-    )
-    _rss_sync_thread.start()
-    logger.info("RSS Sync background thread started")
-
-
-# ---------------------------------------------------------------------------
-# Media Probe background thread — auto-probe collection items with files
-# ---------------------------------------------------------------------------
-_media_probe_thread = None
-
-
-def _media_probe_sweep():
-    """
-    Sweep all Movie Hunt collection items across all instances.
-    Probe any item that has a file on disk but no cached media_info.
-    Respects universal video settings (analyze toggle, scan profile).
-    """
-    try:
-        from src.primary.utils.database import get_database
-        db = get_database()
-
-        # Check universal video settings
-        try:
-            from src.primary.routes.media_hunt.instances import get_universal_video_settings
-            uvs = get_universal_video_settings()
-            if not uvs.get('analyze_video_files', True):
-                return  # Analysis disabled
-            scan_profile = (uvs.get('video_scan_profile') or 'default').strip().lower()
-        except Exception:
-            scan_profile = 'default'
-
-        # Get all Movie Hunt instances
-        try:
-            from src.primary.apps.movie_hunt.api import get_configured_instances
-            instances = get_configured_instances(quiet=True)
-        except Exception:
-            instances = []
-
-        if not instances:
-            return
-
-        from src.primary.utils.media_probe import probe_media_file
-        import os
-
-        probed_count = 0
-        max_per_sweep = 10  # Limit probes per sweep to avoid overloading
-
-        for inst in instances:
-            if stop_event.is_set():
-                break
-
-            try:
-                instance_id = int(inst.get('instance_id'))
-            except (TypeError, ValueError):
-                continue
-
-            config = db.get_app_config_for_instance('movie_hunt_collection', instance_id)
-            if not config or not isinstance(config.get('items'), list):
-                continue
-
-            items = config['items']
-            items_changed = False
-
-            for item in items:
-                if stop_event.is_set() or probed_count >= max_per_sweep:
-                    break
-
-                # Skip items that already have cached media_info
-                if item.get('media_info') and isinstance(item['media_info'], dict):
-                    continue
-
-                # Find file path — either stored on the item or discovered via root folder
-                file_path = (item.get('file_path') or '').strip()
-                if not file_path or not os.path.isfile(file_path):
-                    # Try to find via root folder scan (same logic as detail page)
-                    root_folder = (item.get('root_folder') or '').strip()
-                    title = (item.get('title') or '').strip()
-                    year = str(item.get('year') or '').strip()
-                    if root_folder and title:
-                        # Try exact title first, then sanitized (colons, special chars stripped)
-                        sanitized = ''.join(c for c in title if c not in r'<>:"/\|?*')
-                        candidates = [
-                            f"{title} ({year})" if year else title,
-                            f"{sanitized} ({year})" if year else sanitized,
-                        ]
-                        for folder_name in candidates:
-                            movie_folder = os.path.join(root_folder, folder_name)
-                            if os.path.isdir(movie_folder):
-                                video_exts = {'.mkv', '.mp4', '.avi', '.mov', '.wmv', '.m4v', '.ts', '.flv'}
-                                best_size = 0
-                                for f in os.listdir(movie_folder):
-                                    ext = os.path.splitext(f)[1].lower()
-                                    if ext in video_exts:
-                                        fpath = os.path.join(movie_folder, f)
-                                        try:
-                                            fsize = os.path.getsize(fpath)
-                                            if fsize > best_size:
-                                                best_size = fsize
-                                                file_path = fpath
-                                        except OSError:
-                                            pass
-                                if file_path:
-                                    break
-
-                if not file_path or not os.path.isfile(file_path):
-                    continue
-
-                # Probe the file
-                try:
-                    probe_data = probe_media_file(file_path, scan_profile=scan_profile)
-                    if probe_data:
-                        item['media_info'] = probe_data
-                        # Also persist file_path if it was discovered via folder scan
-                        if not item.get('file_path'):
-                            item['file_path'] = file_path
-                        items_changed = True
-                        probed_count += 1
-                        title_display = item.get('title', '?')
-                        year_display = item.get('year', '?')
-                        res = probe_data.get('video_resolution', '')
-                        codec = probe_data.get('video_codec', '')
-                        logger.info(
-                            "Media probe sweep: cached info for '%s' (%s) — %s %s",
-                            title_display, year_display, res, codec,
-                        )
-                except Exception as e:
-                    logger.debug("Media probe sweep: error probing %s: %s", file_path, e)
-
-            if items_changed:
-                db.save_app_config_for_instance(
-                    'movie_hunt_collection', instance_id, {'items': items}
-                )
-
-        if probed_count > 0:
-            logger.info("Media probe sweep: probed %d files this cycle", probed_count)
-
-    except Exception as e:
-        logger.debug("Media probe sweep error: %s", e)
-
-
-def _media_probe_loop():
-    """Background loop: periodically probe unscanned collection files."""
-    # Wait 3 minutes after startup before first sweep
-    stop_event.wait(180)
-    while not stop_event.is_set():
-        try:
-            _media_probe_sweep()
-        except Exception as e:
-            logger.error("Media probe sweep cycle error: %s", e)
-        # Run every 30 minutes (items are only probed once; subsequent sweeps are fast no-ops)
-        stop_event.wait(1800)
-
-
-def _start_media_probe_thread():
-    """Start the background media probe sweep thread."""
-    global _media_probe_thread
-    if _media_probe_thread and _media_probe_thread.is_alive():
-        logger.info("Media probe thread already running")
-        return
-    _media_probe_thread = threading.Thread(
-        target=_media_probe_loop,
-        name="MediaProbeSweep",
-        daemon=True,
-    )
-    _media_probe_thread.start()
-    logger.info("Media probe sweep thread started")
-
-
-# ---------------------------------------------------------------------------
-# Media Hunt metadata refresh — update collection metadata from TMDB (18-hour interval)
-# ---------------------------------------------------------------------------
-# TIES TO tmdb_metadata_cache: When metadata_refresh updates a movie/TV item, it calls
-# invalidate_movie() / invalidate_tv_series() so the detail page cache is cleared.
-# This keeps the cache and collection in sync. See metadata_refresh.py and
-# src/primary/utils/tmdb_metadata_cache.py for integration notes.
-# ---------------------------------------------------------------------------
-_metadata_refresh_thread = None
-
-METADATA_REFRESH_INTERVAL_SECONDS = 18 * 3600  # 18 hours
-
-
-def _metadata_refresh_loop():
-    """Background loop: refresh Movie Hunt and TV Hunt metadata from TMDB every 18 hours."""
-    from src.primary.apps.media_hunt.metadata_refresh import run_metadata_refresh_cycle
-    # Wait 5 minutes after startup before first run
-    stop_event.wait(300)
-    while not stop_event.is_set():
-        try:
-            run_metadata_refresh_cycle(stop_check=lambda: stop_event.is_set())
-        except Exception as e:
-            logger.error("Media Hunt metadata refresh cycle error: %s", e)
-        stop_event.wait(METADATA_REFRESH_INTERVAL_SECONDS)
-
-
-def _start_metadata_refresh_thread():
-    """Start the Media Hunt metadata refresh thread."""
-    global _metadata_refresh_thread
-    if _metadata_refresh_thread and _metadata_refresh_thread.is_alive():
-        logger.info("Metadata refresh thread already running")
-        return
-    _metadata_refresh_thread = threading.Thread(
-        target=_metadata_refresh_loop,
-        name="MediaHuntMetadataRefresh",
-        daemon=True,
-    )
-    _metadata_refresh_thread.start()
-    logger.info("Media Hunt metadata refresh thread started (18-hour interval)")
 
 
 def start_swaparr_thread():
@@ -1866,40 +1425,6 @@ def start_huntarr():
     except Exception as e:
         logger.error(f"Failed to start schedule action engine: {e}")
 
-    # Start Import Lists background sync thread
-    try:
-        _start_import_list_sync_thread()
-        logger.info("Import Lists sync thread started successfully")
-    except Exception as e:
-        logger.error(f"Failed to start Import Lists sync thread: {e}")
-
-    # Start Import Media background scan thread
-    try:
-        _start_import_media_scan_thread()
-        logger.info("Import Media scan thread started successfully")
-    except Exception as e:
-        logger.error(f"Failed to start Import Media scan thread: {e}")
-
-    # Start Media Probe background sweep thread
-    try:
-        _start_media_probe_thread()
-        logger.info("Media probe sweep thread started successfully")
-    except Exception as e:
-        logger.error(f"Failed to start Media probe sweep thread: {e}")
-
-    # Start Media Hunt metadata refresh thread (18-hour interval)
-    try:
-        _start_metadata_refresh_thread()
-        logger.info("Media Hunt metadata refresh thread started successfully")
-    except Exception as e:
-        logger.error(f"Failed to start Media Hunt metadata refresh thread: {e}")
-
-    # Start RSS Sync background thread
-    try:
-        _start_rss_sync_thread()
-        logger.info("RSS Sync background thread started successfully")
-    except Exception as e:
-        logger.error(f"Failed to start RSS Sync background thread: {e}")
 
     # Configuration logging has been disabled to reduce log spam
     # Settings are loaded and used internally without verbose logging

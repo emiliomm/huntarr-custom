@@ -660,10 +660,10 @@ class DiscoveryMixin:
 
     def search_media_with_availability(self, query: str, app_type: str, instance_name: str) -> List[Dict[str, Any]]:
         """Search for media using TMDB API and check availability in specified app instance. Raw TMDB cached 1h."""
-        # Determine search type based on app (movie_hunt searches movies; tv_hunt searches TV)
-        if app_type in ("radarr", "movie_hunt"):
+        # Determine search type based on app
+        if app_type == "radarr":
             media_type = "movie"
-        elif app_type in ("sonarr", "tv_hunt"):
+        elif app_type == "sonarr":
             media_type = "tv"
         else:
             media_type = "multi"
@@ -683,11 +683,9 @@ class DiscoveryMixin:
             results = []
             
             # Get instance configuration for availability checking
-            # Movie Hunt / TV Hunt instances don't use requestarr app_config, so skip
             target_instance = None
-            if app_type not in ('movie_hunt', 'tv_hunt'):
-                app_config = self.db.get_app_config(app_type)
-                if app_config and app_config.get('instances'):
+            app_config = self.db.get_app_config(app_type)
+            if app_config and app_config.get('instances'):
                     for instance in app_config['instances']:
                         if instance.get('name') == instance_name:
                             target_instance = instance
@@ -705,9 +703,9 @@ class DiscoveryMixin:
                     item_type = 'movie' if media_type == 'movie' else 'tv'
                 
                 # Skip if media type doesn't match app type
-                if app_type in ("radarr", "movie_hunt") and item_type != "movie":
+                if app_type == "radarr" and item_type != "movie":
                     continue
-                if app_type in ("sonarr", "tv_hunt") and item_type != "tv":
+                if app_type == "sonarr" and item_type != "tv":
                     continue
                 
                 # Get title and year
@@ -728,12 +726,9 @@ class DiscoveryMixin:
                 backdrop_path = item.get('backdrop_path')
                 backdrop_url = f"{self.tmdb_image_base_url}{backdrop_path}" if backdrop_path else None
                 
-                # Check availability status (skip per-item check for movie_hunt/tv_hunt — batch check handles it)
+                # Check availability status
                 tmdb_id = item.get('id')
-                if app_type in ('movie_hunt', 'tv_hunt'):
-                    availability_status = {'status': 'unknown', 'in_app': False, 'already_requested': False}
-                else:
-                    availability_status = self._get_availability_status(tmdb_id, item_type, target_instance, app_type)
+                availability_status = self._get_availability_status(tmdb_id, item_type, target_instance, app_type)
                 
                 results.append({
                     'tmdb_id': tmdb_id,
@@ -768,7 +763,7 @@ class DiscoveryMixin:
         """Stream search results as they become available. Raw TMDB cached 1h (server-side)."""
         from src.primary.utils.tmdb_metadata_cache import get_search, set_search
 
-        media_type = "movie" if app_type in ("radarr", "movie_hunt") else "tv" if app_type in ("sonarr", "tv_hunt") else "multi"
+        media_type = "movie" if app_type == "radarr" else "tv" if app_type == "sonarr" else "multi"
 
         try:
             data = get_search(media_type, query)
@@ -781,8 +776,8 @@ class DiscoveryMixin:
                 data = response.json()
                 set_search(media_type, query, data)
             
-            # Get instance configuration for availability checking (skip for hunt apps)
-            app_config = self.db.get_app_config(app_type) if app_type not in ('movie_hunt', 'tv_hunt') else None
+            # Get instance configuration for availability checking
+            app_config = self.db.get_app_config(app_type)
             target_instance = None
             if app_config and app_config.get('instances'):
                 for instance in app_config['instances']:
@@ -805,9 +800,9 @@ class DiscoveryMixin:
                     item_type = 'movie' if media_type == 'movie' else 'tv'
                 
                 # Skip if media type doesn't match app type
-                if app_type in ("radarr", "movie_hunt") and item_type != "movie":
+                if app_type == "radarr" and item_type != "movie":
                     continue
-                if app_type in ("sonarr", "tv_hunt") and item_type != "tv":
+                if app_type == "sonarr" and item_type != "tv":
                     continue
                 
                 # Get title and year

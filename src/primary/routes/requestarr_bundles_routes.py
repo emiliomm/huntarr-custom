@@ -97,12 +97,6 @@ def _get_all_available_instances():
     except Exception:
         pass
 
-    # Movie Hunt instances
-    for inst in (db.get_movie_hunt_instances() or []):
-        name = (inst.get('name') or '').strip()
-        if name:
-            result['movies'].append({'app_type': 'movie_hunt', 'instance_name': name})
-
     # Sonarr instances
     try:
         sonarr_config = load_settings('sonarr')
@@ -112,12 +106,6 @@ def _get_all_available_instances():
                 result['tv'].append({'app_type': 'sonarr', 'instance_name': name})
     except Exception:
         pass
-
-    # TV Hunt instances
-    for inst in (db.get_tv_hunt_instances() or []):
-        name = (inst.get('name') or '').strip()
-        if name:
-            result['tv'].append({'app_type': 'tv_hunt', 'instance_name': name})
 
     return result
 
@@ -232,8 +220,7 @@ def get_bundles_dropdown():
         bundles = db.get_bundles()
         available = _get_all_available_instances()
 
-        app_labels = {'radarr': 'Radarr', 'sonarr': 'Sonarr',
-                      'movie_hunt': 'Movie Hunt', 'tv_hunt': 'TV Hunt'}
+        app_labels = {'radarr': 'Radarr', 'sonarr': 'Sonarr'}
 
         # Track which instances are used as primary in a bundle
         bundled_primaries = set()

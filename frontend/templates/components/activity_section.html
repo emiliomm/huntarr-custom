@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="./static/css/instance-editor.css?v=1.0.2">
     <div class="app-content-panel" style="padding: 20px;">
         {% from 'components/page_header_partial.html' import page_header %}
-        {{ page_header(back_href='./#media-hunt-collection', parent_icon='fas fa-clock', parent_name='Activity',
+        {{ page_header(back_href='./#home', parent_icon='fas fa-clock', parent_name='Activity',
         current_name='History', current_name_id='activityCurrentViewLabel', sponsor_section_id='activity') }}
         <div id="activity-unable-to-load" class="activity-unable-to-load" style="display: none;">
             <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
@@ -17,7 +17,7 @@
                         <div class="logs-filter-chip">
                             <i class="fas fa-film"></i>
                             <select id="activity-combined-instance-select" class="chip-select"
-                                aria-label="Movie Hunt or TV Hunt instance">
+                                aria-label="App instance">
                                 <option value="">Loading...</option>
                             </select>
                         </div>
@@ -69,7 +69,7 @@
                     style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-info-circle" style="color: #818cf8; font-size: 1rem;"></i>
                     <span style="color: #94a3b8; font-size: 0.9rem;">This queue tracks downloads sent to your configured
-                        download clients (NZB Hunt, Tor Hunt, qBittorrent).</span>
+                        download clients.</span>
                 </div>
                 <div class="logs-table-wrapper">
                     <table class="logs-data-table">
@@ -146,7 +146,7 @@
                 </div>
             </div>
 
-            <!-- Movie Hunt Logs view (independent of main Huntarr logs) -->
+            <!-- App Logs view -->
             <div id="activity-logs-view" class="activity-view" style="display: none;">
                 <div class="logs-header">
                     <div class="logs-controls">
@@ -215,7 +215,7 @@
                             </tr>
                         </thead>
                         <tbody id="activityLogsContainer">
-                            <!-- Movie Hunt log entries -->
+                            <!-- Log entries -->
                         </tbody>
                     </table>
                 </div>

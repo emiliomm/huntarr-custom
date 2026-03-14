@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Main entry point for Huntarr
 Starts both the web server and the background processing tasks.
@@ -361,23 +360,18 @@ def run_web_server():
 def sigchld_handler(signum, frame):
     """Handle SIGCHLD to prevent zombie processes. (Unix only)"""
     # This handler is only registered on Unix-like systems
-    # Windows doesn't have SIGCHLD or os.waitpid with WNOHANG
     if not hasattr(os, 'waitpid'):
         return
     
     # Reap all terminated child processes without blocking
     while True:
         try:
-            # WNOHANG returns immediately if no child has exited
             pid, status = os.waitpid(-1, os.WNOHANG)
             if pid == 0:
-                # No more zombie children
                 break
         except ChildProcessError:
-            # No child processes
             break
         except OSError:
-            # Error occurred, stop trying
             break
 
 def main_shutdown_handler(signum, frame):
@@ -434,31 +428,13 @@ def main_shutdown_handler(signum, frame):
         except Exception as e:
             huntarr_logger.warning(f"Error closing Waitress server: {e}")
 
-    # Stop the NZB Hunt download child process
-    try:
-        from src.primary.apps.nzb_hunt.download_process import DownloadManagerProxy
-        proxy = DownloadManagerProxy._instance
-        if proxy is not None:
-            huntarr_logger.info("Stopping NZB Hunt download child process...")
-            proxy.stop()
-    except Exception as e:
-        huntarr_logger.warning(f"Error stopping download child process: {e}")
-
-    # Stop the Tor Hunt download child process
-    try:
-        from src.primary.apps.tor_hunt.tor_hunt_process import TorHuntProxy
-        tor_proxy = TorHuntProxy._instance
-        if tor_proxy is not None:
-            huntarr_logger.info("Stopping Tor Hunt download child process...")
-            tor_proxy.stop()
-    except Exception as e:
-        huntarr_logger.warning(f"Error stopping Tor Hunt child process: {e}")
+    # Force exit if shutdown takes too long
     
-    # Force exit if shutdown takes too long (Docker container update scenario)
+    # Force exit if shutdown takes too long
     elapsed_time = time.time() - shutdown_start_time
     if elapsed_time > shutdown_timeout:
         huntarr_logger.warning(f"Shutdown timeout exceeded ({shutdown_timeout}s). Forcing exit with code 0.")
-        os._exit(0)  # Clean exit for Docker updates
+        os._exit(0)
 
 def cleanup_handler():
     """Cleanup function called at exit"""
@@ -505,7 +481,7 @@ def cleanup_handler():
     if not shutdown_requested.is_set():
         shutdown_requested.set()
     
-    # Log cleanup timing for Docker update diagnostics
+    # Log cleanup timing
     cleanup_duration = time.time() - cleanup_start_time
     huntarr_logger.info(f"Cleanup completed in {cleanup_duration:.2f} seconds")
 
@@ -519,7 +495,7 @@ def main():
         signal.signal(signal.SIGINT, main_shutdown_handler)
         signal.signal(signal.SIGTERM, main_shutdown_handler)
 
-        # Register SIGCHLD handler to prevent zombie processes (Docker healthchecks)
+        # Register SIGCHLD handler to prevent zombie processes
         # SIGCHLD is not available on Windows, only register on Unix-like systems
         if hasattr(signal, 'SIGCHLD'):
             signal.signal(signal.SIGCHLD, sigchld_handler)
@@ -574,13 +550,8 @@ def main():
         except Exception as proxy_error:
             huntarr_logger.warning(f"Failed to apply proxy settings: {proxy_error}")
 
-        # Auto-provision built-in download clients (NZB Hunt + Tor Hunt)
-        # for any instances that don't already have them
-        try:
-            from primary.utils.client_provisioner import ensure_all_instances_have_builtin_clients
-            ensure_all_instances_have_builtin_clients()
-        except Exception as client_prov_error:
-            huntarr_logger.warning(f"Client auto-provisioning failed: {client_prov_error}")
+        
+    except Exception as e:
         
     except Exception as e:
         huntarr_logger.error(f"Failed to initialize databases: {e}")

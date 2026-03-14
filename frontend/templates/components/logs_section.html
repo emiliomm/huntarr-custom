@@ -1,25 +1,4 @@
 <div id="logsSection" class="system-tab-panel" data-system-panel="logs" style="display: none;">
-    <!-- No-instances warning (shown when viewing Media Hunt logs and no instances) -->
-    <div id="logs-media-hunt-no-instances" class="logs-no-instances" style="display: none;">
-        <i class="fas fa-cube" aria-hidden="true"></i>
-        <p class="no-instances-title">No instances configured</p>
-        <p class="no-instances-desc">Configure a Movie Hunt or TV Hunt instance to view Media Hunt logs.</p>
-        <a href="./#media-hunt-instances" class="no-instances-action-btn"><i class="fas fa-cog"></i> Configure
-            instances</a>
-    </div>
-    <div id="logs-media-hunt-no-indexers" class="logs-no-indexers" style="display: none;">
-        <i class="fas fa-satellite-dish" aria-hidden="true"></i>
-        <p class="no-instances-title">No indexers configured</p>
-        <p class="no-instances-desc">Configure at least one indexer in the Index Master Pool to use this section.</p>
-        <a href="./#indexer-hunt" class="no-instances-action-btn"><i class="fas fa-plus"></i> Add Indexer</a>
-    </div>
-    <div id="logs-media-hunt-no-clients" class="logs-no-clients" style="display: none;">
-        <i class="fas fa-cube" aria-hidden="true"></i>
-        <p class="no-instances-title">No instances configured</p>
-        <p class="no-instances-desc">Create a Movie Hunt or TV Hunt instance first — download clients are added
-            automatically.</p>
-        <a href="./#media-hunt-instances" class="no-instances-action-btn"><i class="fas fa-plus"></i> Add Instance</a>
-    </div>
     <div id="logs-media-hunt-content-wrapper" style="display: none;">
         <!-- Unified Toolbar -->
         <div class="logs-toolbar">
@@ -29,9 +8,6 @@
                         <i class="fas fa-layer-group"></i>
                         <select id="logAppSelect" class="chip-select">
                             <option value="all" selected data-context="system">Everywhere</option>
-                            <option value="media_hunt" data-context="media-hunt">Media Hunt (All)</option>
-                            <option value="movie_hunt" data-context="media-hunt">Movie Hunt</option>
-                            <option value="tv_hunt" data-context="media-hunt">TV Hunt</option>
                             <option value="sonarr" data-context="system">Sonarr</option>
                             <option value="radarr" data-context="system">Radarr</option>
                             <option value="lidarr" data-context="system">Lidarr</option>

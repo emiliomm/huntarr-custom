@@ -268,8 +268,6 @@
         'sidebar-group-system'
 
     var ALL_SUB_GROUP_IDS = [
-        'index-master-sub',
-        'index-master-view-sub'
     ];
 
     var ALL_SUB_GROUP_BODY_IDS = [
@@ -359,7 +357,7 @@
             collapseGroup(groupId);
             // Remove focused classes when collapsing
             var sidebar = document.getElementById('sidebar');
-            if (sidebar) sidebar.classList.remove('requests-focused', 'system-focused', 'media-focused', 'nzb-focused', 'tor-focused', 'thirdparty-focused');
+            if (sidebar) sidebar.classList.remove('requests-focused', 'system-focused', 'thirdparty-focused');
         }
     });
 
@@ -398,14 +396,11 @@
         });
 
         var h = window.location.hash || '#home';
-        var mhBody = document.getElementById('sidebar-group-media-hunt');
-        if (mhBody) { mhBody.classList.remove('activity-view'); mhBody.classList.remove('indexmaster-view'); }
         var reqBody = document.getElementById('sidebar-group-requests');
         if (reqBody) { /* kept for future use */ }
 
         var selector = null;
         var group = null;
-        var subToExpand = null; // which Media Hunt sub to expand (avoids collapse-then-expand flicker)
         var subGroupToExpand = null; // which Requestarr sub-group to expand (e.g. blacklist)
 
         // Home
@@ -461,15 +456,7 @@
         // Fallback
         else { selector = '#homeNav'; group = null; }
 
-        // Media Hunt sub-groups: only collapse subs we are not expanding (avoids flicker)
-        if (subToExpand) {
-            ALL_SUB_GROUP_IDS.forEach(function (id) {
-                if (id === subToExpand) expandSub(id);
-                else collapseSub(id);
-            });
-        } else {
-            collapseAllSubs();
-        }
+        collapseAllSubs();
 
         // Requestarr sub-groups (e.g. Blacklist)
         var blacklistSubBody = document.getElementById('requestarr-blacklist-sub-body');
@@ -494,45 +481,6 @@
         }
     }
 
-    // ── Media Hunt "Activity" toggle ─────────────────────────────
-    // Now uses href="./#activity-history" — handled by the
-    // generic sidebar click handler in app.js + setActiveNavItem().
-
-    // ── Media Hunt Activity "Back" button ────────────────────────
-    // Now uses href="./#media-hunt-collection" — handled by the
-    // generic sidebar click handler in app.js + setActiveNavItem().
-
-    // ── Media Hunt "Settings" toggle ─────────────────────────────
-    // Now uses href="./#settings-media-management" — handled by the
-    // generic sidebar click handler in app.js + setActiveNavItem().
-
-    // ── Media Hunt Config "Back" button ──────────────────────────
-    // Now uses href="./#media-hunt-collection" — handled by the
-    // generic sidebar click handler in app.js + setActiveNavItem().
-
-    // ── Media Hunt sidebar: Import Media visibility ──────────────
-    (function () {
-        function updateMediaHuntSidebarVisibility() {
-            var importMediaItem = document.getElementById('movieHuntImportMediaNav');
-            if (!importMediaItem) return;
-            Promise.all([
-                fetch('./api/movie-hunt/instances').then(function (r) { return r.json(); }),
-                fetch('./api/tv-hunt/instances').then(function (r) { return r.json(); })
-            ]).then(function (results) {
-                var hasMovie = (results[0].instances || []).length > 0;
-                var hasTv = (results[1].instances || []).length > 0;
-                importMediaItem.style.display = (hasMovie || hasTv) ? 'flex' : 'none';
-            }).catch(function () {
-                importMediaItem.style.display = 'flex';
-            });
-        }
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', updateMediaHuntSidebarVisibility);
-        } else {
-            updateMediaHuntSidebarVisibility();
-        }
-        window.updateMovieHuntSettingsVisibility = updateMediaHuntSidebarVisibility;
-    })();
 
     // ── Feature flags: hide/show sidebar groups ──────────────────
     (function () {
@@ -541,20 +489,13 @@
                 .then(function (r) { return r.json(); })
                 .then(function (flags) {
                     var requestsGroup = document.getElementById('nav-group-requests');
-                    var mediaHuntGroup = document.getElementById('nav-group-media-hunt');
-                    var nzbHuntGroup = document.getElementById('nzb-hunt-sidebar-group');
                     var appsGroup = document.getElementById('nav-group-apps');
                     var appsLabel = document.getElementById('nav-group-apps-label');
                     var hideRequests = flags.enable_requestarr === false;
-                    var hideMedia = flags.enable_media_hunt === false;
                     var hideApps = flags.enable_third_party_apps === false;
                     if (requestsGroup) requestsGroup.style.display = hideRequests ? 'none' : '';
-                    if (mediaHuntGroup) mediaHuntGroup.style.display = hideMedia ? 'none' : '';
-                    if (nzbHuntGroup) nzbHuntGroup.style.display = hideMedia ? 'none' : '';
-                    var torHuntGroup = document.getElementById('tor-hunt-sidebar-group');
-                    if (torHuntGroup) torHuntGroup.style.display = (hideMedia || flags.dev_mode !== true) ? 'none' : '';
                     if (appsGroup) appsGroup.style.display = hideApps ? 'none' : '';
-                    if (appsLabel) appsLabel.style.display = (hideMedia && hideApps) ? 'none' : '';
+                    if (appsLabel) appsLabel.style.display = hideApps ? 'none' : '';
                 })
                 .catch(function () { /* keep defaults visible on error */ });
         }

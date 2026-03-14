@@ -24,7 +24,7 @@ settings_logger = logging.getLogger("settings_manager")
 from src.primary.utils.database import get_database
 
 # Known app types
-KNOWN_APP_TYPES = ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "swaparr", "prowlarr", "movie_hunt", "tv_hunt", "general"]
+KNOWN_APP_TYPES = ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "swaparr", "prowlarr", "general"]
 
 # Thread-safe settings cache with timestamps to avoid excessive database reads
 _settings_cache = {}  # Format: {app_name: {'timestamp': timestamp, 'data': settings_dict}}
@@ -368,34 +368,6 @@ def get_configured_apps() -> List[str]:
         if app_name == 'general':
             continue  # Skip general settings
         try:
-            if app_name == 'movie_hunt':
-                try:
-                    from src.primary.utils.database import get_database
-                    from src.primary.routes.media_hunt.instances import _get_movie_hunt_instance_settings
-                    db = get_database()
-                    instances = db.get_movie_hunt_instances()
-                    for inst in instances:
-                        s = _get_movie_hunt_instance_settings(inst['id'])
-                        if s.get('enabled', True):
-                            configured.append('movie_hunt')
-                            break
-                except Exception:
-                    pass
-                continue
-            if app_name == 'tv_hunt':
-                try:
-                    from src.primary.utils.database import get_database
-                    from src.primary.routes.media_hunt.instances import _get_tv_hunt_instance_settings
-                    db = get_database()
-                    instances = db.get_tv_hunt_instances()
-                    for inst in instances:
-                        s = _get_tv_hunt_instance_settings(inst['id'])
-                        if s.get('enabled', True):
-                            configured.append('tv_hunt')
-                            break
-                except Exception:
-                    pass
-                continue
             settings = load_settings(app_name)
             
             # First check if there are valid instances configured (multi-instance mode)

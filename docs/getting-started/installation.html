@@ -27,7 +27,7 @@
                 <img src="../images/huntarr-logo.png" alt="Huntarr"><span>Huntarr</span>
             </a>
             <div class="sidebar-scroll">
-                
+
                 <div class="nav-group">
                     <div class="nav-group-title">Getting Started</div>
                     <div class="nav-group-items">
@@ -43,25 +43,8 @@
                         <a href="../apps/index.html"><i class="fas fa-plug"></i> 3rd Party Apps</a>
                     </div>
                 </div>
-                <div class="nav-group">
-                    <div class="nav-group-title">Media Hunt</div>
-                    <div class="nav-group-items">
-                        <a href="../movie-hunt/index.html"><i class="fas fa-clapperboard"></i> Overview <span
-                                class="nav-badge nav-badge-beta">Beta</span></a>
-                        <a href="../movie-hunt/media-collection.html"><i class="fas fa-photo-film"></i> Media
-                            Collection</a>
-                        <a href="../movie-hunt/indexers-clients.html"><i class="fas fa-server"></i> Indexers &amp;
-                            Clients</a>
-                        <a href="../movie-hunt/profiles.html"><i class="fas fa-sliders"></i> Profiles</a>
-                    </div>
-                </div>
-                <div class="nav-group">
-                    <div class="nav-group-title">NZB Hunt</div>
-                    <div class="nav-group-items">
-                        <a href="../nzb-hunt/index.html"><i class="fas fa-newspaper"></i> Overview <span
-                                class="nav-badge nav-badge-beta">Beta</span></a>
-                    </div>
-                </div>
+
+
                 <div class="nav-group">
                     <div class="nav-group-title">Requests</div>
                     <div class="nav-group-items">
@@ -93,16 +76,16 @@
                     <div class="nav-group-items">
                         <a href="../help/faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
                         <a href="../help/community.html"><i class="fas fa-users"></i> Community</a>
-                        
+
                     </div>
                 </div>
             </div>
             <div class="sidebar-footer">
-                
-                
+
+
                 <a href="https://github.com/emiliomm/huntarr-custom" target="_blank" class="sf-github" title="GitHub"><i
                         class="fab fa-github"></i></a>
-                
+
             </div>
         </nav>
 
@@ -110,177 +93,32 @@
             <div class="docs-content">
 
                 <h1>Installation</h1>
-                <p class="page-subtitle">Get Huntarr running on Docker, Unraid, Windows, macOS, or Linux in minutes.</p>
+                <p class="page-subtitle">Get Huntarr running on Windows, Linux, or macOS in minutes.</p>
 
                 <!-- TOC -->
                 <div class="alert alert-info" style="margin-bottom:28px;">
                     <strong>Jump to:</strong>
-                    <a href="#docker-installation">Docker</a> &nbsp;·&nbsp;
-                    <a href="#unraid-installation">Unraid</a> &nbsp;·&nbsp;
                     <a href="#windows-installation">Windows</a> &nbsp;·&nbsp;
-                    <a href="#macos-installation">macOS</a> &nbsp;·&nbsp;
                     <a href="#linux-installation">Linux</a> &nbsp;·&nbsp;
-                    <a href="#alternative-methods">LXC / Kubernetes</a> &nbsp;·&nbsp;
+                    <a href="#macos-installation">macOS</a> &nbsp;·&nbsp;
                     <a href="#environment-variables">Environment Variables</a> &nbsp;·&nbsp;
                     <a href="#updating">Updating</a>
                 </div>
 
                 <h2>Requirements</h2>
                 <ul>
-                    <li><strong>Docker and Docker Compose</strong> — recommended for all platforms; works on Linux,
-                        macOS, Windows, and Unraid</li>
-                    <li>OR <strong>Python 3.10+</strong> for running from source (advanced users)</li>
-                    <li>512 MB RAM minimum (1 GB+ recommended if using NZB Hunt with many simultaneous threads)</li>
-                    <li>Network access to your *arr instances (Sonarr, Radarr, etc.) — same Docker network or routable
-                        IP</li>
+                    <li><strong>Python 3.10+</strong> — required for running the application</li>
+                    <li><strong>pip</strong> — Python package manager</li>
+                    <li>512 MB RAM minimum (1 GB+ recommended)</li>
+                    <li>Network access to your *arr instances (Sonarr, Radarr, etc.)</li>
                     <li>A modern web browser for the Huntarr UI</li>
                 </ul>
-
-                <!-- ══════════════════════════════════════════════ -->
-                <h2 id="docker-installation"><i class="fab fa-docker" style="color:#2496ed;margin-right:8px;"></i>Docker
-                    Installation (Recommended)</h2>
-                <p>Docker is the recommended and most-supported way to run Huntarr. It provides consistent behavior
-                    across every platform and makes updates a single command.</p>
-
-                <h3>Docker Compose</h3>
-                <p>Create a <code>docker-compose.yml</code> file. Only <code>/config</code> is required; add
-                    <code>/media</code> and <code>/downloads</code> only if you use Movie Hunt / TV Hunt or NZB Hunt:
-                </p>
-                <pre><code>services:
-  huntarr:
-    image: huntarr/huntarr:latest
-    container_name: huntarr
-    ports:
-      - "9705:9705"
-    volumes:
-      - /path/to/huntarr/config:/config          # Required: settings, database, logs
-      - /path/to/media:/media                    # Optional: Movie Hunt / TV Hunt library
-      - /path/to/downloads:/downloads            # Optional: NZB Hunt download output
-    environment:
-      - TZ=America/New_York                      # Set your timezone
-      - PUID=1000                                # Optional: run as specific user
-      - PGID=1000                                # Optional: run as specific group
-    restart: unless-stopped</code></pre>
-                <p>Start or update the container:</p>
-                <pre><code>docker-compose up -d</code></pre>
-
-                <h3>Docker Run</h3>
-                <p>Single-command option without Compose:</p>
-                <pre><code>docker run -d \
-  --name huntarr \
-  -p 9705:9705 \
-  -v /path/to/huntarr/config:/config \
-  -v /path/to/media:/media \
-  -v /path/to/downloads:/downloads \
-  -e TZ=America/New_York \
-  -e PUID=1000 \
-  -e PGID=1000 \
-  --restart unless-stopped \
-  huntarr/huntarr:latest</code></pre>
-
-                <p><strong>Minimal install</strong> (third-party *arr only, no Media Hunt or NZB Hunt):</p>
-                <pre><code>docker run -d \
-  --name huntarr \
-  -p 9705:9705 \
-  -v /path/to/huntarr/config:/config \
-  -e TZ=America/New_York \
-  --restart unless-stopped \
-  huntarr/huntarr:latest</code></pre>
-
-                <h3>Volume Mappings</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Container Path</th>
-                            <th>Purpose</th>
-                            <th>Required</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>/config</code></td>
-                            <td>All Huntarr data — settings, SQLite database, logs, NZB queue state, and backups</td>
-                            <td><strong>Yes</strong></td>
-                        </tr>
-                        <tr>
-                            <td><code>/media</code></td>
-                            <td>Your media library root. Movie Hunt and TV Hunt use this for root folder configuration
-                                and disk scanning</td>
-                            <td>Only if using Movie Hunt / TV Hunt</td>
-                        </tr>
-                        <tr>
-                            <td><code>/downloads</code></td>
-                            <td>NZB Hunt download location. Incomplete files land in <code>/downloads/incomplete</code>,
-                                completed in <code>/downloads/complete</code></td>
-                            <td>Only if using NZB Hunt</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-info">
-                    <strong>Version pinning:</strong> Use <code>huntarr/huntarr:latest</code> for the newest features
-                    (updates frequently), or pin to a specific release like <code>huntarr/huntarr:9.4.1</code> for
-                    stability. See all releases on <a href="https://github.com/emiliomm/huntarr-custom/releases"
-                        target="_blank">GitHub</a>.
-                </div>
-
-                <!-- ══════════════════════════════════════════════ -->
-                <h2 id="unraid-installation"><i class="fas fa-server" style="color:#f59e0b;margin-right:8px;"></i>Unraid
-                    Installation</h2>
-                <p>Huntarr is available through <strong>Unraid Community Applications</strong> — just search and click
-                    Install.</p>
-
-                <h3>Steps</h3>
-                <ol>
-                    <li>Open the Unraid web UI and go to the <strong>Apps</strong> tab (Community Applications).</li>
-                    <li>Search for <strong>"Huntarr"</strong>.</li>
-                    <li>Click <strong>Install</strong> on the Huntarr template.</li>
-                    <li>Review and configure the template settings:
-                        <ul>
-                            <li><strong>Port:</strong> <code>9705</code> (change if already in use)</li>
-                            <li><strong>Config path:</strong> <code>/mnt/user/appdata/huntarr</code></li>
-                            <li><strong>Media path (optional):</strong> Map to your media share (e.g.,
-                                <code>/mnt/user/media</code>) — only needed for Movie Hunt / TV Hunt</li>
-                            <li><strong>Downloads path (optional):</strong> Map to your download directory — only needed
-                                for NZB Hunt</li>
-                            <li><strong>PUID:</strong> <code>99</code> (Unraid's nobody user)</li>
-                            <li><strong>PGID:</strong> <code>100</code> (Unraid's users group)</li>
-                            <li><strong>Timezone:</strong> Set to your local timezone (e.g.,
-                                <code>America/New_York</code>)</li>
-                        </ul>
-                    </li>
-                    <li>Click <strong>Apply</strong> to pull the image and start the container.</li>
-                    <li>Access Huntarr at <code>http://your-unraid-ip:9705</code>.</li>
-                </ol>
-
-                <div class="alert alert-info">
-                    Unraid will notify you when a new Huntarr version is available. Click <strong>Update</strong> on the
-                    container to pull the latest image — your config data is preserved in the appdata volume.
-                </div>
 
                 <!-- ══════════════════════════════════════════════ -->
                 <h2 id="windows-installation"><i class="fab fa-windows"
                         style="color:#00a4ef;margin-right:8px;"></i>Windows Installation</h2>
 
-                <h3>Option 1: Docker Desktop (Recommended)</h3>
-                <ol>
-                    <li>Install <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop
-                            for Windows</a>.</li>
-                    <li>Enable WSL 2 backend during installation (recommended by Docker for best performance).</li>
-                    <li>Open PowerShell or Command Prompt and run:</li>
-                </ol>
-                <pre><code>docker run -d ^
-  --name huntarr ^
-  -p 9705:9705 ^
-  -v huntarr-config:/config ^
-  -e TZ=America/New_York ^
-  --restart unless-stopped ^
-  huntarr/huntarr:latest</code></pre>
-                <p>Access Huntarr at <a href="http://localhost:9705">http://localhost:9705</a>.</p>
-                <p>To add media or download paths on Windows, use Windows-style paths with Docker Desktop:</p>
-                <pre><code>-v C:\Users\YourName\Media:/media -v C:\Users\YourName\Downloads:/downloads</code></pre>
-
-                <h3>Option 2: Run from Source</h3>
+                <h3>Run from Source</h3>
                 <ol>
                     <li>Install <a href="https://www.python.org/downloads/" target="_blank">Python 3.10+</a> (check "Add
                         to PATH" during install).</li>
@@ -297,22 +135,7 @@ python main.py</code></pre>
                 <h2 id="macos-installation"><i class="fab fa-apple" style="color:#a3aaae;margin-right:8px;"></i>macOS
                     Installation</h2>
 
-                <h3>Option 1: Docker Desktop (Recommended)</h3>
-                <ol>
-                    <li>Install <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop
-                            for Mac</a> (supports both Intel and Apple Silicon).</li>
-                    <li>Open Terminal and run:</li>
-                </ol>
-                <pre><code>docker run -d \
-  --name huntarr \
-  -p 9705:9705 \
-  -v huntarr-config:/config \
-  -e TZ=America/New_York \
-  --restart unless-stopped \
-  huntarr/huntarr:latest</code></pre>
-                <p>Access Huntarr at <a href="http://localhost:9705">http://localhost:9705</a>.</p>
-
-                <h3>Option 2: Run from Source</h3>
+                <h3>Run from Source</h3>
                 <pre><code>brew install python@3.12 git
 git clone https://github.com/emiliomm/huntarr-custom.git
 cd Huntarr.io
@@ -324,25 +147,7 @@ python3 main.py</code></pre>
                 <h2 id="linux-installation"><i class="fab fa-linux" style="color:#f5a623;margin-right:8px;"></i>Linux
                     Installation</h2>
 
-                <h3>Option 1: Docker (Recommended)</h3>
-                <p>Install Docker if you haven't already:</p>
-                <pre><code>curl -fsSL https://get.docker.com | sh
-sudo usermod -aG docker $USER
-# Log out and back in for group changes to take effect</code></pre>
-                <p>Then run Huntarr:</p>
-                <pre><code>docker run -d \
-  --name huntarr \
-  -p 9705:9705 \
-  -v /opt/huntarr/config:/config \
-  -v /path/to/media:/media \
-  -v /path/to/downloads:/downloads \
-  -e TZ=America/New_York \
-  -e PUID=1000 \
-  -e PGID=1000 \
-  --restart unless-stopped \
-  huntarr/huntarr:latest</code></pre>
-
-                <h3>Option 2: Run from Source with systemd</h3>
+                <h3>Run from Source with systemd</h3>
                 <pre><code>sudo apt update && sudo apt install -y python3 python3-pip git
 git clone https://github.com/emiliomm/huntarr-custom.git /opt/huntarr
 cd /opt/huntarr
@@ -367,25 +172,6 @@ sudo systemctl enable --now huntarr
 sudo systemctl status huntarr</code></pre>
 
                 <!-- ══════════════════════════════════════════════ -->
-                <h2 id="alternative-methods"><i class="fas fa-tools"
-                        style="color:#a78bfa;margin-right:8px;"></i>Alternative Methods</h2>
-
-                <h3>LXC Containers (Proxmox)</h3>
-                <p>Run Huntarr inside an LXC container by either installing Docker within the container or running from
-                    source. Use the Linux instructions above inside your LXC. For Docker-in-LXC, ensure the container is
-                    not unprivileged and has nesting enabled in the Proxmox container options.</p>
-
-                <h3>Kubernetes / Helm</h3>
-                <p>The Docker image <code>huntarr/huntarr:latest</code> works with any Kubernetes deployment. Key
-                    configuration:</p>
-                <ul>
-                    <li>Container port: <code>9705</code></li>
-                    <li>Persistent volume claim for <code>/config</code> (ReadWriteOnce)</li>
-                    <li>Optional PVCs for <code>/media</code> (ReadWriteMany) and <code>/downloads</code></li>
-                    <li>Environment variable <code>TZ</code> for timezone</li>
-                </ul>
-
-                <!-- ══════════════════════════════════════════════ -->
                 <h2 id="environment-variables">Environment Variables</h2>
                 <table>
                     <thead>
@@ -399,32 +185,24 @@ sudo systemctl status huntarr</code></pre>
                         <tr>
                             <td><code>TZ</code></td>
                             <td>UTC</td>
-                            <td>Timezone for scheduling and log timestamps (e.g., <code>America/New_York</code>). See <a
-                                    href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
-                                    target="_blank">TZ database names</a>.</td>
+                            <td>Timezone for scheduling and log timestamps (e.g., <code>America/New_York</code>).</td>
                         </tr>
                         <tr>
-                            <td><code>PUID</code></td>
-                            <td>0 (root)</td>
-                            <td>User ID to run the Huntarr process as. Unraid: <code>99</code>, Linux:
-                                <code>1000</code>.</td>
-                        </tr>
-                        <tr>
-                            <td><code>PGID</code></td>
-                            <td>0 (root)</td>
-                            <td>Group ID to run as. Unraid: <code>100</code>, Linux: <code>1000</code>.</td>
+                            <td><code>HUNTARR_CONFIG_DIR</code></td>
+                            <td>Platform Dependent</td>
+                            <td>Directory where database and settings are stored.</td>
                         </tr>
                         <tr>
                             <td><code>HUNTARR_PORT</code></td>
                             <td>9705</td>
-                            <td>Internal web UI port. Change this (and the host port mapping) if 9705 conflicts with
-                                another service.</td>
+                            <td>Internal web UI port.</td>
                         </tr>
                         <tr>
                             <td><code>HUNTARR_LOG_LEVEL</code></td>
                             <td>INFO</td>
                             <td>Log verbosity. Options: <code>DEBUG</code>, <code>INFO</code>, <code>WARNING</code>,
-                                <code>ERROR</code>.</td>
+                                <code>ERROR</code>.
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -432,31 +210,12 @@ sudo systemctl status huntarr</code></pre>
                 <!-- ══════════════════════════════════════════════ -->
                 <h2 id="updating">Updating Huntarr</h2>
 
-                <h3>Docker Compose (Recommended)</h3>
-                <pre><code>docker-compose pull
-docker-compose up -d</code></pre>
-
-                <h3>Docker Run</h3>
-                <pre><code>docker pull huntarr/huntarr:latest
-docker stop huntarr && docker rm huntarr
-# Re-run your original docker run command</code></pre>
-
-                <h3>Unraid</h3>
-                <p>Unraid notifies you of available updates. Click <strong>Update</strong> on the Huntarr container in
-                    the Docker tab. Your config data in <code>/mnt/user/appdata/huntarr</code> is preserved.</p>
-
                 <h3>From Source</h3>
                 <pre><code>cd /opt/huntarr
 git pull
 pip3 install -r requirements.txt
+# Restart the process (or systemd service)
 sudo systemctl restart huntarr</code></pre>
-
-                <div class="alert alert-warning">
-                    <strong>Stability tip:</strong> If you prefer stability over latest features, pin to a specific
-                    version tag (e.g., <code>huntarr/huntarr:9.4.1</code>) instead of <code>:latest</code>. Check <a
-                        href="https://github.com/emiliomm/huntarr-custom/releases" target="_blank">GitHub Releases</a> for
-                    all available versions and changelogs.
-                </div>
 
                 <!-- ══════════════════════════════════════════════ -->
                 <h2>Post-Installation</h2>
@@ -470,42 +229,26 @@ sudo systemctl restart huntarr</code></pre>
 
                 <div class="alert alert-warning">
                     <strong>Port conflict</strong>
-                    <p>If port 9705 is already in use, change the host port mapping (e.g., <code>-p 9706:9705</code>).
-                        The left number is the host port you access; the right number is the container's internal port
-                        and should stay 9705 unless you also set <code>HUNTARR_PORT</code>.</p>
+                    <p>If port 9705 is already in use, set <code>HUNTARR_PORT</code> environment variable to a different
+                        value.</p>
                 </div>
 
                 <div class="alert alert-warning">
-                    <strong>Permission errors on /config</strong>
-                    <p>Ensure the <code>/config</code> volume path exists and is writable by the process. On Linux:
-                        <code>sudo chown -R 1000:1000 /path/to/config</code>. On Unraid, set PUID=99 and PGID=100.</p>
+                    <strong>Permission errors</strong>
+                    <p>Ensure the user running Huntarr has write permissions to the configuration directory.</p>
                 </div>
 
                 <div class="alert alert-warning">
                     <strong>Can't reach *arr apps</strong>
-                    <p>Verify network connectivity between Huntarr and your *arr instances. In Docker, containers on the
-                        same Docker network can reach each other by container name. If your *arr apps are on the host or
-                        a different network, use the server's LAN IP instead of <code>localhost</code> (which refers to
-                        the Huntarr container itself).</p>
+                    <p>Verify network connectivity between Huntarr and your *arr instances.</p>
                 </div>
 
-                <div class="alert alert-warning">
-                    <strong>Container won't start</strong>
-                    <p>Check logs: <code>docker logs huntarr</code>. Common causes: invalid timezone string, missing
-                        volume mount path, port conflict, or insufficient disk space on the config volume.</p>
-                </div>
 
-                <div class="alert alert-warning">
-                    <strong>NZB Hunt download issues</strong>
-                    <p>Ensure the <code>/downloads</code> volume is mounted and writable. NZB Hunt creates
-                        <code>/downloads/incomplete</code> and <code>/downloads/complete</code> subdirectories
-                        automatically. If these folders aren't created on first run, check file permissions on the host
-                        path.</p>
-                </div>
 
             </div>
             <footer class="docs-footer">
-                <p>Huntarr is open source. <a href="https://github.com/emiliomm/huntarr-custom" target="_blank">GitHub</a>
+                <p>Huntarr is open source. <a href="https://github.com/emiliomm/huntarr-custom"
+                        target="_blank">GitHub</a>
                     &middot; &middot;</p>
             </footer>
         </main>

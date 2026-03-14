@@ -16,12 +16,8 @@ from src.primary.apps.requestarr.requestarr_requests import RequestsMixin
 logger = logging.getLogger(__name__)
 
 
-class RequestarrAPI(DiscoveryMixin, LibraryMixin, RequestsMixin):
-    """API handler for Requestarr functionality.
-
-    Discovery (TMDB trending/popular/search/genres/providers/filters) → DiscoveryMixin
-    Library status (Sonarr/Radarr/Movie Hunt/TV Hunt checks, batch status) → LibraryMixin
-    Request operations (add to Radarr/Sonarr/Movie Hunt/TV Hunt) → RequestsMixin
+    Library status (Sonarr/Radarr checks, batch status) → LibraryMixin
+    Request operations (add to Radarr/Sonarr) → RequestsMixin
     Settings & preferences (quality profiles, root folders, defaults) → this file
     """
 
@@ -39,12 +35,10 @@ class RequestarrAPI(DiscoveryMixin, LibraryMixin, RequestsMixin):
     # ------------------------------------------------------------------
 
     def get_quality_profiles(self, app_type: str, instance_name: str) -> List[Dict[str, Any]]:
-        """Get quality profiles from Radarr, Sonarr, or Movie Hunt instance"""
+        """Get quality profiles from Radarr or Sonarr instance"""
         try:
-            if app_type == 'movie_hunt':
-                return self._get_movie_hunt_quality_profiles(instance_name)
-            if app_type == 'tv_hunt':
-                return self._get_tv_hunt_quality_profiles(instance_name)
+            if app_type not in ('radarr', 'sonarr'):
+                return []
 
             app_config = self.db.get_app_config(app_type)
             if not app_config or not app_config.get('instances'):
@@ -121,89 +115,6 @@ class RequestarrAPI(DiscoveryMixin, LibraryMixin, RequestsMixin):
             logger.error(f"Error getting quality profiles from {app_type}: {e}")
             return []
 
-    def _get_movie_hunt_quality_profiles(self, instance_name: str) -> List[Dict[str, Any]]:
-        """Get quality profiles from a Movie Hunt instance (internal database)"""
-        try:
-            instance_id = self._resolve_movie_hunt_instance_id(instance_name)
-            if instance_id is None:
-                logger.warning(f"Movie Hunt instance '{instance_name}' not found")
-                return []
-
-            from src.primary.routes.media_hunt.helpers import _movie_profiles_context
-            from src.primary.routes.media_hunt.profiles import get_profiles_config
-            profiles = get_profiles_config(instance_id, _movie_profiles_context())
-
-            result = []
-            for i, profile in enumerate(profiles):
-                profile_name = (profile.get('name') or '').strip()
-                if profile_name:
-                    result.append({
-                        'id': profile_name,
-                        'name': profile_name,
-                        'is_default': bool(profile.get('is_default', False))
-                    })
-            return result
-        except Exception as e:
-            logger.error(f"Error getting Movie Hunt quality profiles for '{instance_name}': {e}")
-            return []
-
-    def _get_tv_hunt_quality_profiles(self, instance_name: str) -> List[Dict[str, Any]]:
-        """Get quality profiles from a TV Hunt instance (internal database)"""
-        try:
-            instance_id = self._resolve_tv_hunt_instance_id(instance_name)
-            if instance_id is None:
-                logger.warning(f"TV Hunt instance '{instance_name}' not found")
-                return []
-            from src.primary.routes.media_hunt.helpers import _tv_profiles_context
-            from src.primary.routes.media_hunt.profiles import get_profiles_config
-            profiles = get_profiles_config(instance_id, _tv_profiles_context())
-            result = []
-            for profile in profiles:
-                profile_name = (profile.get('name') or '').strip()
-                if profile_name:
-                    result.append({
-                        'id': profile_name,
-                        'name': profile_name,
-                        'is_default': bool(profile.get('is_default', False))
-                    })
-            return result
-        except Exception as e:
-            logger.error(f"Error getting TV Hunt quality profiles for '{instance_name}': {e}")
-            return []
-
-    # ------------------------------------------------------------------
-    # Instance resolution helpers
-    # ------------------------------------------------------------------
-
-    def _resolve_movie_hunt_instance_id(self, instance_name: str) -> Optional[int]:
-        """Resolve a Movie Hunt instance name to its database ID"""
-        try:
-            name = (instance_name or '').strip()
-            if not name:
-                return None
-            mh_instances = self.db.get_movie_hunt_instances()
-            for inst in mh_instances:
-                if (inst.get('name') or '').strip() == name:
-                    return inst.get('id')
-            return None
-        except Exception as e:
-            logger.error(f"Error resolving Movie Hunt instance '{instance_name}': {e}")
-            return None
-
-    def _resolve_tv_hunt_instance_id(self, instance_name: str) -> Optional[int]:
-        """Resolve a TV Hunt instance name to its database ID"""
-        try:
-            name = (instance_name or '').strip()
-            if not name:
-                return None
-            th_instances = self.db.get_tv_hunt_instances()
-            for inst in th_instances:
-                if (inst.get('name') or '').strip() == name:
-                    return inst.get('id')
-            return None
-        except Exception as e:
-            logger.error(f"Error resolving TV Hunt instance '{instance_name}': {e}")
-            return None
 
     # ------------------------------------------------------------------
     # Default instances & modal preferences
@@ -280,15 +191,14 @@ class RequestarrAPI(DiscoveryMixin, LibraryMixin, RequestsMixin):
             if requestarr_config:
                 return {
                     'default_root_folder_radarr': (requestarr_config.get('default_root_folder_radarr') or '').strip(),
-                    'default_root_folder_sonarr': (requestarr_config.get('default_root_folder_sonarr') or '').strip(),
-                    'default_root_folder_movie_hunt': (requestarr_config.get('default_root_folder_movie_hunt') or '').strip()
+                    'default_root_folder_sonarr': (requestarr_config.get('default_root_folder_sonarr') or '').strip()
                 }
-            return {'default_root_folder_radarr': '', 'default_root_folder_sonarr': '', 'default_root_folder_movie_hunt': ''}
+            return {'default_root_folder_radarr': '', 'default_root_folder_sonarr': ''}
         except Exception as e:
             logger.error(f"Error getting default root folders: {e}")
-            return {'default_root_folder_radarr': '', 'default_root_folder_sonarr': '', 'default_root_folder_movie_hunt': ''}
+            return {'default_root_folder_radarr': '', 'default_root_folder_sonarr': ''}
 
-    def set_default_root_folders(self, default_root_folder_radarr: str = None, default_root_folder_sonarr: str = None, default_root_folder_movie_hunt: str = None):
+    def set_default_root_folders(self, default_root_folder_radarr: str = None, default_root_folder_sonarr: str = None):
         """Set default root folder path per app (issue #806)."""
         try:
             requestarr_config = self.db.get_app_config('requestarr') or {}
@@ -296,10 +206,8 @@ class RequestarrAPI(DiscoveryMixin, LibraryMixin, RequestsMixin):
                 requestarr_config['default_root_folder_radarr'] = (default_root_folder_radarr or '').strip()
             if default_root_folder_sonarr is not None:
                 requestarr_config['default_root_folder_sonarr'] = (default_root_folder_sonarr or '').strip()
-            if default_root_folder_movie_hunt is not None:
-                requestarr_config['default_root_folder_movie_hunt'] = (default_root_folder_movie_hunt or '').strip()
             self.db.save_app_config('requestarr', requestarr_config)
-            logger.info(f"Set default root folders - Radarr: {requestarr_config.get('default_root_folder_radarr') or 'None'}, Sonarr: {requestarr_config.get('default_root_folder_sonarr') or 'None'}, Movie Hunt: {requestarr_config.get('default_root_folder_movie_hunt') or 'None'}")
+            logger.info(f"Set default root folders - Radarr: {requestarr_config.get('default_root_folder_radarr') or 'None'}, Sonarr: {requestarr_config.get('default_root_folder_sonarr') or 'None'}")
         except Exception as e:
             logger.error(f"Error setting default root folders: {e}")
             raise
@@ -309,11 +217,7 @@ class RequestarrAPI(DiscoveryMixin, LibraryMixin, RequestsMixin):
     # ------------------------------------------------------------------
 
     def get_root_folders(self, app_type: str, instance_name: str) -> List[Dict[str, Any]]:
-        """Fetch root folders from *arr or Movie/TV Hunt instance (for settings UI, issue #806). Deduped by ID and path."""
-        if app_type == 'movie_hunt':
-            return self._get_movie_hunt_root_folders(instance_name)
-        if app_type == 'tv_hunt':
-            return self._get_tv_hunt_root_folders(instance_name)
+        """Fetch root folders from *arr instance (for settings UI, issue #806). Deduped by ID and path."""
         if app_type not in ('radarr', 'sonarr'):
             return []
         try:
@@ -397,96 +301,6 @@ class RequestarrAPI(DiscoveryMixin, LibraryMixin, RequestsMixin):
             logger.error(f"Error fetching root folders from {app_type}/{instance_name}: {e}")
             return []
 
-    def _get_movie_hunt_root_folders(self, instance_name: str) -> List[Dict[str, Any]]:
-        """Get root folders from a Movie Hunt instance (internal database)"""
-        try:
-            instance_id = self._resolve_movie_hunt_instance_id(instance_name)
-            if instance_id is None:
-                logger.warning(f"Movie Hunt instance '{instance_name}' not found")
-                return []
-
-            from src.primary.routes.media_hunt.storage import get_movie_root_folders_config
-            folders = get_movie_root_folders_config(instance_id)
-
-            result = []
-            for folder in folders:
-                path = (folder.get('path') or '').strip()
-                if not path:
-                    continue
-                free_space = None
-                try:
-                    if os.path.isdir(path):
-                        stat = os.statvfs(path)
-                        free_space = stat.f_bavail * stat.f_frsize
-                except (OSError, AttributeError):
-                    pass
-                result.append({
-                    'path': path,
-                    'freeSpace': free_space,
-                    'is_default': folder.get('is_default', False)
-                })
-            return result
-        except Exception as e:
-            logger.error(f"Error getting Movie Hunt root folders for '{instance_name}': {e}")
-            return []
-
-    def _get_tv_hunt_root_folders(self, instance_name: str) -> List[Dict[str, Any]]:
-        """Get root folders from a TV Hunt instance (internal database)"""
-        try:
-            instance_id = self._resolve_tv_hunt_instance_id(instance_name)
-            if instance_id is None:
-                logger.warning(f"TV Hunt instance '{instance_name}' not found")
-                return []
-            from src.primary.routes.media_hunt.storage import get_tv_root_folders_config
-            folders = get_tv_root_folders_config(instance_id)
-            result = []
-            for folder in folders:
-                path = (folder.get('path') or '').strip()
-                if not path:
-                    continue
-                free_space = None
-                try:
-                    if os.path.isdir(path):
-                        stat = os.statvfs(path)
-                        free_space = stat.f_bavail * stat.f_frsize
-                except (OSError, AttributeError):
-                    pass
-                result.append({
-                    'path': path,
-                    'freeSpace': free_space,
-                    'is_default': folder.get('is_default', False)
-                })
-            return result
-        except Exception as e:
-            logger.error(f"Error getting TV Hunt root folders for '{instance_name}': {e}")
-            return []
-
-    def get_root_folders_by_id(self, instance_id: int) -> List[Dict[str, Any]]:
-        """Get root folders from a Movie Hunt instance by ID (for modal when instance_id is known)."""
-        try:
-            from src.primary.routes.media_hunt.storage import get_movie_root_folders_config
-            folders = get_movie_root_folders_config(instance_id)
-            result = []
-            for folder in folders:
-                path = (folder.get('path') or '').strip()
-                if not path:
-                    continue
-                free_space = None
-                try:
-                    if os.path.isdir(path):
-                        stat = os.statvfs(path)
-                        free_space = stat.f_bavail * stat.f_frsize
-                except (OSError, AttributeError):
-                    pass
-                result.append({
-                    'path': path,
-                    'freeSpace': free_space,
-                    'is_default': folder.get('is_default', False)
-                })
-            return result
-        except Exception as e:
-            logger.error(f"Error getting Movie Hunt root folders for instance_id={instance_id}: {e}")
-            return []
 
 
 # Global instance

@@ -944,24 +944,6 @@ class HuntarrDatabase(ConfigMixin, StateMixin, UsersMixin, RequestarrMixin, Extr
                 )
             ''')
 
-            # Movie Hunt multi-instance: one row per tenant (ID never reused)
-            conn.execute('''
-                CREATE TABLE IF NOT EXISTS movie_hunt_instances (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT NOT NULL,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            ''')
-            conn.execute('CREATE INDEX IF NOT EXISTS idx_movie_hunt_instances_id ON movie_hunt_instances(id)')
-
-            # TV Hunt multi-instance: one row per tenant (ID never reused)
-            conn.execute('''
-                CREATE TABLE IF NOT EXISTS tv_hunt_instances (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT NOT NULL,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            ''')
 
             # Create requestarr_requests table for tracking media requests
             # NOTE: No UNIQUE constraint — multiple users can request the same media
@@ -1182,7 +1164,7 @@ class HuntarrDatabase(ConfigMixin, StateMixin, UsersMixin, RequestarrMixin, Extr
             # Create indexes for better performance
             # Note: indexes on UNIQUE columns (app_configs.app_type, general_settings.setting_key,
             # swaparr_stats.stat_key, users.username) and PRIMARY KEY columns
-            # (movie_hunt_instances.id) are redundant — SQLite auto-creates implicit indexes for these.
+            # columns are redundant — SQLite auto-creates implicit indexes for these.
             conn.execute('CREATE INDEX IF NOT EXISTS idx_stateful_processed_app_instance ON stateful_processed_ids(app_type, instance_name)')
             conn.execute('CREATE INDEX IF NOT EXISTS idx_stateful_processed_media_id ON stateful_processed_ids(media_id)')
             conn.execute('CREATE INDEX IF NOT EXISTS idx_stateful_instance_locks_app_instance ON stateful_instance_locks(app_type, instance_name)')
@@ -1213,59 +1195,6 @@ class HuntarrDatabase(ConfigMixin, StateMixin, UsersMixin, RequestarrMixin, Extr
             except Exception:
                 pass
             
-            # ── Indexer Hunt tables ─────────────────────────────────────
-            # Centralized indexer storage (global, not per-instance)
-            conn.execute('''
-                CREATE TABLE IF NOT EXISTS indexer_hunt_indexers (
-                    id TEXT PRIMARY KEY,
-                    name TEXT NOT NULL,
-                    display_name TEXT DEFAULT '',
-                    preset TEXT DEFAULT 'manual',
-                    protocol TEXT DEFAULT 'usenet',
-                    url TEXT DEFAULT '',
-                    api_path TEXT DEFAULT '/api',
-                    api_key TEXT DEFAULT '',
-                    enabled INTEGER DEFAULT 1,
-                    priority INTEGER DEFAULT 50,
-                    categories TEXT DEFAULT '[]',
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            ''')
-
-            # Stats tracking per indexer (aggregate counters)
-            conn.execute('''
-                CREATE TABLE IF NOT EXISTS indexer_hunt_stats (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    indexer_id TEXT NOT NULL,
-                    stat_type TEXT NOT NULL,
-                    stat_value REAL DEFAULT 0,
-                    recorded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    UNIQUE(indexer_id, stat_type)
-                )
-            ''')
-            conn.execute('CREATE INDEX IF NOT EXISTS idx_ih_stats_indexer ON indexer_hunt_stats(indexer_id)')
-
-            # Event history (searches, grabs, failures)
-            conn.execute('''
-                CREATE TABLE IF NOT EXISTS indexer_hunt_history (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    indexer_id TEXT NOT NULL,
-                    indexer_name TEXT DEFAULT '',
-                    event_type TEXT NOT NULL,
-                    query TEXT DEFAULT '',
-                    result_title TEXT DEFAULT '',
-                    response_time_ms INTEGER DEFAULT 0,
-                    success INTEGER DEFAULT 1,
-                    error_message TEXT DEFAULT '',
-                    instance_id INTEGER DEFAULT NULL,
-                    instance_name TEXT DEFAULT '',
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            ''')
-            conn.execute('CREATE INDEX IF NOT EXISTS idx_ih_history_indexer ON indexer_hunt_history(indexer_id)')
-            conn.execute('CREATE INDEX IF NOT EXISTS idx_ih_history_type ON indexer_hunt_history(event_type)')
-            conn.execute('CREATE INDEX IF NOT EXISTS idx_ih_history_date ON indexer_hunt_history(created_at)')
 
             # ── Requestarr Users (multi-user request system) ────────────
             conn.execute('''
@@ -1840,12 +1769,8 @@ class LogsDatabase:
                 if app_type and app_type != "all":
                     base_apps = ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "swaparr"]
                     app_lower = (app_type or "").lower()
-                    # media_hunt = Movie Hunt + TV Hunt combined (default for Media Hunt Logs)
-                    if app_lower == "media_hunt":
-                        where_conditions.append("(app_type IN (?, ?))")
-                        params.extend(["movie_hunt", "tv_hunt"])
                     # For cyclical apps, include per-instance logs (e.g. Sonarr-test, Sonarr-beta9)
-                    elif app_lower in base_apps:
+                    if app_lower in base_apps:
                         app_prefix = app_type.strip()[0:1].upper() + (app_type.strip()[1:].lower() if len(app_type) > 1 else "")
                         where_conditions.append("(app_type = ? OR app_type LIKE ?)")
                         params.extend([app_type, app_prefix + "-%"])
@@ -1895,19 +1820,15 @@ class LogsDatabase:
                 if app_type and app_type != "all":
                     base_apps = ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "swaparr"]
                     app_lower = (app_type or "").lower()
-                    # media_hunt = Movie Hunt + TV Hunt combined (default for Media Hunt Logs)
-                    if app_lower == "media_hunt":
-                        where_conditions.append("(app_type IN (?, ?))")
-                        params.extend(["movie_hunt", "tv_hunt"])
                     # For cyclical apps, include per-instance logs (e.g. Sonarr-test, Sonarr-beta9)
-                    elif app_lower in base_apps:
+                    if app_lower in base_apps:
                         app_prefix = app_type.strip()[0:1].upper() + (app_type.strip()[1:].lower() if len(app_type) > 1 else "")
                         where_conditions.append("(app_type = ? OR app_type LIKE ?)")
                         params.extend([app_type, app_prefix + "-%"])
                     else:
                         where_conditions.append("app_type = ?")
                         params.append(app_type)
-                elif exclude_app_types:
+                if exclude_app_types:
                     # Main logs "all" view: exclude independent modules (e.g. movie_hunt has its own Activity → Logs)
                     placeholders = ",".join("?" * len(exclude_app_types))
                     where_conditions.append(f"app_type NOT IN ({placeholders})")
@@ -1992,7 +1913,7 @@ class LogsDatabase:
                 part = (at or "").split("-")[0].strip().lower()
                 if part:
                     base.add(part)
-            order = ["all", "system", "sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "swaparr", "movie_hunt", "tv_hunt"]
+            order = ["all", "system", "sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "swaparr"]
             result = [a for a in order if a in base or (a == "all" and base)]
             if "all" not in result and base:
                 result.insert(0, "all")
@@ -2023,10 +1944,6 @@ class LogsDatabase:
                 if app_type:
                     base_apps = ["sonarr", "radarr", "lidarr", "readarr", "whisparr", "eros", "swaparr"]
                     app_lower = (app_type or "").lower()
-                    if app_lower == "media_hunt":
-                        cursor = conn.execute("DELETE FROM logs WHERE app_type IN (?, ?)", ("movie_hunt", "tv_hunt"))
-                    elif app_lower in base_apps:
-                        app_prefix = app_type.strip()[0:1].upper() + (app_type.strip()[1:].lower() if len(app_type) > 1 else "")
                         cursor = conn.execute("DELETE FROM logs WHERE app_type = ? OR app_type LIKE ?", (app_type, app_prefix + "-%"))
                     else:
                         cursor = conn.execute("DELETE FROM logs WHERE app_type = ?", (app_type,))
