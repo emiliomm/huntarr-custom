@@ -83,7 +83,6 @@ BUNDLES = [
             "modules/features/history.js",
             "modules/features/user.js",
             "modules/features/new-user.js",
-            "modules/features/community-resources.js",
             "modules/features/swaparr-card.js",
             "modules/features/prowlarr.js",
             "modules/features/setup-wizard.js",

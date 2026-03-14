@@ -12,9 +12,9 @@
             <div style="margin-bottom: 25px;">
                 <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                     <button type="button" id="swaparr-save-button" disabled style="
-                        background: #6b7280;
-                        color: #9ca3af;
-                        border: 1px solid #4b5563;
+                        background: var(--core-color-1);
+                        color: var(--ui-neutral-400);
+                        border: 1px solid var(--core-color-3);
                         padding: 8px 16px;
                         border-radius: 6px;
                         font-size: 14px;
@@ -31,9 +31,9 @@
                     
                     <div style="margin-left: auto; display: flex; gap: 10px;">
                         <a href="https://github.com/ThijmenGThN/swaparr" target="_blank" rel="noopener" style="
-                            background: linear-gradient(135deg, #24292e 0%, #161b22 100%);
-                            color: #f0f6fc;
-                            border: 1px solid #30363d;
+                            background: linear-gradient(135deg, var(--home-section-bg-63) 0%, var(--history-section-bg-16) 100%);
+                            color: var(--mobile-text-1);
+                            border: 1px solid var(--swaparr-border-2);
                             padding: 8px 16px;
                             border-radius: 6px;
                             font-size: 14px;
@@ -43,16 +43,16 @@
                             align-items: center;
                             gap: 8px;
                             transition: all 0.2s ease;
-                            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+                            box-shadow: 0 2px 4px var(--ui-shadow);
                         " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                             <i class="fab fa-github" style="font-size: 16px;"></i>
                             View on GitHub
                         </a>
                         
                         <a href="https://github.com/ThijmenGThN/swaparr/stargazers" target="_blank" rel="noopener" style="
-                            background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
-                            color: #fff;
-                            border: 1px solid #d35400;
+                            background: linear-gradient(135deg, var(--footer-text-4) 0%, var(--app-radarr-color) 100%);
+                            color: var(--button-primary-text);
+                            border: 1px solid var(--swaparr-border-3);
                             padding: 8px 16px;
                             border-radius: 6px;
                             font-size: 14px;
@@ -62,8 +62,8 @@
                             align-items: center;
                             gap: 8px;
                             transition: all 0.2s ease;
-                            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-                            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+                            box-shadow: 0 2px 4px var(--ui-shadow);
+                            text-shadow: 0 1px 2px var(--ui-shadow-strong);
                         " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                             <i class="fas fa-star" style="margin-right: 4px;"></i>
                             <span id="swaparr-stars-count">Loading...</span>
@@ -73,17 +73,17 @@
                 
                 <!-- Advanced Options Notice -->
                 <div style="
-                    background: linear-gradient(135deg, #164e63 0%, #0e7490 50%, #0891b2 100%);
-                    border: 1px solid #22d3ee;
+                    background: linear-gradient(135deg, var(--logs-history-text-1) 0%, var(--swaparr-bg-6) 50%, var(--swaparr-bg-7) 100%);
+                    border: 1px solid var(--instance-editor-text-5);
                     border-radius: 6px;
                     padding: 10px;
                     margin: 10px 0 15px 0;
-                    box-shadow: 0 2px 8px rgba(34, 211, 238, 0.1);
+                    box-shadow: 0 2px 8px var(--swaparr-shadow-1);
                 ">
-                    <p style="color: #e0f7fa; margin: 0; font-size: 0.8em; line-height: 1.4;">
-                        <i class="fas fa-rocket" style="margin-right: 6px; color: #22d3ee;"></i>
+                    <p style="color: var(--swaparr-color-1); margin: 0; font-size: 0.8em; line-height: 1.4;">
+                        <i class="fas fa-rocket" style="margin-right: 6px; color: var(--instance-editor-text-5);"></i>
                         <strong>Need Advanced Options?</strong> For enhanced control and features, we recommend 
-                        <a href="https://github.com/cleanuparr/cleanuparr" target="_blank" rel="noopener" style="color: #fbbf24; text-decoration: none; font-weight: 600;">
+                        <a href="https://github.com/cleanuparr/cleanuparr" target="_blank" rel="noopener" style="color: var(--ui-warning-400); text-decoration: none; font-weight: 600;">
                             <strong>Cleanuparr</strong>
                         </a> which offers more comprehensive management capabilities.
                     </p>
@@ -92,7 +92,7 @@
             
             <div class="settings-group">
                 <h3>Swaparr Configuration</h3>
-                <p class="setting-help" style="margin-bottom: 20px; color: #9ca3af;">
+                <p class="setting-help" style="margin-bottom: 20px; color: var(--ui-neutral-400);">
                     Swaparr monitors your *arr applications' download queues and removes stalled downloads automatically.
                 </p>
                 
@@ -218,7 +218,7 @@
                 ? Math.round(settings.sleep_duration / 60)
                 : 15
             }" min="10" max="1440" style="width: 120px;">
-                        <span style="color: #9ca3af; font-size: 14px;">minutes</span>
+                        <span style="color: var(--ui-neutral-400); font-size: 14px;">minutes</span>
                     </div>
                     <p class="setting-help">Time to wait between Swaparr processing cycles (minimum 10 minutes, default: 15 minutes)</p>
                 </div>
@@ -227,7 +227,7 @@
             
             <div class="settings-group">
                 <h3>Security Features</h3>
-                <p class="setting-help" style="margin-bottom: 20px; color: #9ca3af;">
+                <p class="setting-help" style="margin-bottom: 20px; color: var(--ui-neutral-400);">
                     Advanced security features to protect your system from malicious downloads and suspicious content by analyzing download names and titles. Detection is based on filename patterns, not file contents.
                 </p>
                 
@@ -280,7 +280,7 @@
             
             <div class="settings-group">
                 <h3>Age-Based Cleanup</h3>
-                <p class="setting-help" style="margin-bottom: 20px; color: #9ca3af;">
+                <p class="setting-help" style="margin-bottom: 20px; color: var(--ui-neutral-400);">
                     Automatically remove downloads that have been stuck for too long, regardless of strike count.
                 </p>
                 
@@ -308,7 +308,7 @@
             
             <div class="settings-group">
                 <h3>Quality-Based Filtering</h3>
-                <p class="setting-help" style="margin-bottom: 20px; color: #9ca3af;">
+                <p class="setting-help" style="margin-bottom: 20px; color: var(--ui-neutral-400);">
                     Automatically remove downloads with poor or undesirable quality indicators in their names.
                 </p>
                 
@@ -574,9 +574,9 @@
         if (!saveButton) return;
 
         saveButton.disabled = true;
-        saveButton.style.background = "#6b7280";
-        saveButton.style.color = "#9ca3af";
-        saveButton.style.borderColor = "#4b5563";
+        saveButton.style.background = "var(--core-color-1)";
+        saveButton.style.color = "var(--ui-neutral-400)";
+        saveButton.style.borderColor = "var(--core-color-3)";
         saveButton.style.cursor = "not-allowed";
 
         let hasChanges = false;
@@ -593,18 +593,18 @@
 
             if (hasChanges) {
                 btn.disabled = false;
-                btn.style.background = "#dc2626";
-                btn.style.color = "#ffffff";
-                btn.style.borderColor = "#dc2626";
+                btn.style.background = "var(--core-color-4)";
+                btn.style.color = "var(--button-primary-text)";
+                btn.style.borderColor = "var(--core-color-4)";
                 btn.style.cursor = "pointer";
                 if (window.SettingsForms.addUnsavedChangesWarning) {
                     window.SettingsForms.addUnsavedChangesWarning();
                 }
             } else {
                 btn.disabled = true;
-                btn.style.background = "#6b7280";
-                btn.style.color = "#9ca3af";
-                btn.style.borderColor = "#4b5563";
+                btn.style.background = "var(--core-color-1)";
+                btn.style.color = "var(--ui-neutral-400)";
+                btn.style.borderColor = "var(--core-color-3)";
                 btn.style.cursor = "not-allowed";
                 if (window.SettingsForms.removeUnsavedChangesWarning) {
                     window.SettingsForms.removeUnsavedChangesWarning();

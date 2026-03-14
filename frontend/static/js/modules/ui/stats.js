@@ -12,14 +12,14 @@ window.HuntarrStats = {
 
     // App metadata: order, display names, icons, accent colors
     APP_META: {
-        tv_hunt: { label: 'TV Hunt', icon: './static/logo/256.png', accent: '#a855f7' },
-        movie_hunt: { label: 'Movie Hunt', icon: './static/logo/256.png', accent: '#f59e0b' },
-        sonarr: { label: 'Sonarr', icon: './static/images/app-icons/sonarr.png', accent: '#6366f1' },
-        radarr: { label: 'Radarr', icon: './static/images/app-icons/radarr.png', accent: '#f59e0b' },
-        lidarr: { label: 'Lidarr', icon: './static/images/app-icons/lidarr.png', accent: '#22c55e' },
-        readarr: { label: 'Readarr', icon: './static/images/app-icons/readarr.png', accent: '#a855f7' },
-        whisparr: { label: 'Whisparr V2', icon: './static/images/app-icons/whisparr.png', accent: '#ec4899' },
-        eros: { label: 'Whisparr V3', icon: './static/images/app-icons/whisparr.png', accent: '#ec4899' }
+        tv_hunt: { label: 'TV Hunt', icon: './static/logo/256.png', accent: 'var(--client-editor-color-5)' },
+        movie_hunt: { label: 'Movie Hunt', icon: './static/logo/256.png', accent: 'var(--ui-warning-500)' },
+        sonarr: { label: 'Sonarr', icon: './static/images/app-icons/sonarr.png', accent: 'var(--app-sonarr-color)' },
+        radarr: { label: 'Radarr', icon: './static/images/app-icons/radarr.png', accent: 'var(--ui-warning-500)' },
+        lidarr: { label: 'Lidarr', icon: './static/images/app-icons/lidarr.png', accent: 'var(--api-progress-color-1)' },
+        readarr: { label: 'Readarr', icon: './static/images/app-icons/readarr.png', accent: 'var(--client-editor-color-5)' },
+        whisparr: { label: 'Whisparr V2', icon: './static/images/app-icons/whisparr.png', accent: 'var(--home-bg-15)' },
+        eros: { label: 'Whisparr V3', icon: './static/images/app-icons/whisparr.png', accent: 'var(--home-bg-15)' }
     },
     DEFAULT_APP_ORDER: ['tv_hunt', 'movie_hunt', 'sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros'],
 
@@ -286,7 +286,7 @@ window.HuntarrStats = {
             var isConfigured = ui.configuredApps && ui.configuredApps[app];
             if (!hasInstances && !stats[app].hunted && !stats[app].upgraded && !isConfigured) return;
 
-            var meta = self.APP_META[app] || { label: app, icon: '', accent: '#94a3b8' };
+            var meta = self.APP_META[app] || { label: app, icon: '', accent: 'var(--ui-text-muted)' };
             var instances = hasInstances ? stats[app].instances : [];
 
             if (instances.length === 0) {
@@ -573,7 +573,7 @@ window.HuntarrStats = {
         });
 
         visibleApps.forEach(function (app) {
-            var meta = self.APP_META[app] || { label: app, icon: '', accent: '#94a3b8' };
+            var meta = self.APP_META[app] || { label: app, icon: '', accent: 'var(--ui-text-muted)' };
             var group = grid.querySelector('.app-group[data-app="' + app + '"]');
 
             if (!group) {

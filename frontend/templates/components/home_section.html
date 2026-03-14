@@ -86,19 +86,19 @@
             <div class="media-stats-container">
                 <!-- Empty State for Live Hunts -->
                 <div id="live-hunts-empty-state"
-                    style="display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; color: #9ca3af; width: 100%;">
+                    style="display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; color: var(--ui-neutral-400); width: 100%;">
                     <div style="margin-bottom: 20px; opacity: 0.4;">
                         <img src="./static/logo/512.png" alt="Huntarr Logo"
                             style="width: 80px; height: 80px; filter: grayscale(1);">
                     </div>
-                    <p style="font-size: 18px; margin-bottom: 10px; font-weight: 500; color: #e2e8f0;">No Instances
+                    <p style="font-size: 18px; margin-bottom: 10px; font-weight: 500; color: var(--text-secondary);">No Instances
                         Configured</p>
                     <p style="font-size: 14px; line-height: 1.6; opacity: 0.8; max-width: 400px; margin-bottom: 20px;">
                         Get started by configuring your 3rd Party Apps.
                     </p>
                     <div style="display: flex; gap: 12px; align-items: center;">
                         <button onclick="window.location.hash = '#sonarr'" class="action-button"
-                            style="background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); color: #818cf8; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap;">
+                            style="background: var(--ui-accent-bg-soft); border: 1px solid var(--ui-accent-border); color: var(--ui-accent-soft); padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap;">
                             <i class="fas fa-th-large" style="margin-right: 8px;"></i> 3rd Party Apps
                         </button>
                     </div>
@@ -509,11 +509,11 @@
     }
 
     .donation-icon {
-        color: #ff6b6b;
+        color: var(--cycle-countdown-color-7);
     }
 
     .star-icon {
-        color: #ffd700;
+        color: var(--home-bg-21);
     }
 
     /* Improved important links */
@@ -538,7 +538,7 @@
         font-weight: 500;
         font-size: 0.85rem;
         box-shadow: none;
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--ui-alpha-white);
     }
 
     .link-button i {
@@ -547,26 +547,17 @@
 
     .link-button:hover {
         transform: none;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px var(--ui-shadow-soft);
         background-color: var(--accent-color);
         color: white;
         border-color: var(--accent-color);
     }
 
-    .sponsor-button {
-        background-color: #4e54c8;
-        color: white;
-    }
-
-    .sponsor-button:hover {
-        background-color: #24c6dc;
-    }
-
     /* Stats card styling */
     .stats-card {
         width: 100%;
-        background-color: rgba(24, 28, 37, 0.6);
-        border: 1px solid rgba(90, 109, 137, 0.2);
+        background-color: var(--home-section-bg-3);
+        border: 1px solid var(--history-section-border-4);
         border-radius: 10px;
         overflow: hidden;
     }
@@ -578,12 +569,12 @@
         padding: 6px 0 8px;
         margin-bottom: 12px;
         background-color: transparent;
-        border-bottom: 1px solid rgba(90, 109, 137, 0.2);
+        border-bottom: 1px solid var(--history-section-border-4);
     }
 
     .stats-card .card-header h3 {
         margin: 0;
-        color: #e0e6ed;
+        color: var(--footer-text-1);
         font-size: 0.94em;
         font-weight: 600;
         line-height: 1.2;
@@ -591,7 +582,7 @@
 
     .media-stats-container {
         padding: 20px;
-        background-color: rgba(15, 18, 24, 0.4);
+        background-color: var(--home-section-bg-32);
     }
 
     .app-stats-grid {
@@ -606,11 +597,11 @@
     }
 
     .app-stats-card {
-        background: linear-gradient(145deg, rgba(26, 32, 44, 0.9), rgba(20, 24, 33, 0.8));
+        background: linear-gradient(145deg, var(--history-section-bg-12), var(--home-section-bg-10));
         border-radius: 18px;
         padding: 0 20px 0 20px;
         text-align: center;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.05) inset;
+        box-shadow: 0 10px 25px var(--components-shadow-1), 0 1px 1px var(--ui-alpha-white) inset;
         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         position: relative;
         display: flex;
@@ -618,15 +609,15 @@
         align-items: center;
         min-height: 200px;
         justify-content: flex-start;
-        border: 1px solid rgba(120, 140, 180, 0.15);
+        border: 1px solid var(--home-section-border-2);
         overflow: hidden;
         backdrop-filter: blur(5px);
     }
 
     .app-stats-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(255, 255, 255, 0.07) inset;
-        border-color: rgba(120, 140, 180, 0.3);
+        box-shadow: 0 15px 30px var(--ui-shadow-strong), 0 1px 1px var(--ui-alpha-white) inset;
+        border-color: var(--home-section-border-3);
         /* Fix for text blur on hover in Firefox */
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
@@ -649,8 +640,8 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 5px;
-        background: linear-gradient(to bottom, rgba(17, 23, 35, 0.7), rgba(13, 17, 26, 0.5));
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        background: linear-gradient(to bottom, var(--home-section-bg-7), var(--history-section-bg-1));
+        border-bottom: 1px solid var(--ui-alpha-white);
         border-radius: 16px 16px 0 0;
         margin-left: -20px;
         margin-right: -20px;
@@ -666,7 +657,7 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 8px var(--glass-shadow);
         letter-spacing: 0.5px;
         backdrop-filter: blur(5px);
     }
@@ -689,10 +680,10 @@
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        background: radial-gradient(circle at 30% 30%, rgba(35, 42, 55, 0.9), rgba(22, 27, 38, 0.8));
+        background: radial-gradient(circle at 30% 30%, var(--home-section-bg-9), var(--home-section-bg-10));
         margin-bottom: 12px;
         position: relative;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+        box-shadow: 0 8px 20px var(--ui-shadow-strong), 0 0 0 1px var(--ui-alpha-white) inset;
         transform: perspective(800px) rotateX(10deg);
         backdrop-filter: blur(5px);
     }
@@ -700,7 +691,7 @@
     .app-logo {
         width: 40px;
         height: 40px;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        filter: drop-shadow(0 2px 4px var(--ui-shadow-strong));
         transform: scale(1.15);
         transition: transform 0.3s ease;
     }
@@ -713,10 +704,10 @@
         margin: 0;
         font-size: 17px;
         font-weight: 600;
-        color: #e0e6ed;
+        color: var(--footer-text-1);
         letter-spacing: 0.7px;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        background: linear-gradient(to bottom, #fff, #a0a8b8);
+        text-shadow: 0 2px 4px var(--ui-shadow-strong);
+        background: linear-gradient(to bottom, var(--button-primary-text), var(--home-section-bg-11));
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -776,68 +767,68 @@
 
     /* Sonarr blue glowing rings */
     .app-stats-card.sonarr .app-icon-wrapper::before {
-        border-color: rgba(0, 174, 240, 0.8);
-        box-shadow: 0 0 15px rgba(0, 174, 240, 0.6);
+        border-color: var(--home-section-border-4);
+        box-shadow: 0 0 15px var(--home-section-shadow-3);
     }
 
     .app-stats-card.sonarr .app-icon-wrapper::after {
-        border-color: rgba(0, 174, 240, 0.4);
-        box-shadow: 0 0 20px rgba(0, 174, 240, 0.3);
+        border-color: var(--home-section-border-5);
+        box-shadow: 0 0 20px var(--home-section-shadow-4);
     }
 
     /* Radarr yellow glowing rings */
     .app-stats-card.radarr .app-icon-wrapper::before {
-        border-color: rgba(253, 203, 43, 0.8);
-        box-shadow: 0 0 15px rgba(253, 203, 43, 0.6);
+        border-color: var(--home-section-border-6);
+        box-shadow: 0 0 15px var(--home-section-shadow-5);
     }
 
     .app-stats-card.radarr .app-icon-wrapper::after {
-        border-color: rgba(253, 203, 43, 0.4);
-        box-shadow: 0 0 20px rgba(253, 203, 43, 0.3);
+        border-color: var(--home-section-border-7);
+        box-shadow: 0 0 20px var(--home-section-shadow-6);
     }
 
     /* Lidarr green glowing rings */
     .app-stats-card.lidarr .app-icon-wrapper::before {
-        border-color: rgba(49, 197, 56, 0.8);
-        box-shadow: 0 0 15px rgba(49, 197, 56, 0.6);
+        border-color: var(--home-section-border-8);
+        box-shadow: 0 0 15px var(--home-section-shadow-7);
     }
 
     .app-stats-card.lidarr .app-icon-wrapper::after {
-        border-color: rgba(49, 197, 56, 0.4);
-        box-shadow: 0 0 20px rgba(49, 197, 56, 0.3);
+        border-color: var(--home-section-border-9);
+        box-shadow: 0 0 20px var(--home-section-shadow-8);
     }
 
     /* Readarr red glowing rings */
     .app-stats-card.readarr .app-icon-wrapper::before {
-        border-color: rgba(192, 45, 40, 0.8);
-        box-shadow: 0 0 15px rgba(192, 45, 40, 0.6);
+        border-color: var(--home-section-border-10);
+        box-shadow: 0 0 15px var(--home-section-shadow-9);
     }
 
     .app-stats-card.readarr .app-icon-wrapper::after {
-        border-color: rgba(192, 45, 40, 0.4);
-        box-shadow: 0 0 20px rgba(192, 45, 40, 0.3);
+        border-color: var(--home-section-border-11);
+        box-shadow: 0 0 20px var(--home-section-shadow-10);
     }
 
     /* Whisparr purple glowing rings */
     .app-stats-card.whisparr .app-icon-wrapper::before {
-        border-color: rgba(195, 0, 230, 0.8);
-        box-shadow: 0 0 15px rgba(195, 0, 230, 0.6);
+        border-color: var(--home-section-border-12);
+        box-shadow: 0 0 15px var(--home-section-shadow-11);
     }
 
     .app-stats-card.whisparr .app-icon-wrapper::after {
-        border-color: rgba(195, 0, 230, 0.4);
-        box-shadow: 0 0 20px rgba(195, 0, 230, 0.3);
+        border-color: var(--home-section-border-13);
+        box-shadow: 0 0 20px var(--home-section-shadow-12);
     }
 
     /* Eros purple glowing rings (same as Whisparr) */
     .app-stats-card.eros .app-icon-wrapper::before {
-        border-color: rgba(195, 0, 230, 0.8);
-        box-shadow: 0 0 15px rgba(195, 0, 230, 0.6);
+        border-color: var(--home-section-border-12);
+        box-shadow: 0 0 15px var(--home-section-shadow-11);
     }
 
     .app-stats-card.eros .app-icon-wrapper::after {
-        border-color: rgba(195, 0, 230, 0.4);
-        box-shadow: 0 0 20px rgba(195, 0, 230, 0.3);
+        border-color: var(--home-section-border-13);
+        box-shadow: 0 0 20px var(--home-section-shadow-12);
     }
 
 
@@ -850,7 +841,7 @@
         margin: 0;
         font-size: 16px;
         font-weight: 600;
-        color: #e0e6ed;
+        color: var(--footer-text-1);
         letter-spacing: 0.5px;
     }
 
@@ -880,54 +871,54 @@
         line-height: 1;
         margin-bottom: 8px;
         letter-spacing: -0.5px;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        text-shadow: 0 2px 10px var(--ui-shadow-strong);
     }
 
     /* App-specific stat number styles */
     .app-stats-card.sonarr .stat-number {
-        background: linear-gradient(to bottom right, #5acdff, #00aef0);
+        background: linear-gradient(to bottom right, var(--home-section-bg-12), var(--home-section-bg-13));
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .app-stats-card.radarr .stat-number {
-        background: linear-gradient(to bottom right, #ffe066, #fdcb2b);
+        background: linear-gradient(to bottom right, var(--home-section-bg-14), var(--home-section-bg-15));
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .app-stats-card.lidarr .stat-number {
-        background: linear-gradient(to bottom right, #5de264, #31c538);
+        background: linear-gradient(to bottom right, var(--home-section-bg-16), var(--home-section-bg-17));
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .app-stats-card.readarr .stat-number {
-        background: linear-gradient(to bottom right, #e35751, #c02d28);
+        background: linear-gradient(to bottom right, var(--home-section-bg-18), var(--home-section-bg-19));
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .app-stats-card.whisparr .stat-number {
-        background: linear-gradient(to bottom right, #e64dff, #c300e6);
+        background: linear-gradient(to bottom right, var(--home-section-bg-20), var(--home-section-bg-21));
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .app-stats-card.eros .stat-number {
-        background: linear-gradient(to bottom right, #e64dff, #c300e6);
+        background: linear-gradient(to bottom right, var(--home-section-bg-20), var(--home-section-bg-21));
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .app-stats-card.swaparr .stat-number {
-        background: linear-gradient(to bottom right, #6366f1, #818cf8);
+        background: linear-gradient(to bottom right, var(--app-sonarr-color), var(--ui-accent-soft));
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -935,7 +926,7 @@
 
     .stat-label {
         font-size: 11px;
-        color: rgba(160, 168, 184, 0.9);
+        color: var(--home-section-text-4);
         font-weight: 500;
         letter-spacing: 0.7px;
         text-transform: uppercase;
@@ -945,59 +936,59 @@
 
     /* App-specific accent colors for sonarr */
     .app-stats-card.sonarr .app-icon-wrapper {
-        border-color: rgba(0, 174, 240, 0.5);
-        box-shadow: 0 0 15px rgba(0, 174, 240, 0.2);
+        border-color: var(--home-section-border-17);
+        box-shadow: 0 0 15px var(--home-section-shadow-16);
     }
 
     /* App-specific accent colors for radarr */
     .app-stats-card.radarr .app-icon-wrapper {
-        border-color: rgba(253, 203, 43, 0.5);
-        box-shadow: 0 0 15px rgba(253, 203, 43, 0.2);
+        border-color: var(--home-section-border-18);
+        box-shadow: 0 0 15px var(--home-section-shadow-17);
     }
 
     /* App-specific accent colors for lidarr */
     .app-stats-card.lidarr .app-icon-wrapper {
-        border-color: rgba(49, 197, 56, 0.5);
-        box-shadow: 0 0 15px rgba(49, 197, 56, 0.2);
+        border-color: var(--home-section-border-19);
+        box-shadow: 0 0 15px var(--home-section-shadow-18);
     }
 
     /* App-specific accent colors for readarr */
     .app-stats-card.readarr .app-icon-wrapper {
-        border-color: rgba(192, 45, 40, 0.5);
-        box-shadow: 0 0 15px rgba(192, 45, 40, 0.2);
+        border-color: var(--home-section-border-20);
+        box-shadow: 0 0 15px var(--home-section-shadow-19);
     }
 
     /* App-specific accent colors for whisparr */
     .app-stats-card.whisparr .app-icon-wrapper {
-        border-color: rgba(195, 0, 230, 0.5);
-        box-shadow: 0 0 15px rgba(195, 0, 230, 0.2);
+        border-color: var(--home-section-border-21);
+        box-shadow: 0 0 15px var(--home-section-shadow-20);
     }
 
     /* App-specific accent colors for eros */
     .app-stats-card.eros .app-icon-wrapper {
-        border-color: rgba(195, 0, 230, 0.5);
-        box-shadow: 0 0 15px rgba(195, 0, 230, 0.2);
+        border-color: var(--home-section-border-21);
+        box-shadow: 0 0 15px var(--home-section-shadow-20);
     }
 
     /* Status badge colors */
     .status-badge.connected {
-        background: linear-gradient(145deg, rgba(39, 174, 96, 0.15), rgba(46, 204, 113, 0.05));
-        color: #2ecc71;
-        border: 1px solid rgba(39, 174, 96, 0.3);
-        box-shadow: 0 3px 10px rgba(46, 204, 113, 0.1);
+        background: linear-gradient(145deg, var(--home-section-bg-22), var(--home-section-bg-23));
+        color: var(--app-lidarr-color);
+        border: 1px solid var(--home-section-border-22);
+        box-shadow: 0 3px 10px var(--home-section-shadow-21);
     }
 
     .status-badge.partially-connected {
-        background: linear-gradient(145deg, rgba(243, 156, 18, 0.15), rgba(241, 196, 15, 0.05));
-        color: #f39c12;
-        border: 1px solid rgba(243, 156, 18, 0.3);
-        box-shadow: 0 3px 10px rgba(243, 156, 18, 0.1);
+        background: linear-gradient(145deg, var(--backup-restore-bg-4), var(--home-section-bg-25));
+        color: var(--app-radarr-color);
+        border: 1px solid var(--home-color-1);
+        box-shadow: 0 3px 10px var(--backup-restore-bg-4);
     }
 
     .status-badge.not-connected {
-        background: linear-gradient(145deg, rgba(231, 76, 60, 0.15), rgba(192, 57, 43, 0.05));
-        color: #e74c3c;
-        border: 1px solid rgba(231, 76, 60, 0.3);
+        background: linear-gradient(145deg, var(--home-section-bg-26), var(--home-section-bg-27));
+        color: var(--app-readarr-color);
+        border: 1px solid var(--history-section-shadow-3);
 
         /* Swaparr Status Card Styling */
         .swaparr-stats-grid {
@@ -1010,7 +1001,7 @@
 
         .swaparr-status-container {
             padding: 20px !important;
-            background-color: rgba(15, 18, 24, 0.4) !important;
+            background-color: var(--home-section-bg-32) !important;
             display: block !important;
             width: 100% !important;
             box-sizing: border-box !important;
@@ -1039,11 +1030,11 @@
         }
 
         .swaparr-stat-box {
-            background: linear-gradient(145deg, rgba(26, 32, 44, 0.9), rgba(20, 24, 33, 0.8)) !important;
+            background: linear-gradient(145deg, var(--history-section-bg-12), var(--home-section-bg-10)) !important;
             border-radius: 8px !important;
             padding: 15px !important;
             text-align: center !important;
-            border: 1px solid rgba(120, 140, 180, 0.15) !important;
+            border: 1px solid var(--home-section-border-2) !important;
             transition: all 0.3s ease !important;
             backdrop-filter: blur(5px) !important;
             min-height: 80px !important;
@@ -1056,13 +1047,13 @@
 
         .swaparr-stat-box:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            border-color: rgba(120, 140, 180, 0.3);
+            box-shadow: 0 8px 20px var(--ui-shadow);
+            border-color: var(--home-section-border-3);
         }
 
         .swaparr-stat-box .stat-label {
             font-size: 11px !important;
-            color: rgba(160, 168, 184, 0.9) !important;
+            color: var(--home-section-text-4) !important;
             font-weight: 600 !important;
             letter-spacing: 1px !important;
             text-transform: uppercase !important;
@@ -1074,12 +1065,12 @@
         .swaparr-stat-box .stat-value {
             font-size: 28px !important;
             font-weight: 700 !important;
-            color: #fff !important;
-            background: linear-gradient(to bottom right, #6366f1, #818cf8) !important;
+            color: var(--button-primary-text) !important;
+            background: linear-gradient(to bottom right, var(--app-sonarr-color), var(--ui-accent-soft)) !important;
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+            text-shadow: 0 2px 10px var(--ui-shadow-strong) !important;
             margin: 0 !important;
             line-height: 1 !important;
         }
@@ -1090,7 +1081,7 @@
 
         .swaparr-countdown-section h4 {
             margin: 0 0 15px 0;
-            color: #e0e6ed;
+            color: var(--footer-text-1);
             font-size: 16px;
             font-weight: 600;
         }
@@ -1108,7 +1099,7 @@
             gap: 10px;
             font-size: 24px;
             font-weight: 600;
-            color: #6366f1;
+            color: var(--app-sonarr-color);
         }
 
         .countdown-display i {
@@ -1117,7 +1108,7 @@
 
         .timer-value {
             font-family: 'Courier New', monospace;
-            background: linear-gradient(to bottom right, #6366f1, #818cf8);
+            background: linear-gradient(to bottom right, var(--app-sonarr-color), var(--ui-accent-soft));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -1144,33 +1135,33 @@
         }
 
         .swaparr-action-buttons .action-button.danger {
-            background-color: #e74c3c;
+            background-color: var(--app-readarr-color);
             color: white;
         }
 
         .swaparr-action-buttons .action-button.danger:hover {
-            background-color: #c0392b;
+            background-color: var(--home-section-bg-28);
             transform: translateY(-1px);
         }
 
         .swaparr-action-buttons .action-button.secondary {
-            background-color: #6366f1;
+            background-color: var(--app-sonarr-color);
             color: white;
         }
 
         .swaparr-action-buttons .action-button.secondary:hover {
-            background-color: #818cf8;
+            background-color: var(--ui-accent-soft);
             transform: translateY(-1px);
         }
 
-        box-shadow: 0 3px 10px rgba(231, 76, 60, 0.1);
+        box-shadow: 0 3px 10px var(--home-section-bg-26);
     }
 
     .status-badge.loading {
-        background: linear-gradient(145deg, rgba(41, 128, 185, 0.15), rgba(99, 102, 241, 0.05));
-        color: #6366f1;
-        border: 1px solid rgba(41, 128, 185, 0.3);
-        box-shadow: 0 3px 10px rgba(41, 128, 185, 0.1);
+        background: linear-gradient(145deg, var(--home-section-bg-29), var(--components-shadow-2));
+        color: var(--app-sonarr-color);
+        border: 1px solid var(--home-section-border-25);
+        box-shadow: 0 3px 10px var(--home-section-bg-29);
     }
 
     /* Improved hourly cap container styling */
@@ -1187,7 +1178,7 @@
     }
 
     .api-link:hover .hourly-cap-status {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 2px 8px var(--components-shadow-1);
         transform: translateY(-1px);
         cursor: pointer;
     }
@@ -1205,9 +1196,9 @@
         border-radius: 8px;
         font-size: 12px;
         font-weight: 600;
-        background: linear-gradient(145deg, rgba(20, 25, 35, 0.6), rgba(15, 19, 26, 0.4));
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
-        border-left: 3px solid rgba(255, 255, 255, 0.2);
+        background: linear-gradient(145deg, var(--components-bg-1), var(--home-section-bg-32));
+        box-shadow: 0 2px 8px var(--glass-shadow), 0 1px 0 var(--ui-alpha-white) inset;
+        border-left: 3px solid var(--apps-section-shadow-1);
         transition: all 0.2s ease;
         position: relative;
         backdrop-filter: blur(5px);
@@ -1222,7 +1213,7 @@
         left: 0;
         width: 0;
         height: 1px;
-        background: rgba(255, 255, 255, 0.5);
+        background: var(--apps-section-text-6);
         transition: width 0.2s ease;
     }
 
@@ -1236,28 +1227,28 @@
     }
 
     .hourly-cap-text {
-        color: rgba(255, 255, 255, 0.9);
+        color: var(--apps-section-text-3);
         font-weight: 500;
         letter-spacing: 0.3px;
     }
 
     /* API Cap Status Colors */
     .hourly-cap-status.good {
-        background: linear-gradient(145deg, rgba(20, 25, 35, 0.5), rgba(15, 19, 26, 0.3));
-        border-left: 3px solid rgba(46, 204, 113, 0.9);
-        box-shadow: 0 3px 10px rgba(46, 204, 113, 0.15);
+        background: linear-gradient(145deg, var(--home-section-bg-34), var(--history-section-bg-31));
+        border-left: 3px solid var(--home-section-border-27);
+        box-shadow: 0 3px 10px var(--home-section-shadow-21);
     }
 
     .hourly-cap-status.warning {
-        background: linear-gradient(145deg, rgba(20, 25, 35, 0.5), rgba(15, 19, 26, 0.3));
-        border-left: 3px solid rgba(243, 156, 18, 0.9);
-        box-shadow: 0 3px 10px rgba(243, 156, 18, 0.15);
+        background: linear-gradient(145deg, var(--home-section-bg-34), var(--history-section-bg-31));
+        border-left: 3px solid var(--home-section-border-28);
+        box-shadow: 0 3px 10px var(--backup-restore-bg-4);
     }
 
     .hourly-cap-status.danger {
-        background: linear-gradient(145deg, rgba(20, 25, 35, 0.5), rgba(15, 19, 26, 0.3));
-        border-left: 3px solid rgba(231, 76, 60, 0.9);
-        box-shadow: 0 3px 10px rgba(231, 76, 60, 0.15);
+        background: linear-gradient(145deg, var(--home-section-bg-34), var(--history-section-bg-31));
+        border-left: 3px solid var(--home-section-border-29);
+        box-shadow: 0 3px 10px var(--home-section-bg-26);
     }
 
     .hourly-cap-status.good .hourly-cap-icon:before {
@@ -1265,7 +1256,7 @@
         /* fa-chart-line */
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
-        color: #2ecc71;
+        color: var(--app-lidarr-color);
     }
 
     .hourly-cap-status.warning .hourly-cap-icon:before {
@@ -1273,7 +1264,7 @@
         /* fa-hourglass-half */
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
-        color: #f39c12;
+        color: var(--app-radarr-color);
     }
 
     .hourly-cap-status.danger .hourly-cap-icon:before {
@@ -1281,7 +1272,7 @@
         /* fa-minus-circle */
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
-        color: #e74c3c;
+        color: var(--app-readarr-color);
     }
 
     /* Header for cards */
@@ -1315,31 +1306,31 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.08), transparent 60%);
+        background: radial-gradient(circle at 50% 10%, var(--ui-alpha-white), transparent 60%);
         pointer-events: none;
         z-index: 0;
     }
 
     /* App-specific gradients */
     .app-stats-card.sonarr::after {
-        background: radial-gradient(circle at 50% 10%, rgba(0, 174, 240, 0.08), transparent 70%);
+        background: radial-gradient(circle at 50% 10%, var(--home-section-bg-36), transparent 70%);
     }
 
     .app-stats-card.radarr::after {
-        background: radial-gradient(circle at 50% 10%, rgba(253, 203, 43, 0.08), transparent 70%);
+        background: radial-gradient(circle at 50% 10%, var(--home-section-bg-37), transparent 70%);
     }
 
     .app-stats-card.lidarr::after {
-        background: radial-gradient(circle at 50% 10%, rgba(49, 197, 56, 0.08), transparent 70%);
+        background: radial-gradient(circle at 50% 10%, var(--home-section-bg-38), transparent 70%);
     }
 
     .app-stats-card.readarr::after {
-        background: radial-gradient(circle at 50% 10%, rgba(192, 45, 40, 0.08), transparent 70%);
+        background: radial-gradient(circle at 50% 10%, var(--home-section-bg-39), transparent 70%);
     }
 
     .app-stats-card.whisparr::after,
     .app-stats-card.eros::after {
-        background: radial-gradient(circle at 50% 10%, rgba(195, 0, 230, 0.08), transparent 70%);
+        background: radial-gradient(circle at 50% 10%, var(--home-section-bg-40), transparent 70%);
     }
 
     /* Ensure button in header doesn't inherit odd margins and adjust padding */
@@ -1356,28 +1347,28 @@
         padding: 6px 12px;
         font-size: 0.85em;
         flex-grow: 0;
-        background: linear-gradient(145deg, rgba(244, 67, 54, 0.12), rgba(229, 57, 53, 0.07));
-        border: 1px solid rgba(244, 67, 54, 0.25);
+        background: linear-gradient(145deg, var(--home-section-bg-41), var(--home-section-bg-42));
+        border: 1px solid var(--home-section-border-30);
         border-radius: 6px;
         transition: all 0.2s ease;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px var(--ui-shadow-soft);
     }
 
     .action-button.danger {
-        background-color: rgba(244, 67, 54, 0.1);
-        color: #f44336;
+        background-color: var(--home-section-bg-41);
+        color: var(--cycle-countdown-text-5);
     }
 
     .action-button.danger:hover {
-        background: linear-gradient(145deg, rgba(244, 67, 54, 0.9), rgba(229, 57, 53, 0.8));
+        background: linear-gradient(145deg, var(--home-section-bg-44), var(--home-section-bg-45));
         color: white;
-        border-color: #f44336;
+        border-color: var(--cycle-countdown-text-5);
         transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(244, 67, 54, 0.2);
+        box-shadow: 0 4px 8px var(--home-section-border-30);
     }
 
     .action-button.danger:active {
-        background: linear-gradient(145deg, rgba(229, 57, 53, 0.9), rgba(244, 67, 54, 0.8));
+        background: linear-gradient(145deg, var(--home-section-bg-46), var(--home-section-bg-47));
         transform: translateY(0);
     }
 
@@ -1395,7 +1386,7 @@
 
     /* Version display styling */
     .version-icon {
-        color: #6366f1;
+        color: var(--app-sonarr-color);
     }
 
     #version-number {
@@ -1419,166 +1410,13 @@
     }
 
     .developer-credit a {
-        color: #6366f1;
+        color: var(--app-sonarr-color);
         font-weight: 600;
         text-decoration: none;
     }
 
     .developer-credit a:hover {
         text-decoration: underline;
-    }
-
-    /* Community & Resources Hub styling */
-    .community-hub-card {
-        width: 100%;
-        background-color: rgba(24, 28, 37, 0.6);
-        border: 1px solid rgba(90, 109, 137, 0.2);
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .community-hub-card .card-header,
-    .support-links-card .card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 0 8px;
-        margin-bottom: 12px;
-        background-color: transparent;
-        border-bottom: 1px solid rgba(90, 109, 137, 0.2);
-    }
-
-    .community-hub-card .card-header h3,
-    .support-links-card .card-header h3 {
-        margin: 0;
-        color: #e0e6ed;
-        font-size: 0.75em;
-        font-weight: 600;
-        line-height: 1.2;
-    }
-
-    /* Enhanced Community Hub Card with Glass Effect */
-    .community-hub-card {
-        margin-bottom: 20px;
-        background: rgba(15, 20, 30, 0.5);
-        border: 1px solid rgba(79, 93, 115, 0.2);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
-    }
-
-    .community-resources-container {
-        padding: 15px;
-    }
-
-    .community-links-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-        gap: 12px;
-    }
-
-    .community-link {
-        display: flex;
-        align-items: center;
-        background: linear-gradient(145deg, rgba(25, 30, 40, 0.4), rgba(20, 25, 35, 0.7));
-        border-radius: 10px;
-        padding: 15px;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        color: #ffffff;
-        position: relative;
-        overflow: hidden;
-        backdrop-filter: blur(5px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        border: 1px solid rgba(70, 90, 120, 0.15);
-        z-index: 1;
-    }
-
-    .community-link::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-        z-index: -1;
-        opacity: 0.3;
-        transition: opacity 0.3s ease;
-    }
-
-    .community-link:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .community-link:hover::before {
-        opacity: 0.5;
-    }
-
-    .community-link .icon-container {
-        width: 42px;
-        height: 42px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        margin-right: 15px;
-        flex-shrink: 0;
-        font-size: 20px;
-        color: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        position: relative;
-    }
-
-    .community-link .link-details {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .community-link .link-title {
-        font-weight: 600;
-        font-size: 15px;
-        color: #ffffff;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Icon styles for each link type with glass effect */
-    .icon-container.discord-icon {
-        background: linear-gradient(135deg, #5865F2, #404EED);
-        box-shadow: 0 0 10px rgba(88, 101, 242, 0.5);
-    }
-
-    .icon-container.reddit-icon {
-        background: linear-gradient(135deg, #FF4500, #FF6A33);
-        box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
-    }
-
-    .icon-container.issues-icon {
-        background: linear-gradient(135deg, #2D3436, #636E72);
-        box-shadow: 0 0 10px rgba(45, 52, 54, 0.5);
-    }
-
-    .icon-container.wiki-icon {
-        background: linear-gradient(135deg, #00B894, #00A087);
-        box-shadow: 0 0 10px rgba(0, 184, 148, 0.5);
-    }
-
-    .icon-container.changelog-icon {
-        background: linear-gradient(135deg, #0984E3, #0570C2);
-        box-shadow: 0 0 10px rgba(9, 132, 227, 0.5);
-    }
-
-    /* Media queries for responsiveness */
-    @media (max-width: 768px) {
-        .community-links-grid {
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        }
-    }
-
-    @media (max-width: 500px) {
-        .community-links-grid {
-            grid-template-columns: 1fr;
-        }
     }
 
     /* Mobile scrolling fix */
@@ -1597,170 +1435,14 @@
             padding-bottom: 150px;
         }
 
-
-    }
-
-    /* Modern Support Links styling with glass effect */
-    .support-links-card {
-        overflow: hidden;
-        background: rgba(15, 20, 30, 0.5);
-        border: 1px solid rgba(79, 93, 115, 0.2);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    }
-
-    .support-links-container {
-        padding: 4px;
-    }
-
-    .support-links-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 15px;
-    }
-
-    .support-link {
-        display: flex;
-        align-items: center;
-        padding: 20px;
-        background: linear-gradient(145deg, rgba(25, 30, 40, 0.4), rgba(20, 25, 35, 0.8));
-        border-radius: 12px;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        color: #ffffff;
-        position: relative;
-        overflow: hidden;
-        backdrop-filter: blur(5px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(70, 90, 120, 0.15);
-        z-index: 1;
-    }
-
-    .support-link::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-        z-index: -1;
-        opacity: 0.4;
-        transition: opacity 0.3s ease;
-    }
-
-    .support-link:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    .support-link:hover::before {
-        opacity: 0.6;
-    }
-
-    .support-link .icon-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
-        margin-right: 20px;
-        flex-shrink: 0;
-        border-radius: 50%;
-        position: relative;
-    }
-
-    /* GitHub icon styling */
-    .support-link .icon-container.github-icon {
-        background: linear-gradient(135deg, #24292e, #1a202c);
-        color: #ffffff;
-        box-shadow: 0 0 15px rgba(255, 193, 7, 0.6);
-        /* Animation removed, static glow instead */
-    }
-
-    .support-link .icon-container.github-icon .star-inner-icon {
-        position: absolute;
-        font-size: 0.9em;
-        margin-left: 10px;
-        margin-top: -10px;
-        color: #ffc107;
-        filter: drop-shadow(0 0 5px rgba(255, 193, 7, 0.8));
-    }
-
-    /* Forum icon styling */
-    .support-link .icon-container.forum-icon {
-        background: linear-gradient(135deg, #0473BB, #1E3A8A);
-        color: #ffffff;
-        box-shadow: 0 0 15px rgba(4, 115, 187, 0.6);
-        /* No animation, static glow */
-    }
-
-    /* Donation icon styling */
-    .support-link .icon-container.donate-icon {
-        background: linear-gradient(135deg, #d63031, #e84393);
-        color: #ffffff;
-        box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
-    }
-
-    .support-link .link-details {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .support-link .link-title {
-        font-weight: 700;
-        font-size: 1.1rem;
-        margin-bottom: 5px;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .support-link .link-description {
-        font-size: 0.85rem;
-        color: rgba(255, 255, 255, 0.8);
-        white-space: normal;
-        word-wrap: break-word;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Mobile optimizations for support links */
-    @media (max-width: 768px) {
-        .support-links-grid {
-            gap: 8px;
-        }
-
-        .support-link {
-            padding: 15px;
-        }
-
-        .support-link .icon-container {
-            width: 42px;
-            height: 42px;
-            font-size: 1.3rem;
-            margin-right: 12px;
-        }
-
-        .support-link .link-title {
-            font-size: 0.95rem;
-        }
-
-        .support-link .link-description {
-            font-size: 0.75rem;
-        }
-    }
-
-    /* Even smaller screens */
-    @media (max-width: 480px) {
-        .support-links-grid {
-            grid-template-columns: 1fr;
-        }
     }
 
     /* Reset button container */
     .reset-button-container {
         margin-top: auto;
         padding: 12px 0;
-        background: linear-gradient(to bottom, rgba(20, 26, 38, 0.5), rgba(16, 20, 30, 0.8));
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        background: linear-gradient(to bottom, var(--home-section-bg-34), var(--apps-section-bg-11));
+        border-top: 1px solid var(--ui-alpha-white);
         border-radius: 0 0 16px 16px;
         display: flex;
         justify-content: center;
@@ -1776,9 +1458,9 @@
     /* Enhanced cycle reset button */
     .cycle-reset-button {
         padding: 6px 14px;
-        background: linear-gradient(145deg, rgba(99, 102, 241, 0.2), rgba(41, 128, 185, 0.1));
-        color: #6366f1;
-        border: 1px solid rgba(99, 102, 241, 0.3);
+        background: linear-gradient(145deg, var(--ui-accent-bg-soft), var(--home-section-bg-29));
+        color: var(--app-sonarr-color);
+        border: 1px solid var(--ui-accent-ring);
         border-radius: 6px;
         font-size: 0.8rem;
         font-weight: 500;
@@ -1787,24 +1469,24 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px var(--ui-shadow-soft);
         backdrop-filter: blur(5px);
     }
 
     .cycle-reset-button:hover {
-        background: linear-gradient(145deg, rgba(99, 102, 241, 0.3), rgba(41, 128, 185, 0.2));
+        background: linear-gradient(145deg, var(--ui-accent-ring), var(--home-section-bg-71));
         transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 8px var(--glass-shadow);
     }
 
     .cycle-reset-button:active {
-        background: linear-gradient(145deg, rgba(41, 128, 185, 0.3), rgba(99, 102, 241, 0.2));
+        background: linear-gradient(145deg, var(--home-section-border-25), var(--ui-accent-bg-soft));
         transform: translateY(0);
     }
 
     .cycle-reset-button i {
         font-size: 0.75rem;
-        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+        filter: drop-shadow(0 1px 1px var(--ui-shadow-strong));
     }
 
     .cycle-reset-button.resetting {
@@ -1821,21 +1503,21 @@
     .api-progress-bar {
         width: 100%;
         height: 6px;
-        background: rgba(0, 0, 0, 0.3);
+        background: var(--ui-shadow-strong);
         border-radius: 3px;
         overflow: hidden;
         position: relative;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+        box-shadow: inset 0 1px 3px var(--ui-shadow);
     }
 
     .api-progress-fill {
         height: 100%;
-        background: #22c55e;
+        background: var(--api-progress-color-1);
         /* Default green, will be overridden by JavaScript */
         border-radius: 3px;
         transition: width 0.3s ease, background-color 0.3s ease;
         position: relative;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 2px var(--ui-shadow-soft);
     }
 
     .api-progress-fill::after {
@@ -1845,13 +1527,13 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.2) 100%);
+        background: linear-gradient(90deg, var(--apps-section-shadow-1) 0%, var(--ui-alpha-white) 50%, var(--apps-section-shadow-1) 100%);
         border-radius: 3px;
     }
 
     .api-progress-text {
         font-size: 0.75rem;
-        color: #9ca3af;
+        color: var(--ui-neutral-400);
         margin-top: 4px;
         text-align: center;
         font-weight: 500;
@@ -1951,212 +1633,6 @@
             // Show the dashboard after initialization
             document.querySelector('.dashboard-grid').style.opacity = '1';
         }, 25);
-        const sponsorContainer = document.getElementById('rotating-sponsor-content');
-        let sponsors = [];
-        let weightedSponsorPool = [];
-        let currentSponsorIndex = 0;
-        let intervalId = null;
-
-        // Function to shuffle an array (Fisher-Yates algorithm)
-        function shuffleArray(array) {
-            let currentIndex = array.length, randomIndex;
-
-            // While there remain elements to shuffle
-            while (currentIndex > 0) {
-                // Pick a remaining element
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex--;
-
-                // And swap it with the current element
-                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-            }
-
-            return array;
-        }
-
-        // Apply transition styles for smooth sponsor changes
-        const avatarContainer = document.getElementById('sponsor-avatar-container');
-        const descContainer = document.getElementById('rotating-sponsor-content');
-
-        // Add transition effects but keep them faster
-        avatarContainer.style.transition = 'opacity 0.15s ease';
-        descContainer.style.transition = 'opacity 0.15s ease';
-
-        // Set to visible with opacity 0 for smoother loading
-        avatarContainer.style.visibility = 'visible';
-        descContainer.style.visibility = 'visible';
-        avatarContainer.style.opacity = '0';
-        descContainer.style.opacity = '0';
-
-        // Make the container visible immediately
-        document.getElementById('sponsor-widget-container').style.visibility = 'visible';
-
-        // Function to create weighted sponsor pool based on category
-        function createWeightedPool(sponsors) {
-            const pool = [];
-
-            sponsors.forEach(sponsor => {
-                let weight;
-                switch (sponsor.category) {
-                    case 'featured': weight = 1.5; break; // 50% more selections
-                    case 'past': weight = 0.5; break;     // 50% fewer selections  
-                    default: weight = 1.0; break;         // Normal selections for active/others
-                }
-
-                // Add sponsor to pool multiple times based on weight
-                const entries = Math.round(weight * 10); // Multiply by 10 for better granularity
-                for (let i = 0; i < entries; i++) {
-                    pool.push(sponsor);
-                }
-            });
-
-            return shuffleArray(pool);
-        }
-
-        // Function to get a weighted random sponsor (avoiding immediate repeats)
-        function getNextSponsor() {
-            if (weightedSponsorPool.length === 0) return null;
-
-            // If only one unique sponsor, just return it
-            if (sponsors.length === 1) return sponsors[0];
-
-            let attempts = 0;
-            let selectedSponsor;
-
-            // Try to avoid showing the same sponsor twice in a row
-            do {
-                const randomIndex = Math.floor(Math.random() * weightedSponsorPool.length);
-                selectedSponsor = weightedSponsorPool[randomIndex];
-                attempts++;
-            } while (attempts < 10 && selectedSponsor && selectedSponsor.login ===
-            (sponsors[currentSponsorIndex] && sponsors[currentSponsorIndex].login));
-
-            // Update current sponsor index for next comparison
-            if (selectedSponsor) {
-                currentSponsorIndex = sponsors.findIndex(s => s.login === selectedSponsor.login);
-            }
-
-            return selectedSponsor;
-        }
-
-        // Display the sponsor information in the UI
-        function displaySponsor(sponsor) {
-            if (!sponsor) return;
-
-            // Get the containers
-            const avatarContainer = document.getElementById('sponsor-avatar-container');
-            const descContainer = sponsorContainer;
-
-            // Faster transition - only apply fade-out if we're changing sponsors after initial load
-            if (!avatarContainer.classList.contains('sponsor-icon')) {
-                // First load - just add content without animations
-                updateSponsorContent(sponsor, avatarContainer, descContainer);
-                return;
-            }
-
-            // Apply quick fade-out for transitions
-            avatarContainer.style.opacity = '0';
-            descContainer.style.opacity = '0';
-
-            // Very short wait for fade-out, then update content
-            setTimeout(() => {
-                updateSponsorContent(sponsor, avatarContainer, descContainer);
-            }, 75); // Much faster transition
-        }
-
-        // Helper function to update sponsor content
-        function updateSponsorContent(sponsor, avatarContainer, descContainer) {
-            // Create elements without href to prevent prefetching, add click handlers instead
-            const avatarDiv = document.createElement('div');
-            avatarDiv.style.cssText = 'width: 100%; height: 100%; cursor: pointer; border-radius: 50%;';
-            avatarDiv.title = `Visit ${sponsor.name}'s GitHub profile`;
-            avatarDiv.onclick = function (e) {
-                e.preventDefault();
-                window.open(sponsor.url || '#', '_blank', 'noopener,noreferrer');
-            };
-
-            const avatarImg = document.createElement('img');
-            avatarImg.src = sponsor.avatarUrl;
-            avatarImg.alt = `${sponsor.name}'s avatar`;
-            avatarImg.style.cssText = 'width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;';
-
-            avatarDiv.appendChild(avatarImg);
-            avatarContainer.innerHTML = '';
-            avatarContainer.appendChild(avatarDiv);
-
-            // Create name element without href to prevent prefetching
-            const nameDiv = document.createElement('div');
-            nameDiv.textContent = sponsor.name;
-            nameDiv.style.cssText = 'cursor: pointer; color: inherit;';
-            nameDiv.title = `Visit ${sponsor.name}'s GitHub profile`;
-            nameDiv.onclick = function (e) {
-                e.preventDefault();
-                window.open(sponsor.url || '#', '_blank', 'noopener,noreferrer');
-            };
-
-            descContainer.innerHTML = '';
-            descContainer.appendChild(nameDiv);
-
-            // Add sponsor-icon class
-            avatarContainer.classList.add('sponsor-icon');
-
-            // Make elements visible and fade in
-            avatarContainer.style.visibility = 'visible';
-            descContainer.style.visibility = 'visible';
-            avatarContainer.style.opacity = '1';
-            descContainer.style.opacity = '1';
-        }
-
-        // Function to rotate to the next weighted random sponsor
-        function rotateSponsor() {
-            const sponsor = getNextSponsor();
-            if (sponsor) {
-                displaySponsor(sponsor);
-            }
-        }
-
-
-
-        // Fetch sponsors from the API
-        async function fetchSponsors() {
-            try {
-                // Fetch in the background without waiting for visual updates
-                const response = await HuntarrUtils.fetchWithTimeout('./api/github_sponsors');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                sponsors = await response.json();
-
-                if (sponsors && sponsors.length > 0) {
-                    // Create weighted pool where featured sponsors appear more often
-                    weightedSponsorPool = createWeightedPool(sponsors);
-
-                    // Show first weighted random sponsor almost immediately
-                    setTimeout(() => {
-                        const firstSponsor = getNextSponsor();
-                        if (firstSponsor) {
-                            displaySponsor(firstSponsor);
-
-                            // Set up regular rotation every 1 minute (stays same across page changes)
-                            if (intervalId) clearInterval(intervalId);
-                            intervalId = setInterval(rotateSponsor, 60000);
-                        }
-                    }, 100); // Very short delay to avoid visual glitches
-                } else {
-                    // If no sponsors, show a fallback message
-                    sponsorContainer.textContent = 'Support us on GitHub!';
-                }
-            } catch (error) {
-                console.error('Error fetching sponsors:', error);
-                sponsorContainer.textContent = 'Support us on GitHub!';
-            }
-        }
-
-        // Initialize sponsors on page load
-        fetchSponsors();
-
-        // Home sponsor banner is driven by app-sponsor-rotation.js (same rotation as app pages)
     });
 </script>
 
@@ -2191,10 +1667,8 @@
             </div>
             <p>Huntarr is a free, community-driven project. The goal has always been to make your media experience
                 enjoyable and hassle-free.</p>
-            <p>A heartfelt thank you to everyone who has supported <strong>my daughter's education</strong> through
-                sponsorships &mdash; it truly means the world to our family. Knowing that so many people I've never even
-                met genuinely care is the greatest motivation I could ever ask for. A special shoutout to the
-                <strong>r/Unraid</strong> community &mdash; where it all started! I build this for you.
+            <p>A heartfelt thank you to everyone who has supported <strong>the original owner of the project</strong>. A special shoutout to the
+                <strong>r/Unraid</strong> community &mdash; where it all started!
             </p>
             <p class="huntarr-welcome-signoff">Happy hunting!</p>
         </div>
@@ -2229,7 +1703,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.75);
+        background: var(--history-section-shadow-5);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
         z-index: 10000;
@@ -2238,14 +1712,14 @@
     .huntarr-welcome-content {
         position: relative;
         z-index: 10001;
-        background: rgba(15, 23, 42, 0.98);
-        border: 2px solid rgba(99, 102, 241, 0.35);
+        background: var(--ui-surface-opaque);
+        border: 2px solid var(--ui-accent-glow);
         border-radius: 16px;
         max-width: 780px;
         width: 94%;
         max-height: 85vh;
         overflow-y: auto;
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 60px rgba(99, 102, 241, 0.1);
+        box-shadow: 0 30px 60px var(--activity-section-bg-2), 0 0 60px var(--ui-accent-bg-subtle);
         animation: welcomeFadeIn 0.3s ease-out;
     }
 
@@ -2265,8 +1739,8 @@
         position: relative;
         padding: 28px 28px 18px;
         text-align: center;
-        background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #0f172a 100%);
-        border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+        background: linear-gradient(135deg, var(--ui-slate-800) 0%, var(--ui-slate-700) 50%, var(--home-section-bg-77) 100%);
+        border-bottom: 1px solid var(--ui-border-faint);
     }
 
     .huntarr-welcome-close {
@@ -2275,7 +1749,7 @@
         right: 14px;
         background: transparent;
         border: none;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         font-size: 1.2rem;
         cursor: pointer;
         padding: 4px;
@@ -2283,7 +1757,7 @@
     }
 
     .huntarr-welcome-close:hover {
-        color: #f8fafc;
+        color: var(--text-primary);
     }
 
     .huntarr-welcome-logo {
@@ -2293,29 +1767,29 @@
         width: 56px;
         height: 56px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #6366f1, #4f46e5);
+        background: linear-gradient(135deg, var(--app-sonarr-color), var(--ui-indigo-600));
         margin-bottom: 12px;
         font-size: 1.5rem;
-        color: #fff;
-        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        color: var(--button-primary-text);
+        box-shadow: 0 4px 20px var(--ui-accent-ring);
     }
 
     .huntarr-welcome-title {
         margin: 0 0 4px;
         font-size: 1.5rem;
         font-weight: 700;
-        color: #f8fafc;
+        color: var(--text-primary);
     }
 
     .huntarr-welcome-subtitle {
         margin: 0;
         font-size: 0.95rem;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
     }
 
     .huntarr-welcome-body {
         padding: 22px 28px;
-        color: #cbd5e1;
+        color: var(--ui-primary-border);
         font-size: 0.92rem;
         line-height: 1.65;
     }
@@ -2329,12 +1803,12 @@
     }
 
     .huntarr-welcome-body strong {
-        color: #f1f5f9;
+        color: var(--ui-text-strong);
     }
 
     .huntarr-welcome-body code {
-        background: rgba(99, 102, 241, 0.12);
-        color: #a5b4fc;
+        background: var(--ui-accent-tint);
+        color: var(--home-section-text-9);
         padding: 2px 6px;
         border-radius: 4px;
         font-size: 0.85em;
@@ -2345,17 +1819,17 @@
         display: flex;
         gap: 12px;
         padding: 14px 16px;
-        background: rgba(234, 179, 8, 0.06);
-        border: 1px solid rgba(234, 179, 8, 0.18);
+        background: var(--home-section-bg-80);
+        border: 1px solid var(--home-section-border-34);
         border-radius: 10px;
         margin: 14px 0;
-        color: #cbd5e1;
+        color: var(--ui-primary-border);
         font-size: 0.88rem;
         line-height: 1.55;
     }
 
     .huntarr-welcome-tip>i {
-        color: #eab308;
+        color: var(--home-section-text-10);
         font-size: 1.1rem;
         margin-top: 2px;
         flex-shrink: 0;
@@ -2363,27 +1837,27 @@
 
     .huntarr-welcome-signoff {
         margin-top: 8px !important;
-        color: #94a3b8;
+        color: var(--ui-text-muted);
         font-size: 0.9rem;
     }
 
     .huntarr-welcome-signoff strong {
-        color: #a5b4fc;
+        color: var(--home-section-text-9);
     }
 
     .huntarr-welcome-footer {
         display: flex;
         justify-content: flex-end;
         padding: 20px 28px 24px;
-        border-top: 1px solid rgba(148, 163, 184, 0.08);
+        border-top: 1px solid var(--ui-border-faint);
     }
 
     .huntarr-welcome-dismiss {
         padding: 10px 24px;
-        background: linear-gradient(135deg, #6366f1, #4f46e5);
+        background: linear-gradient(135deg, var(--app-sonarr-color), var(--ui-indigo-600));
         border: none;
         border-radius: 8px;
-        color: #fff;
+        color: var(--button-primary-text);
         font-size: 0.9rem;
         font-weight: 600;
         cursor: pointer;

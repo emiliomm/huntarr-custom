@@ -11,19 +11,19 @@
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    background: rgba(99, 102, 241, 0.08);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    background: var(--ui-accent-bg);
+    border: 1px solid var(--ui-accent-bg-soft);
     border-radius: 10px;
     padding: 12px 18px;
     margin: 0 20px 16px;
     max-width: 1200px;
     font-size: 0.82rem;
     line-height: 1.5;
-    color: var(--text-secondary, #94a3b8);
+    color: var(--text-secondary, var(--ui-text-muted));
 }
 
 .tor-hunt-beta-notice i.fa-flask {
-    color: #8ab4f8;
+    color: var(--accent-hover);
     margin-top: 2px;
     flex-shrink: 0;
 }
@@ -33,7 +33,7 @@
 }
 
 .tor-hunt-beta-notice a {
-    color: #8ab4f8;
+    color: var(--accent-hover);
     text-decoration: none;
     font-weight: 500;
 }
@@ -47,8 +47,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--glass-bg, rgba(30, 41, 59, 0.5));
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.05));
+    background: var(--glass-bg, var(--ui-surface-slate));
+    border: 1px solid var(--glass-border, var(--ui-alpha-white));
     border-radius: 12px;
     padding: 12px 20px;
     margin-bottom: 16px;
@@ -66,24 +66,24 @@
     align-items: center;
     gap: 6px;
     font-size: 0.85rem;
-    color: var(--text-secondary, #94a3b8);
+    color: var(--text-secondary, var(--ui-text-muted));
     position: relative;
     cursor: default;
 }
 
 .tor-status-item i:first-child {
-    color: var(--accent-color, #4285F4);
+    color: var(--accent-color, var(--accent-color));
     font-size: 0.8rem;
 }
 
 .tor-status-value {
-    color: var(--text-primary, #e2e8f0);
+    color: var(--text-primary, var(--text-secondary));
     font-weight: 600;
     font-variant-numeric: tabular-nums;
 }
 
 .tor-status-label {
-    color: var(--text-muted, #64748b);
+    color: var(--text-muted, var(--ui-text-dim));
     font-size: 0.75rem;
 }
 
@@ -94,9 +94,9 @@
 
 /* Buttons */
 .tor-btn {
-    background: var(--glass-bg, rgba(30, 41, 59, 0.5));
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
-    color: var(--text-secondary, #94a3b8);
+    background: var(--glass-bg, var(--ui-surface-slate));
+    border: 1px solid var(--glass-border, var(--ui-alpha-white));
+    color: var(--text-secondary, var(--ui-text-muted));
     padding: 6px 12px;
     border-radius: 8px;
     cursor: pointer;
@@ -107,26 +107,26 @@
 }
 
 .tor-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--text-primary, #e2e8f0);
+    background: var(--ui-alpha-white);
+    color: var(--text-primary, var(--text-secondary));
 }
 
 .tor-btn-primary {
-    background: var(--accent-color, #4285F4);
-    color: #fff;
+    background: var(--accent-color, var(--accent-color));
+    color: var(--button-primary-text);
     border-color: transparent;
 }
 
 .tor-btn-primary:hover {
-    background: var(--accent-hover, #8ab4f8);
+    background: var(--accent-hover, var(--accent-hover));
 }
 
 .tor-btn-danger {
-    color: #f28b82;
+    color: var(--button-danger-hover);
 }
 
 .tor-btn-danger:hover {
-    background: rgba(248, 113, 113, 0.1);
+    background: var(--tor-hunt-bg-2);
 }
 
 /* Tabs */
@@ -134,14 +134,14 @@
     display: flex;
     gap: 4px;
     margin-bottom: 16px;
-    border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.05));
+    border-bottom: 1px solid var(--glass-border, var(--ui-alpha-white));
     padding-bottom: 0;
 }
 
 .tor-tab {
     background: none;
     border: none;
-    color: var(--text-secondary, #94a3b8);
+    color: var(--text-secondary, var(--ui-text-muted));
     padding: 8px 16px;
     cursor: pointer;
     font-size: 0.85rem;
@@ -150,12 +150,12 @@
 }
 
 .tor-tab:hover {
-    color: var(--text-primary, #e2e8f0);
+    color: var(--text-primary, var(--text-secondary));
 }
 
 .tor-tab.active {
-    color: var(--accent-color, #4285F4);
-    border-bottom-color: var(--accent-color, #4285F4);
+    color: var(--accent-color, var(--accent-color));
+    border-bottom-color: var(--accent-color, var(--accent-color));
 }
 
 /* Panels */
@@ -173,7 +173,7 @@
 .tor-empty-state {
     text-align: center;
     padding: 60px 20px;
-    color: var(--text-muted, #64748b);
+    color: var(--text-muted, var(--ui-text-dim));
 }
 
 .tor-empty-state i {
@@ -188,8 +188,8 @@
 
 /* Queue items */
 .tor-queue-item {
-    background: var(--glass-bg, rgba(30, 41, 59, 0.5));
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.05));
+    background: var(--glass-bg, var(--ui-surface-slate));
+    border: 1px solid var(--glass-border, var(--ui-alpha-white));
     border-radius: 10px;
     padding: 14px 16px;
     margin-bottom: 8px;
@@ -204,7 +204,7 @@
 }
 
 .tor-queue-item-name {
-    color: var(--text-primary, #e2e8f0);
+    color: var(--text-primary, var(--text-secondary));
     font-size: 0.85rem;
     font-weight: 500;
     white-space: nowrap;
@@ -217,7 +217,7 @@
     gap: 12px;
     margin-top: 4px;
     font-size: 0.75rem;
-    color: var(--text-muted, #64748b);
+    color: var(--text-muted, var(--ui-text-dim));
 }
 
 .tor-queue-item-progress {
@@ -227,25 +227,25 @@
 
 .tor-progress-bar {
     height: 6px;
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--ui-alpha-white);
     border-radius: 3px;
     overflow: hidden;
 }
 
 .tor-progress-fill {
     height: 100%;
-    background: var(--accent-color, #4285F4);
+    background: var(--accent-color, var(--accent-color));
     border-radius: 3px;
     transition: width 0.3s ease;
 }
 
 .tor-progress-fill.seeding {
-    background: #10b981;
+    background: var(--ui-success);
 }
 
 .tor-progress-text {
     font-size: 0.7rem;
-    color: var(--text-muted, #64748b);
+    color: var(--text-muted, var(--ui-text-dim));
     text-align: center;
     margin-top: 2px;
 }
@@ -270,39 +270,39 @@
 }
 
 .tor-state-downloading {
-    background: rgba(99, 102, 241, 0.15);
-    color: #8ab4f8;
+    background: var(--ui-accent-bg-strong);
+    color: var(--accent-hover);
 }
 
 .tor-state-seeding {
-    background: rgba(16, 185, 129, 0.15);
-    color: #34d399;
+    background: var(--client-editor-color-1);
+    color: var(--home-text-11);
 }
 
 .tor-state-paused {
-    background: rgba(251, 191, 36, 0.15);
-    color: #fcd230;
+    background: var(--client-editor-color-6);
+    color: var(--ui-warning);
 }
 
 .tor-state-queued {
-    background: rgba(148, 163, 184, 0.15);
-    color: #94a3b8;
+    background: var(--ui-border-soft);
+    color: var(--ui-text-muted);
 }
 
 .tor-state-error {
-    background: rgba(248, 113, 113, 0.15);
-    color: #f28b82;
+    background: var(--tor-hunt-bg-2);
+    color: var(--button-danger-hover);
 }
 
 .tor-state-checking {
-    background: rgba(56, 189, 248, 0.15);
-    color: #38bdf8;
+    background: var(--indexer-hunt-bg-14);
+    color: var(--indexer-hunt-text-2);
 }
 
 /* History items */
 .tor-history-item {
-    background: var(--glass-bg, rgba(30, 41, 59, 0.5));
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.05));
+    background: var(--glass-bg, var(--ui-surface-slate));
+    border: 1px solid var(--glass-border, var(--ui-alpha-white));
     border-radius: 10px;
     padding: 12px 16px;
     margin-bottom: 6px;
@@ -317,7 +317,7 @@
 }
 
 .tor-history-item-name {
-    color: var(--text-primary, #e2e8f0);
+    color: var(--text-primary, var(--text-secondary));
     font-size: 0.85rem;
     white-space: nowrap;
     overflow: hidden;
@@ -329,7 +329,7 @@
     gap: 12px;
     margin-top: 3px;
     font-size: 0.72rem;
-    color: var(--text-muted, #64748b);
+    color: var(--text-muted, var(--ui-text-dim));
 }
 
 .tor-history-item-actions .tor-btn {
@@ -349,8 +349,8 @@
 
 .tor-speed-limit-badge {
     font-size: 0.65rem;
-    background: rgba(251, 191, 36, 0.15);
-    color: #fcd230;
+    background: var(--client-editor-color-6);
+    color: var(--ui-warning);
     padding: 1px 6px;
     border-radius: 4px;
     margin-left: 4px;
@@ -361,18 +361,18 @@
     top: 100%;
     left: 0;
     margin-top: 8px;
-    background: var(--bg-secondary, #303134);
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
+    background: var(--bg-secondary, var(--bg-tertiary));
+    border: 1px solid var(--glass-border, var(--ui-alpha-white));
     border-radius: 10px;
     padding: 12px;
     z-index: 100;
     min-width: 200px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 24px var(--ui-shadow-strong);
 }
 
 .tor-speed-popover-title {
     font-size: 0.75rem;
-    color: var(--text-muted, #64748b);
+    color: var(--text-muted, var(--ui-text-dim));
     margin-bottom: 8px;
 }
 
@@ -384,9 +384,9 @@
 }
 
 .tor-speed-opt {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    color: var(--text-secondary, #94a3b8);
+    background: var(--ui-alpha-white);
+    border: 1px solid var(--ui-alpha-white);
+    color: var(--text-secondary, var(--ui-text-muted));
     padding: 4px 10px;
     border-radius: 6px;
     cursor: pointer;
@@ -394,8 +394,8 @@
 }
 
 .tor-speed-opt:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--text-primary, #e2e8f0);
+    background: var(--ui-alpha-white);
+    color: var(--text-primary, var(--text-secondary));
 }
 
 .tor-speed-popover-custom {
@@ -405,9 +405,9 @@
 
 .tor-speed-popover-custom input {
     flex: 1;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--text-primary, #e2e8f0);
+    background: var(--ui-alpha-white);
+    border: 1px solid var(--ui-alpha-white);
+    color: var(--text-primary, var(--text-secondary));
     padding: 4px 8px;
     border-radius: 6px;
     font-size: 0.8rem;
@@ -417,7 +417,7 @@
 .tor-modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: var(--activity-section-bg-2);
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -426,12 +426,12 @@
 }
 
 .tor-modal {
-    background: var(--bg-secondary, #303134);
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
+    background: var(--bg-secondary, var(--bg-tertiary));
+    border: 1px solid var(--glass-border, var(--ui-alpha-white));
     border-radius: 14px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 16px 48px var(--import-media-shadow-1);
 }
 
 .tor-modal-header {
@@ -439,19 +439,19 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--ui-alpha-white);
 }
 
 .tor-modal-header h3 {
     margin: 0;
     font-size: 1rem;
-    color: var(--text-primary, #e2e8f0);
+    color: var(--text-primary, var(--text-secondary));
 }
 
 .tor-modal-close {
     background: none;
     border: none;
-    color: var(--text-muted, #64748b);
+    color: var(--text-muted, var(--ui-text-dim));
     font-size: 1.3rem;
     cursor: pointer;
 }
@@ -467,16 +467,16 @@
 .tor-form-group label {
     display: block;
     font-size: 0.8rem;
-    color: var(--text-secondary, #94a3b8);
+    color: var(--text-secondary, var(--ui-text-muted));
     margin-bottom: 6px;
 }
 
 .tor-form-group textarea,
 .tor-form-group input[type="text"] {
     width: 100%;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--text-primary, #e2e8f0);
+    background: var(--ui-alpha-white);
+    border: 1px solid var(--ui-alpha-white);
+    color: var(--text-primary, var(--text-secondary));
     padding: 8px 12px;
     border-radius: 8px;
     font-size: 0.85rem;
@@ -490,7 +490,7 @@
     justify-content: flex-end;
     gap: 8px;
     padding: 12px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--ui-alpha-white);
 }
 
 /* Responsive */
@@ -512,8 +512,8 @@
 /* ═══════ Settings View ═══════ */
 
 .tor-settings-group {
-    background: var(--glass-bg, rgba(30, 41, 59, 0.5));
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.05));
+    background: var(--glass-bg, var(--ui-surface-slate));
+    border: 1px solid var(--glass-border, var(--ui-alpha-white));
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 16px;
@@ -522,7 +522,7 @@
 .tor-settings-group h3 {
     margin: 0 0 16px 0;
     font-size: 0.95rem;
-    color: var(--text-primary, #e2e8f0);
+    color: var(--text-primary, var(--text-secondary));
     font-weight: 600;
 }
 
@@ -537,7 +537,7 @@
 .tor-settings-row>label {
     display: block;
     font-size: 0.8rem;
-    color: var(--text-secondary, #94a3b8);
+    color: var(--text-secondary, var(--ui-text-muted));
     margin-bottom: 5px;
     font-weight: 500;
 }
@@ -547,9 +547,9 @@
 .tor-settings-row select {
     width: 100%;
     max-width: 400px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--text-primary, #e2e8f0);
+    background: var(--ui-alpha-white);
+    border: 1px solid var(--ui-alpha-white);
+    color: var(--text-primary, var(--text-secondary));
     padding: 8px 12px;
     border-radius: 8px;
     font-size: 0.85rem;
@@ -560,8 +560,8 @@
 .tor-settings-row input:focus,
 .tor-settings-row select:focus {
     outline: none;
-    border-color: var(--accent-color, #4285F4);
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+    border-color: var(--accent-color, var(--accent-color));
+    box-shadow: 0 0 0 2px var(--ui-accent-bg-strong);
 }
 
 .tor-settings-row select {
@@ -572,7 +572,7 @@
 .tor-settings-help {
     display: block;
     font-size: 0.72rem;
-    color: var(--text-muted, #64748b);
+    color: var(--text-muted, var(--ui-text-dim));
     margin-top: 4px;
 }
 
@@ -614,7 +614,7 @@
     position: absolute;
     cursor: pointer;
     inset: 0;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--ui-alpha-white);
     border-radius: 22px;
     transition: background 0.2s;
 }
@@ -626,18 +626,18 @@
     width: 16px;
     left: 3px;
     bottom: 3px;
-    background: #94a3b8;
+    background: var(--ui-text-muted);
     border-radius: 50%;
     transition: transform 0.2s, background 0.2s;
 }
 
 .tor-toggle input:checked+.tor-toggle-slider {
-    background: var(--accent-color, #4285F4);
+    background: var(--accent-color, var(--accent-color));
 }
 
 .tor-toggle input:checked+.tor-toggle-slider::before {
     transform: translateX(18px);
-    background: #fff;
+    background: var(--button-primary-text);
 }
 
 /* Save actions */

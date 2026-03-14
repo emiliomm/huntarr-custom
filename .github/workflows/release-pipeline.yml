@@ -1,0 +1,74 @@
+name: Release Pipeline Orchestrator
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, closed]
+    branches: [main, dev]
+
+jobs:
+  # STEP 0: VALIDATION
+  # This job ensures the title is a valid semantic version with suffixes (e.g., v1.2.3)
+  validate_version:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Name of the Actor
+        run: echo "The actor is ${{ github.actor }}"
+        
+      - name: Check PR Title Format
+        run: |
+          TITLE="${{ github.event.pull_request.title }}"
+          # Regex: Starts with v, then X.Y.Z, then optionally -suffix
+          # Valid: v1.0.0, v2.5.12, v1.0.0-alpha, v0.1.0-rc.1
+          # Invalid: 1.0.0, v1.0, v1.0.0-beta!
+          if [[ ! $TITLE =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]; then
+            echo "ERROR: Title '$TITLE' is invalid. Must start with 'v' (e.g., v1.0.0 or v1.0.0-beta)."
+            exit 1
+          fi
+
+  # STEP 1: PRE-RELEASE (Runs when PR is open/updated)
+  pre_release:
+    needs: validate_version # Only runs if the title is valid
+    if: github.event.action != 'closed'
+    uses: ./.github/workflows/update-manifest.yml
+    with:
+      version: ${{ github.event.pull_request.title }}
+    secrets: inherit
+
+  # STEP 2: PUBLISH RELEASE
+  publish_release:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      release_version: ${{ github.event.pull_request.title }}
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Detect Prerelease Status
+        id: check_type
+        run: |
+          TITLE="${{ github.event.pull_request.title }}"
+          if [[ $TITLE == *"-"* ]]; then
+            echo "IS_PRERELEASE=true" >> $GITHUB_OUTPUT
+          else
+            echo "IS_PRERELEASE=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.pull_request.title }}
+          name: ${{ github.event.pull_request.title }}
+          prerelease: ${{ steps.check_type.outputs.IS_PRERELEASE }}
+          generate_release_notes: true
+
+  # STEP 3: POST-RELEASE (Runs after successful release)
+  post_release_action:
+    needs: publish_release
+    uses: ./.github/workflows/windows-build-nsis.yml
+    with:
+      version: ${{ needs.publish_release.outputs.release_version }}
+    secrets: inherit

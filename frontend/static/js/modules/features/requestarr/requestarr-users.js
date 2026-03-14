@@ -659,7 +659,7 @@ window.RequestarrUsers = {
             const html = `<div class="requsers-modal-overlay" id="requsers-plex-modal-overlay" onclick="if(event.target===this)RequestarrUsers.closeModal()">
                 <div class="requsers-modal" style="max-width:500px;">
                     <div class="requsers-modal-header">
-                        <h3 class="requsers-modal-title"><i class="fas fa-download" style="color:#e5a00d;margin-right:6px;"></i> Import Plex Users</h3>
+                        <h3 class="requsers-modal-title"><i class="fas fa-download" style="color:var(--import-lists-bg-12);margin-right:6px;"></i> Import Plex Users</h3>
                         <button class="requsers-modal-close" onclick="RequestarrUsers.closeModal()"><i class="fas fa-times"></i></button>
                     </div>
                     <div class="requsers-modal-body">
@@ -764,12 +764,12 @@ window.RequestarrUsers = {
     _startPlexLinkFromUsers() {
         const overlay = document.createElement('div');
         overlay.id = 'requsers-plex-link-overlay';
-        overlay.style.cssText = 'position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;';
+        overlay.style.cssText = 'position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:var(--import-media-bg-7);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;';
         overlay.innerHTML = `
-            <div style="background:linear-gradient(180deg,rgba(22,26,34,0.98),rgba(18,22,30,0.95));border-radius:15px;padding:30px;width:400px;max-width:90%;box-shadow:0 8px 30px rgba(0,0,0,0.5);border:1px solid rgba(90,109,137,0.15);color:#f8f9fa;text-align:center;">
-                <div style="font-size:40px;color:#e69500;margin-bottom:10px;"><i class="fas fa-tv"></i></div>
+            <div style="background:linear-gradient(180deg,var(--history-section-bg-16),var(--history-section-bg-17));border-radius:15px;padding:30px;width:400px;max-width:90%;box-shadow:0 8px 30px var(--ui-overlay-backdrop);border:1px solid var(--footer-border-1);color:var(--history-section-color-4);text-align:center;">
+                <div style="font-size:40px;color:var(--requestarr-users-color-7);margin-bottom:10px;"><i class="fas fa-tv"></i></div>
                 <h2 style="margin:0 0 15px;">Link Plex Account</h2>
-                <div id="requsers-plex-link-status" class="plex-status waiting" style="margin:15px 0;padding:10px;border-radius:8px;background:rgba(255,193,7,0.2);border:1px solid rgba(255,193,7,0.3);color:#ffc107;">
+                <div id="requsers-plex-link-status" class="plex-status waiting" style="margin:15px 0;padding:10px;border-radius:8px;background:var(--history-section-bg-44);border:1px solid var(--apps-section-bg-15);color:var(--apps-section-text-10);">
                     <i class="fas fa-spinner fa-spin"></i> Preparing Plex authentication...
                 </div>
                 <button id="requsers-plex-link-cancel" class="action-button secondary-button" style="margin-top:10px;">Cancel</button>
@@ -881,7 +881,7 @@ window.RequestarrUsers = {
         const html = `<div class="requsers-modal-overlay" id="requsers-modal-overlay" onclick="if(event.target===this)RequestarrUsers.closeModal()">
             <div class="requsers-modal" style="max-width:480px;">
                 <div class="requsers-modal-header">
-                    <h3 class="requsers-modal-title"><i class="fas fa-cog" style="color:#2dd4bf;margin-right:6px;"></i> Default Categories</h3>
+                    <h3 class="requsers-modal-title"><i class="fas fa-cog" style="color:var(--backup-restore-text-3);margin-right:6px;"></i> Default Categories</h3>
                     <button class="requsers-modal-close" onclick="RequestarrUsers.closeModal()"><i class="fas fa-times"></i></button>
                 </div>
                 <div class="requsers-modal-body">

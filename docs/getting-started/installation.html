@@ -75,8 +75,7 @@
                     <div class="nav-group-title">Help</div>
                     <div class="nav-group-items">
                         <a href="../help/faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
-                        <a href="../help/community.html"><i class="fas fa-users"></i> Community</a>
-
+                        
                     </div>
                 </div>
             </div>
@@ -113,6 +112,94 @@
                     <li>Network access to your *arr instances (Sonarr, Radarr, etc.)</li>
                     <li>A modern web browser for the Huntarr UI</li>
                 </ul>
+
+                <!-- ══════════════════════════════════════════════ -->
+                <h2 id="docker-installation"><i class="fab fa-docker" style="color:#2496ed;margin-right:8px;"></i>Docker
+                    Installation (Recommended)</h2>
+                <p>Docker is the recommended and most-supported way to run Huntarr. It provides consistent behavior
+                    across every platform and makes updates a single command.</p>
+
+                <h3>Docker Compose</h3>
+                <p>Create a <code>docker-compose.yml</code> file. Only <code>/config</code> is required; add
+                    <code>/media</code> and <code>/downloads</code> only if you use Movie Hunt / TV Hunt or NZB Hunt:
+                </p>
+                <pre><code>services:
+  huntarr:
+    image: huntarr/huntarr:latest
+    container_name: huntarr
+    ports:
+      - "9705:9705"
+    volumes:
+      - /path/to/huntarr/config:/config          # Required: settings, database, logs
+      - /path/to/media:/media                    # Optional: Movie Hunt / TV Hunt library
+      - /path/to/downloads:/downloads            # Optional: NZB Hunt download output
+    environment:
+      - TZ=America/New_York                      # Set your timezone
+      - PUID=1000                                # Optional: run as specific user
+      - PGID=1000                                # Optional: run as specific group
+    restart: unless-stopped</code></pre>
+                <p>Start or update the container:</p>
+                <pre><code>docker-compose up -d</code></pre>
+
+                <h3>Docker Run</h3>
+                <p>Single-command option without Compose:</p>
+                <pre><code>docker run -d \
+  --name huntarr \
+  -p 9705:9705 \
+  -v /path/to/huntarr/config:/config \
+  -v /path/to/media:/media \
+  -v /path/to/downloads:/downloads \
+  -e TZ=America/New_York \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  --restart unless-stopped \
+  huntarr/huntarr:latest</code></pre>
+
+                <p><strong>Minimal install</strong> (third-party *arr only, no Media Hunt or NZB Hunt):</p>
+                <pre><code>docker run -d \
+  --name huntarr \
+  -p 9705:9705 \
+  -v /path/to/huntarr/config:/config \
+  -e TZ=America/New_York \
+  --restart unless-stopped \
+  huntarr/huntarr:latest</code></pre>
+
+                <h3>Volume Mappings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Container Path</th>
+                            <th>Purpose</th>
+                            <th>Required</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>/config</code></td>
+                            <td>All Huntarr data — settings, SQLite database, logs, NZB queue state, and backups</td>
+                            <td><strong>Yes</strong></td>
+                        </tr>
+                        <tr>
+                            <td><code>/media</code></td>
+                            <td>Your media library root. Movie Hunt and TV Hunt use this for root folder configuration
+                                and disk scanning</td>
+                            <td>Only if using Movie Hunt / TV Hunt</td>
+                        </tr>
+                        <tr>
+                            <td><code>/downloads</code></td>
+                            <td>NZB Hunt download location. Incomplete files land in <code>/downloads/incomplete</code>,
+                                completed in <code>/downloads/complete</code></td>
+                            <td>Only if using NZB Hunt</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert alert-info">
+                    <strong>Version pinning:</strong> Use <code>huntarr/huntarr:latest</code> for the newest features
+                    (updates frequently), or pin to a specific release like <code>huntarr/huntarr:9.4.1</code> for
+                    stability. See all releases on <a href="https://github.com/emiliomm/huntarr-custom/releases"
+                        target="_blank">GitHub</a>.
+                </div>
 
                 <!-- ══════════════════════════════════════════════ -->
                 <h2 id="windows-installation"><i class="fab fa-windows"

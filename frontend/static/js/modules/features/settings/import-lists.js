@@ -243,7 +243,7 @@
                 })
                 .catch(function(e) {
                     console.error('[ImportLists] Failed to load:', e);
-                    var errHtml = '<p style="color: #ef4444; margin: 0 0 12px 0;">Failed to load import lists.</p>';
+                    var errHtml = '<p style="color: var(--ui-danger); margin: 0 0 12px 0;">Failed to load import lists.</p>';
                     errHtml += '<div class="add-instance-card add-import-list-card" id="import-lists-add-card" data-app-type="import-list">' +
                         '<div class="add-icon"><i class="fas fa-plus-circle"></i></div>' +
                         '<div class="add-text">Add Import List</div></div>';
@@ -728,7 +728,7 @@
                         (isAuthed ? '<i class="fas fa-check"></i> Authenticated' : '<i class="fas fa-sign-in-alt"></i> Start OAuth') +
                     '</button>' +
                     '<span class="trakt-auth-status" id="' + containerId + '-trakt-status">' +
-                        (isAuthed ? '<i class="fas fa-check-circle" style="color:#22c55e"></i> Authorized' : '') +
+                        (isAuthed ? '<i class="fas fa-check-circle" style="color:var(--api-progress-color-1)"></i> Authorized' : '') +
                     '</span>' +
                 '</div>' +
                 '<input type="hidden" class="dynamic-field" data-field="access_token" value="' + _esc(s.access_token || '') + '">' +
@@ -759,7 +759,7 @@
                         (plexAuthed ? '<i class="fas fa-check"></i> Authenticated' : '<i class="fas fa-sign-in-alt"></i> Sign in with Plex') +
                     '</button>' +
                     '<span class="plex-auth-status" id="' + containerId + '-plex-status">' +
-                        (plexAuthed ? '<i class="fas fa-check-circle" style="color:#22c55e"></i> Signed in' : '') +
+                        (plexAuthed ? '<i class="fas fa-check-circle" style="color:var(--api-progress-color-1)"></i> Signed in' : '') +
                     '</span>' +
                 '</div>' +
                 '<input type="hidden" class="dynamic-field" data-field="access_token" value="' + _esc(s.access_token || '') + '">' +
@@ -898,7 +898,7 @@
                 if (pollCount > maxPolls) {
                     clearInterval(_traktPollTimer);
                     _traktPollTimer = null;
-                    if (statusEl) statusEl.innerHTML = '<i class="fas fa-times-circle" style="color:#ef4444"></i> Code expired — try again';
+                    if (statusEl) statusEl.innerHTML = '<i class="fas fa-times-circle" style="color:var(--ui-danger)"></i> Code expired — try again';
                     if (authBtn) { authBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Start OAuth'; authBtn.onclick = function() { _startTraktOAuth(containerId); }; }
                     return;
                 }
@@ -921,7 +921,7 @@
                         if (rtEl) rtEl.value = tokenData.refresh_token;
                         if (exEl) exEl.value = tokenData.expires_at;
 
-                        if (statusEl) statusEl.innerHTML = '<i class="fas fa-check-circle" style="color:#22c55e"></i> Authorized';
+                        if (statusEl) statusEl.innerHTML = '<i class="fas fa-check-circle" style="color:var(--api-progress-color-1)"></i> Authorized';
                         if (authBtn) { authBtn.innerHTML = '<i class="fas fa-check"></i> Authenticated'; authBtn.disabled = true; authBtn.classList.add('trakt-auth-success'); authBtn.onclick = null; }
                         _notify('Trakt authorized!', 'success');
                     } else if (tokenData.pending) {
@@ -929,7 +929,7 @@
                     } else {
                         clearInterval(_traktPollTimer);
                         _traktPollTimer = null;
-                        if (statusEl) statusEl.innerHTML = '<i class="fas fa-times-circle" style="color:#ef4444"></i> ' + _esc(tokenData.error || 'Auth failed');
+                        if (statusEl) statusEl.innerHTML = '<i class="fas fa-times-circle" style="color:var(--ui-danger)"></i> ' + _esc(tokenData.error || 'Auth failed');
                         if (authBtn) { authBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Start OAuth'; authBtn.disabled = false; authBtn.onclick = function() { _startTraktOAuth(containerId); }; }
                         _notify('Trakt auth failed: ' + (tokenData.error || ''), 'error');
                     }
@@ -997,7 +997,7 @@
                 if (pollCount > maxPolls) {
                     clearInterval(_plexPollTimer);
                     _plexPollTimer = null;
-                    if (statusEl) statusEl.innerHTML = '<i class="fas fa-times-circle" style="color:#ef4444"></i> Timed out — try again';
+                    if (statusEl) statusEl.innerHTML = '<i class="fas fa-times-circle" style="color:var(--ui-danger)"></i> Timed out — try again';
                     if (authBtn) { authBtn.style.display = ''; authBtn.disabled = false; authBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign in with Plex'; }
                     return;
                 }
@@ -1013,7 +1013,7 @@
                         var atEl = document.querySelector('#' + containerId + ' [data-field="access_token"]');
                         if (atEl) atEl.value = checkData.token;
 
-                        if (statusEl) statusEl.innerHTML = '<i class="fas fa-check-circle" style="color:#22c55e"></i> Signed in';
+                        if (statusEl) statusEl.innerHTML = '<i class="fas fa-check-circle" style="color:var(--api-progress-color-1)"></i> Signed in';
                         if (authBtn) {
                             authBtn.style.display = '';
                             authBtn.innerHTML = '<i class="fas fa-check"></i> Authenticated';

@@ -102,11 +102,11 @@ class RequestarrSearch {
                     resultsGrid.appendChild(this.core.content.createMediaCard(item, suggestedInstance));
                 });
             } else {
-                resultsGrid.innerHTML = '<p style="color: #888; text-align: center; padding: 60px; width: 100%;">No results found</p>';
+                resultsGrid.innerHTML = '<p style="color: var(--ui-brand); text-align: center; padding: 60px; width: 100%;">No results found</p>';
             }
         } catch (error) {
             console.error('[RequestarrDiscover] Error searching:', error);
-            resultsGrid.innerHTML = '<p style="color: #ef4444; text-align: center; padding: 60px; width: 100%;">Search failed</p>';
+            resultsGrid.innerHTML = '<p style="color: var(--ui-danger); text-align: center; padding: 60px; width: 100%;">Search failed</p>';
         }
     }
 

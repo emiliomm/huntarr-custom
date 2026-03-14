@@ -1,7 +1,7 @@
 <section id="userSection" class="content-section">
     <div class="app-content-panel" style="padding: 20px;">
         {% from 'components/page_header_partial.html' import page_header %}
-        {{ page_header(back_href='./#settings', parent_icon='fas fa-user-cog', parent_name='Settings', current_name='Account', sponsor_section_id='user') }}
+        {{ page_header(back_href='./#settings', parent_icon='fas fa-user-cog', parent_name='Settings', current_name='Account') }}
         <div class="uset-container">
 
         <!-- Card grid — top row: 3 columns, bottom row: 2 columns -->
@@ -176,7 +176,7 @@
                                 <div id="recoveryKeyValue" class="recovery-key-value"></div>
                                 <button id="copyRecoveryKey" class="copy-button">Copy</button>
                             </div>
-                            <p class="help-text" style="color: #ff9966; font-weight: 600;">
+                            <p class="help-text" style="color: var(--user-section-color-1); font-weight: 600;">
                                 <i class="fas fa-exclamation-triangle"></i> Save this key securely! It will only be shown once.
                             </p>
                         </div>
@@ -234,15 +234,15 @@
 </section>
 
 <!-- Plex Link Modal -->
-<div class="modal" id="plexLinkModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);">
-    <div class="modal-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(180deg, rgba(22, 26, 34, 0.98), rgba(18, 22, 30, 0.95)); border-radius: 15px; padding: 30px; width: 400px; max-width: 90%; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); border: 1px solid rgba(90, 109, 137, 0.15); color: #f8f9fa;">
+<div class="modal" id="plexLinkModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: var(--import-media-bg-7); backdrop-filter: blur(5px);">
+    <div class="modal-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(180deg, var(--history-section-bg-16), var(--history-section-bg-17)); border-radius: 15px; padding: 30px; width: 400px; max-width: 90%; box-shadow: 0 8px 30px var(--ui-overlay-backdrop); border: 1px solid var(--footer-border-1); color: var(--history-section-color-4);">
         <div class="modal-header" style="text-align: center; margin-bottom: 20px;">
-            <div style="font-size: 40px; color: #e69500; margin-bottom: 10px;">
+            <div style="font-size: 40px; color: var(--requestarr-users-color-7); margin-bottom: 10px;">
                 <i class="fas fa-tv"></i>
             </div>
             <h2>Link Plex Account</h2>
         </div>
-        <div class="plex-status waiting" id="plexLinkStatus" style="margin: 15px 0; padding: 10px; border-radius: 8px; text-align: center; background: rgba(255, 193, 7, 0.2); border: 1px solid rgba(255, 193, 7, 0.3); color: #ffc107; display: block;">
+        <div class="plex-status waiting" id="plexLinkStatus" style="margin: 15px 0; padding: 10px; border-radius: 8px; text-align: center; background: var(--history-section-bg-44); border: 1px solid var(--apps-section-bg-15); color: var(--apps-section-text-10); display: block;">
             <i class="fas fa-hourglass-half"></i> Initializing Plex authentication...
         </div>
         <div class="modal-actions" style="text-align: center; margin-top: 20px;">

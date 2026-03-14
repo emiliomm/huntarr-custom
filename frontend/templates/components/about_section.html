@@ -17,7 +17,7 @@
 
         .about-link {
             padding: 12px 32px;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, var(--app-sonarr-color) 0%, var(--about-section-bg-1) 100%);
             border-radius: 8px;
             text-decoration: none;
             color: white;
@@ -30,7 +30,7 @@
 
         .about-link:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 8px 16px var(--ui-accent-border);
         }
 
         .about-link i {
@@ -41,24 +41,24 @@
         .about-hero {
             text-align: center;
             padding: 24px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            background: linear-gradient(135deg, var(--ui-accent-bg-subtle) 0%, var(--about-section-bg-2) 100%);
             border-radius: 12px;
             margin-bottom: 32px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
+            border: 1px solid var(--ui-accent-bg-soft);
         }
 
         .about-hero img {
             width: 80px;
             height: 80px;
             margin-bottom: 16px;
-            filter: drop-shadow(0 4px 8px rgba(99, 102, 241, 0.3));
+            filter: drop-shadow(0 4px 8px var(--ui-accent-ring));
         }
 
         .about-hero h1 {
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 8px;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, var(--app-sonarr-color) 0%, var(--about-section-bg-1) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -66,7 +66,7 @@
 
         .about-hero p {
             font-size: 16px;
-            color: #94a3b8;
+            color: var(--ui-text-muted);
             max-width: 600px;
             margin: 0 auto;
             line-height: 1.5;
@@ -79,23 +79,23 @@
         }
 
         .about-card {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(100, 116, 139, 0.3);
+            background: var(--ui-surface-slate);
+            border: 1px solid var(--about-section-border-1);
             border-radius: 12px;
             padding: 32px;
             transition: all 0.3s ease;
         }
 
         .about-card:hover {
-            border-color: rgba(99, 102, 241, 0.5);
+            border-color: var(--ui-accent-strong);
             transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 12px 24px var(--ui-shadow-strong);
         }
 
         .about-card-icon {
             width: 56px;
             height: 56px;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, var(--app-sonarr-color) 0%, var(--about-section-bg-1) 100%);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -109,11 +109,11 @@
             font-size: 22px;
             font-weight: 600;
             margin-bottom: 12px;
-            color: #e2e8f0;
+            color: var(--text-secondary);
         }
 
         .about-card p {
-            color: #94a3b8;
+            color: var(--ui-text-muted);
             line-height: 1.7;
             margin-bottom: 16px;
         }
@@ -125,7 +125,7 @@
         }
 
         .about-card ul li {
-            color: #cbd5e1;
+            color: var(--ui-primary-border);
             padding: 8px 0;
             padding-left: 28px;
             position: relative;
@@ -135,7 +135,7 @@
             content: "✓";
             position: absolute;
             left: 0;
-            color: #6366f1;
+            color: var(--app-sonarr-color);
             font-weight: bold;
         }
 

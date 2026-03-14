@@ -37,9 +37,9 @@
             if (shortUrl.length > 30) shortUrl = shortUrl.substring(0, 28) + '\u2026';
             urlDisplay = '<div class="instance-detail"><i class="fas fa-link"></i><span>' + shortUrl.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</span></div>';
         }
-        var ihBadge = isIH ? '<span style="font-size:0.65rem;background:rgba(99,102,241,0.15);color:#818cf8;padding:2px 6px;border-radius:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-left:6px;">Synced</span>' : '';
+        var ihBadge = isIH ? '<span style="font-size:0.65rem;background:var(--ui-accent-bg-strong);color:var(--ui-accent-soft);padding:2px 6px;border-radius:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-left:6px;">Synced</span>' : '';
         var rssEnabled = indexer.enable_rss !== false;
-        var rssBadgeColor = rssEnabled ? '#22c55e' : '#6b7280';
+        var rssBadgeColor = rssEnabled ? 'var(--api-progress-color-1)' : 'var(--core-color-1)';
         var rssBadgeText = rssEnabled ? 'RSS' : 'No RSS';
 
         return '<div class="instance-card" data-instance-index="' + index + '"' + indexerIdAttr + ' data-app-type="indexer" data-preset="' + preset + '" data-enabled="' + enabled + '" data-ih="' + (isIH ? '1' : '0') + '">' +
@@ -174,7 +174,7 @@
                 for (var i = 0; i < list.length; i++) {
                     allHtml += window.SettingsForms.renderIndexerCard(list[i], i);
                 }
-                allHtml += '<div class="add-instance-card" data-app-type="indexer" data-source="indexer-hunt"><div class="add-icon"><i class="fas fa-download" style="color: #6366f1;"></i></div><div class="add-text">Import from Index Master</div></div>';
+                allHtml += '<div class="add-instance-card" data-app-type="indexer" data-source="indexer-hunt"><div class="add-icon"><i class="fas fa-download" style="color: var(--app-sonarr-color);"></i></div><div class="add-text">Import from Index Master</div></div>';
 
                 if (unifiedGrid) {
                     unifiedGrid.innerHTML = allHtml;
@@ -190,7 +190,7 @@
                 }
             })
             .catch(function() {
-                if (unifiedGrid) unifiedGrid.innerHTML = '<div class="add-instance-card" data-app-type="indexer" data-source="indexer-hunt"><div class="add-icon"><i class="fas fa-download" style="color: #6366f1;"></i></div><div class="add-text">Import from Index Master</div></div>';
+                if (unifiedGrid) unifiedGrid.innerHTML = '<div class="add-instance-card" data-app-type="indexer" data-source="indexer-hunt"><div class="add-icon"><i class="fas fa-download" style="color: var(--app-sonarr-color);"></i></div><div class="add-text">Import from Index Master</div></div>';
             });
     };
 

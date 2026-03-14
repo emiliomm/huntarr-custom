@@ -490,7 +490,7 @@
             enabledSelect.addEventListener('change', function () {
                 var isEnabled = enabledSelect.value === 'true';
                 enableIcon.className = isEnabled ? 'fas fa-check-circle' : 'fas fa-minus-circle';
-                enableIcon.style.color = isEnabled ? '#10b981' : '#ef4444';
+                enableIcon.style.color = isEnabled ? 'var(--ui-success)' : 'var(--ui-danger)';
             });
         }
 
@@ -501,7 +501,7 @@
             enableRssSelect.addEventListener('change', function () {
                 var isRssEnabled = enableRssSelect.value === 'true';
                 rssIcon.className = isRssEnabled ? 'fas fa-rss' : 'fas fa-minus-circle';
-                rssIcon.style.color = isRssEnabled ? '#f59e0b' : '#ef4444';
+                rssIcon.style.color = isRssEnabled ? 'var(--ui-warning-500)' : 'var(--ui-danger)';
             });
         }
     };
@@ -548,7 +548,7 @@
             // Add mode, no preset yet: show dropdown
             presetHtml = '<div class="editor-field-group">' +
                 '<label for="editor-preset-select">Indexer Type</label>' +
-                '<select id="editor-preset-select" class="settings-select" style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #e2e8f0;">' +
+                '<select id="editor-preset-select" class="settings-select" style="width: 100%; padding: 10px 12px; background: var(--ui-slate-800); border: 1px solid var(--ui-primary-surface); border-radius: 6px; color: var(--text-secondary);">' +
                 '<option value="">Select an indexer...</option>' +
                 '<option value="__import_ih__">Import from Index Master</option>' +
                 '<option disabled>\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500</option>' +
@@ -568,11 +568,11 @@
                 '<p class="editor-help-text">Choose a preset, import from Index Master, or configure manually.</p>' +
                 '</div>' +
                 '<div class="editor-field-group" id="editor-ih-import-panel" style="display: none;">' +
-                '<label>Available from Index Master</label>' +
-                '<select id="editor-ih-select" class="settings-select" style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #e2e8f0;">' +
-                '<option value="">Select an indexer from Index Master...</option>' +
-                '</select>' +
-                '<p class="editor-help-text">Select an indexer configured in Index Master to import it to this instance.</p>' +
+                    '<label>Available from Index Master</label>' +
+                    '<select id="editor-ih-select" class="settings-select" style="width: 100%; padding: 10px 12px; background: var(--ui-slate-800); border: 1px solid var(--ui-primary-surface); border-radius: 6px; color: var(--text-secondary);">' +
+                        '<option value="">Select an indexer from Index Master...</option>' +
+                    '</select>' +
+                    '<p class="editor-help-text">Select an indexer configured in Index Master to import it to this instance.</p>' +
                 '</div>';
         } else {
             // Edit mode or Add with preset already selected: locked display
@@ -599,77 +599,78 @@
         return '<input type="hidden" id="editor-preset" value="' + (preset || '') + '">' +
             '<input type="hidden" id="editor-indexer-hunt-id" value="' + indexerHuntId + '">' +
             '<div class="editor-grid">' +
-            '<div class="editor-section">' +
-            '<div class="editor-section-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">' +
-            '<span>Connection Settings</span>' +
-            '<div id="indexer-connection-status-container" style="display: flex; justify-content: flex-end; flex: 1;"></div>' +
-            '</div>' +
-            presetHtml +
-            '<div class="editor-field-group" id="editor-enable-group"' + hideStyle + '>' +
-            '<div class="editor-setting-item">' +
-            '<label style="display: flex; align-items: center;">' +
-            '<span>Enable Status</span>' +
-            '<i id="indexer-enable-status-icon" class="fas ' + (enabled ? 'fa-check-circle' : 'fa-minus-circle') + '" style="color: ' + (enabled ? '#10b981' : '#ef4444') + '; font-size: 1.1rem; margin-left: 8px;"></i>' +
-            '</label>' +
-            '<select id="editor-enabled">' +
-            '<option value="true"' + (enabled ? ' selected' : '') + '>Enabled</option>' +
-            '<option value="false"' + (!enabled ? ' selected' : '') + '>Disabled</option>' +
-            '</select>' +
-            '</div>' +
-            '<p class="editor-help-text">Enable or disable this indexer</p>' +
-            '</div>' +
-            '<div class="editor-field-group" id="editor-enable-rss-group"' + hideStyle + '>' +
-            '<div class="editor-setting-item">' +
-            '<label style="display: flex; align-items: center;">' +
-            '<span>Enable RSS</span>' +
-            '<i id="indexer-rss-status-icon" class="fas ' + (enableRss ? 'fa-rss' : 'fa-minus-circle') + '" style="color: ' + (enableRss ? '#f59e0b' : '#ef4444') + '; font-size: 1.1rem; margin-left: 8px;"></i>' +
-            '</label>' +
-            '<select id="editor-enable-rss">' +
-            '<option value="true"' + (enableRss ? ' selected' : '') + '>Enabled</option>' +
-            '<option value="false"' + (!enableRss ? ' selected' : '') + '>Disabled</option>' +
-            '</select>' +
-            '</div>' +
-            '</div>' +
-            '<div class="editor-field-group"' + hideStyle + '>' +
-            '<label for="editor-name">Name</label>' +
-            '<input type="text" id="editor-name" value="' + name + '" placeholder="e.g. My Indexer">' +
-            '<p class="editor-help-text">A friendly name to identify this indexer.</p>' +
-            '</div>' +
-            '<div class="editor-field-group" id="editor-key-group"' + hideStyle + '>' +
-            '<label for="editor-key">API Key</label>' +
-            (isSynced
-                ? '<input type="text" id="editor-key" value="' + keyMasked.replace(/"/g, '&quot;') + '" readonly class="editor-readonly">' +
-                '<p class="editor-help-text">API key is managed by Index Master and cannot be changed here.</p>'
-                : '<input type="text" id="editor-key" placeholder="' + keyPlaceholder.replace(/"/g, '&quot;') + '">' +
-                '<p class="editor-help-text">Only the last 4 characters will be shown on the card after saving.</p>') +
-            '</div>' +
-            '<div class="editor-field-group" id="editor-priority-group"' + hideStyle + '>' +
-            '<label for="editor-priority">Indexer Priority</label>' +
-            '<input type="number" id="editor-priority" value="' + priority + '" min="1" max="99" style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #e2e8f0;">' +
-            '<p class="editor-help-text">Lower number = higher priority (1-99, default 50). When multiple indexers find a match, results from higher-priority indexers are preferred.</p>' +
-            '</div>' +
-            '<div class="editor-field-group" id="editor-url-group"' + hideStyle + '>' +
-            '<label for="editor-url">URL</label>' +
-            '<input type="text" id="editor-url" value="' + url + '" placeholder="https://my-indexer.com"' + (urlReadonly ? ' readonly class="editor-readonly"' : '') + '>' +
-            '<p class="editor-help-text" id="editor-url-help">' + (urlReadonly ? 'Pre-configured for this indexer preset.' : 'The base URL of your indexer.') + '</p>' +
-            '</div>' +
-            '<div class="editor-field-group" id="editor-api-path-group"' + hideStyle + '>' +
-            '<label for="editor-api-path">API Path</label>' +
-            '<input type="text" id="editor-api-path" value="' + apiPath + '" placeholder="/api"' + (urlReadonly ? ' readonly class="editor-readonly"' : '') + '>' +
-            '<p class="editor-help-text" id="editor-api-path-help">Path to the API, usually /api</p>' +
-            '</div>' +
-            '</div>' +
-            '<div class="editor-section" id="editor-categories-section"' + hideStyle + '>' +
-            '<div class="editor-section-title">Additional Configurations</div>' +
-            '<div class="editor-field-group">' +
-            '<label for="editor-categories-select">Categories</label>' +
-            '<select id="editor-categories-select" class="settings-select" style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #e2e8f0;">' +
-            '<option value="">Select additional categories to add...</option>' +
-            '</select>' +
-            '<p class="editor-help-text">Categories to use for this indexer.</p>' +
-            '<div id="indexer-categories-pills" class="indexer-categories-pills" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; min-height: 24px;">' + categoryChipsHtml + '</div>' +
-            '</div>' +
-            '</div>' +
+                '<div class="editor-section">' +
+                    '<div class="editor-section-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">' +
+                        '<span>Connection Settings</span>' +
+                        '<div id="indexer-connection-status-container" style="display: flex; justify-content: flex-end; flex: 1;"></div>' +
+                    '</div>' +
+                    presetHtml +
+                    '<div class="editor-field-group" id="editor-enable-group"' + hideStyle + '>' +
+                        '<div class="editor-setting-item">' +
+                            '<label style="display: flex; align-items: center;">' +
+                                '<span>Enable Status</span>' +
+                                '<i id="indexer-enable-status-icon" class="fas ' + (enabled ? 'fa-check-circle' : 'fa-minus-circle') + '" style="color: ' + (enabled ? 'var(--ui-success)' : 'var(--ui-danger)') + '; font-size: 1.1rem; margin-left: 8px;"></i>' +
+                            '</label>' +
+                            '<select id="editor-enabled">' +
+                                '<option value="true"' + (enabled ? ' selected' : '') + '>Enabled</option>' +
+                                '<option value="false"' + (!enabled ? ' selected' : '') + '>Disabled</option>' +
+                            '</select>' +
+                        '</div>' +
+                        '<p class="editor-help-text">Enable or disable this indexer</p>' +
+                    '</div>' +
+                    '<div class="editor-field-group" id="editor-enable-rss-group"' + hideStyle + '>' +
+                        '<div class="editor-setting-item">' +
+                            '<label style="display: flex; align-items: center;">' +
+                                '<span>Enable RSS</span>' +
+                                '<i id="indexer-rss-status-icon" class="fas ' + (enableRss ? 'fa-rss' : 'fa-minus-circle') + '" style="color: ' + (enableRss ? 'var(--ui-warning-500)' : 'var(--ui-danger)') + '; font-size: 1.1rem; margin-left: 8px;"></i>' +
+                            '</label>' +
+                            '<select id="editor-enable-rss">' +
+                                '<option value="true"' + (enableRss ? ' selected' : '') + '>Enabled</option>' +
+                                '<option value="false"' + (!enableRss ? ' selected' : '') + '>Disabled</option>' +
+                            '</select>' +
+                        '</div>' +
+                        '<p class="editor-help-text">Will be used when Media Hunt periodically looks for releases via RSS Sync</p>' +
+                    '</div>' +
+                    '<div class="editor-field-group"' + hideStyle + '>' +
+                        '<label for="editor-name">Name</label>' +
+                        '<input type="text" id="editor-name" value="' + name + '" placeholder="e.g. My Indexer">' +
+                        '<p class="editor-help-text">A friendly name to identify this indexer.</p>' +
+                    '</div>' +
+                    '<div class="editor-field-group" id="editor-key-group"' + hideStyle + '>' +
+                        '<label for="editor-key">API Key</label>' +
+                        (isSynced
+                            ? '<input type="text" id="editor-key" value="' + keyMasked.replace(/"/g, '&quot;') + '" readonly class="editor-readonly">' +
+                              '<p class="editor-help-text">API key is managed by Index Master and cannot be changed here.</p>'
+                            : '<input type="text" id="editor-key" placeholder="' + keyPlaceholder.replace(/"/g, '&quot;') + '">' +
+                              '<p class="editor-help-text">Only the last 4 characters will be shown on the card after saving.</p>') +
+                    '</div>' +
+                    '<div class="editor-field-group" id="editor-priority-group"' + hideStyle + '>' +
+                        '<label for="editor-priority">Indexer Priority</label>' +
+                        '<input type="number" id="editor-priority" value="' + priority + '" min="1" max="99" style="width: 100%; padding: 10px 12px; background: var(--ui-slate-800); border: 1px solid var(--ui-primary-surface); border-radius: 6px; color: var(--text-secondary);">' +
+                        '<p class="editor-help-text">Lower number = higher priority (1-99, default 50). When multiple indexers find a match, results from higher-priority indexers are preferred.</p>' +
+                    '</div>' +
+                    '<div class="editor-field-group" id="editor-url-group"' + hideStyle + '>' +
+                        '<label for="editor-url">URL</label>' +
+                        '<input type="text" id="editor-url" value="' + url + '" placeholder="https://my-indexer.com"' + (urlReadonly ? ' readonly class="editor-readonly"' : '') + '>' +
+                        '<p class="editor-help-text" id="editor-url-help">' + (urlReadonly ? 'Pre-configured for this indexer preset.' : 'The base URL of your indexer.') + '</p>' +
+                    '</div>' +
+                    '<div class="editor-field-group" id="editor-api-path-group"' + hideStyle + '>' +
+                        '<label for="editor-api-path">API Path</label>' +
+                        '<input type="text" id="editor-api-path" value="' + apiPath + '" placeholder="/api"' + (urlReadonly ? ' readonly class="editor-readonly"' : '') + '>' +
+                        '<p class="editor-help-text" id="editor-api-path-help">Path to the API, usually /api</p>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="editor-section" id="editor-categories-section"' + hideStyle + '>' +
+                    '<div class="editor-section-title">Additional Configurations</div>' +
+                    '<div class="editor-field-group">' +
+                        '<label for="editor-categories-select">Categories</label>' +
+                        '<select id="editor-categories-select" class="settings-select" style="width: 100%; padding: 10px 12px; background: var(--ui-slate-800); border: 1px solid var(--ui-primary-surface); border-radius: 6px; color: var(--text-secondary);">' +
+                            '<option value="">Select additional categories to add...</option>' +
+                        '</select>' +
+                        '<p class="editor-help-text">Categories to use for this indexer.</p>' +
+                        '<div id="indexer-categories-pills" class="indexer-categories-pills" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; min-height: 24px;">' + categoryChipsHtml + '</div>' +
+                    '</div>' +
+                '</div>' +
             '</div>';
     };
 
@@ -707,7 +708,7 @@
         // Synced indexers: API key is managed by Index Master, show synced status
         var ihIdEl = document.getElementById('editor-indexer-hunt-id');
         if (ihIdEl && ihIdEl.value.trim()) {
-            container.innerHTML = '<span class="connection-status" style="background: rgba(99,102,241,0.1); color: #818cf8; border: 1px solid rgba(99,102,241,0.2);"><i class="fas fa-check-circle"></i><span>API key synced from Index Master.</span></span>';
+            container.innerHTML = '<span class="connection-status" style="background: var(--ui-accent-bg-subtle); color: var(--ui-accent-soft); border: 1px solid var(--ui-accent-bg-soft);"><i class="fas fa-check-circle"></i><span>API key synced from Index Master.</span></span>';
             return;
         }
 
@@ -718,15 +719,15 @@
         if (preset === 'manual') {
             var customUrl = urlEl ? urlEl.value.trim() : '';
             if (!customUrl) {
-                container.innerHTML = '<span class="connection-status" style="background: rgba(251, 191, 36, 0.1); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.2);"><i class="fas fa-exclamation-triangle"></i><span>Enter URL and API key to validate</span></span>';
+                container.innerHTML = '<span class="connection-status" style="background: var(--client-editor-color-6); color: var(--ui-warning-400); border: 1px solid var(--client-editor-color-8);"><i class="fas fa-exclamation-triangle"></i><span>Enter URL and API key to validate</span></span>';
                 return;
             }
             if (!apiKey || apiKey.length < 10) {
                 if (hasSavedKey) {
-                    container.innerHTML = '<span class="connection-status" style="background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2);"><i class="fas fa-check-circle"></i><span>API key saved. Leave blank to keep existing.</span></span>';
+                    container.innerHTML = '<span class="connection-status" style="background: var(--ui-border-subtle); color: var(--ui-text-muted); border: 1px solid var(--ui-border);"><i class="fas fa-check-circle"></i><span>API key saved. Leave blank to keep existing.</span></span>';
                     return;
                 }
-                container.innerHTML = '<span class="connection-status" style="background: rgba(251, 191, 36, 0.1); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.2);"><i class="fas fa-exclamation-triangle"></i><span>Enter API key</span></span>';
+                container.innerHTML = '<span class="connection-status" style="background: var(--client-editor-color-6); color: var(--ui-warning-400); border: 1px solid var(--client-editor-color-8);"><i class="fas fa-exclamation-triangle"></i><span>Enter API key</span></span>';
                 return;
             }
             container.innerHTML = '<span class="connection-status checking"><i class="fas fa-spinner fa-spin"></i><span>Checking...</span></span>';
@@ -752,10 +753,10 @@
         // Preset indexers
         if (!apiKey || apiKey.length < 10) {
             if (hasSavedKey) {
-                container.innerHTML = '<span class="connection-status" style="background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2);"><i class="fas fa-check-circle"></i><span>API key saved. Leave blank to keep existing.</span></span>';
+                container.innerHTML = '<span class="connection-status" style="background: var(--ui-border-subtle); color: var(--ui-text-muted); border: 1px solid var(--ui-border);"><i class="fas fa-check-circle"></i><span>API key saved. Leave blank to keep existing.</span></span>';
                 return;
             }
-            container.innerHTML = '<span class="connection-status" style="background: rgba(251, 191, 36, 0.1); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.2);"><i class="fas fa-exclamation-triangle"></i><span>Enter API key</span></span>';
+            container.innerHTML = '<span class="connection-status" style="background: var(--client-editor-color-6); color: var(--ui-warning-400); border: 1px solid var(--client-editor-color-8);"><i class="fas fa-exclamation-triangle"></i><span>Enter API key</span></span>';
             return;
         }
         container.innerHTML = '<span class="connection-status checking"><i class="fas fa-spinner fa-spin"></i><span>Checking...</span></span>';

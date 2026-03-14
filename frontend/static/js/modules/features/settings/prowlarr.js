@@ -79,34 +79,34 @@
                         
                         <div class="editor-field-group">
                             <div class="editor-setting-item">
-                                <label style="display: flex; align-items: center; color: #f8fafc; font-weight: 500;">
+                                <label style="display: flex; align-items: center; color: var(--text-primary); font-weight: 500;">
                                     <span>Enable Status </span>
-                                    <i id="enable-status-icon" class="fas ${prowlarrInstance.enabled ? 'fa-check-circle' : 'fa-minus-circle'}" style="color: ${prowlarrInstance.enabled ? '#10b981' : '#ef4444'}; font-size: 1.1rem; margin-left: 6px;"></i>
+                                    <i id="enable-status-icon" class="fas ${prowlarrInstance.enabled ? 'fa-check-circle' : 'fa-minus-circle'}" style="color: ${prowlarrInstance.enabled ? 'var(--ui-success)' : 'var(--ui-danger)'}; font-size: 1.1rem; margin-left: 6px;"></i>
                                 </label>
-                                <select id="editor-enabled" onchange="window.SettingsForms.updateEnableStatusIcon && window.SettingsForms.updateEnableStatusIcon();" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(148, 163, 184, 0.2); background: rgba(15, 23, 42, 0.5); color: white;">
+                                <select id="editor-enabled" onchange="window.SettingsForms.updateEnableStatusIcon && window.SettingsForms.updateEnableStatusIcon();" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--ui-border); background: var(--shadow-lg); color: white;">
                                     <option value="true" ${prowlarrInstance.enabled ? 'selected' : ''}>Enabled</option>
                                     <option value="false" ${!prowlarrInstance.enabled ? 'selected' : ''}>Disabled</option>
                                 </select>
                             </div>
-                            <p class="setting-help" style="margin: 0 0 20px 0; color: #94a3b8; font-size: 0.85rem;">Enable or disable Prowlarr integration</p>
+                            <p class="setting-help" style="margin: 0 0 20px 0; color: var(--ui-text-muted); font-size: 0.85rem;">Enable or disable Prowlarr integration</p>
                         </div>
                         
                         <div class="setting-item" style="margin-bottom: 20px; display: none;">
-                            <label style="display: block; color: #f8fafc; font-weight: 500; margin-bottom: 8px;">Name</label>
-                            <input type="text" id="editor-name" value="Prowlarr" readonly style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(148, 163, 184, 0.2); background: rgba(15, 23, 42, 0.3); color: #94a3b8; cursor: not-allowed;">
-                            <p class="setting-help" style="margin-top: 5px; color: #94a3b8; font-size: 0.85rem;">A friendly name to identify this instance</p>
+                            <label style="display: block; color: var(--text-primary); font-weight: 500; margin-bottom: 8px;">Name</label>
+                            <input type="text" id="editor-name" value="Prowlarr" readonly style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--ui-border); background: var(--components-bg-4); color: var(--ui-text-muted); cursor: not-allowed;">
+                            <p class="setting-help" style="margin-top: 5px; color: var(--ui-text-muted); font-size: 0.85rem;">A friendly name to identify this instance</p>
                         </div>
                         
                         <div class="setting-item" style="margin-bottom: 20px;">
-                            <label style="display: block; color: #f8fafc; font-weight: 500; margin-bottom: 8px;">URL</label>
-                            <input type="text" id="editor-url" value="${prowlarrInstance.api_url || ''}" placeholder="http://localhost:9696" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(148, 163, 184, 0.2); background: rgba(15, 23, 42, 0.5); color: white;">
-                            <p class="setting-help" style="margin-top: 5px; color: #94a3b8; font-size: 0.85rem;">The full URL including port (e.g. http://localhost:9696)</p>
+                            <label style="display: block; color: var(--text-primary); font-weight: 500; margin-bottom: 8px;">URL</label>
+                            <input type="text" id="editor-url" value="${prowlarrInstance.api_url || ''}" placeholder="http://localhost:9696" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--ui-border); background: var(--shadow-lg); color: white;">
+                            <p class="setting-help" style="margin-top: 5px; color: var(--ui-text-muted); font-size: 0.85rem;">The full URL including port (e.g. http://localhost:9696)</p>
                         </div>
                         
                         <div class="setting-item" style="margin-bottom: 0;">
-                            <label style="display: block; color: #f8fafc; font-weight: 500; margin-bottom: 8px;">API Key</label>
-                            <input type="text" id="editor-key" value="${prowlarrInstance.api_key || ''}" placeholder="Your API Key" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(148, 163, 184, 0.2); background: rgba(15, 23, 42, 0.5); color: white;">
-                            <p class="setting-help" style="margin-top: 5px; color: #94a3b8; font-size: 0.85rem;">Found in Settings > General in Prowlarr</p>
+                            <label style="display: block; color: var(--text-primary); font-weight: 500; margin-bottom: 8px;">API Key</label>
+                            <input type="text" id="editor-key" value="${prowlarrInstance.api_key || ''}" placeholder="Your API Key" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--ui-border); background: var(--shadow-lg); color: white;">
+                            <p class="setting-help" style="margin-top: 5px; color: var(--ui-text-muted); font-size: 0.85rem;">Found in Settings > General in Prowlarr</p>
                         </div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                 if (enabledEl && enabledEl.value === 'false') {
                     statusBadge.className = 'connection-status-badge status-disabled';
                     statusBadge.innerHTML = '<i class="fas fa-ban"></i> Disabled';
-                    statusBadge.style.color = '#94a3b8';
+                    statusBadge.style.color = 'var(--ui-text-muted)';
                     statusBadge.style.opacity = '0.9';
                     return;
                 }

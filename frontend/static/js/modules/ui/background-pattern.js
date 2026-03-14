@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             right: 0;
             bottom: 0;
             background-image: 
-                radial-gradient(circle at 1px 1px, rgba(85, 97, 215, 0.07) 1px, transparent 0);
+                radial-gradient(circle at 1px 1px, var(--background-pattern-color-1) 1px, transparent 0);
             background-size: 25px 25px;
             background-position: -5px -5px;
             pointer-events: none;

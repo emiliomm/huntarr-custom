@@ -47,8 +47,8 @@ div:has(> .scheduleAction-menu) .scheduleAction-option:nth-child(3) {
 }
 
 .schedule-item-action[data-action="resume"] {
-    background-color: #e7f3e7 !important;
-    border-color: #4CAF50 !important;
+    background-color: var(--dropdown-overrides-bg-1) !important;
+    border-color: var(--dropdown-overrides-border-1) !important;
 }
 
 [data-action="pause"]:not(option):not(.scheduleAction-option)::after {
@@ -57,8 +57,8 @@ div:has(> .scheduleAction-menu) .scheduleAction-option:nth-child(3) {
 }
 
 .schedule-item-action[data-action="pause"] {
-    background-color: #fff3e0 !important;
-    border-color: #ff9800 !important;
+    background-color: var(--dropdown-overrides-bg-2) !important;
+    border-color: var(--dropdown-overrides-border-2) !important;
 }
 
 /* Activity Control dropdown styling */

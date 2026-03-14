@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> This is a fork of the repo formerly at plexguide/huntarr.io, ater the original author disappeared when significant security vulnerabilities were found.
+> This is a fork of the repo formerly at plexguide/huntarr.io, ater the original author (Admin9705) disappeared when significant security vulnerabilities were found.
 >
 > 
 > Git mirror imported from https://git.aronwk.com/mirror/Huntarr
@@ -166,7 +166,7 @@ For full documentation, visit the [Huntarr Docs](https://emiliomm.github.io/hunt
 
 ## The original
 
-Special thanks to the original author for creating this project.
+Special thanks to the original author, Admin9705, for creating this project.
 
 <p align="center">
   <img src="docs/readme/OldSchool.png" alt="The Original" width="800">

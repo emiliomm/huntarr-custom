@@ -43,39 +43,39 @@
 .requsers-checkbox-cell input[type="checkbox"] {
     width: 16px;
     height: 16px;
-    accent-color: var(--accent-color, #4285F4);
+    accent-color: var(--accent-color, var(--accent-color));
     cursor: pointer;
 }
 
 .requsers-row-cb {
     width: 16px;
     height: 16px;
-    accent-color: var(--accent-color, #4285F4);
+    accent-color: var(--accent-color, var(--accent-color));
     cursor: pointer;
 }
 
 /* ── Bulk Edit Button ────────────────────────────────────────── */
 
 .requsers-btn-bulk {
-    background: rgba(99, 102, 241, 0.12);
-    color: #8ab4f8;
-    border: 1px solid rgba(99, 102, 241, 0.3);
+    background: var(--ui-accent-tint);
+    color: var(--accent-hover);
+    border: 1px solid var(--ui-accent-ring);
 }
 
 .requsers-btn-bulk:hover {
-    background: rgba(99, 102, 241, 0.22);
+    background: var(--ui-accent-bg-soft);
 }
 
 /* ── Default Categories Button ───────────────────────────── */
 
 .requsers-btn-defaults {
-    background: rgba(20, 184, 166, 0.12);
-    color: #2dd4bf;
-    border: 1px solid rgba(20, 184, 166, 0.25);
+    background: var(--backup-restore-bg-6);
+    color: var(--backup-restore-text-3);
+    border: 1px solid var(--requestarr-users-bg-4);
 }
 
 .requsers-btn-defaults:hover {
-    background: rgba(20, 184, 166, 0.22);
+    background: var(--requestarr-users-bg-4);
 }
 
 /* ── Category Badges ─────────────────────────────────────── */
@@ -96,32 +96,32 @@
 }
 
 .requsers-cat-movie {
-    background: rgba(239, 68, 68, 0.12);
-    color: #f28b82;
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    background: var(--ui-danger-tint);
+    color: var(--button-danger-hover);
+    border: 1px solid var(--ui-danger-tint);
 }
 
 .requsers-cat-tv {
-    background: rgba(59, 130, 246, 0.12);
-    color: #60a5fa;
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    background: var(--login-border-10);
+    color: var(--footer-text-2);
+    border: 1px solid var(--requestarr-users-border-3);
 }
 
 .requsers-cat-all {
-    background: rgba(34, 197, 94, 0.1);
-    color: #81c995;
-    border: 1px solid rgba(34, 197, 94, 0.2);
+    background: var(--backup-restore-bg-3);
+    color: var(--button-success-hover);
+    border: 1px solid var(--hunt-manager-section-border-6);
 }
 
 .requsers-cat-none {
-    color: var(--text-dim, #475569);
+    color: var(--text-dim, var(--ui-primary-surface));
     font-size: 0.8rem;
 }
 
 .requsers-cat-none-badge {
-    background: rgba(100, 116, 139, 0.1);
-    color: #94a3b8;
-    border: 1px solid rgba(100, 116, 139, 0.2);
+    background: var(--footer-border-1);
+    color: var(--ui-text-muted);
+    border: 1px solid var(--history-section-border-4);
     font-size: 0.7rem;
 }
 
@@ -136,10 +136,10 @@
 .requsers-bulk-perm-select {
     width: 100%;
     padding: 6px 8px;
-    background: var(--input-bg, rgba(15, 23, 42, 0.6));
-    border: 1px solid var(--input-border, rgba(71, 85, 105, 0.4));
+    background: var(--input-bg, var(--ui-surface-raised));
+    border: 1px solid var(--input-border, var(--components-border-2));
     border-radius: var(--input-radius, 6px);
-    color: var(--input-text, #e2e8f0);
+    color: var(--input-text, var(--text-secondary));
     font-size: 0.8rem;
     cursor: pointer;
     transition: border-color 0.15s;
@@ -147,12 +147,12 @@
 
 .requsers-bulk-perm-select:focus {
     outline: none;
-    border-color: var(--input-focus-border, rgba(99, 102, 241, 0.5));
+    border-color: var(--input-focus-border, var(--ui-accent-strong));
 }
 
 .requsers-bulk-perm-select option {
-    background: #202124;
-    color: #e2e8f0;
+    background: var(--bg-primary);
+    color: var(--text-secondary);
 }
 
 .requsers-title {
@@ -186,17 +186,17 @@
 }
 
 .requsers-btn-plex {
-    background: #e5a00d;
-    color: #000;
+    background: var(--import-lists-bg-12);
+    color: var(--import-lists-text-7);
 }
 
 .requsers-btn-plex:hover {
-    background: #f0b429;
+    background: var(--requestarr-users-bg-10);
 }
 
 .requsers-btn-danger {
     background: var(--button-danger-bg);
-    color: #fff;
+    color: var(--button-primary-text);
 }
 
 .requsers-btn-danger:hover {
@@ -224,7 +224,7 @@
 }
 
 .requsers-table thead {
-    background: rgba(99, 102, 241, 0.08);
+    background: var(--ui-accent-bg);
 }
 
 .requsers-table th {
@@ -235,14 +235,14 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--text-muted);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--ui-alpha-white);
 }
 
 .requsers-table td {
     padding: 12px 16px;
     font-size: 0.9rem;
     color: var(--text-secondary);
-    border-bottom: 1px solid rgba(71, 85, 105, 0.15);
+    border-bottom: 1px solid var(--requestarr-users-border-7);
     vertical-align: middle;
 }
 
@@ -251,7 +251,7 @@
 }
 
 .requsers-table tbody tr:hover {
-    background: rgba(99, 102, 241, 0.04);
+    background: var(--ui-accent-tint);
 }
 
 .requsers-user-cell {
@@ -310,13 +310,13 @@
 }
 
 .requsers-role-owner {
-    background: rgba(234, 179, 8, 0.15);
-    color: #eab308;
+    background: var(--requestarr-discover-bg-25);
+    color: var(--home-section-text-10);
 }
 
 .requsers-role-user {
-    background: rgba(99, 102, 241, 0.15);
-    color: #8ab4f8;
+    background: var(--ui-accent-bg-strong);
+    color: var(--accent-hover);
 }
 
 /* ── Actions ──────────────────────────────────────────────── */
@@ -335,7 +335,7 @@
     padding: 12px 16px;
     font-size: 0.85rem;
     color: var(--text-muted);
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--ui-alpha-white);
 }
 
 /* ── Modal ─────────────────────────────────────────────────── */
@@ -343,7 +343,7 @@
 .requsers-modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: var(--activity-section-bg-2);
     z-index: 9999;
     display: flex;
     align-items: center;
@@ -353,7 +353,7 @@
 
 .requsers-modal {
     background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--ui-alpha-white);
     border-radius: var(--radius-xl);
     width: 100%;
     max-width: 520px;
@@ -419,7 +419,7 @@
     width: 100%;
     padding: 10px 12px;
     background: var(--input-bg);
-    border: 1px solid var(--input-border);
+    border: 1px solid var(--ui-alpha-white);
     border-radius: var(--input-radius);
     color: var(--input-text);
     font-size: 0.9rem;
@@ -470,8 +470,8 @@
 /* Matches Media Hunt Instances bordered-section design exactly */
 
 .reqservices-group {
-    background: rgba(15, 23, 42, 0.4);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    background: var(--ui-surface-overlay);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 12px;
     padding: 24px;
     margin: 12px 0 20px 0;
@@ -490,12 +490,12 @@
     padding: 0 0 12px 0;
     font-size: 1.1rem;
     font-weight: 600;
-    color: #f1f5f9;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    color: var(--ui-text-strong);
+    border-bottom: 1px solid var(--ui-border-tint);
 }
 
 .reqservices-group .profiles-help {
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--import-lists-text-1);
     font-size: 13px;
     margin: 12px 0 0;
 }
@@ -522,8 +522,8 @@
 /* 4K inline badge (next to instance name in card header) */
 .reqservices-badge-4k-inline {
     font-size: 0.65rem;
-    background: rgba(234, 179, 8, 0.25);
-    color: #eab308;
+    background: var(--home-section-border-34);
+    color: var(--home-section-text-10);
     padding: 2px 7px;
     border-radius: 12px;
     text-transform: uppercase;
@@ -544,12 +544,12 @@
     align-items: center;
     gap: 10px;
     padding: 10px 12px;
-    border-bottom: 1px solid rgba(71, 85, 105, 0.15);
+    border-bottom: 1px solid var(--requestarr-users-border-7);
     cursor: pointer;
 }
 
 .requsers-plex-item:hover {
-    background: rgba(99, 102, 241, 0.04);
+    background: var(--ui-accent-tint);
 }
 
 .requsers-plex-item input[type="checkbox"] {
@@ -574,14 +574,14 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.4));
-    border: 1px solid rgba(99, 102, 241, 0.3);
+    background: linear-gradient(135deg, var(--ui-accent-border), var(--mobile-color-7));
+    border: 1px solid var(--ui-accent-ring);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.1rem;
     font-weight: 700;
-    color: #e2e8f0;
+    color: var(--text-secondary);
 }
 
 .requsers-plex-select-all {
@@ -589,7 +589,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 8px 12px;
-    border-bottom: 1px solid rgba(71, 85, 105, 0.25);
+    border-bottom: 1px solid var(--login-bg-5);
     margin-bottom: 4px;
 }
 
@@ -610,9 +610,9 @@
     letter-spacing: 0.04em;
     padding: 2px 8px;
     border-radius: 6px;
-    background: rgba(34, 197, 94, 0.12);
-    color: #34A853;
-    border: 1px solid rgba(34, 197, 94, 0.25);
+    background: var(--backup-restore-bg-3);
+    color: var(--success-color);
+    border: 1px solid var(--hunt-manager-section-border-6);
     flex-shrink: 0;
 }
 
@@ -704,18 +704,18 @@
 }
 
 .reqrequests-pagination-bar .pagination-btn {
-    background: rgba(30, 41, 59, 0.5);
-    border: 1px solid rgba(148, 163, 184, 0.12);
-    color: #94a3b8;
+    background: var(--ui-surface-slate);
+    border: 1px solid var(--ui-border-tint);
+    color: var(--ui-text-muted);
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .reqrequests-pagination-bar .pagination-btn:hover:not(:disabled) {
-    background: rgba(99, 102, 241, 0.15);
-    border-color: rgba(99, 102, 241, 0.3);
-    color: #e2e8f0;
+    background: var(--ui-accent-bg-strong);
+    border-color: var(--ui-accent-ring);
+    color: var(--text-secondary);
 }
 
 .reqrequests-pagination-bar .pagination-btn:disabled {
@@ -742,15 +742,15 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    background: rgba(15, 23, 42, 0.5);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    background: var(--shadow-lg);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 10px;
     padding: 14px 18px;
     transition: border-color 0.15s ease, opacity 0.2s ease;
 }
 
 .reqrequests-card:hover {
-    border-color: rgba(99, 102, 241, 0.3);
+    border-color: var(--ui-accent-ring);
 }
 
 .reqrequests-card-processing {
@@ -765,7 +765,7 @@
     object-fit: cover;
     flex-shrink: 0;
     background: var(--bg-tertiary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 8px var(--ui-shadow-strong);
 }
 
 .reqrequests-info {
@@ -830,38 +830,38 @@
 }
 
 .reqrequests-status-pending {
-    background: rgba(234, 179, 8, 0.12);
-    color: #eab308;
-    border: 1px solid rgba(234, 179, 8, 0.25);
+    background: var(--requestarr-discover-bg-25);
+    color: var(--home-section-text-10);
+    border: 1px solid var(--home-section-border-34);
 }
 
 .reqrequests-status-approved {
-    background: rgba(34, 197, 94, 0.12);
-    color: #34A853;
-    border: 1px solid rgba(34, 197, 94, 0.25);
+    background: var(--backup-restore-bg-3);
+    color: var(--success-color);
+    border: 1px solid var(--hunt-manager-section-border-6);
 }
 
 .reqrequests-status-denied {
-    background: rgba(239, 68, 68, 0.12);
-    color: #EA4335;
-    border: 1px solid rgba(239, 68, 68, 0.25);
+    background: var(--ui-danger-tint);
+    color: var(--error-color);
+    border: 1px solid var(--ui-danger-tint);
 }
 
 .reqrequests-status-blacklisted {
-    background: rgba(239, 68, 68, 0.12);
-    color: #f28b82;
-    border: 1px solid rgba(239, 68, 68, 0.25);
+    background: var(--ui-danger-tint);
+    color: var(--button-danger-hover);
+    border: 1px solid var(--ui-danger-tint);
 }
 
 .reqrequests-status-withdrawn {
-    background: rgba(148, 163, 184, 0.12);
-    color: #94a3b8;
-    border: 1px solid rgba(148, 163, 184, 0.25);
+    background: var(--ui-border-tint);
+    color: var(--ui-text-muted);
+    border: 1px solid var(--home-bg-20);
 }
 
 .reqrequests-also {
     font-size: 0.75rem;
-    color: var(--text-dim, #9ca3af);
+    color: var(--text-dim, var(--ui-neutral-400));
     margin-top: 4px;
 }
 
@@ -872,8 +872,8 @@
 
 .reqrequests-demand {
     display: inline-block;
-    background: rgba(245, 158, 11, 0.15);
-    color: #FBBC04;
+    background: var(--backup-restore-bg-4);
+    color: var(--warning-color);
     font-size: 0.65rem;
     font-weight: 600;
     padding: 1px 6px;
@@ -910,43 +910,43 @@
 }
 
 .reqrequests-action-approve {
-    background: rgba(34, 197, 94, 0.15);
-    color: #34A853;
-    border-color: rgba(34, 197, 94, 0.3);
+    background: var(--backup-restore-bg-3);
+    color: var(--success-color);
+    border-color: var(--home-shadow-15);
 }
 
 .reqrequests-action-approve:hover:not(:disabled) {
-    background: rgba(34, 197, 94, 0.25);
+    background: var(--hunt-manager-section-border-6);
 }
 
 .reqrequests-action-deny {
-    background: rgba(239, 68, 68, 0.15);
-    color: #EA4335;
-    border-color: rgba(239, 68, 68, 0.3);
+    background: var(--ui-danger-tint);
+    color: var(--error-color);
+    border-color: var(--ui-danger-bg-hover);
 }
 
 .reqrequests-action-deny:hover:not(:disabled) {
-    background: rgba(239, 68, 68, 0.25);
+    background: var(--ui-danger-tint);
 }
 
 .reqrequests-action-blacklist {
-    background: rgba(234, 179, 8, 0.12);
-    color: #eab308;
-    border-color: rgba(234, 179, 8, 0.25);
+    background: var(--requestarr-discover-bg-25);
+    color: var(--home-section-text-10);
+    border-color: var(--home-section-border-34);
 }
 
 .reqrequests-action-blacklist:hover:not(:disabled) {
-    background: rgba(234, 179, 8, 0.22);
+    background: var(--home-section-border-34);
 }
 
 .reqrequests-action-withdraw {
-    background: rgba(148, 163, 184, 0.15);
-    color: #94a3b8;
-    border-color: rgba(148, 163, 184, 0.3);
+    background: var(--ui-border-soft);
+    color: var(--ui-text-muted);
+    border-color: var(--ui-border-tint);
 }
 
 .reqrequests-action-withdraw:hover:not(:disabled) {
-    background: rgba(148, 163, 184, 0.25);
+    background: var(--home-bg-20);
 }
 
 /* Mobile responsive */
@@ -979,8 +979,8 @@
     border-radius: 9px;
     font-size: 0.65rem;
     font-weight: 700;
-    background: #EA4335;
-    color: #fff;
+    background: var(--error-color);
+    color: var(--button-primary-text);
     margin-left: auto;
     line-height: 1;
 }
@@ -988,21 +988,21 @@
 /* ── Request Status Buttons (detail pages) ───────────────── */
 
 .mh-btn-warning {
-    background: rgba(234, 179, 8, 0.2) !important;
-    color: #eab308 !important;
-    border: 1px solid rgba(234, 179, 8, 0.4) !important;
+    background: var(--home-section-border-34) !important;
+    color: var(--home-section-text-10) !important;
+    border: 1px solid var(--requestarr-users-border-15) !important;
     cursor: default !important;
 }
 
 .mh-btn-denied {
-    background: rgba(239, 68, 68, 0.15) !important;
-    color: #f28b82 !important;
-    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+    background: var(--ui-danger-tint) !important;
+    color: var(--button-danger-hover) !important;
+    border: 1px solid var(--ui-danger-bg-hover) !important;
     cursor: pointer !important;
 }
 
 .mh-btn-denied:hover {
-    background: rgba(239, 68, 68, 0.25) !important;
+    background: var(--ui-danger-tint) !important;
 }
 
 .requsers-btn-secondary {
@@ -1021,7 +1021,7 @@
     align-items: center;
     padding: 0 12px;
     height: 36px;
-    color: rgba(203, 213, 225, 0.8);
+    color: var(--requestarr-users-text-7);
     text-decoration: none;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 8px;
@@ -1059,18 +1059,18 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: rgba(148, 163, 184, 0.7);
+    color: var(--home-text-9);
 }
 
 .non-owner-nav-item:hover {
-    background: rgba(99, 102, 241, 0.06);
-    color: #e2e8f0;
+    background: var(--components-shadow-2);
+    color: var(--text-secondary);
     text-decoration: none;
 }
 
 .non-owner-nav-item.active {
-    background: rgba(99, 102, 241, 0.1);
-    color: #8ab4f8;
+    background: var(--ui-accent-bg-subtle);
+    color: var(--accent-hover);
 }
 
 .non-owner-nav-item.active::before {
@@ -1081,18 +1081,18 @@
     bottom: 6px;
     width: 3px;
     border-radius: 0 3px 3px 0;
-    background: #4285F4;
-    box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+    background: var(--accent-color);
+    box-shadow: 0 0 8px var(--ui-accent-border);
 }
 
 .non-owner-nav-item.active .nav-icon-wrapper i {
-    color: #8ab4f8;
-    filter: drop-shadow(0 0 3px rgba(99, 102, 241, 0.4));
+    color: var(--accent-hover);
+    filter: drop-shadow(0 0 3px var(--ui-accent-border));
 }
 
 .non-owner-nav-item.active span {
     font-weight: 600;
-    color: #8ab4f8;
+    color: var(--accent-hover);
 }
 
 /* ── Hidden Media Scope Badges ─────────────────────────────── */
@@ -1111,20 +1111,20 @@
 }
 
 .hidden-scope-global {
-    background: rgba(234, 179, 8, 0.85);
-    color: #000;
+    background: var(--requestarr-users-bg-25);
+    color: var(--import-lists-text-7);
 }
 
 .hidden-scope-personal {
-    background: rgba(99, 102, 241, 0.85);
-    color: #fff;
+    background: var(--apps-section-text-2);
+    color: var(--button-primary-text);
     top: auto !important;
     bottom: 6px;
 }
 
 .hidden-scope-blacklisted {
-    background: rgba(239, 68, 68, 0.85);
-    color: #fff;
+    background: var(--components-bg-6);
+    color: var(--button-primary-text);
     top: auto !important;
     bottom: 6px;
     left: 6px;

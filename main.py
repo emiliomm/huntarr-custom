@@ -154,16 +154,41 @@ def is_shutting_down():
 def load_version_to_database():
     """Load current version from version.txt into database on startup"""
     import os
+    import sys
     
     try:
         # Get database instance
         from src.primary.utils.database import get_database
         db = get_database()
         
-        # Path to version.txt
-        version_path = os.path.join(os.path.dirname(__file__), 'version.txt')
+        version_candidates = []
         
-        if os.path.exists(version_path):
+        # Source/dev mode: project root (same folder as main.py)
+        version_candidates.append(os.path.join(os.path.dirname(__file__), 'version.txt'))
+
+        # PyInstaller/frozen builds: version.txt is typically installed next to the executable
+        if getattr(sys, 'frozen', False):
+            try:
+                exe_dir = os.path.dirname(sys.executable)
+                version_candidates.append(os.path.join(exe_dir, 'version.txt'))
+            except Exception:
+                pass
+            try:
+                meipass = getattr(sys, '_MEIPASS', None)
+                if meipass:
+                    version_candidates.append(os.path.join(meipass, 'version.txt'))
+            except Exception:
+                pass
+
+        # Fallback: current working directory
+        try:
+            version_candidates.append(os.path.join(os.getcwd(), 'version.txt'))
+        except Exception:
+            pass
+
+        version_path = next((p for p in version_candidates if p and os.path.exists(p)), None)
+
+        if version_path:
             with open(version_path, 'r') as f:
                 version = f.read().strip()
             
@@ -174,7 +199,7 @@ def load_version_to_database():
             else:
                 huntarr_logger.warning("version.txt is empty")
         else:
-            huntarr_logger.warning(f"version.txt not found at {version_path}")
+            huntarr_logger.warning(f"version.txt not found. Tried: {version_candidates}")
             
     except Exception as e:
         huntarr_logger.error(f"Error loading version to database: {e}")

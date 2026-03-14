@@ -12,8 +12,8 @@
     padding: 3px 8px;
     border-radius: 4px;
     margin: 8px auto 6px auto;
-    background-color: rgba(0, 0, 0, 0.15);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: var(--glass-shadow);
+    box-shadow: 0 1px 3px var(--ui-shadow-soft);
     transition: all 0.3s ease;
     user-select: none;
     max-width: 85%;
@@ -25,7 +25,7 @@
 .inline-timer {
     margin: 0;
     min-width: 110px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--ui-shadow-soft);
     font-size: 0.85rem;
     border-radius: 4px;
 }
@@ -61,12 +61,12 @@
 
 /* Pending reset state - reset requested, cycle stopping before sleep starts */
 .timer-value.pending-reset-state {
-    color: #ffaa00;
+    color: var(--cycle-countdown-color-4);
 }
 
 /* Error state styling */
 .timer-value.error {
-    color: #ff5252;
+    color: var(--cycle-countdown-text-2);
 }
 
 .timer-value {
@@ -80,16 +80,16 @@
 
 /* Under 5 minutes - orange */
 .timer-soon {
-    color: #ff8c00 !important;
+    color: var(--cycle-countdown-color-6) !important;
 }
 
 /* Under 1 minute - red */
 .timer-imminent {
-    color: #ff3333 !important;
+    color: var(--cycle-countdown-color-5) !important;
 }
 
 .timer-error {
-    color: var(--error-color, #f44336);
+    color: var(--error-color, var(--cycle-countdown-text-5));
     opacity: 0.7;
 }
 
@@ -111,32 +111,32 @@
 /* Colors based on user preferences */
 .movie_hunt .cycle-timer,
 .movie-hunt .cycle-timer {
-    border-left: 2px solid var(--movie-hunt-color, #FBBC04);
+    border-left: 2px solid var(--movie-hunt-color, var(--warning-color));
 }
 
 .sonarr .cycle-timer {
-    border-left: 2px solid var(--sonarr-color, #00c2ce);
+    border-left: 2px solid var(--sonarr-color, var(--cycle-countdown-border-1));
 }
 
 .radarr .cycle-timer {
-    border-left: 2px solid var(--radarr-color, #ffbe0b);
+    border-left: 2px solid var(--radarr-color, var(--cycle-countdown-border-2));
 }
 
 .lidarr .cycle-timer {
-    border-left: 2px solid var(--lidarr-color, #40c057);
+    border-left: 2px solid var(--lidarr-color, var(--cycle-countdown-border-3));
 }
 
 .readarr .cycle-timer {
-    border-left: 2px solid var(--readarr-color, #ff5252);
+    border-left: 2px solid var(--readarr-color, var(--cycle-countdown-text-2));
 }
 
 .whisparr .cycle-timer {
-    border-left: 2px solid var(--whisparr-color, #ff45b7);
+    border-left: 2px solid var(--whisparr-color, var(--cycle-countdown-border-4));
 }
 
 /* Additional style for Whisparr V3 (which is actually 'eros' in the HTML) */
 .eros .cycle-timer {
-    border-left: 2px solid var(--whisparr-color, #ff45b7);
+    border-left: 2px solid var(--whisparr-color, var(--cycle-countdown-border-4));
 }
 
 /* Make sure Whisparr V3/eros timer values have the same color treatment */
@@ -146,19 +146,19 @@
 
 /* Style Whisparr V3 card - normal state */
 .app-stats-card.eros {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px var(--glass-shadow);
     transition: box-shadow 0.3s ease, border 0.3s ease;
 }
 
 /* Add pink/purple glow only on hover */
 .app-stats-card.eros:hover {
-    box-shadow: 0 0 15px rgba(255, 69, 183, 0.4) !important;
-    border: 1px solid rgba(255, 69, 183, 0.2) !important;
+    box-shadow: 0 0 15px var(--cycle-countdown-shadow-1) !important;
+    border: 1px solid var(--cycle-countdown-border-5) !important;
 }
 
 /* Ensure the timer in Whisparr V3 shows the pink/purple left border */
 .eros .cycle-timer, #erosCycleTimer {
-    border-left: 2px solid #ff45b7 !important;
+    border-left: 2px solid var(--cycle-countdown-border-4) !important;
 }
 
 /* Default timer value is white and smaller as requested */
@@ -171,10 +171,10 @@
 /* Light blue color for Refreshing text */
 /* Timer value styling for refreshing state - use data attributes instead of :contains */
 .timer-value[data-state="refreshing"] {
-    color: #00c2ce !important; /* Light blue color */
+    color: var(--cycle-countdown-border-1) !important; /* Light blue color */
 }
 .refreshing-state {
-    color: #00c2ce !important; /* Light blue color */
+    color: var(--cycle-countdown-border-1) !important; /* Light blue color */
 }
 
 /* Make clock icon smaller too */
@@ -214,7 +214,7 @@
     justify-content: center;
     white-space: nowrap;
     font-size: 0.65rem;
-    color: rgba(148, 163, 184, 0.5);
+    color: var(--cycle-countdown-text-6);
     gap: 4px;
     user-select: none;
     width: 100%;
@@ -236,8 +236,8 @@
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(15, 23, 42, 0.95);
-    color: #fff;
+    background-color: var(--cycle-countdown-bg-1);
+    color: var(--button-primary-text);
     text-align: center;
     padding: 4px 8px;
     border-radius: 4px;
@@ -246,7 +246,7 @@
     z-index: 10;
     opacity: 0;
     transition: opacity 0.1s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--ui-alpha-white);
     margin-bottom: 5px;
     pointer-events: none;
 }
@@ -264,5 +264,5 @@
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: rgba(15, 23, 42, 0.95) transparent transparent transparent;
+    border-color: var(--cycle-countdown-bg-1) transparent transparent transparent;
 }

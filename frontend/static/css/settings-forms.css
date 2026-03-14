@@ -13,10 +13,10 @@
     justify-content: space-between;
     margin-bottom: 28px;
     padding: 14px 20px;
-    background: rgba(15, 23, 42, 0.55);
+    background: var(--home-bg-17);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 14px;
     gap: 16px;
 }
@@ -39,24 +39,24 @@
     align-items: center;
     gap: 10px;
     font-size: 0.9rem;
-    color: #64748b;
+    color: var(--ui-text-dim);
     min-width: 0;
 }
 
 .mset-breadcrumb i:first-child {
     font-size: 0.95rem;
     opacity: 0.7;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
 }
 
 .mset-breadcrumb span:last-child {
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-weight: 500;
 }
 
 .mset-breadcrumb-sep {
     font-size: 0.6rem;
-    color: #475569;
+    color: var(--ui-primary-surface);
 }
 
 /* Save button */
@@ -74,9 +74,9 @@
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
     line-height: 1.2;
-    background: rgba(71, 85, 105, 0.35);
-    color: rgba(255, 255, 255, 0.3);
-    border: 1px solid rgba(148, 163, 184, 0.06);
+    background: var(--instance-editor-bg-19);
+    color: var(--instance-editor-text-1);
+    border: 1px solid var(--home-bg-11);
 }
 
 .mset-save-btn:disabled {
@@ -85,18 +85,18 @@
 }
 
 .mset-save-btn.mset-save-active {
-    background: linear-gradient(135deg, #4285F4 0%, #4285F4 100%) !important;
-    color: #fff !important;
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-color) 100%) !important;
+    color: var(--button-primary-text) !important;
     cursor: pointer !important;
     opacity: 1 !important;
     border: none !important;
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35), 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 4px 16px var(--ui-accent-glow), 0 1px 3px var(--ui-shadow-soft) !important;
 }
 
 .mset-save-btn.mset-save-active:hover {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+    background: linear-gradient(135deg, var(--ui-indigo-600) 0%, var(--backup-restore-bg-10) 100%) !important;
     transform: translateY(-1px) !important;
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45), 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 6px 20px var(--import-lists-border-4), 0 2px 6px var(--glass-shadow) !important;
 }
 
 /* Settings grid — clean single-column stack (HuntarrOS style) */
@@ -111,10 +111,10 @@
 
 /* Cards */
 .mset-card {
-    background: rgba(30, 41, 59, 0.32);
+    background: var(--activity-section-bg-1);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(148, 163, 184, 0.07);
+    border: 1px solid var(--home-bg-11);
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -125,8 +125,8 @@
 }
 
 .mset-card:hover {
-    border-color: rgba(148, 163, 184, 0.14);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border-color: var(--ui-border-soft);
+    box-shadow: 0 8px 30px var(--ui-shadow-soft);
 }
 
 .mset-card-header {
@@ -134,7 +134,7 @@
     justify-content: flex-start;
     align-items: center;
     padding: 14px 18px;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.07);
+    border-bottom: 1px solid var(--home-bg-11);
     gap: 12px;
 }
 
@@ -143,7 +143,7 @@
     padding: 0;
     font-size: 0.72rem;
     font-weight: 700;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.12em;
     border: none;
@@ -163,28 +163,28 @@
     justify-content: center;
     border-radius: 8px;
     font-size: 0.8rem;
-    color: #fff;
+    color: var(--button-primary-text);
     flex-shrink: 0;
 }
 
 .mset-icon-blue {
-    background: rgba(99, 102, 241, 0.12);
-    color: #8ab4f8;
+    background: var(--ui-accent-tint);
+    color: var(--accent-hover);
 }
 
 .mset-icon-amber {
-    background: rgba(245, 158, 11, 0.12);
-    color: #fcd230;
+    background: var(--backup-restore-bg-4);
+    color: var(--ui-warning);
 }
 
 .mset-icon-purple {
-    background: rgba(139, 92, 246, 0.12);
-    color: #a78bfa;
+    background: var(--about-section-bg-2);
+    color: var(--ui-accent-soft-300);
 }
 
 .mset-icon-teal {
-    background: rgba(20, 184, 166, 0.12);
-    color: #2dd4bf;
+    background: var(--backup-restore-bg-6);
+    color: var(--backup-restore-text-3);
 }
 
 .mset-card-body {
@@ -211,7 +211,7 @@
 }
 
 .mset-card-body .setting-item label {
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-weight: 500;
     font-size: 0.9rem;
     margin: 0 !important;
@@ -223,8 +223,8 @@
 
 /* Indigo toggles in settings */
 #settingsSection input:checked+.toggle-slider {
-    background: #4285F4 !important;
-    border-color: rgba(99, 102, 241, 0.5) !important;
+    background: var(--accent-color) !important;
+    border-color: var(--ui-accent-strong) !important;
 }
 
 .mset-card-body .setting-item .toggle-switch {
@@ -238,7 +238,7 @@
 }
 
 .mset-card-body .setting-help {
-    color: #64748b;
+    color: var(--ui-text-dim);
     font-size: 0.82rem;
     margin: 2px 0 0 0 !important;
     padding-left: 1px;
@@ -302,13 +302,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 12px;
-    background: rgba(15, 23, 42, 0.4);
+    background: var(--ui-surface-overlay);
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--ui-alpha-white);
 }
 
 .logset-stat-label {
-    color: var(--text-muted, #94a3b8);
+    color: var(--text-muted, var(--ui-text-muted));
     font-size: 13px;
     display: flex;
     align-items: center;
@@ -321,7 +321,7 @@
 }
 
 .logset-stat-value {
-    color: var(--text-primary, #e2e8f0);
+    color: var(--text-primary, var(--text-secondary));
     font-size: 13px;
     font-weight: 500;
 }
@@ -343,7 +343,7 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.15s ease;
-    color: #fff;
+    color: var(--button-primary-text);
 }
 
 .logset-action-btn:disabled {
@@ -352,20 +352,20 @@
 }
 
 .logset-btn-amber {
-    background: linear-gradient(135deg, #FBBC04, #fcd230);
-    color: #1a1a2e;
+    background: linear-gradient(135deg, var(--warning-color), var(--ui-warning));
+    color: var(--apps-section-bg-8);
 }
 
 .logset-btn-amber:hover:not(:disabled) {
-    box-shadow: 0 3px 12px rgba(245, 158, 11, 0.35);
+    box-shadow: 0 3px 12px var(--home-color-1);
 }
 
 .logset-btn-red {
-    background: linear-gradient(135deg, #d93025, #EA4335);
+    background: linear-gradient(135deg, var(--backup-restore-bg-11), var(--error-color));
 }
 
 .logset-btn-red:hover:not(:disabled) {
-    box-shadow: 0 3px 12px rgba(220, 38, 38, 0.35);
+    box-shadow: 0 3px 12px var(--backup-restore-shadow-7);
 }
 
 /* ============================================================
@@ -422,10 +422,10 @@
 
 /* Settings Groups — glass surface */
 .settings-group {
-    background: var(--glass-bg, rgba(17, 24, 39, 0.65));
+    background: var(--glass-bg, var(--components-bg-1));
     backdrop-filter: blur(var(--glass-blur, 12px));
     -webkit-backdrop-filter: blur(var(--glass-blur, 12px));
-    border: 1px solid var(--glass-border, rgba(99, 102, 241, 0.08));
+    border: 1px solid var(--glass-border, var(--ui-accent-bg));
     border-radius: 14px;
     padding: 24px;
     margin-bottom: 20px;
@@ -437,10 +437,10 @@
     padding: 0 0 12px 0;
     font-size: 0.78rem;
     font-weight: 700;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    border-bottom: 1px solid rgba(99, 102, 241, 0.06);
+    border-bottom: 1px solid var(--components-shadow-2);
     background: none;
     box-shadow: none;
     text-shadow: none;
@@ -469,7 +469,7 @@
     left: 0;
     width: 100%;
     height: 1px;
-    background: linear-gradient(to right, rgba(90, 109, 137, 0), rgba(90, 109, 137, 0.1), rgba(90, 109, 137, 0));
+    background: linear-gradient(to right, var(--settings-forms-bg-12), var(--footer-border-1), var(--settings-forms-bg-12));
 }
 
 .setting-item label {
@@ -486,14 +486,14 @@
 
 .setting-item label .info-icon {
     margin-right: 8px;
-    color: rgba(99, 102, 241, 0.8);
+    color: var(--apps-section-text-2);
     transition: color 0.2s ease, transform 0.2s ease;
     flex-shrink: 0;
     margin-top: 1px;
 }
 
 .setting-item label .info-icon:hover {
-    color: rgba(99, 102, 241, 1);
+    color: var(--apps-section-border-4);
     transform: scale(1.1);
 }
 
@@ -540,18 +540,18 @@
 
 /* Instance items */
 .instance-item {
-    background: linear-gradient(145deg, rgba(30, 39, 56, 0.4), rgba(22, 28, 40, 0.5));
-    border: 1px solid rgba(90, 109, 137, 0.1);
+    background: linear-gradient(145deg, var(--settings-forms-bg-14), var(--home-section-bg-34));
+    border: 1px solid var(--footer-border-1);
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px var(--ui-shadow-soft);
     transition: all 0.2s ease;
 }
 
 .instance-item:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    border-color: rgba(90, 109, 137, 0.2);
+    box-shadow: 0 8px 20px var(--glass-shadow);
+    border-color: var(--history-section-border-4);
 }
 
 .instance-header {
@@ -560,7 +560,7 @@
     align-items: center;
     padding-bottom: 15px;
     margin-bottom: 15px;
-    border-bottom: 1px solid rgba(90, 109, 137, 0.1);
+    border-bottom: 1px solid var(--footer-border-1);
 }
 
 .instance-header h4 {
@@ -577,7 +577,7 @@
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     margin-right: 10px;
-    color: rgba(99, 102, 241, 0.8);
+    color: var(--apps-section-text-2);
     font-size: 14px;
 }
 
@@ -595,43 +595,43 @@
     cursor: pointer;
     transition: all 0.2s ease;
     border: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px var(--ui-shadow-soft);
 }
 
 .test-connection-btn {
-    background: linear-gradient(145deg, rgba(41, 128, 185, 0.2), rgba(99, 102, 241, 0.15));
-    color: rgba(99, 102, 241, 0.9);
-    border: 1px solid rgba(99, 102, 241, 0.3);
+    background: linear-gradient(145deg, var(--home-section-bg-71), var(--ui-accent-bg-strong));
+    color: var(--apps-section-bg-6);
+    border: 1px solid var(--ui-accent-ring);
 }
 
 .test-connection-btn:hover {
-    background: linear-gradient(145deg, rgba(41, 128, 185, 0.3), rgba(99, 102, 241, 0.25));
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    color: rgba(99, 102, 241, 1);
+    background: linear-gradient(145deg, var(--home-section-border-25), var(--ui-accent-bg-hover));
+    box-shadow: 0 4px 8px var(--glass-shadow);
+    color: var(--apps-section-border-4);
 }
 
 .add-instance-btn {
-    background: linear-gradient(145deg, rgba(39, 174, 96, 0.2), rgba(46, 204, 113, 0.15));
-    color: rgba(46, 204, 113, 0.9);
-    border: 1px solid rgba(46, 204, 113, 0.3);
+    background: linear-gradient(145deg, var(--settings-forms-bg-18), var(--home-section-shadow-21));
+    color: var(--home-section-border-27);
+    border: 1px solid var(--settings-forms-border-7);
 }
 
 .add-instance-btn:hover {
-    background: linear-gradient(145deg, rgba(39, 174, 96, 0.3), rgba(46, 204, 113, 0.25));
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    color: rgba(46, 204, 113, 1);
+    background: linear-gradient(145deg, var(--home-section-border-22), var(--settings-forms-bg-21));
+    box-shadow: 0 4px 8px var(--glass-shadow);
+    color: var(--settings-forms-text-9);
 }
 
 .remove-instance-btn {
-    background: linear-gradient(145deg, rgba(231, 76, 60, 0.2), rgba(192, 57, 43, 0.15));
-    color: rgba(231, 76, 60, 0.9);
-    border: 1px solid rgba(231, 76, 60, 0.3);
+    background: linear-gradient(145deg, var(--settings-forms-bg-22), var(--settings-forms-bg-23));
+    color: var(--home-section-border-29);
+    border: 1px solid var(--history-section-shadow-3);
 }
 
 .remove-instance-btn:hover {
-    background: linear-gradient(145deg, rgba(231, 76, 60, 0.3), rgba(192, 57, 43, 0.25));
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    color: rgba(231, 76, 60, 1);
+    background: linear-gradient(145deg, var(--history-section-shadow-3), var(--settings-forms-bg-24));
+    box-shadow: 0 4px 8px var(--glass-shadow);
+    color: var(--settings-forms-text-11);
 }
 
 /* Connection Status Badge */
@@ -647,23 +647,23 @@
 }
 
 .connection-status-badge.status-success {
-    background-color: rgba(39, 174, 96, 0.2) !important;
-    color: #34A853 !important;
+    background-color: var(--settings-forms-bg-18) !important;
+    color: var(--success-color) !important;
 }
 
 .connection-status-badge.status-error {
-    background-color: rgba(231, 76, 60, 0.2) !important;
-    color: #EA4335 !important;
+    background-color: var(--settings-forms-bg-22) !important;
+    color: var(--error-color) !important;
 }
 
 .connection-status-badge.status-unknown {
-    background-color: rgba(127, 140, 141, 0.2) !important;
-    color: #7f8c8d !important;
+    background-color: var(--settings-forms-bg-25) !important;
+    color: var(--settings-forms-text-12) !important;
 }
 
 .connection-status-badge.status-testing {
-    background-color: rgba(99, 102, 241, 0.2) !important;
-    color: #4285F4 !important;
+    background-color: var(--ui-accent-bg-soft) !important;
+    color: var(--accent-color) !important;
 }
 
 .connection-status-badge i {
@@ -698,13 +698,13 @@ input[type="number"].interval-input,
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px var(--ui-shadow);
 }
 
 #reset_stateful_btn {
-    background: linear-gradient(145deg, rgba(231, 76, 60, 0.2), rgba(192, 57, 43, 0.15));
-    color: rgba(231, 76, 60, 0.9);
-    border: 1px solid rgba(231, 76, 60, 0.3);
+    background: linear-gradient(145deg, var(--settings-forms-bg-22), var(--settings-forms-bg-23));
+    color: var(--home-section-border-29);
+    border: 1px solid var(--history-section-shadow-3);
     padding: 6px 14px;
     border-radius: 6px;
     font-size: 13px;
@@ -714,13 +714,13 @@ input[type="number"].interval-input,
     align-items: center;
     gap: 6px;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px var(--ui-shadow-soft);
 }
 
 #reset_stateful_btn:hover {
-    background: linear-gradient(145deg, rgba(231, 76, 60, 0.3), rgba(192, 57, 43, 0.25));
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    color: rgba(231, 76, 60, 1);
+    background: linear-gradient(145deg, var(--history-section-shadow-3), var(--settings-forms-bg-24));
+    box-shadow: 0 4px 8px var(--glass-shadow);
+    color: var(--settings-forms-text-11);
 }
 
 #reset_stateful_btn i {
@@ -728,13 +728,13 @@ input[type="number"].interval-input,
 }
 
 #generalSettings .setting-info-block {
-    background: linear-gradient(145deg, rgba(30, 39, 56, 0.4), rgba(22, 28, 40, 0.5));
-    border: 1px solid rgba(90, 109, 137, 0.1);
+    background: linear-gradient(145deg, var(--settings-forms-bg-14), var(--home-section-bg-34));
+    border: 1px solid var(--footer-border-1);
     border-radius: 8px;
     padding: 15px;
     margin-top: 0;
     margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px var(--ui-shadow-soft);
 }
 
 #generalSettings .info-container {
@@ -744,11 +744,11 @@ input[type="number"].interval-input,
 }
 
 #generalSettings .date-info-block {
-    background: linear-gradient(145deg, rgba(20, 25, 35, 0.4), rgba(15, 19, 26, 0.3));
+    background: linear-gradient(145deg, var(--settings-forms-bg-26), var(--history-section-bg-31));
     padding: 12px 15px;
     border-radius: 6px;
     border-left: 3px solid var(--accent-color);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px var(--ui-shadow-soft);
 }
 
 #generalSettings .date-label {
@@ -914,8 +914,8 @@ input#stateful_management_hours {
     text-align: center;
     padding: 10px 20px;
     background-color: var(--bg-secondary);
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    border-top: 1px solid var(--border-color);
+    box-shadow: 0 -2px 10px var(--ui-shadow-soft);
+    border-top: 1px solid var(--ui-alpha-white);
     z-index: 1000;
 }
 
@@ -943,9 +943,9 @@ input#stateful_management_hours {
 }
 
 .fixed-banner-footer .donation-icon {
-    color: var(--error-color, #ff6b6b);
+    color: var(--error-color, var(--cycle-countdown-color-7));
 }
 
 .fixed-banner-footer .star-icon {
-    color: var(--warning-color, #ffd700);
+    color: var(--warning-color, var(--home-bg-21));
 }

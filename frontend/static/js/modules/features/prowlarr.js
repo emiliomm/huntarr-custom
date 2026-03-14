@@ -164,7 +164,7 @@ window.HuntarrProwlarr = {
         if (!indexersList) return;
         
         if (errorMessage) {
-            indexersList.innerHTML = `<div class="loading-text" style="color: #ef4444;">${errorMessage}</div>`;
+            indexersList.innerHTML = `<div class="loading-text" style="color: var(--ui-danger);">${errorMessage}</div>`;
             return;
         }
         
@@ -241,7 +241,7 @@ window.HuntarrProwlarr = {
         if (!statisticsContent) return;
         
         if (errorMessage) {
-            statisticsContent.innerHTML = `<div class="loading-text" style="color: #ef4444;">${errorMessage}</div>`;
+            statisticsContent.innerHTML = `<div class="loading-text" style="color: var(--ui-danger);">${errorMessage}</div>`;
             return;
         }
         

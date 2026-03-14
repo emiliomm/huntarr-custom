@@ -48,10 +48,10 @@
     margin-top: 0;
     margin-bottom: 20px;
     padding: 9px 14px;
-    background: rgba(15, 23, 42, 0.55);
+    background: var(--home-bg-17);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 10px;
     gap: 12px;
 }
@@ -68,20 +68,15 @@
     gap: 8px;
 }
 
-/* Sponsor inside header bar — hidden (sponsors in sidebar only) */
-.page-header-bar .app-banners-row {
-    display: none !important;
-}
-
 a.reqset-back-btn {
     display: inline-flex;
     align-items: center;
     gap: 5px;
     padding: 5px 11px;
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text-muted, #94a3b8);
+    border: 1px solid var(--ui-alpha-white);
+    background: var(--ui-alpha-white);
+    color: var(--text-muted, var(--ui-text-muted));
     font-size: 12px;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -90,8 +85,8 @@ a.reqset-back-btn {
 
 a.reqset-back-btn:hover,
 button.reqset-back-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-primary, #e2e8f0);
+    background: var(--ui-alpha-white);
+    color: var(--text-primary, var(--text-secondary));
 }
 
 button.reqset-back-btn {
@@ -100,9 +95,9 @@ button.reqset-back-btn {
     gap: 5px;
     padding: 5px 11px;
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text-muted, #94a3b8);
+    border: 1px solid var(--ui-alpha-white);
+    background: var(--ui-alpha-white);
+    color: var(--text-muted, var(--ui-text-muted));
     font-size: 12px;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -115,16 +110,16 @@ button.reqset-back-btn {
     gap: 6px;
     font-size: 12px;
     font-weight: 500;
-    color: var(--text-primary, #e2e8f0);
+    color: var(--text-primary, var(--text-secondary));
 }
 
 .page-header-bar .reqset-breadcrumb i:first-child {
-    color: #8ab4f8;
+    color: var(--accent-hover);
 }
 
 .page-header-bar .reqset-breadcrumb-sep {
     font-size: 9px;
-    color: var(--text-muted, #64748b);
+    color: var(--text-muted, var(--ui-text-dim));
 }
 
 .page-header-bar .reqset-save-btn,
@@ -135,8 +130,8 @@ button.reqset-back-btn {
     padding: 6px 15px;
     border-radius: 6px;
     border: none;
-    background: linear-gradient(135deg, #4285F4, #8ab4f8);
-    color: #fff;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    color: var(--button-primary-text);
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
@@ -145,7 +140,7 @@ button.reqset-back-btn {
 
 .page-header-bar .reqset-save-btn:hover:not(:disabled),
 .page-header-bar .page-header-save:hover:not(:disabled) {
-    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 4px 14px var(--ui-accent-border);
 }
 
 .page-header-bar .reqset-save-btn:disabled,
@@ -170,10 +165,10 @@ button.reqset-back-btn {
     justify-content: space-between;
     margin-bottom: 28px;
     padding: 14px 20px;
-    background: rgba(15, 23, 42, 0.55);
+    background: var(--home-bg-17);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(148, 163, 184, 0.08);
+    border: 1px solid var(--ui-border-faint);
     border-radius: 14px;
     gap: 16px;
 }
@@ -191,7 +186,7 @@ button.reqset-back-btn {
     align-items: center;
     gap: 10px;
     font-size: 0.9rem;
-    color: #64748b;
+    color: var(--ui-text-dim);
     min-width: 0;
 }
 
@@ -199,7 +194,7 @@ button.reqset-back-btn {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     font-weight: 600;
     white-space: nowrap;
 }
@@ -211,11 +206,11 @@ button.reqset-back-btn {
 
 .instance-editor-breadcrumb .fa-chevron-right {
     font-size: 0.6rem;
-    color: #475569;
+    color: var(--ui-primary-surface);
 }
 
 .ie-breadcrumb-name {
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
@@ -254,9 +249,9 @@ button.reqset-back-btn {
 #mediaHuntInstanceManagementSection .ie-btn-ghost,
 #movieManagementSection .ie-btn-ghost,
 #mediaHuntProfilesSection .ie-btn-ghost {
-    background: rgba(148, 163, 184, 0.08);
-    border: 1px solid rgba(148, 163, 184, 0.12);
-    color: #94a3b8;
+    background: var(--ui-border-faint);
+    border: 1px solid var(--ui-border-tint);
+    color: var(--ui-text-muted);
 }
 
 .main-content .ie-btn-ghost:hover,
@@ -266,9 +261,9 @@ button.reqset-back-btn {
 #mediaHuntInstanceManagementSection .ie-btn-ghost:hover,
 #movieManagementSection .ie-btn-ghost:hover,
 #mediaHuntProfilesSection .ie-btn-ghost:hover {
-    background: rgba(148, 163, 184, 0.15);
-    border-color: rgba(148, 163, 184, 0.22);
-    color: #e2e8f0;
+    background: var(--ui-border-soft);
+    border-color: var(--ui-border);
+    color: var(--text-secondary);
     transform: translateX(-2px);
 }
 
@@ -277,10 +272,10 @@ button.reqset-back-btn {
 #instanceEditorSection .save-btn-dynamic,
 #movieHuntInstanceEditorSection .save-btn-dynamic,
 #mediaHuntInstanceEditorSection .save-btn-dynamic {
-    background: rgba(71, 85, 105, 0.35) !important;
-    color: rgba(255, 255, 255, 0.3) !important;
+    background: var(--instance-editor-bg-19) !important;
+    color: var(--instance-editor-text-1) !important;
     cursor: not-allowed !important;
-    border: 1px solid rgba(148, 163, 184, 0.06) !important;
+    border: 1px solid var(--home-bg-11) !important;
     opacity: 0.7;
     box-shadow: none !important;
 }
@@ -290,21 +285,21 @@ button.reqset-back-btn {
 #instanceEditorSection .save-btn-dynamic.enabled,
 #movieHuntInstanceEditorSection .save-btn-dynamic.enabled,
 #mediaHuntInstanceEditorSection .save-btn-dynamic.enabled {
-    background: linear-gradient(135deg, #4285F4 0%, #4285F4 100%) !important;
-    color: #fff !important;
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-color) 100%) !important;
+    color: var(--button-primary-text) !important;
     cursor: pointer !important;
     opacity: 1 !important;
     border: none !important;
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35), 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 4px 16px var(--ui-accent-glow), 0 1px 3px var(--ui-shadow-soft) !important;
 }
 
 .main-content .save-btn-dynamic.enabled:hover,
 #instanceEditorSection .save-btn-dynamic.enabled:hover,
 #movieHuntInstanceEditorSection .save-btn-dynamic.enabled:hover,
 #mediaHuntInstanceEditorSection .save-btn-dynamic.enabled:hover {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+    background: linear-gradient(135deg, var(--ui-indigo-600) 0%, var(--backup-restore-bg-10) 100%) !important;
     transform: translateY(-1px) !important;
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45), 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 6px 20px var(--import-lists-border-4), 0 2px 6px var(--glass-shadow) !important;
 }
 
 /* ============================================================
@@ -345,10 +340,10 @@ button.reqset-back-btn {
 #instanceEditorSection .editor-section,
 #movieHuntInstanceEditorSection .editor-section,
 #mediaHuntInstanceEditorSection .editor-section {
-    background: rgba(30, 41, 59, 0.32);
+    background: var(--activity-section-bg-1);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(148, 163, 184, 0.07);
+    border: 1px solid var(--home-bg-11);
     border-radius: 16px;
     padding: 26px 28px;
     display: flex;
@@ -362,8 +357,8 @@ button.reqset-back-btn {
 #instanceEditorSection .editor-section:hover,
 #movieHuntInstanceEditorSection .editor-section:hover,
 #mediaHuntInstanceEditorSection .editor-section:hover {
-    border-color: rgba(148, 163, 184, 0.14);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border-color: var(--ui-border-soft);
+    box-shadow: 0 8px 30px var(--ui-shadow-soft);
 }
 
 /* ============================================================
@@ -377,12 +372,12 @@ button.reqset-back-btn {
     align-items: center;
     font-size: 0.72rem;
     font-weight: 700;
-    color: #94a3b8;
+    color: var(--ui-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.12em;
     margin-bottom: 22px;
     padding-bottom: 14px;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.07);
+    border-bottom: 1px solid var(--home-bg-11);
 }
 
 #instanceEditorSection .editor-section-title .section-title-text,
@@ -407,43 +402,43 @@ button.reqset-back-btn {
 
 /* Per-section accent colors */
 .section-title-icon.accent-connection {
-    background: rgba(99, 102, 241, 0.12);
-    color: #8ab4f8;
+    background: var(--ui-accent-tint);
+    color: var(--accent-hover);
 }
 
 .section-title-icon.accent-search {
-    background: rgba(16, 185, 129, 0.12);
-    color: #34d399;
+    background: var(--client-editor-color-1);
+    color: var(--home-text-11);
 }
 
 .section-title-icon.accent-stateful {
-    background: rgba(245, 158, 11, 0.12);
-    color: #fcd230;
+    background: var(--backup-restore-bg-4);
+    color: var(--ui-warning);
 }
 
 .section-title-icon.accent-additional {
-    background: rgba(249, 115, 22, 0.12);
-    color: #fb923c;
+    background: var(--instance-editor-bg-10);
+    color: var(--instance-editor-text-3);
 }
 
 .section-title-icon.accent-tags {
-    background: rgba(139, 92, 246, 0.12);
-    color: #a78bfa;
+    background: var(--about-section-bg-2);
+    color: var(--ui-accent-soft-300);
 }
 
 .section-title-icon.accent-advanced {
-    background: rgba(100, 116, 139, 0.12);
-    color: #94a3b8;
+    background: var(--footer-border-1);
+    color: var(--ui-text-muted);
 }
 
 .section-title-icon.accent-seed {
-    background: rgba(6, 182, 212, 0.12);
-    color: #22d3ee;
+    background: var(--instance-editor-bg-13);
+    color: var(--instance-editor-text-5);
 }
 
 .section-title-icon.accent-exempt {
-    background: rgba(239, 68, 68, 0.12);
-    color: #f28b82;
+    background: var(--ui-danger-tint);
+    color: var(--button-danger-hover);
 }
 
 /* Header row with title + status pill (e.g. INFORMATION + Enabled) */
@@ -457,7 +452,7 @@ button.reqset-back-btn {
     gap: 12px;
     margin-bottom: 22px;
     padding-bottom: 14px;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    border-bottom: 1px solid var(--ui-border-faint);
 }
 
 /* ============================================================
@@ -493,7 +488,7 @@ button.reqset-back-btn {
 #instanceEditorSection .editor-setting-item label,
 #movieHuntInstanceEditorSection .editor-setting-item label,
 #mediaHuntInstanceEditorSection .editor-setting-item label {
-    color: #e2e8f0;
+    color: var(--text-secondary);
     font-weight: 500;
     font-size: 0.9rem;
     margin: 0 !important;
@@ -531,12 +526,12 @@ button.reqset-back-btn {
     width: 100%;
     padding: 11px 14px;
     border-radius: 10px;
-    border: 1px solid rgba(148, 163, 184, 0.12);
-    background: rgba(15, 23, 42, 0.5);
-    color: #f1f5f9;
+    border: 1px solid var(--ui-border-tint);
+    background: var(--shadow-lg);
+    color: var(--ui-text-strong);
     font-size: 0.925rem;
     transition: all 0.2s ease;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 1px 2px var(--ui-shadow-soft);
     margin: 0 !important;
     line-height: 1.4;
 }
@@ -567,10 +562,10 @@ button.reqset-back-btn {
 #mediaHuntInstanceEditorSection .editor-setting-item select:focus,
 #mediaHuntInstanceEditorSection .editor-field-group input:focus,
 #mediaHuntInstanceEditorSection .editor-field-group select:focus {
-    border-color: rgba(99, 102, 241, 0.45);
+    border-color: var(--import-lists-border-4);
     outline: none;
-    background: rgba(15, 23, 42, 0.7);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08), inset 0 1px 2px rgba(0, 0, 0, 0.08);
+    background: var(--instance-editor-bg-15);
+    box-shadow: 0 0 0 3px var(--ui-accent-bg), inset 0 1px 2px var(--ui-shadow-soft);
 }
 
 #instanceEditorSection .editor-setting-item input::placeholder,
@@ -579,14 +574,14 @@ button.reqset-back-btn {
 #movieHuntInstanceEditorSection .editor-field-group input::placeholder,
 #mediaHuntInstanceEditorSection .editor-setting-item input::placeholder,
 #mediaHuntInstanceEditorSection .editor-field-group input::placeholder {
-    color: #4a5568;
+    color: var(--core-color-3);
 }
 
 /* ---- Help Text ---- */
 #instanceEditorSection .editor-help-text,
 #movieHuntInstanceEditorSection .editor-help-text,
 #mediaHuntInstanceEditorSection .editor-help-text {
-    color: #64748b;
+    color: var(--ui-text-dim);
     font-size: 0.82rem;
     margin: 8px 0 0 0 !important;
     padding-left: 1px;
@@ -630,26 +625,26 @@ button.reqset-back-btn {
 #instanceEditorSection .connection-status.checking,
 #movieHuntInstanceEditorSection .connection-status.checking,
 #mediaHuntInstanceEditorSection .connection-status.checking {
-    background: rgba(99, 102, 241, 0.1);
-    color: #8ab4f8;
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    background: var(--ui-accent-bg-subtle);
+    color: var(--accent-hover);
+    border: 1px solid var(--ui-accent-bg-soft);
 }
 
 #instanceEditorSection .connection-status.success,
 #movieHuntInstanceEditorSection .connection-status.success,
 #mediaHuntInstanceEditorSection .connection-status.success {
-    background: rgba(16, 185, 129, 0.1);
-    color: #34d399;
-    border: 1px solid rgba(16, 185, 129, 0.22);
-    box-shadow: 0 0 10px rgba(16, 185, 129, 0.08);
+    background: var(--client-editor-color-1);
+    color: var(--home-text-11);
+    border: 1px solid var(--home-bg-30);
+    box-shadow: 0 0 10px var(--client-editor-color-1);
 }
 
 #instanceEditorSection .connection-status.error,
 #movieHuntInstanceEditorSection .connection-status.error,
 #mediaHuntInstanceEditorSection .connection-status.error {
-    background: rgba(239, 68, 68, 0.1);
-    color: #f28b82;
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    background: var(--indexer-hunt-bg-10);
+    color: var(--button-danger-hover);
+    border: 1px solid var(--ui-danger-tint);
 }
 
 /* ============================================================
@@ -691,8 +686,8 @@ button.reqset-back-btn {
 #instanceEditorSection input:checked+.toggle-slider,
 #movieHuntInstanceEditorSection input:checked+.toggle-slider,
 #mediaHuntInstanceEditorSection input:checked+.toggle-slider {
-    background: #4285F4 !important;
-    border-color: rgba(99, 102, 241, 0.5) !important;
+    background: var(--accent-color) !important;
+    border-color: var(--ui-accent-strong) !important;
 }
 
 /* ============================================================
@@ -735,17 +730,17 @@ button.reqset-back-btn {
 #instanceEditorSection .ie-warning-box.warn-amber,
 #movieHuntInstanceEditorSection .ie-warning-box.warn-amber,
 #mediaHuntInstanceEditorSection .ie-warning-box.warn-amber {
-    background: rgba(245, 158, 11, 0.1);
-    border: 1px solid rgba(245, 158, 11, 0.3);
-    color: #fcd34d;
+    background: var(--backup-restore-bg-4);
+    border: 1px solid var(--home-color-1);
+    color: var(--home-text-2);
 }
 
 #instanceEditorSection .ie-warning-box.warn-red,
 #movieHuntInstanceEditorSection .ie-warning-box.warn-red,
 #mediaHuntInstanceEditorSection .ie-warning-box.warn-red {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #fca5a5;
+    background: var(--indexer-hunt-bg-10);
+    border: 1px solid var(--ui-danger-bg-hover);
+    color: var(--ui-danger-soft-300);
 }
 
 /* ============================================================
@@ -777,10 +772,10 @@ button.reqset-back-btn {
 #movieHuntInstanceEditorSection input.editor-input-readonly,
 #mediaHuntInstanceEditorSection .editor-field-readonly .editor-input-readonly,
 #mediaHuntInstanceEditorSection input.editor-input-readonly {
-    background: rgba(71, 85, 105, 0.3) !important;
-    color: rgba(148, 163, 184, 0.85) !important;
+    background: var(--instance-editor-bg-19) !important;
+    color: var(--import-media-text-1) !important;
     cursor: not-allowed !important;
-    border-color: rgba(148, 163, 184, 0.1) !important;
+    border-color: var(--ui-border-subtle) !important;
 }
 
 /* ============================================================
@@ -793,8 +788,8 @@ button.reqset-back-btn {
     align-items: center;
     gap: 6px;
     padding: 5px 10px;
-    background: rgba(220, 38, 38, 0.85);
-    color: #fff;
+    background: var(--instance-editor-bg-20);
+    color: var(--button-primary-text);
     border-radius: 8px;
     font-size: 0.85rem;
     font-weight: 500;
@@ -804,7 +799,7 @@ button.reqset-back-btn {
 #instanceEditorSection .exempt-tag-chip:hover,
 #movieHuntInstanceEditorSection .exempt-tag-chip:hover,
 #mediaHuntInstanceEditorSection .exempt-tag-chip:hover {
-    background: rgba(220, 38, 38, 1);
+    background: var(--core-color-4);
 }
 
 #instanceEditorSection .exempt-tag-chip .exempt-tag-remove,
@@ -825,10 +820,10 @@ button.reqset-back-btn {
 #instanceEditorSection .editor-section .editor-section.exempt-tags-subsection,
 #movieHuntInstanceEditorSection .editor-section .editor-section.exempt-tags-subsection,
 #mediaHuntInstanceEditorSection .editor-section .editor-section.exempt-tags-subsection {
-    border: 1px solid rgba(239, 68, 68, 0.15);
+    border: 1px solid var(--ui-danger-tint);
     border-radius: 12px;
     padding: 18px;
-    background: rgba(239, 68, 68, 0.04);
+    background: var(--backup-restore-bg-2);
     margin-top: 16px;
 }
 
@@ -836,10 +831,10 @@ button.reqset-back-btn {
 #instanceEditorSection .tag-sub-box,
 #movieHuntInstanceEditorSection .tag-sub-box,
 #mediaHuntInstanceEditorSection .tag-sub-box {
-    border: 1px solid rgba(148, 163, 184, 0.12);
+    border: 1px solid var(--ui-border-tint);
     border-radius: 12px;
     padding: 14px 14px 10px;
-    background: rgba(15, 23, 42, 0.22);
+    background: var(--instance-editor-bg-23);
     margin-bottom: 24px !important;
 }
 
@@ -861,23 +856,23 @@ button.reqset-back-btn {
     align-items: center;
     gap: 6px;
     padding: 6px 10px;
-    background: rgba(239, 68, 68, 0.12);
-    border: 1px solid rgba(239, 68, 68, 0.3);
+    background: var(--ui-danger-tint);
+    border: 1px solid var(--ui-danger-bg-hover);
     border-radius: 8px;
-    color: #fca5a5;
+    color: var(--ui-danger-soft-300);
     font-size: 0.8125rem;
 }
 
 #instanceEditorSection .indexer-category-pill .indexer-category-remove {
     cursor: pointer;
-    color: #fca5a5;
+    color: var(--ui-danger-soft-300);
     font-size: 14px;
     padding: 0 2px;
     transition: color 0.2s;
 }
 
 #instanceEditorSection .indexer-category-pill .indexer-category-remove:hover {
-    color: #fff;
+    color: var(--button-primary-text);
 }
 
 /* ============================================================
@@ -886,10 +881,10 @@ button.reqset-back-btn {
 #instanceEditorSection .editor-hourly-cap-warning {
     margin-top: 8px;
     padding: 12px 16px;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.35);
+    background: var(--indexer-hunt-bg-10);
+    border: 1px solid var(--backup-restore-shadow-6);
     border-radius: 10px;
-    color: #fca5a5;
+    color: var(--ui-danger-soft-300);
     font-size: 0.85rem;
     line-height: 1.5;
 }
@@ -972,7 +967,7 @@ button.reqset-back-btn {
    Animations
    ============================================================ */
 #instanceEditorSection .connection-status.success {
-    box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+    box-shadow: 0 0 10px var(--client-editor-color-1);
 }
 
 @keyframes ie-spin {
@@ -985,7 +980,7 @@ button.reqset-back-btn {
    Client editor title styling
    ============================================================ */
 .client-editor-title-app {
-    color: #FBBC04;
+    color: var(--warning-color);
     font-weight: 700;
 }
 
@@ -997,28 +992,28 @@ button.reqset-back-btn {
     align-items: center;
     gap: 10px;
     padding: 10px 14px;
-    background: rgba(99, 102, 241, 0.08);
-    border: 1px solid rgba(99, 102, 241, 0.25);
+    background: var(--ui-accent-bg);
+    border: 1px solid var(--ui-accent-bg-hover);
     border-radius: 8px;
-    color: #c7d2fe;
+    color: var(--home-text-16);
     font-size: 14px;
     font-weight: 500;
 }
 
 .indexer-preset-locked i:first-child {
-    color: #8ab4f8;
+    color: var(--accent-hover);
     font-size: 15px;
 }
 
 .indexer-preset-lock-icon {
     margin-left: auto;
-    color: #64748b;
+    color: var(--ui-text-dim);
     font-size: 12px;
 }
 
 .editor-readonly {
     opacity: 0.6;
     cursor: not-allowed;
-    background: rgba(15, 23, 42, 0.5) !important;
-    border-color: rgba(71, 85, 105, 0.4) !important;
+    background: var(--shadow-lg) !important;
+    border-color: var(--components-border-2) !important;
 }

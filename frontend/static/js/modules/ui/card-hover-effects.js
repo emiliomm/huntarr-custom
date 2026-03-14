@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Mouse enter event - elevate and highlight card
         card.addEventListener('mouseenter', function() {
             card.style.transform = 'translateY(-5px) scale(1.02)';
-            card.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.2)';
+            card.style.boxShadow = '0 8px 24px var(--ui-shadow)';
             card.style.filter = 'brightness(1.1)';
             
             // Get app type from classes
@@ -22,12 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (appType) {
                 // Add app-specific glow effect
                 const glowColors = {
-                    'sonarr': '0 0 15px rgba(52, 152, 219, 0.4)',
-                    'radarr': '0 0 15px rgba(243, 156, 18, 0.4)',
-                    'lidarr': '0 0 15px rgba(46, 204, 113, 0.4)',
-                    'readarr': '0 0 15px rgba(231, 76, 60, 0.4)',
-                    'whisparr': '0 0 15px rgba(155, 89, 182, 0.4)',
-                    'eros': '0 0 15px rgba(26, 188, 156, 0.4)'
+                    'sonarr': '0 0 15px var(--card-hover-effects-color-1)',
+                    'radarr': '0 0 15px var(--card-hover-effects-color-2)',
+                    'lidarr': '0 0 15px var(--card-hover-effects-color-3)',
+                    'readarr': '0 0 15px var(--card-hover-effects-color-4)',
+                    'whisparr': '0 0 15px var(--card-hover-effects-color-5)',
+                    'eros': '0 0 15px var(--card-hover-effects-color-6)'
                 };
                 
                 if (glowColors[appType]) {

@@ -8,14 +8,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const apps = ['sonarr', 'radarr', 'lidarr', 'readarr', 'whisparr', 'eros', 'swaparr'];
     
     // App-specific colors matching your existing design
+    const style = getComputedStyle(document.documentElement);
+    const getVar = (name, fallback) => (style.getPropertyValue(name) || fallback).trim();
     const appColors = {
-        'sonarr': '#6366f1',  // Indigo
-        'radarr': '#f39c12',  // Yellow/orange
-        'lidarr': '#2ecc71',  // Green
-        'readarr': '#e74c3c', // Red
-        'whisparr': '#9b59b6', // Purple
-        'eros': '#1abc9c'     // Teal
+        'sonarr': getVar('--app-sonarr-color', 'var(--app-sonarr-color)'),
+        'radarr': getVar('--app-radarr-color', 'var(--app-radarr-color)'),
+        'lidarr': getVar('--app-lidarr-color', 'var(--app-lidarr-color)'),
+        'readarr': getVar('--app-readarr-color', 'var(--app-readarr-color)'),
+        'whisparr': getVar('--app-whisparr-color', 'var(--app-whisparr-color)'),
+        'eros': getVar('--app-eros-color', 'var(--app-eros-color)'),
+        'swaparr': getVar('--app-swaparr-color', 'var(--app-sonarr-color)')
     };
+    const bgCircleStroke = getVar('--border-color', 'var(--ui-alpha-white)');
+    const warningColor = getVar('--warning-color', 'var(--app-radarr-color)');
+    const errorColor = getVar('--error-color', 'var(--app-readarr-color)');
     
     // Add circular progress indicators to each API count indicator
     apps.forEach(app => {
@@ -55,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         bgCircle.setAttribute("cy", svgSize / 2);
         bgCircle.setAttribute("r", circleRadius);
         bgCircle.setAttribute("fill", "none");
-        bgCircle.setAttribute("stroke", "rgba(255, 255, 255, 0.1)");
+        bgCircle.setAttribute("stroke", bgCircleStroke);
         bgCircle.setAttribute("stroke-width", circleStrokeWidth);
         
         // Progress circle
@@ -108,9 +114,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Change color based on usage percentage
             if (newPercentage > 0.9) {
-                progressCircle.setAttribute("stroke", "#e74c3c"); // Red when near limit
+                progressCircle.setAttribute("stroke", errorColor); // Red when near limit
             } else if (newPercentage > 0.75) {
-                progressCircle.setAttribute("stroke", "#f39c12"); // Orange/yellow for moderate usage
+                progressCircle.setAttribute("stroke", warningColor); // Orange/yellow for moderate usage
             } else {
                 progressCircle.setAttribute("stroke", appColors[app]); // Default color
             }

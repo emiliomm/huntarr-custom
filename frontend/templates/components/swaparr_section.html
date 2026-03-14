@@ -8,7 +8,7 @@
     #swaparrSection .styled-select:focus,
     #swaparrSection .styled-select:hover {
         animation: none !important;
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.2) !important;
+        box-shadow: 0 0 5px var(--apps-section-shadow-1) !important;
         transform: none !important;
     }
 </style>
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="./static/css/instance-editor.css?v=1.0.2">
     <div class="content-boundary-inner">
         {% from 'components/page_header_partial.html' import page_header %}
-        {{ page_header(back_href='./#apps', parent_icon='fas fa-th-large', parent_name='Apps', current_name='Swaparr', sponsor_section_id='swaparr') }}
+        {{ page_header(back_href='./#apps', parent_icon='fas fa-th-large', parent_name='Apps', current_name='Swaparr') }}
         <!-- Single scrollable container for all content -->
         <div class="single-scroll-container">
         <div id="swaparrContainer" class="swaparr-container">
@@ -116,16 +116,16 @@
     }
     
     .single-scroll-container::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.1);
+        background: var(--ui-alpha-white);
         border-radius: 4px;
     }
     
     .single-scroll-container::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.3);
+        background: var(--instance-editor-text-1);
         border-radius: 4px;
     }
     
     .single-scroll-container::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.5);
+        background: var(--apps-section-text-6);
     }
 </style> 

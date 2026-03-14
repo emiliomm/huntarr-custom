@@ -219,7 +219,7 @@ window.CycleCountdown = (function() {
                     if (timerValue && (timerValue.textContent === '--:--:--' || timerValue.textContent === 'Starting Cycle')) {
                         timerValue.textContent = 'Waiting for Cycle';
                         timerValue.classList.add('refreshing-state');
-                        timerValue.style.color = '#00c2ce';
+                        timerValue.style.color = 'var(--cycle-countdown-border-1)';
                     }
                 });
             }
@@ -308,7 +308,7 @@ window.CycleCountdown = (function() {
             const timerElement = document.createElement('div');
             timerElement.className = 'cycle-timer inline-timer';
             timerElement.innerHTML = '<i class="fas fa-clock"></i> <span class="timer-value">Starting Cycle</span>';
-            if (app === 'eros') timerElement.style.cssText = 'border-left: 2px solid #ff45b7 !important;';
+            if (app === 'eros') timerElement.style.cssText = 'border-left: 2px solid var(--cycle-countdown-border-4) !important;';
             timerElement.classList.add(cssClass);
             timerElement.setAttribute('data-app-type', app);
             const timerIcon = timerElement.querySelector('i');
@@ -414,7 +414,7 @@ window.CycleCountdown = (function() {
                                     timerValue.textContent = 'Running Cycle';
                                     timerValue.classList.remove('refreshing-state');
                                     timerValue.classList.add('running-state');
-                                    timerValue.style.color = '#00ff88';
+                                    timerValue.style.color = 'var(--cycle-countdown-color-3)';
                                 }
                             });
                         } else if (pendingResets[app]) {
@@ -424,7 +424,7 @@ window.CycleCountdown = (function() {
                                     timerValue.textContent = 'Pending Reset';
                                     timerValue.classList.remove('refreshing-state', 'running-state');
                                     timerValue.classList.add('pending-reset-state');
-                                    timerValue.style.color = '#ffaa00';
+                                    timerValue.style.color = 'var(--cycle-countdown-color-4)';
                                 }
                             });
                         } else {
@@ -572,7 +572,7 @@ window.CycleCountdown = (function() {
                 timerValue.textContent = 'Pending Reset';
                 timerValue.classList.remove('refreshing-state', 'running-state');
                 timerValue.classList.add('pending-reset-state');
-                timerValue.style.color = '#ffaa00';
+                timerValue.style.color = 'var(--cycle-countdown-color-4)';
                 return;
             }
             if (isRunning) {
@@ -580,7 +580,7 @@ window.CycleCountdown = (function() {
                 timerValue.textContent = (activity && String(activity).trim()) ? activity : 'Running Cycle';
                 timerValue.classList.remove('refreshing-state', 'pending-reset-state');
                 timerValue.classList.add('running-state');
-                timerValue.style.color = '#00ff88';
+                timerValue.style.color = 'var(--cycle-countdown-color-3)';
                 return;
             }
             if (!nextCycleTime || isExpired) {
@@ -609,11 +609,11 @@ window.CycleCountdown = (function() {
         if (timeRemaining < 60000) { // Less than 1 minute
             timerElement.classList.add('timer-imminent');
             timerValue.classList.add('timer-value-imminent');
-            timerValue.style.color = '#ff3333'; // Red - direct styling for immediate effect
+            timerValue.style.color = 'var(--cycle-countdown-color-5)'; // Red - direct styling for immediate effect
         } else if (timeRemaining < 300000) { // Less than 5 minutes
             timerElement.classList.add('timer-soon');
             timerValue.classList.add('timer-value-soon');
-            timerValue.style.color = '#ff8c00'; // Orange - direct styling for immediate effect
+            timerValue.style.color = 'var(--cycle-countdown-color-6)'; // Orange - direct styling for immediate effect
         } else {
             timerElement.classList.add('timer-normal');
             timerValue.classList.add('timer-value-normal');
@@ -627,7 +627,7 @@ window.CycleCountdown = (function() {
             const timerValue = timerElement.querySelector('.timer-value');
             if (timerValue) {
                 timerValue.textContent = 'Unavailable';
-                timerValue.style.color = '#ff6b6b';
+                timerValue.style.color = 'var(--cycle-countdown-color-7)';
                 timerElement.classList.add('timer-error');
             }
         });
