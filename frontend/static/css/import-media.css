@@ -426,7 +426,7 @@
 
 .import-media-modal-content {
     position: relative;
-    background: linear-gradient(135deg, var(--import-media-bg-8), var(--history-section-bg-27));
+    background: var(--import-media-bg-8);
     border: 1px solid var(--ui-alpha-white);
     border-radius: 16px;
     padding: 24px;

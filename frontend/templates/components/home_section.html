@@ -726,7 +726,7 @@
     }
 
     .app-stats-card {
-        background: linear-gradient(145deg, var(--history-section-bg-12), var(--home-section-bg-10));
+        background: var(--history-section-bg-12);
         border-radius: 18px;
         padding: 0 20px 0 20px;
         text-align: center;
@@ -769,7 +769,7 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 5px;
-        background: linear-gradient(to bottom, var(--home-section-bg-7), var(--history-section-bg-1));
+        background: var(--home-section-bg-7);
         border-bottom: 1px solid var(--ui-alpha-white);
         border-radius: 16px 16px 0 0;
         margin-left: -20px;
@@ -836,7 +836,7 @@
         color: var(--footer-text-1);
         letter-spacing: 0.7px;
         text-shadow: 0 2px 4px var(--ui-shadow-strong);
-        background: linear-gradient(to bottom, var(--button-primary-text), var(--home-section-bg-11));
+        background: var(--button-primary-text);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -1017,49 +1017,49 @@
 
     /* App-specific stat number styles */
     .app-stats-card.sonarr .stat-number {
-        background: linear-gradient(to bottom right, var(--home-section-bg-12), var(--home-section-bg-13));
+        background: var(--home-section-bg-12);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .app-stats-card.radarr .stat-number {
-        background: linear-gradient(to bottom right, var(--home-section-bg-14), var(--home-section-bg-15));
+        background: var(--home-section-bg-14);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .app-stats-card.lidarr .stat-number {
-        background: linear-gradient(to bottom right, var(--home-section-bg-16), var(--home-section-bg-17));
+        background: var(--home-section-bg-16);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .app-stats-card.readarr .stat-number {
-        background: linear-gradient(to bottom right, var(--home-section-bg-18), var(--home-section-bg-19));
+        background: var(--home-section-bg-18);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .app-stats-card.whisparr .stat-number {
-        background: linear-gradient(to bottom right, var(--home-section-bg-20), var(--home-section-bg-21));
+        background: var(--home-section-bg-20);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .app-stats-card.eros .stat-number {
-        background: linear-gradient(to bottom right, var(--home-section-bg-20), var(--home-section-bg-21));
+        background: var(--home-section-bg-20);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .app-stats-card.swaparr .stat-number {
-        background: linear-gradient(to bottom right, var(--app-sonarr-color), var(--ui-accent-soft));
+        background: var(--app-sonarr-color);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -1119,21 +1119,21 @@
 
     /* Status badge colors */
     .status-badge.connected {
-        background: linear-gradient(145deg, var(--home-section-bg-22), var(--home-section-bg-23));
+        background: var(--home-section-bg-22);
         color: var(--app-lidarr-color);
         border: 1px solid var(--home-section-border-22);
         box-shadow: 0 3px 10px var(--home-section-shadow-21);
     }
 
     .status-badge.partially-connected {
-        background: linear-gradient(145deg, var(--backup-restore-bg-4), var(--home-section-bg-25));
+        background: var(--backup-restore-bg-4);
         color: var(--app-radarr-color);
         border: 1px solid var(--home-color-1);
         box-shadow: 0 3px 10px var(--backup-restore-bg-4);
     }
 
     .status-badge.not-connected {
-        background: linear-gradient(145deg, var(--home-section-bg-26), var(--home-section-bg-27));
+        background: var(--home-section-bg-26);
         color: var(--app-readarr-color);
         border: 1px solid var(--history-section-shadow-3);
 
@@ -1177,7 +1177,7 @@
         }
 
         .swaparr-stat-box {
-            background: linear-gradient(145deg, var(--history-section-bg-12), var(--home-section-bg-10)) !important;
+            background: var(--history-section-bg-12) !important;
             border-radius: 8px !important;
             padding: 15px !important;
             text-align: center !important;
@@ -1213,7 +1213,7 @@
             font-size: 28px !important;
             font-weight: 700 !important;
             color: var(--button-primary-text) !important;
-            background: linear-gradient(to bottom right, var(--app-sonarr-color), var(--ui-accent-soft)) !important;
+            background: var(--app-sonarr-color) !important;
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
@@ -1255,7 +1255,7 @@
 
         .timer-value {
             font-family: 'Courier New', monospace;
-            background: linear-gradient(to bottom right, var(--app-sonarr-color), var(--ui-accent-soft));
+            background: var(--app-sonarr-color);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -1305,7 +1305,7 @@
     }
 
     .status-badge.loading {
-        background: linear-gradient(145deg, var(--home-section-bg-29), var(--components-shadow-2));
+        background: var(--home-section-bg-29);
         color: var(--app-sonarr-color);
         border: 1px solid var(--home-section-border-25);
         box-shadow: 0 3px 10px var(--home-section-bg-29);
@@ -1343,7 +1343,7 @@
         border-radius: 8px;
         font-size: 12px;
         font-weight: 600;
-        background: linear-gradient(145deg, var(--components-bg-1), var(--home-section-bg-32));
+        background: var(--components-bg-1);
         box-shadow: 0 2px 8px var(--glass-shadow), 0 1px 0 var(--ui-alpha-white) inset;
         border-left: 3px solid var(--apps-section-shadow-1);
         transition: all 0.2s ease;
@@ -1381,19 +1381,19 @@
 
     /* API Cap Status Colors */
     .hourly-cap-status.good {
-        background: linear-gradient(145deg, var(--home-section-bg-34), var(--history-section-bg-31));
+        background: var(--home-section-bg-34);
         border-left: 3px solid var(--home-section-border-27);
         box-shadow: 0 3px 10px var(--home-section-shadow-21);
     }
 
     .hourly-cap-status.warning {
-        background: linear-gradient(145deg, var(--home-section-bg-34), var(--history-section-bg-31));
+        background: var(--home-section-bg-34);
         border-left: 3px solid var(--home-section-border-28);
         box-shadow: 0 3px 10px var(--backup-restore-bg-4);
     }
 
     .hourly-cap-status.danger {
-        background: linear-gradient(145deg, var(--home-section-bg-34), var(--history-section-bg-31));
+        background: var(--home-section-bg-34);
         border-left: 3px solid var(--home-section-border-29);
         box-shadow: 0 3px 10px var(--home-section-bg-26);
     }
@@ -1494,7 +1494,7 @@
         padding: 6px 12px;
         font-size: 0.85em;
         flex-grow: 0;
-        background: linear-gradient(145deg, var(--home-section-bg-41), var(--home-section-bg-42));
+        background: var(--home-section-bg-41);
         border: 1px solid var(--home-section-border-30);
         border-radius: 6px;
         transition: all 0.2s ease;
@@ -1507,7 +1507,7 @@
     }
 
     .action-button.danger:hover {
-        background: linear-gradient(145deg, var(--home-section-bg-44), var(--home-section-bg-45));
+        background: var(--home-section-bg-44);
         color: white;
         border-color: var(--cycle-countdown-text-5);
         transform: translateY(-1px);
@@ -1515,7 +1515,7 @@
     }
 
     .action-button.danger:active {
-        background: linear-gradient(145deg, var(--home-section-bg-46), var(--home-section-bg-47));
+        background: var(--home-section-bg-46);
         transform: translateY(0);
     }
 
@@ -1588,7 +1588,7 @@
     .reset-button-container {
         margin-top: auto;
         padding: 12px 0;
-        background: linear-gradient(to bottom, var(--home-section-bg-34), var(--apps-section-bg-11));
+        background: var(--home-section-bg-34);
         border-top: 1px solid var(--ui-alpha-white);
         border-radius: 0 0 16px 16px;
         display: flex;
@@ -1605,7 +1605,7 @@
     /* Enhanced cycle reset button */
     .cycle-reset-button {
         padding: 6px 14px;
-        background: linear-gradient(145deg, var(--ui-accent-bg-soft), var(--home-section-bg-29));
+        background: var(--ui-accent-bg-soft);
         color: var(--app-sonarr-color);
         border: 1px solid var(--ui-accent-ring);
         border-radius: 6px;
@@ -1621,13 +1621,13 @@
     }
 
     .cycle-reset-button:hover {
-        background: linear-gradient(145deg, var(--ui-accent-ring), var(--home-section-bg-71));
+        background: var(--ui-accent-ring);
         transform: translateY(-1px);
         box-shadow: 0 4px 8px var(--glass-shadow);
     }
 
     .cycle-reset-button:active {
-        background: linear-gradient(145deg, var(--home-section-border-25), var(--ui-accent-bg-soft));
+        background: var(--home-section-border-25);
         transform: translateY(0);
     }
 
@@ -1674,7 +1674,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(90deg, var(--apps-section-shadow-1) 0%, var(--ui-alpha-white) 50%, var(--apps-section-shadow-1) 100%);
+        background: var(--apps-section-shadow-1);
         border-radius: 3px;
     }
 
@@ -1886,7 +1886,7 @@
         position: relative;
         padding: 28px 28px 18px;
         text-align: center;
-        background: linear-gradient(135deg, var(--ui-slate-800) 0%, var(--ui-slate-700) 50%, var(--home-section-bg-77) 100%);
+        background: var(--ui-slate-800);
         border-bottom: 1px solid var(--ui-border-faint);
     }
 
@@ -1914,7 +1914,7 @@
         width: 56px;
         height: 56px;
         border-radius: 50%;
-        background: linear-gradient(135deg, var(--app-sonarr-color), var(--ui-indigo-600));
+        background: var(--app-sonarr-color);
         margin-bottom: 12px;
         font-size: 1.5rem;
         color: var(--button-primary-text);
@@ -2001,7 +2001,7 @@
 
     .huntarr-welcome-dismiss {
         padding: 10px 24px;
-        background: linear-gradient(135deg, var(--app-sonarr-color), var(--ui-indigo-600));
+        background: var(--app-sonarr-color);
         border: none;
         border-radius: 8px;
         color: var(--button-primary-text);

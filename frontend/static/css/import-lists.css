@@ -478,7 +478,7 @@ body.modal-open .app-container {
     cursor: pointer;
 }
 .import-list-form-actions .btn-save {
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--ui-indigo-600) 100%);
+    background: var(--accent-color);
     color: var(--button-primary-text);
     border: 1px solid var(--ui-accent-strong);
     border-radius: 8px;
@@ -490,7 +490,7 @@ body.modal-open .app-container {
     align-items: center;
     gap: 6px;
 }
-.import-list-form-actions .btn-save:hover { background: linear-gradient(135deg, var(--ui-indigo-600) 0%, var(--import-lists-color-4) 100%); }
+.import-list-form-actions .btn-save:hover { background: var(--ui-indigo-600); }
 .import-list-form-actions .btn-delete {
     background: var(--backup-restore-bg-7);
     color: var(--button-danger-hover);

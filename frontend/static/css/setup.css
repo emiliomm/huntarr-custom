@@ -209,7 +209,7 @@
 
 /* Completed step */
 .setup-stepper-item.completed .setup-step-circle {
-    background: linear-gradient(135deg, var(--success-color), var(--login-bg-16));
+    background: var(--success-color);
     border-color: transparent;
     color: var(--button-primary-text);
 }
@@ -310,7 +310,7 @@
     padding: 11px 24px;
     border-radius: 10px;
     border: none;
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    background: var(--accent-color);
     color: var(--button-primary-text);
     font-size: 0.9rem;
     font-weight: 600;
@@ -613,7 +613,7 @@
     position: absolute;
     top: -9px;
     right: 16px;
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    background: var(--accent-color);
     color: var(--button-primary-text);
     font-size: 0.68rem;
     font-weight: 600;
@@ -876,7 +876,7 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto 20px;
-    background: linear-gradient(135deg, var(--backup-restore-bg-3) 0%, var(--client-editor-color-1) 100%);
+    background: var(--backup-restore-bg-3);
     box-shadow: 0 0 30px var(--backup-restore-bg-3);
 }
 .setup-finish-icon i {

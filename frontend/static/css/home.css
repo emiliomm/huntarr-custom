@@ -422,7 +422,7 @@
     min-width: 140px;
     width: auto;
     padding: 10px 36px 10px 14px;
-    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-primary) 50%, var(--bg-tertiary) 100%);
+    background: var(--bg-tertiary);
     border: 1px solid var(--home-border-9);
     border-radius: 8px;
     color: var(--ui-text-strong);
@@ -539,7 +539,7 @@
 /* ── Trending bar accent ────────────────────────────────────────── */
 #homeSection .trending-bar {
     height: 2px !important;
-    background: linear-gradient(90deg, var(--apps-section-border-3) 0%, var(--components-shadow-2) 100%) !important;
+    background: var(--apps-section-border-3) !important;
     border-radius: 2px;
     margin-bottom: 14px;
 }
@@ -888,33 +888,33 @@
 
 /* Per-app progress fill colors in list */
 .list-api-fill.movie_hunt {
-    background: linear-gradient(90deg, var(--warning-color), var(--ui-warning));
+    background: var(--warning-color);
     box-shadow: 0 0 4px var(--home-color-1);
 }
 
 .list-api-fill.sonarr {
-    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+    background: var(--accent-color);
     box-shadow: 0 0 4px var(--ui-accent-ring);
 }
 
 .list-api-fill.radarr {
-    background: linear-gradient(90deg, var(--warning-color), var(--ui-warning));
+    background: var(--warning-color);
     box-shadow: 0 0 4px var(--home-color-1);
 }
 
 .list-api-fill.lidarr {
-    background: linear-gradient(90deg, var(--success-color), var(--button-success-hover));
+    background: var(--success-color);
     box-shadow: 0 0 4px var(--home-shadow-15);
 }
 
 .list-api-fill.readarr {
-    background: linear-gradient(90deg, var(--client-editor-color-5), var(--home-text-3));
+    background: var(--client-editor-color-5);
     box-shadow: 0 0 4px var(--client-editor-color-4);
 }
 
 .list-api-fill.whisparr,
 .list-api-fill.eros {
-    background: linear-gradient(90deg, var(--home-bg-15), var(--home-text-4));
+    background: var(--home-bg-15);
     box-shadow: 0 0 4px var(--home-shadow-10);
 }
 
@@ -1345,7 +1345,7 @@
 /* ── Requestarr home card wrapper ────────────────────────────────── */
 .requestarr-home-card {
     padding: 16px 22px 10px;
-    background: linear-gradient(145deg, var(--home-bg-2) 0%, var(--ui-surface-raised) 100%);
+    background: var(--home-bg-2);
     border: 1px solid var(--ui-border-faint);
     border-radius: 14px;
     box-shadow: 0 4px 20px var(--ui-shadow-soft);
@@ -1391,11 +1391,7 @@
 .trending-bar {
     height: 2px;
     width: 100%;
-    background: linear-gradient(to right,
-            var(--home-color-4) 0%,
-            var(--card-hover-effects-color-2) 30%,
-            var(--ui-accent-ring) 60%,
-            transparent 100%);
+    background: var(--home-color-4);
     border-radius: 2px;
     margin-bottom: 16px;
     box-shadow: 0 0 8px var(--home-section-shadow-15);
@@ -1548,7 +1544,7 @@
 
 /* ── Stats Card (Live Hunts / Swaparr / Prowlarr containers) ───── */
 .stats-card {
-    background: linear-gradient(145deg, var(--home-bg-2) 0%, var(--ui-surface-raised) 100%);
+    background: var(--home-bg-2);
     border: 1px solid var(--ui-border-faint);
     border-radius: 14px;
     box-shadow: 0 4px 20px var(--ui-shadow-soft);
@@ -1556,14 +1552,14 @@
 
 #swaparrStatusCard,
 #prowlarrStatusCard {
-    background: linear-gradient(145deg, var(--home-bg-2) 0%, var(--ui-surface-raised) 100%);
+    background: var(--home-bg-2);
     border: 1px solid var(--ui-border-faint);
     border-radius: 14px;
 }
 
 /* ── App Stats Cards (Sonarr, Radarr, etc.) ──────────────────────── */
 .app-stats-card {
-    background: linear-gradient(145deg, var(--bg-tertiary) 0%, var(--bg-primary) 100%);
+    background: var(--bg-tertiary);
     border: 1px solid var(--ui-border-subtle);
     border-radius: 12px;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -1633,7 +1629,7 @@
     font-weight: 800;
     font-size: 2rem;
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, var(--ui-text-strong) 0%, var(--ui-text-muted) 100%);
+    background: var(--ui-text-strong);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1641,28 +1637,28 @@
 
 /* Per-app stat number colors */
 .app-stats-card.sonarr .stat-number {
-    background: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent-color) 100%);
+    background: var(--accent-hover);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .app-stats-card.radarr .stat-number {
-    background: linear-gradient(135deg, var(--ui-warning) 0%, var(--warning-color) 100%);
+    background: var(--ui-warning);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .app-stats-card.lidarr .stat-number {
-    background: linear-gradient(135deg, var(--button-success-hover) 0%, var(--success-color) 100%);
+    background: var(--button-success-hover);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .app-stats-card.readarr .stat-number {
-    background: linear-gradient(135deg, var(--home-text-3) 0%, var(--client-editor-color-5) 100%);
+    background: var(--home-text-3);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1670,7 +1666,7 @@
 
 .app-stats-card.whisparr .stat-number,
 .app-stats-card.eros .stat-number {
-    background: linear-gradient(135deg, var(--home-text-4) 0%, var(--home-bg-15) 100%);
+    background: var(--home-text-4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1679,7 +1675,7 @@
 /* Movie Hunt: "found / searched" stat layout */
 .app-stats-card.movie_hunt .stat-number,
 .app-stats-card.tv_hunt .stat-number {
-    background: linear-gradient(135deg, var(--ui-warning) 0%, var(--warning-color) 100%);
+    background: var(--ui-warning);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1687,7 +1683,7 @@
 
 .app-stats-card.movie_hunt .stat-found,
 .app-stats-card.tv_hunt .stat-found {
-    background: linear-gradient(135deg, var(--button-success-hover) 0%, var(--success-color) 100%);
+    background: var(--button-success-hover);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1743,28 +1739,28 @@
 }
 
 .app-stats-card.sonarr .api-progress-fill {
-    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+    background: var(--accent-color);
     box-shadow: 0 0 6px var(--ui-accent-border);
 }
 
 .app-stats-card.radarr .api-progress-fill {
-    background: linear-gradient(90deg, var(--warning-color), var(--ui-warning));
+    background: var(--warning-color);
     box-shadow: 0 0 6px var(--card-hover-effects-color-2);
 }
 
 .app-stats-card.lidarr .api-progress-fill {
-    background: linear-gradient(90deg, var(--success-color), var(--button-success-hover));
+    background: var(--success-color);
     box-shadow: 0 0 6px var(--home-border-6);
 }
 
 .app-stats-card.readarr .api-progress-fill {
-    background: linear-gradient(90deg, var(--client-editor-color-5), var(--home-text-3));
+    background: var(--client-editor-color-5);
     box-shadow: 0 0 6px var(--home-border-7);
 }
 
 .app-stats-card.whisparr .api-progress-fill,
 .app-stats-card.eros .api-progress-fill {
-    background: linear-gradient(90deg, var(--home-bg-15), var(--home-text-4));
+    background: var(--home-bg-15);
     box-shadow: 0 0 6px var(--home-border-8);
 }
 
@@ -1889,7 +1885,7 @@
 }
 
 .prowlarr-main-card {
-    background: linear-gradient(145deg, var(--ui-surface-slate) 0%, var(--ui-surface-raised) 100%);
+    background: var(--ui-surface-slate);
     border-radius: 12px;
     padding: 16px 18px;
     margin-bottom: 14px;
@@ -2376,7 +2372,7 @@
 
 .setup-wizard-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+    background: var(--accent-color);
     border-radius: 2px;
     transition: width 0.4s ease;
 }
@@ -2609,7 +2605,7 @@
 }
 
 .setup-wizard-done-btn {
-    background: linear-gradient(135deg, var(--ui-accent-bg-strong) 0%, var(--ui-accent-bg) 100%);
+    background: var(--ui-accent-bg-strong);
     border: 1px solid var(--ui-accent-ring);
     color: var(--accent-hover);
     padding: 12px 32px;
@@ -2624,7 +2620,7 @@
 }
 
 .setup-wizard-done-btn:hover {
-    background: linear-gradient(135deg, var(--ui-accent-bg-hover) 0%, var(--ui-accent-bg-strong) 100%);
+    background: var(--ui-accent-bg-hover);
     border-color: var(--ui-accent-strong);
     color: var(--home-text-16);
     transform: translateY(-1px);

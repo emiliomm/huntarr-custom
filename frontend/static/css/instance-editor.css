@@ -130,7 +130,7 @@ button.reqset-back-btn {
     padding: 6px 15px;
     border-radius: 6px;
     border: none;
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    background: var(--accent-color);
     color: var(--button-primary-text);
     font-size: 12px;
     font-weight: 500;
@@ -285,7 +285,7 @@ button.reqset-back-btn {
 #instanceEditorSection .save-btn-dynamic.enabled,
 #movieHuntInstanceEditorSection .save-btn-dynamic.enabled,
 #mediaHuntInstanceEditorSection .save-btn-dynamic.enabled {
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-color) 100%) !important;
+    background: var(--accent-color) !important;
     color: var(--button-primary-text) !important;
     cursor: pointer !important;
     opacity: 1 !important;
@@ -297,7 +297,7 @@ button.reqset-back-btn {
 #instanceEditorSection .save-btn-dynamic.enabled:hover,
 #movieHuntInstanceEditorSection .save-btn-dynamic.enabled:hover,
 #mediaHuntInstanceEditorSection .save-btn-dynamic.enabled:hover {
-    background: linear-gradient(135deg, var(--ui-indigo-600) 0%, var(--backup-restore-bg-10) 100%) !important;
+    background: var(--ui-indigo-600) !important;
     transform: translateY(-1px) !important;
     box-shadow: 0 6px 20px var(--import-lists-border-4), 0 2px 6px var(--glass-shadow) !important;
 }

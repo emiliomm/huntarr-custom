@@ -8569,7 +8569,7 @@ window.RequestarrUsers = {
         overlay.id = 'requsers-plex-link-overlay';
         overlay.style.cssText = 'position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;';
         overlay.innerHTML = `
-            <div style="background:linear-gradient(180deg,rgba(22,26,34,0.98),rgba(18,22,30,0.95));border-radius:15px;padding:30px;width:400px;max-width:90%;box-shadow:0 8px 30px rgba(0,0,0,0.5);border:1px solid rgba(90,109,137,0.15);color:#f8f9fa;text-align:center;">
+            <div style="background:rgba(22,26,34,0.98);border-radius:15px;padding:30px;width:400px;max-width:90%;box-shadow:0 8px 30px rgba(0,0,0,0.5);border:1px solid rgba(90,109,137,0.15);color:#f8f9fa;text-align:center;">
                 <div style="font-size:40px;color:#e69500;margin-bottom:10px;"><i class="fas fa-tv"></i></div>
                 <h2 style="margin:0 0 15px;">Link Plex Account</h2>
                 <div id="requsers-plex-link-status" class="plex-status waiting" style="margin:15px 0;padding:10px;border-radius:8px;background:rgba(255,193,7,0.2);border:1px solid rgba(255,193,7,0.3);color:#ffc107;">

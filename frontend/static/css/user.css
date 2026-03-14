@@ -36,7 +36,7 @@
 
 /* Plex icon color */
 .uset-icon-orange {
-    background: linear-gradient(135deg, var(--requestarr-users-color-7), var(--user-bg-2));
+    background: var(--requestarr-users-color-7);
 }
 
 /* Override card body for user page forms */
@@ -95,7 +95,7 @@
 }
 
 .uset-container .primary-button {
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    background: var(--accent-color);
     color: white;
     box-shadow: 0 2px 8px var(--ui-accent-ring);
 }
@@ -105,7 +105,7 @@
 }
 
 .uset-container .danger-button {
-    background: linear-gradient(135deg, var(--backup-restore-bg-11), var(--error-color));
+    background: var(--backup-restore-bg-11);
     color: white;
     box-shadow: 0 2px 8px var(--backup-restore-shadow-7);
 }
@@ -224,7 +224,7 @@
 
 .uset-container .copy-button {
     padding: 8px 12px;
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    background: var(--accent-color);
     color: white;
     border: none;
     border-radius: 6px;
@@ -240,7 +240,7 @@
 }
 
 .uset-container .copy-button.copied {
-    background: linear-gradient(135deg, var(--success-color), var(--button-success-hover));
+    background: var(--success-color);
 }
 
 /* Help text */

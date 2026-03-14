@@ -117,10 +117,7 @@
     position: relative;
     width: 100%;
     min-height: 520px;
-    background: linear-gradient(to bottom,
-            var(--home-section-bg-32) 0%,
-            var(--home-section-bg-7) 50%,
-            var(--history-section-bg-27) 100%);
+    background: var(--home-section-bg-32);
     padding: 40px 48px 36px;
 }
 
@@ -552,7 +549,7 @@
 }
 
 .mh-btn-primary {
-    background: linear-gradient(135deg, var(--warning-color), var(--ui-warning-strong));
+    background: var(--warning-color);
     color: var(--import-lists-text-7);
 }
 
@@ -599,7 +596,7 @@
 }
 
 .mh-btn-watch {
-    background: linear-gradient(135deg, var(--success-color), var(--login-bg-16));
+    background: var(--success-color);
     color: var(--button-primary-text);
 }
 

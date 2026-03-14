@@ -219,45 +219,45 @@
 }
 
 .br-btn-primary {
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--backup-restore-bg-9) 100%);
+    background: var(--accent-color);
     color: var(--button-primary-text);
     box-shadow: 0 2px 8px var(--ui-accent-bg-hover);
 }
 .br-btn-primary:hover:not(:disabled) {
-    background: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent-color) 100%);
+    background: var(--accent-hover);
     box-shadow: 0 4px 14px var(--ui-accent-glow);
     transform: translateY(-1px);
 }
 
 .br-btn-secondary {
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--backup-restore-bg-10) 100%);
+    background: var(--accent-color);
     color: var(--button-primary-text);
     box-shadow: 0 2px 8px var(--backup-restore-shadow-3);
 }
 .br-btn-secondary:hover:not(:disabled) {
-    background: linear-gradient(135deg, var(--ui-accent-soft-300) 0%, var(--accent-color) 100%);
+    background: var(--ui-accent-soft-300);
     box-shadow: 0 4px 14px var(--backup-restore-shadow-4);
     transform: translateY(-1px);
 }
 
 .br-btn-danger {
-    background: linear-gradient(135deg, var(--error-color) 0%, var(--backup-restore-bg-11) 100%);
+    background: var(--error-color);
     color: var(--button-primary-text);
     box-shadow: 0 2px 8px var(--ui-danger-tint);
 }
 .br-btn-danger:hover:not(:disabled) {
-    background: linear-gradient(135deg, var(--button-danger-hover) 0%, var(--error-color) 100%);
+    background: var(--button-danger-hover);
     box-shadow: 0 4px 14px var(--backup-restore-shadow-6);
     transform: translateY(-1px);
 }
 
 .br-btn-danger-solid {
-    background: linear-gradient(135deg, var(--backup-restore-bg-11) 0%, var(--backup-restore-bg-12) 100%);
+    background: var(--backup-restore-bg-11);
     color: var(--button-primary-text);
     box-shadow: 0 2px 10px var(--backup-restore-shadow-7);
 }
 .br-btn-danger-solid:hover:not(:disabled) {
-    background: linear-gradient(135deg, var(--error-color) 0%, var(--backup-restore-bg-11) 100%);
+    background: var(--error-color);
     box-shadow: 0 4px 16px var(--backup-restore-border-8);
     transform: translateY(-1px);
 }
@@ -357,7 +357,7 @@
 .br-progress-track .progress-fill,
 .br-progress-wrap .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+    background: var(--accent-color);
     width: 0%;
     border-radius: 3px;
     transition: width 0.3s ease;

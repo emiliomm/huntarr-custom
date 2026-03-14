@@ -30,15 +30,7 @@
     right: 0;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(180deg,
-        var(--ui-accent-bg-strong) 0%,
-        var(--ui-accent-strong) 20%,
-        var(--accent-color) 40%,
-        var(--accent-hover) 50%,
-        var(--accent-color) 60%,
-        var(--ui-accent-strong) 80%,
-        var(--ui-accent-bg-strong) 100%
-    );
+    background: var(--ui-accent-bg-strong);
     background-size: 100% 100%;
     z-index: 1000;
     opacity: 0.85;
@@ -59,7 +51,7 @@
     padding: 15px var(--page-gap, 15px) 15px;
     box-sizing: border-box;
     height: 0; /* Force flex to calculate height */
-    background: linear-gradient(180deg, var(--cycle-countdown-bg-1) 0%, var(--components-bg-9) 100%) !important;
+    background: var(--cycle-countdown-bg-1) !important;
 }
 
 .content-section.active {
@@ -1092,7 +1084,7 @@ label .info-icon ~ text {
 }
 
 .tag-item {
-    background: linear-gradient(135deg, var(--style-bg-8) 0%, var(--accent-color) 100%);
+    background: var(--style-bg-8);
     border: 1px solid var(--ui-accent-ring);
     border-radius: var(--radius-sm);
     padding: 6px 10px;
@@ -1107,7 +1099,7 @@ label .info-icon ~ text {
 }
 
 .tag-item:hover {
-    background: linear-gradient(135deg, var(--import-lists-color-4) 0%, var(--accent-hover) 100%);
+    background: var(--import-lists-color-4);
     border-color: var(--ui-accent-strong);
     transform: translateY(-1px);
     box-shadow: 0 4px 8px var(--ui-shadow-strong);
@@ -1164,7 +1156,7 @@ label .info-icon ~ text {
 }
 
 .tag-add-btn {
-    background: linear-gradient(135deg, var(--style-bg-11) 0%, var(--notifications-color-1) 100%);
+    background: var(--style-bg-11);
     border: 1px solid var(--about-section-border-1);
     border-radius: 6px;
     padding: 8px 12px;
@@ -1178,7 +1170,7 @@ label .info-icon ~ text {
 }
 
 .tag-add-btn:hover {
-    background: linear-gradient(135deg, var(--settings-custom-formats-section-bg-2) 0%, var(--ui-success) 100%);
+    background: var(--settings-custom-formats-section-bg-2);
     border-color: var(--apps-section-border-2);
     transform: translateY(-1px);
     box-shadow: 0 2px 4px var(--ui-shadow);

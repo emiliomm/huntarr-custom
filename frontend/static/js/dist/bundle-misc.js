@@ -9769,9 +9769,9 @@ function updateApiProgressForCard(card, used, total) {
     const percentage = (used / safeTotal) * 100;
     let gradient;
     if (percentage <= 35) gradient = '#22c55e';
-    else if (percentage <= 50) gradient = `linear-gradient(90deg, #22c55e 0%, #22c55e ${35 * 100 / percentage}%, #f59e0b 100%)`;
-    else if (percentage <= 70) gradient = `linear-gradient(90deg, #22c55e 0%, #22c55e ${35 * 100 / percentage}%, #f59e0b ${50 * 100 / percentage}%, #ea580c 100%)`;
-    else gradient = `linear-gradient(90deg, #22c55e 0%, #22c55e ${35 * 100 / percentage}%, #f59e0b ${50 * 100 / percentage}%, #ea580c ${70 * 100 / percentage}%, #ef4444 100%)`;
+    else if (percentage <= 50) gradient = '#22c55e';
+    else if (percentage <= 70) gradient = '#22c55e';
+    else gradient = '#22c55e';
     const progressFill = card.querySelector('.api-progress-fill');
     const spans = card.querySelectorAll('.api-progress-text span');
     const usedSpan = spans[0];

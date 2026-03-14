@@ -18,10 +18,7 @@
         position: sticky;
         top: 0;
         z-index: 200;
-        background: linear-gradient(168deg,
-                var(--history-section-bg-17) 0%,
-                var(--history-section-bg-17) 50%,
-                var(--history-section-bg-27) 100%);
+        background: var(--history-section-bg-17);
         backdrop-filter: blur(20px) saturate(1.2);
         -webkit-backdrop-filter: blur(20px) saturate(1.2);
         border-bottom: 1px solid var(--home-bg-11);
@@ -223,14 +220,7 @@
     /* Accent line — indigo-to-amber gradient (matches login/modal design) */
     .mtb-accent {
         height: 1px;
-        background: linear-gradient(90deg,
-                transparent 0%,
-                var(--ui-accent-ring) 15%,
-                var(--mobile-color-7) 35%,
-                var(--home-color-1) 50%,
-                var(--mobile-color-7) 65%,
-                var(--ui-accent-ring) 85%,
-                transparent 100%);
+        background: transparent;
     }
 }
 

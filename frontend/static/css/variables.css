@@ -53,14 +53,9 @@
     --border-color-light: rgba(66,133,244,0.1);
 
     /* ── Component Surfaces ───────────────────────────────────── */
-    --sidebar-bg: rgba(32,33,36,1);
     /* bg-primary */
     --sidebar-text: rgb(226,232,240);
-    --sidebar-item-hover: rgba(66,133,244,0.1);
-    --sidebar-item-active: rgb(66,133,244);
-    --topbar-bg: rgb(41,42,45);
     /* bg-secondary */
-    --card-bg: rgba(41,42,45,0.65);
     /* bg-secondary alpha */
     --switch-bg: rgb(60,64,67);
     --switch-active: rgb(66,133,244);
@@ -176,7 +171,6 @@
     /* ── Transition ───────────────────────────────────────────── */
     --transition-fast: 0.15s ease;
     --transition-base: 0.2s ease;
-    --transition-slow: 0.3s ease;
 
     /* ── App Accents (used by JS widgets like circular-progress) ─ */
     --app-sonarr-color: rgb(99,102,241);
@@ -189,7 +183,6 @@
 
     /* ── Common Literal Colors (keep UI consistent across files) ─ */
 
-    --about-section-bg-1: rgb(139,92,246);
     --about-section-bg-2: rgba(139,92,246,0.1);
     --about-section-border-1: rgba(100,116,139,0.3);
     --activity-section-bg-1: rgba(30,41,59,0.3);
@@ -211,11 +204,8 @@
     --apps-section-bg-2: rgba(14,20,32,0.6);
     --apps-section-bg-3: rgba(40,49,66,0.7);
     --apps-section-bg-4: rgba(24,30,42,0.7);
-    --apps-section-bg-5: rgba(41,128,185,0.9);
     --apps-section-bg-6: rgba(99,102,241,0.9);
-    --apps-section-bg-7: rgba(41,128,185,1);
     --apps-section-bg-8: rgb(26,30,42);
-    --apps-section-bg-9: rgba(155,89,182,0.2);
     --apps-section-border-2: rgba(90,109,137,0.5);
     --apps-section-border-3: rgba(99,102,241,0.6);
     --apps-section-border-4: rgba(99,102,241,1);
@@ -234,7 +224,6 @@
     --apps-section-text-9: rgb(220,53,69);
     --background-pattern-color-1: rgba(85,97,215,0.05);
     --backup-restore-bg-1: rgba(15,23,42,0.45);
-    --backup-restore-bg-10: rgb(124,58,237);
     --backup-restore-bg-11: rgb(217,48,37);
     --backup-restore-bg-12: rgb(185,28,28);
     --backup-restore-bg-14: rgba(220,38,38,0.1);
@@ -314,32 +303,26 @@
     --history-section-bg-12: rgba(28,36,54,0.9);
     --history-section-bg-13: rgba(24,32,48,0.8);
     --history-section-bg-14: rgba(38,46,64,0.9);
-    --history-section-bg-15: rgba(34,42,58,0.8);
     --history-section-bg-16: rgba(22,26,34,1);
     --history-section-bg-17: rgba(18,22,30,0.95);
     --history-section-bg-18: rgba(65,105,225,0.2);
     --history-section-bg-19: rgba(65,105,225,0.3);
     --history-section-bg-20: rgba(28,36,54,0.6);
     --history-section-bg-21: rgb(241,88,70);
-    --history-section-bg-22: rgb(243,105,90);
     --history-section-bg-23: rgba(30,39,56,0.95);
     --history-section-bg-25: rgba(16,24,36,0.95);
     --history-section-bg-26: rgb(30,39,56);
     --history-section-bg-27: rgb(14,20,32);
     --history-section-bg-29: rgba(99,102,241,0.7);
     --history-section-bg-3: rgba(90,109,137,0.8);
-    --history-section-bg-30: rgba(155,89,182,0.3);
     --history-section-bg-31: rgba(16,20,30,0.3);
     --history-section-bg-32: rgba(24,32,48,0.4);
     --history-section-bg-34: rgba(20,28,44,0.3);
-    --history-section-bg-35: rgba(16,20,34,0.2);
     --history-section-bg-36: rgba(65,105,225,0.15);
     --history-section-bg-37: rgba(40,167,69,0.2);
     --history-section-bg-38: rgba(220,53,69,0.2);
     --history-section-bg-40: rgba(25,118,210,0.2);
-    --history-section-bg-41: rgba(33,150,243,0.3);
     --history-section-bg-42: rgba(211,47,47,0.2);
-    --history-section-bg-43: rgba(244,67,54,0.3);
     --history-section-bg-44: rgba(255,193,7,0.2);
     --history-section-border-10: rgba(25,118,210,0.3);
     --history-section-border-11: rgba(211,47,47,0.3);
@@ -363,7 +346,6 @@
     --home-bg-2: rgba(30,41,59,0.4);
     --home-bg-20: rgba(148,163,184,0.25);
     --home-bg-21: rgb(255,215,0);
-    --home-bg-23: rgb(255,246,161);
     --home-bg-30: rgba(16,185,129,0.2);
     --home-bg-31: rgba(180,150,80,0.1);
     --home-border-1: rgba(96,165,250,0.15);
@@ -384,25 +366,14 @@
     --home-color-2: rgba(255,100,50,0.8);
     --home-color-3: rgba(255,150,50,0.6);
     --home-color-4: rgba(245,158,11,0.7);
-    --home-section-bg-1: rgb(78,84,200);
     --home-section-bg-10: rgba(22,27,38,0.8);
-    --home-section-bg-11: rgb(160,168,184);
     --home-section-bg-12: rgb(90,205,255);
-    --home-section-bg-13: rgb(0,174,240);
     --home-section-bg-14: rgb(255,224,102);
-    --home-section-bg-15: rgb(253,203,43);
     --home-section-bg-16: rgb(93,226,100);
-    --home-section-bg-17: rgb(49,197,56);
     --home-section-bg-18: rgb(227,87,81);
-    --home-section-bg-19: rgb(192,45,40);
-    --home-section-bg-2: rgb(36,198,220);
     --home-section-bg-20: rgb(230,77,255);
-    --home-section-bg-21: rgb(195,0,230);
     --home-section-bg-22: rgba(39,174,96,0.15);
-    --home-section-bg-23: rgba(46,204,113,0.05);
-    --home-section-bg-25: rgba(241,196,15,0.05);
     --home-section-bg-26: rgba(231,76,60,0.15);
-    --home-section-bg-27: rgba(192,57,43,0.05);
     --home-section-bg-28: rgb(192,57,43);
     --home-section-bg-29: rgba(41,128,185,0.15);
     --home-section-bg-3: rgba(24,28,37,0.6);
@@ -414,26 +385,10 @@
     --home-section-bg-39: rgba(192,45,40,0.1);
     --home-section-bg-40: rgba(195,0,230,0.1);
     --home-section-bg-41: rgba(244,67,54,0.1);
-    --home-section-bg-42: rgba(229,57,53,0.05);
     --home-section-bg-44: rgba(244,67,54,0.9);
-    --home-section-bg-45: rgba(229,57,53,0.8);
     --home-section-bg-46: rgba(229,57,53,0.9);
-    --home-section-bg-47: rgba(244,67,54,0.8);
-    --home-section-bg-49: rgba(25,30,40,0.4);
-    --home-section-bg-50: rgba(20,25,35,0.7);
-    --home-section-bg-53: rgb(64,78,237);
-    --home-section-bg-54: rgb(255,69,0);
-    --home-section-bg-55: rgb(255,106,51);
     --home-section-bg-56: rgb(45,52,54);
-    --home-section-bg-57: rgb(99,110,114);
-    --home-section-bg-58: rgb(0,184,148);
-    --home-section-bg-59: rgb(0,160,135);
-    --home-section-bg-60: rgb(9,132,227);
-    --home-section-bg-61: rgb(5,112,194);
     --home-section-bg-63: rgb(36,41,46);
-    --home-section-bg-66: rgb(30,58,138);
-    --home-section-bg-67: rgb(214,48,49);
-    --home-section-bg-68: rgb(232,67,147);
     --home-section-bg-7: rgba(17,23,35,0.7);
     --home-section-bg-71: rgba(41,128,185,0.2);
     --home-section-bg-77: rgb(15,23,42);
@@ -456,8 +411,6 @@
     --home-section-border-29: rgba(231,76,60,0.9);
     --home-section-border-3: rgba(120,140,180,0.3);
     --home-section-border-30: rgba(244,67,54,0.25);
-    --home-section-border-31: rgba(79,93,115,0.2);
-    --home-section-border-32: rgba(70,90,120,0.15);
     --home-section-border-34: rgba(234,179,8,0.2);
     --home-section-border-4: rgba(0,174,240,0.8);
     --home-section-border-5: rgba(0,174,240,0.4);
@@ -476,15 +429,7 @@
     --home-section-shadow-19: rgba(192,45,40,0.2);
     --home-section-shadow-20: rgba(195,0,230,0.2);
     --home-section-shadow-21: rgba(46,204,113,0.1);
-    --home-section-shadow-27: rgba(88,101,242,0.5);
-    --home-section-shadow-28: rgba(255,69,0,0.5);
-    --home-section-shadow-29: rgba(45,52,54,0.5);
     --home-section-shadow-3: rgba(0,174,240,0.6);
-    --home-section-shadow-30: rgba(0,184,148,0.5);
-    --home-section-shadow-31: rgba(9,132,227,0.5);
-    --home-section-shadow-32: rgba(255,193,7,0.6);
-    --home-section-shadow-33: rgba(4,115,187,0.6);
-    --home-section-shadow-34: rgba(255,107,107,0.5);
     --home-section-shadow-4: rgba(0,174,240,0.3);
     --home-section-shadow-5: rgba(253,203,43,0.6);
     --home-section-shadow-6: rgba(253,203,43,0.3);
@@ -495,7 +440,6 @@
     --home-section-text-4: rgba(160,168,184,0.9);
     --home-section-text-9: rgb(165,180,252);
     --home-shadow-10: rgba(236,72,153,0.3);
-    --home-shadow-14: rgba(255,215,0,0.4);
     --home-shadow-15: rgba(34,197,94,0.35);
     --home-shadow-4: rgba(236,72,153,0.1);
     --home-shadow-6: rgba(0,0,0,0.35);
@@ -556,8 +500,6 @@
     --login-bg-5: rgba(71,85,105,0.2);
     --login-border-10: rgba(59,130,246,0.1);
     --login-color-1: rgb(240,173,78);
-    --login-color-11: rgba(8,12,22,0.9);
-    --login-color-16: rgba(139,92,246,0.5);
     --login-color-3: rgb(22,163,74);
     --login-text-4: rgba(71,85,105,0.6);
     --login-text-9: rgba(71,85,105,0.5);
@@ -595,7 +537,6 @@
     --media-hunt-profiles-section-bg-1: rgb(123,78,174);
     --media-hunt-profiles-section-bg-2: rgba(74,106,255,0.25);
     --media-hunt-profiles-section-bg-4: rgba(202,138,4,0.35);
-    --media-hunt-profiles-section-bg-5: rgba(180,83,9,0.35);
     --media-hunt-profiles-section-border-2: rgba(74,106,255,0.4);
     --media-hunt-profiles-section-border-3: rgb(74,106,255);
     --media-hunt-profiles-section-border-4: rgba(202,138,4,0.5);
@@ -644,8 +585,6 @@
     --nzb-hunt-shadow-4: rgba(34,197,94,0.6);
     --nzb-hunt-shadow-6: rgba(167,139,250,0.15);
     --requestarr-detail-color-3: rgba(107,114,128,0.5);
-    --requestarr-discover-bg-12: rgb(118,75,162);
-    --requestarr-discover-bg-16: rgb(29,78,216);
     --requestarr-discover-bg-24: rgba(234,179,8,0.35);
     --requestarr-discover-bg-25: rgba(234,179,8,0.15);
     --requestarr-discover-bg-33: rgb(113,128,150);
@@ -664,8 +603,6 @@
     --requestarr-discover-border-21: rgba(102,126,234,0.3);
     --requestarr-discover-border-23: rgba(34,197,94,0.7);
     --requestarr-discover-border-25: rgba(75,85,99,0.7);
-    --requestarr-discover-color-18: rgba(96,165,250,0.6);
-    --requestarr-discover-color-19: rgba(96,165,250,0.2);
     --requestarr-discover-shadow-2: rgba(249,115,22,0.4);
     --requestarr-discover-shadow-3: rgba(217,119,6,0.4);
     --requestarr-discover-text-11: rgba(100,116,139,0.7);
@@ -688,8 +625,6 @@
     --settings-clients-section-text-4: rgba(16,185,129,0.7);
     --settings-clients-section-text-5: rgb(226,217,200);
     --settings-custom-formats-section-bg-2: rgb(4,120,87);
-    --settings-custom-formats-section-bg-4: rgb(153,27,27);
-    --settings-custom-formats-section-bg-6: rgb(55,65,81);
     --settings-custom-formats-section-border-2: rgba(5,150,105,0.4);
     --settings-custom-formats-section-border-3: rgba(5,150,105,0.6);
     --settings-custom-formats-section-border-5: rgba(220,38,38,0.6);
@@ -699,10 +634,7 @@
     --settings-forms-bg-12: rgba(90,109,137,0);
     --settings-forms-bg-14: rgba(30,39,56,0.4);
     --settings-forms-bg-18: rgba(39,174,96,0.2);
-    --settings-forms-bg-21: rgba(46,204,113,0.25);
     --settings-forms-bg-22: rgba(231,76,60,0.2);
-    --settings-forms-bg-23: rgba(192,57,43,0.15);
-    --settings-forms-bg-24: rgba(192,57,43,0.25);
     --settings-forms-bg-25: rgba(127,140,141,0.2);
     --settings-forms-bg-26: rgba(20,25,35,0.4);
     --settings-forms-border-7: rgba(46,204,113,0.3);
@@ -730,8 +662,6 @@
     --sidebar-color-16: rgba(230,126,34,0.5);
     --sidebar-color-17: rgba(0,188,212,0.5);
     --sidebar-color-18: rgba(11,15,26,0);
-    --sidebar-color-6: rgba(165,180,252,0.6);
-    --sidebar-color-9: rgba(165,180,252,0.05);
     --sidebar-text-1: rgb(232,236,242);
     --sidebar-text-11: rgb(114,137,218);
     --sidebar-text-12: rgb(255,102,51);
@@ -743,24 +673,17 @@
     --style-bg-11: rgb(6,95,70);
     --style-bg-14: rgb(0,105,217);
     --style-bg-8: rgb(23,78,166);
-    --style-border-10: rgba(251,191,36,0.8);
-    --swaparr-bg-6: rgb(14,116,144);
-    --swaparr-bg-7: rgb(8,145,178);
     --swaparr-border-2: rgb(48,54,61);
     --swaparr-border-3: rgb(211,84,0);
     --swaparr-color-1: rgb(224,247,250);
     --swaparr-shadow-1: rgba(34,211,238,0.1);
-    --topbar-shadow-2: rgba(236,72,153,0.05);
     --topbar-shadow-3: rgba(139,92,246,0.05);
-    --topbar-text-5: rgb(249,168,212);
     --topbar-text-7: rgb(196,181,253);
     --tor-hunt-bg-2: rgba(248,113,113,0.1);
-    --user-bg-2: rgb(240,168,48);
     --user-section-color-1: rgb(255,153,102);
 }
 
  /* Keep .dark-theme as an alias so existing JS classList.add('dark-theme') still works */
  .dark-theme {
-     --dark-theme-alias: 1;
  
 }

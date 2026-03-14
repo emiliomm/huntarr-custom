@@ -3175,7 +3175,7 @@ document.head.appendChild(styleEl);
                     
                     <div style="margin-left: auto; display: flex; gap: 10px;">
                         <a href="https://github.com/ThijmenGThN/swaparr" target="_blank" rel="noopener" style="
-                            background: linear-gradient(135deg, #24292e 0%, #161b22 100%);
+                            background: #24292e;
                             color: #f0f6fc;
                             border: 1px solid #30363d;
                             padding: 8px 16px;
@@ -3194,7 +3194,7 @@ document.head.appendChild(styleEl);
                         </a>
                         
                         <a href="https://github.com/ThijmenGThN/swaparr/stargazers" target="_blank" rel="noopener" style="
-                            background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+                            background: #f1c40f;
                             color: #fff;
                             border: 1px solid #d35400;
                             padding: 8px 16px;
@@ -3217,7 +3217,7 @@ document.head.appendChild(styleEl);
                 
                 <!-- Advanced Options Notice -->
                 <div style="
-                    background: linear-gradient(135deg, #164e63 0%, #0e7490 50%, #0891b2 100%);
+                    background: #164e63;
                     border: 1px solid #22d3ee;
                     border-radius: 6px;
                     padding: 10px;

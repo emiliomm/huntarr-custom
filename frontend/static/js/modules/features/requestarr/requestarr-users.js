@@ -766,7 +766,7 @@ window.RequestarrUsers = {
         overlay.id = 'requsers-plex-link-overlay';
         overlay.style.cssText = 'position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:var(--import-media-bg-7);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;';
         overlay.innerHTML = `
-            <div style="background:linear-gradient(180deg,var(--history-section-bg-16),var(--history-section-bg-17));border-radius:15px;padding:30px;width:400px;max-width:90%;box-shadow:0 8px 30px var(--ui-overlay-backdrop);border:1px solid var(--footer-border-1);color:var(--history-section-color-4);text-align:center;">
+            <div style="background:var(--history-section-bg-16);border-radius:15px;padding:30px;width:400px;max-width:90%;box-shadow:0 8px 30px var(--ui-overlay-backdrop);border:1px solid var(--footer-border-1);color:var(--history-section-color-4);text-align:center;">
                 <div style="font-size:40px;color:var(--requestarr-users-color-7);margin-bottom:10px;"><i class="fas fa-tv"></i></div>
                 <h2 style="margin:0 0 15px;">Link Plex Account</h2>
                 <div id="requsers-plex-link-status" class="plex-status waiting" style="margin:15px 0;padding:10px;border-radius:8px;background:var(--history-section-bg-44);border:1px solid var(--apps-section-bg-15);color:var(--apps-section-text-10);">

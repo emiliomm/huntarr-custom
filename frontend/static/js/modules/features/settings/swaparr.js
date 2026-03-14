@@ -31,7 +31,7 @@
                     
                     <div style="margin-left: auto; display: flex; gap: 10px;">
                         <a href="https://github.com/ThijmenGThN/swaparr" target="_blank" rel="noopener" style="
-                            background: linear-gradient(135deg, var(--home-section-bg-63) 0%, var(--history-section-bg-16) 100%);
+                            background: var(--home-section-bg-63);
                             color: var(--mobile-text-1);
                             border: 1px solid var(--swaparr-border-2);
                             padding: 8px 16px;
@@ -50,7 +50,7 @@
                         </a>
                         
                         <a href="https://github.com/ThijmenGThN/swaparr/stargazers" target="_blank" rel="noopener" style="
-                            background: linear-gradient(135deg, var(--footer-text-4) 0%, var(--app-radarr-color) 100%);
+                            background: var(--footer-text-4);
                             color: var(--button-primary-text);
                             border: 1px solid var(--swaparr-border-3);
                             padding: 8px 16px;
@@ -73,7 +73,7 @@
                 
                 <!-- Advanced Options Notice -->
                 <div style="
-                    background: linear-gradient(135deg, var(--logs-history-text-1) 0%, var(--swaparr-bg-6) 50%, var(--swaparr-bg-7) 100%);
+                    background: var(--logs-history-text-1);
                     border: 1px solid var(--instance-editor-text-5);
                     border-radius: 6px;
                     padding: 10px;

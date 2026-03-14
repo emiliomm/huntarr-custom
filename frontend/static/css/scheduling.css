@@ -280,7 +280,7 @@
 }
 
 .sched-btn-primary {
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--backup-restore-bg-9) 100%);
+    background: var(--accent-color);
     color: var(--button-primary-text);
     box-shadow: 0 2px 8px var(--ui-accent-bg-hover);
     width: 100%;
@@ -288,7 +288,7 @@
 }
 
 .sched-btn-primary:hover:not(:disabled) {
-    background: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent-color) 100%);
+    background: var(--accent-hover);
     box-shadow: 0 4px 14px var(--ui-accent-glow);
     transform: translateY(-1px);
 }

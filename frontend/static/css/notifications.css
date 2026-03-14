@@ -54,11 +54,11 @@
     flex-shrink: 0;
 }
 
-.notif-icon-blue    { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover)); }
-.notif-icon-green   { background: linear-gradient(135deg, var(--notifications-color-1), var(--home-text-11)); }
-.notif-icon-slate   { background: linear-gradient(135deg, var(--ui-primary-surface), var(--ui-text-dim)); }
-.notif-icon-amber   { background: linear-gradient(135deg, var(--ui-warning-strong), var(--ui-warning)); }
-.notif-icon-red     { background: linear-gradient(135deg, var(--backup-restore-bg-11), var(--button-danger-hover)); }
+.notif-icon-blue    { background: var(--accent-color); }
+.notif-icon-green   { background: var(--notifications-color-1); }
+.notif-icon-slate   { background: var(--ui-primary-surface); }
+.notif-icon-amber   { background: var(--ui-warning-strong); }
+.notif-icon-red     { background: var(--backup-restore-bg-11); }
 
 .notif-card-body {
     padding: 20px;
@@ -599,7 +599,7 @@ body.notif-modal-open { overflow: hidden; }
 }
 
 .notif-btn-save {
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    background: var(--accent-color);
     color: var(--button-primary-text);
 }
 
